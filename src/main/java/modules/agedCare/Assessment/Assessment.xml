@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Assessment" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
     <persistent name="AGE_Assessment"/>
-    <singularAlias>Assements</singularAlias>
+    <singularAlias>Assement</singularAlias>
     <pluralAlias>Assessments</pluralAlias>
     <iconStyleClass>fa fa-book</iconStyleClass>
     <description><![CDATA[Detail of all the treatment for the patient.]]></description>
