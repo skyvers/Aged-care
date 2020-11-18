@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Facility" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+    <persistent name="AGE_Facility"/>
+    <singularAlias>Facility</singularAlias>
+    <pluralAlias>Facilities</pluralAlias>
+    <iconStyleClass>fa fa-building</iconStyleClass>
+    <bizKey expression="Facility - {facilityName}"/>
+    <attributes>
+        <text required="true" name="facilityName">
+            <displayName>Facility Name</displayName>
+            <length>500</length>
+        </text>
+        <integer required="true" name="buildingNumber">
+            <displayName>Building Number</displayName>
+        </integer>
+        <text required="true" name="streetName">
+            <displayName>Street Name</displayName>
+            <length>500</length>
+        </text>
+        <text required="true" name="suburb">
+            <displayName>Suburb</displayName>
+            <length>500</length>
+        </text>
+        <text name="state">
+            <displayName>State</displayName>
+            <length>100</length>
+        </text>
+        <association type="aggregation" name="facilityManager">
+            <displayName>Facility Manager</displayName>
+            <documentName>Contact</documentName>
+        </association>
+    </attributes>
+</document>

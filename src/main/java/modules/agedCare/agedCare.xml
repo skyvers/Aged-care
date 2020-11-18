@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged care" prototype="true" name="agedCare" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+    <homeRef>list</homeRef>
+    <homeDocument>Patient</homeDocument>
+    <documents>
+        <document ref="Patient"/>
+        <document ref="Contact" moduleRef="admin"/>
+        <document ref="DataGroup" moduleRef="admin"/>
+        <document ref="Facility"/>
+        <document ref="User" moduleRef="admin"/>
+        <document ref="Assessments"/>
+    </documents>
+    <roles>
+        <role name="Viewer">
+            <description><![CDATA[Enough privileges to view Aged care documents.]]></description>
+            <privileges>
+                <document name="Patient" permission="_R__C"/>
+                <document name="Facility" permission="_R__C"/>
+                <document name="Assessments" permission="_R__C"/>
+            </privileges>
+        </role>
+        <role name="Maintainer">
+            <description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
+            <privileges>
+                <document name="Patient" permission="CRUDC"/>
+                <document name="Facility" permission="CRUDC"/>
+                <document name="Assessments" permission="CRUDC"/>
+            </privileges>
+        </role>
+    </roles>
+    <menu>
+        <list document="Patient" name="Patients">
+            <role name="Maintainer"/>
+            <role name="Viewer"/>
+        </list>
+        <list document="Facility" name="Facilities">
+            <role name="Maintainer"/>
+            <role name="Viewer"/>
+        </list>
+        <list document="Assessments" name="Assementses">
+            <role name="Maintainer"/>
+            <role name="Viewer"/>
+        </list>
+    </menu>
+</module>
