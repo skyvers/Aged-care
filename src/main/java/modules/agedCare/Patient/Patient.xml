@@ -36,7 +36,7 @@
         </association>
         <collection type="child" name="assessments">
             <displayName>Assessments</displayName>
-            <documentName>Assessments</documentName>
+            <documentName>Assessment</documentName>
             <minCardinality>0</minCardinality>
             <ordering/>
         </collection>

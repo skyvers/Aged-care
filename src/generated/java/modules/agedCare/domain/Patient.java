@@ -1,5 +1,6 @@
 package modules.agedCare.domain;
 
+import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
@@ -10,6 +11,7 @@ import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateOnly;
 import org.skyve.impl.domain.AbstractPersistentBean;
+import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
 
 /**
@@ -17,6 +19,7 @@ import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
  * <br/>
  * Details of the patient admitted to the facility.
  * 
+ * @navcomposed 1 assessments 0..n Assessment
  * @navhas n facilityName 0..1 Facility
  * @stereotype "persistent"
  */
@@ -50,6 +53,8 @@ public class Patient extends AbstractPersistentBean {
 	public static final String admissionDatePropertyName = "admissionDate";
 	/** @hidden */
 	public static final String facilityNamePropertyName = "facilityName";
+	/** @hidden */
+	public static final String assessmentsPropertyName = "assessments";
 
 	/**
 	 * Patient ID
@@ -83,6 +88,10 @@ public class Patient extends AbstractPersistentBean {
 	 * Facility Name
 	 **/
 	private Facility facilityName = null;
+	/**
+	 * Assessments
+	 **/
+	private List<Assessment> assessments = new ChangeTrackingArrayList<>("assessments", this);
 
 	@Override
 	@XmlTransient
@@ -273,5 +282,72 @@ public class Patient extends AbstractPersistentBean {
 			preset(facilityNamePropertyName, facilityName);
 			this.facilityName = facilityName;
 		}
+	}
+
+	/**
+	 * {@link #assessments} accessor.
+	 * @return	The value.
+	 **/
+	@XmlElement
+	public List<Assessment> getAssessments() {
+		return assessments;
+	}
+
+	/**
+	 * {@link #assessments} accessor.
+	 * @param bizId	The bizId of the element in the list.
+	 * @return	The value of the element in the list.
+	 **/
+	public Assessment getAssessmentsElementById(String bizId) {
+		return getElementById(assessments, bizId);
+	}
+
+	/**
+	 * {@link #assessments} mutator.
+	 * @param bizId	The bizId of the element in the list.
+	 * @param element	The new value of the element in the list.
+	 **/
+	public void setAssessmentsElementById(String bizId, Assessment element) {
+		setElementById(assessments, element);
+	}
+
+	/**
+	 * {@link #assessments} add.
+	 * @param element	The element to add.
+	 **/
+	public boolean addAssessmentsElement(Assessment element) {
+		boolean result = assessments.add(element);
+		element.setParent(this);
+		return result;
+	}
+
+	/**
+	 * {@link #assessments} add.
+	 * @param index	The index in the list to add the element to.
+	 * @param element	The element to add.
+	 **/
+	public void addAssessmentsElement(int index, Assessment element) {
+		assessments.add(index, element);
+		element.setParent(this);
+	}
+
+	/**
+	 * {@link #assessments} remove.
+	 * @param element	The element to remove.
+	 **/
+	public boolean removeAssessmentsElement(Assessment element) {
+		boolean result = assessments.remove(element);
+		element.setParent(null);
+		return result;
+	}
+
+	/**
+	 * {@link #assessments} remove.
+	 * @param index	The index in the list to remove the element from.
+	 **/
+	public Assessment removeAssessmentsElement(int index) {
+		Assessment result = assessments.remove(index);
+		result.setParent(null);
+		return result;
 	}
 }

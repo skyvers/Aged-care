@@ -2,24 +2,31 @@ package modules.agedCare.domain;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.admin.User.UserExtension;
+import modules.agedCare.domain.Patient;
 import org.skyve.CORE;
+import org.skyve.domain.Bean;
+import org.skyve.domain.ChildBean;
 import org.skyve.domain.messages.DomainException;
+import org.skyve.domain.types.DateTime;
 import org.skyve.impl.domain.AbstractPersistentBean;
+import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 
 /**
- * Assements
+ * Assement
  * <br/>
  * Detail of all the treatment for the patient.
  * 
  * @navhas n staff 0..1 User
- * @stereotype "persistent"
+ * @stereotype "persistent child"
  */
 @XmlType
 @XmlRootElement
-public class Assessments extends AbstractPersistentBean {
+public class Assessment extends AbstractPersistentBean implements ChildBean<Patient> {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -29,7 +36,7 @@ public class Assessments extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String MODULE_NAME = "agedCare";
 	/** @hidden */
-	public static final String DOCUMENT_NAME = "Assessments";
+	public static final String DOCUMENT_NAME = "Assessment";
 
 	/** @hidden */
 	public static final String hygieneAssessmentPropertyName = "hygieneAssessment";
@@ -43,6 +50,8 @@ public class Assessments extends AbstractPersistentBean {
 	public static final String behaviourAssessmentPropertyName = "behaviourAssessment";
 	/** @hidden */
 	public static final String staffPropertyName = "staff";
+	/** @hidden */
+	public static final String assessmentReviewPropertyName = "assessmentReview";
 
 	/**
 	 * Hygiene Assessment
@@ -70,20 +79,28 @@ public class Assessments extends AbstractPersistentBean {
 	 * Staff who involve in Assessment.
 	 **/
 	private UserExtension staff = null;
+	/**
+	 * Assessment Review
+	 **/
+	private DateTime assessmentReview;
+	private Patient parent;
+
+	private Integer bizOrdinal;
+
 
 	@Override
 	@XmlTransient
 	public String getBizModule() {
-		return Assessments.MODULE_NAME;
+		return Assessment.MODULE_NAME;
 	}
 
 	@Override
 	@XmlTransient
 	public String getBizDocument() {
-		return Assessments.DOCUMENT_NAME;
+		return Assessment.DOCUMENT_NAME;
 	}
 
-	public static Assessments newInstance() {
+	public static Assessment newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -108,8 +125,8 @@ public class Assessments extends AbstractPersistentBean {
 
 	@Override
 	public boolean equals(Object o) {
-		return ((o instanceof Assessments) && 
-					this.getBizId().equals(((Assessments) o).getBizId()));
+		return ((o instanceof Assessment) && 
+					this.getBizId().equals(((Assessment) o).getBizId()));
 	}
 
 	/**
@@ -220,5 +237,51 @@ public class Assessments extends AbstractPersistentBean {
 			preset(staffPropertyName, staff);
 			this.staff = staff;
 		}
+	}
+
+	/**
+	 * {@link #assessmentReview} accessor.
+	 * @return	The value.
+	 **/
+	public DateTime getAssessmentReview() {
+		return assessmentReview;
+	}
+
+	/**
+	 * {@link #assessmentReview} mutator.
+	 * @param assessmentReview	The new value.
+	 **/
+	@XmlSchemaType(name = "dateTime")
+	@XmlJavaTypeAdapter(DateTimeMapper.class)
+	@XmlElement
+	public void setAssessmentReview(DateTime assessmentReview) {
+		preset(assessmentReviewPropertyName, assessmentReview);
+		this.assessmentReview = assessmentReview;
+	}
+
+	@Override
+	public Patient getParent() {
+		return parent;
+	}
+
+	@Override
+	@XmlElement
+	public void setParent(Patient parent) {
+		if (this.parent != parent) {
+			preset(ChildBean.PARENT_NAME, parent);
+			this.parent = parent;
+		}
+	}
+
+	@Override
+	public Integer getBizOrdinal() {
+		return bizOrdinal;
+	}
+
+	@Override
+	@XmlElement
+	public void setBizOrdinal(Integer bizOrdinal) {
+		preset(Bean.ORDINAL_NAME, bizOrdinal);
+		this.bizOrdinal =  bizOrdinal;
 	}
 }

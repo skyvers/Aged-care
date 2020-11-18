@@ -4,10 +4,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.admin.domain.Contact;
+import org.locationtech.jts.geom.Geometry;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
+import org.skyve.impl.domain.types.jaxb.GeometryMapper;
 
 /**
  * Facility
@@ -43,6 +46,8 @@ public class Facility extends AbstractPersistentBean {
 	public static final String statePropertyName = "state";
 	/** @hidden */
 	public static final String facilityManagerPropertyName = "facilityManager";
+	/** @hidden */
+	public static final String locationPropertyName = "location";
 
 	/**
 	 * Facility Name
@@ -68,6 +73,10 @@ public class Facility extends AbstractPersistentBean {
 	 * Facility Manager
 	 **/
 	private Contact facilityManager = null;
+	/**
+	 * Location
+	 **/
+	private Geometry location;
 
 	@Override
 	@XmlTransient
@@ -218,5 +227,24 @@ public class Facility extends AbstractPersistentBean {
 			preset(facilityManagerPropertyName, facilityManager);
 			this.facilityManager = facilityManager;
 		}
+	}
+
+	/**
+	 * {@link #location} accessor.
+	 * @return	The value.
+	 **/
+	public Geometry getLocation() {
+		return location;
+	}
+
+	/**
+	 * {@link #location} mutator.
+	 * @param location	The new value.
+	 **/
+	@XmlJavaTypeAdapter(GeometryMapper.class)
+	@XmlElement
+	public void setLocation(Geometry location) {
+		preset(locationPropertyName, location);
+		this.location = location;
 	}
 }

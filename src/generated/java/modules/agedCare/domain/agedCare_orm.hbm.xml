@@ -11,7 +11,7 @@
 	<typedef name="TimeOnly" class="org.skyve.impl.domain.types.TimeOnlyUserType" />
 	<typedef name="Timestamp" class="org.skyve.impl.domain.types.TimestampUserType" />
 	<typedef name="Enum" class="org.skyve.impl.domain.types.EnumUserType" />
-	<class name="modules.agedCare.domain.Assessments" table="AGE_Assessments" entity-name="agedCareAssessments">
+	<class name="modules.agedCare.domain.Assessment" table="AGE_Assessment" entity-name="agedCareAssessment">
 		<id name="bizId" length="36" />
 		<version name="bizVersion" unsaved-value="null" />
 		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
@@ -20,16 +20,18 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
+		<many-to-one name="parent" entity-name="agedCarePatient" column="parent_id" insert="false" update="false" foreign-key="FK_AGE_Assessment_parent" />
 		<property name="hygieneAssessment" type="text" />
 		<property name="painAssessment" type="text" />
 		<property name="continenceAssessment" type="text" />
 		<property name="sleepAssessment" length="600" />
 		<property name="behaviourAssessment" type="text" />
-		<many-to-one name="staff" entity-name="adminUser" column="staff_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Assessments_staff"/>
-		<filter name="agedCareAssessmentsNoneFilter" condition="1=0"/>
-		<filter name="agedCareAssessmentsCustomerFilter" condition="bizCustomer=:customerParam"/>
-		<filter name="agedCareAssessmentsDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
-		<filter name="agedCareAssessmentsUserIdFilter" condition="bizUserId=:userIdParam"/>
+		<many-to-one name="staff" entity-name="adminUser" column="staff_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Assessment_staff"/>
+		<property name="assessmentReview" type="DateTime" />
+		<filter name="agedCareAssessmentNoneFilter" condition="1=0"/>
+		<filter name="agedCareAssessmentCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="agedCareAssessmentDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="agedCareAssessmentUserIdFilter" condition="bizUserId=:userIdParam"/>
 	</class>
 
 	<class name="modules.agedCare.domain.Facility" table="AGE_Facility" entity-name="agedCareFacility">
@@ -47,6 +49,7 @@
 		<property name="suburb" length="500" />
 		<property name="state" length="100" />
 		<many-to-one name="facilityManager" entity-name="adminContact" column="facilityManager_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Facility_facilityManager"/>
+		<property name="location" />
 		<filter name="agedCareFacilityNoneFilter" condition="1=0"/>
 		<filter name="agedCareFacilityCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="agedCareFacilityDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
@@ -70,20 +73,24 @@
 		<property name="BIO" type="text" />
 		<property name="admissionDate" type="DateOnly" />
 		<many-to-one name="facilityName" entity-name="agedCareFacility" column="facilityName_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Patient_facilityName"/>
+		<bag name="assessments" cascade="all-delete-orphan">
+			<key column="parent_id" />
+			<one-to-many entity-name="agedCareAssessment" />
+		</bag>
 		<filter name="agedCarePatientNoneFilter" condition="1=0"/>
 		<filter name="agedCarePatientCustomerFilter" condition="bizCustomer=:customerParam"/>
 		<filter name="agedCarePatientDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
 		<filter name="agedCarePatientUserIdFilter" condition="bizUserId=:userIdParam"/>
 	</class>
 
-	<filter-def name="agedCareAssessmentsNoneFilter" />
-	<filter-def name="agedCareAssessmentsCustomerFilter">
+	<filter-def name="agedCareAssessmentNoneFilter" />
+	<filter-def name="agedCareAssessmentCustomerFilter">
 		<filter-param name="customerParam" type="string"/>
 	</filter-def>
-	<filter-def name="agedCareAssessmentsDataGroupIdFilter">
+	<filter-def name="agedCareAssessmentDataGroupIdFilter">
 		<filter-param name="dataGroupIdParam" type="string"/>
 	</filter-def>
-	<filter-def name="agedCareAssessmentsUserIdFilter">
+	<filter-def name="agedCareAssessmentUserIdFilter">
 		<filter-param name="userIdParam" type="string"/>
 	</filter-def>
 	<filter-def name="agedCareFacilityNoneFilter" />
