@@ -4,7 +4,8 @@
     <singularAlias>Assements</singularAlias>
     <pluralAlias>Assementses</pluralAlias>
     <iconStyleClass>fa fa-book</iconStyleClass>
-    <bizKey expression="Assements"/>
+    <description><![CDATA[Detail of all the treatment for the patient.]]></description>
+    <bizKey expression="Assements - {hygieneAssessment}"/>
     <attributes>
         <memo name="hygieneAssessment">
             <displayName>Hygiene Assessment</displayName>

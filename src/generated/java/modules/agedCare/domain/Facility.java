@@ -11,6 +11,8 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 
 /**
  * Facility
+ * <br/>
+ * Detail of different Facilities
  * 
  * @navhas n facilityManager 0..1 Contact
  * @stereotype "persistent"

@@ -4,11 +4,11 @@
     <homeDocument>Patient</homeDocument>
     <documents>
         <document ref="Patient"/>
+        <document ref="Facility"/>
+        <document ref="Assessments"/>
         <document ref="Contact" moduleRef="admin"/>
         <document ref="DataGroup" moduleRef="admin"/>
-        <document ref="Facility"/>
         <document ref="User" moduleRef="admin"/>
-        <document ref="Assessments"/>
     </documents>
     <roles>
         <role name="Viewer">

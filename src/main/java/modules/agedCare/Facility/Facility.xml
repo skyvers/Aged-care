@@ -4,6 +4,7 @@
     <singularAlias>Facility</singularAlias>
     <pluralAlias>Facilities</pluralAlias>
     <iconStyleClass>fa fa-building</iconStyleClass>
+    <description><![CDATA[Detail of different Facilities]]></description>
     <bizKey expression="Facility - {facilityName}"/>
     <attributes>
         <text required="true" name="facilityName">

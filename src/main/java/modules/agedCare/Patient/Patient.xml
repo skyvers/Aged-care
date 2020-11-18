@@ -4,6 +4,7 @@
     <singularAlias>Patient</singularAlias>
     <pluralAlias>Patients</pluralAlias>
     <iconStyleClass>fa fa-user</iconStyleClass>
+    <description><![CDATA[Details of the patient admitted to the facility.]]></description>
     <bizKey expression="Patient - {patientID}"/>
     <attributes>
         <text required="true" name="patientID">

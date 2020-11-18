@@ -14,6 +14,8 @@ import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
 
 /**
  * Patient
+ * <br/>
+ * Details of the patient admitted to the facility.
  * 
  * @navhas n facilityName 0..1 Facility
  * @stereotype "persistent"

@@ -11,6 +11,8 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 
 /**
  * Assements
+ * <br/>
+ * Detail of all the treatment for the patient.
  * 
  * @navhas n staff 0..1 User
  * @stereotype "persistent"
@@ -97,7 +99,7 @@ public class Assessments extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("Assements", this);
+			return org.skyve.util.Binder.formatMessage("Assements - {hygieneAssessment}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
