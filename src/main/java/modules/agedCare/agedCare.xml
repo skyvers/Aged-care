@@ -5,7 +5,7 @@
     <documents>
         <document ref="Patient"/>
         <document ref="Facility"/>
-        <document ref="Assessments"/>
+        <document ref="Assessment"/>
         <document ref="Contact" moduleRef="admin"/>
         <document ref="DataGroup" moduleRef="admin"/>
         <document ref="User" moduleRef="admin"/>
@@ -16,7 +16,7 @@
             <privileges>
                 <document name="Patient" permission="_R__C"/>
                 <document name="Facility" permission="_R__C"/>
-                <document name="Assessments" permission="_R__C"/>
+                <document name="Assessment" permission="_R__C"/>
             </privileges>
         </role>
         <role name="Maintainer">
@@ -24,7 +24,7 @@
             <privileges>
                 <document name="Patient" permission="CRUDC"/>
                 <document name="Facility" permission="CRUDC"/>
-                <document name="Assessments" permission="CRUDC"/>
+                <document name="Assessment" permission="CRUDC"/>
             </privileges>
         </role>
     </roles>
@@ -37,7 +37,7 @@
             <role name="Maintainer"/>
             <role name="Viewer"/>
         </list>
-        <list document="Assessments" name="Assementses">
+        <list document="Assessment" name="Assessments">
             <role name="Maintainer"/>
             <role name="Viewer"/>
         </list>
