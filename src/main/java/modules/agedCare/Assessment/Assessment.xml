@@ -28,5 +28,8 @@
             <description><![CDATA[Staff who involve in Assessment.]]></description>
             <documentName>User</documentName>
         </association>
+        <dateTime name="assessmentReview">
+            <displayName>Assessment Review</displayName>
+        </dateTime>
     </attributes>
 </document>

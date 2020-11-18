@@ -30,5 +30,8 @@
             <displayName>Facility Manager</displayName>
             <documentName>Contact</documentName>
         </association>
+        <geometry name="location">
+            <displayName>Location</displayName>
+        </geometry>
     </attributes>
 </document>
