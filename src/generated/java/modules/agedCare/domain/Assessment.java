@@ -17,7 +17,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 
 /**
- * Assement
+ * Assessment
  * <br/>
  * Detail of all the treatment for the patient.
  * 
