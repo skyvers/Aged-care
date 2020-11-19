@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Facility" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+ 
+        <hbox border="true">
+		<!-- left side -->
+		<vbox responsiveWidth="8" percentageWidth="60">
+ 			<component name="_facility" />
+ 			<component name="_facilityAddress" />
+ 			     
+		</vbox>
+		
+		<!-- right side -->
+		<vbox responsiveWidth="4" percentageWidth="40">
+			<component name="_facilityLocation"/>
+		</vbox>
+	</hbox>
+ 
+            <actions>
+        <defaults/>
+    </actions>
+    <newParameters/>
+</view>

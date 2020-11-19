@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_patientInfo" title="Patient Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    
+		<form border="true" borderTitle="Patient Info">
+		        <column percentageWidth="30" responsiveWidth="4"/>
+		        <column/>
+		        
+               <row>
+                    <item>
+                        <default binding="patientID"/>
+                    </item>
+                </row>
+                <row>
+                    <item>
+                        <default binding="patientName"/>
+                    </item>
+                </row>
+                 <row>
+                    <item>
+                        <default binding="DOB"/>
+                    </item>
+                </row>
+                </form>
+                </view>
