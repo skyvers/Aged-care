@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Assessment" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+
+  <hbox border="true">
+		<!-- left side -->
+		<vbox responsiveWidth="8" percentageWidth="60">
+ 			<component name="_patientInfo" />
+ 			<component name="_reviewDetail" />
+ 			     
+		</vbox>
+		
+		<!-- right side -->
+		<vbox responsiveWidth="4" percentageWidth="40">
+			<component name="_assessmentDetail"/>
+		</vbox>
+	</hbox>
+    <actions>
+        <defaults/>
+    </actions>
+    <newParameters/>
+</view>

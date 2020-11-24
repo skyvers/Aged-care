@@ -27,19 +27,48 @@
                 <document name="Assessment" permission="CRUDC"/>
             </privileges>
         </role>
+        
+        <role name="Nurses">
+	<description>Permission to see all Assessments</description>
+	<privileges>
+		<document name="Patient" permission="CRUDC" />
+		<document name="Facility" permission="_R__C"/>
+		<document name="Assessment" permission="CRUDC" />
+	</privileges>
+
+</role>
+	<role name="Carers">
+		<description>Permission to see only Carer Assessments</description>
+		<privileges>
+			<document name="Patient" permission="_RU_C"></document>
+			<document name="Facility" permission="_R__C" />
+			<document name="Assessment" permission="CRU_C" />
+		</privileges>
+	</role>
+
+<role name="Manager">
+		<description>Permission to manage Facility, Staff, and Assessments</description>
+		<privileges>
+			<document name="Patient" permission="CRUDC" />
+			<document name="Facility" permission="CRUDC" />
+			<document name="Assessment" permission="CRUDC" />
+		</privileges>
+</role>
     </roles>
     <menu>
         <list document="Patient" name="Patients">
-            <role name="Maintainer"/>
-            <role name="Viewer"/>
+            <role name="Nurses"/>
+            <role name="Manager"/>
+            <role name="Carers"/>
         </list>
         <list document="Facility" name="Facilities">
-            <role name="Maintainer"/>
-            <role name="Viewer"/>
+            <role name="Manager"/>
+           
         </list>
         <list document="Assessment" name="Assessments">
-            <role name="Maintainer"/>
-            <role name="Viewer"/>
+            <role name="Nurses"/>
+            <role name="Carers"/>
+            <role name="Manager"/>
         </list>
     </menu>
     <queries>

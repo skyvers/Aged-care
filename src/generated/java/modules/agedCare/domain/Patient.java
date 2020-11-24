@@ -350,4 +350,23 @@ public class Patient extends AbstractPersistentBean {
 		result.setParent(null);
 		return result;
 	}
+
+	/**
+	 * hasID
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isHasID() {
+		return (getPatientID()!=null);
+	}
+
+	/**
+	 * {@link #isHasID} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotHasID() {
+		return (! isHasID());
+	}
 }

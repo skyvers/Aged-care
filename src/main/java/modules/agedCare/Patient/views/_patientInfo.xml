@@ -7,7 +7,7 @@
 		        
                <row>
                     <item>
-                        <default binding="patientID"/>
+                        <textField disabled="true" visible="hasID" binding="patientID"/>
                     </item>
                 </row>
                 <row>

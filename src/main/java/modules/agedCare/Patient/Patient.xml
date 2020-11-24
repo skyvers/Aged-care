@@ -41,4 +41,10 @@
             <ordering/>
         </collection>
     </attributes>
+    <conditions>
+    <condition name="hasID">
+    <expression><![CDATA[getPatientID()!=null]]></expression>
+    
+   </condition>
+    </conditions>
 </document>
