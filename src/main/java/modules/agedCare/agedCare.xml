@@ -36,7 +36,9 @@
 			<privileges>
 				<document name="Patient" permission="CRUDC" />
 				<document name="Facility" permission="_R__C" />
-				<document name="Assessment" permission="CRUDC" />
+				<document name="Assessment" permission="CRUDC">
+					<action name="Reviewed" />
+				</document>
 			</privileges>
 
 		</role>

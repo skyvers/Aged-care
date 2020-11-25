@@ -24,5 +24,11 @@
 				<default binding="DOB" />
 			</item>
 		</row>
+
+		<row>
+			<item>
+				<default binding="patientStatus"  />
+			</item>
+		</row>
 	</form>
 </view>

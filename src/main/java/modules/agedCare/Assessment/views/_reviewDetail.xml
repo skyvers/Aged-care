@@ -11,9 +11,21 @@
 				<default binding="staff" />
 			</item>
 		</row>
+		
+		<row>
+			<item>
+				<default binding="nurse" />
+			</item>
+		</row>
+		
 		<row>
 			<item>
 				<default binding="assessmentReview" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="assessmentCreatedTime" />
 			</item>
 		</row>
 	</form>

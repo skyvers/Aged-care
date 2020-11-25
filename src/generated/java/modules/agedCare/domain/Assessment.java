@@ -21,6 +21,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
  * <br/>
  * Detail of all the treatment for the patient.
  * 
+ * @navhas n nurse 0..1 User
  * @navhas n staff 0..1 User
  * @stereotype "persistent child"
  */
@@ -51,7 +52,11 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Pati
 	/** @hidden */
 	public static final String staffPropertyName = "staff";
 	/** @hidden */
+	public static final String nursePropertyName = "nurse";
+	/** @hidden */
 	public static final String assessmentReviewPropertyName = "assessmentReview";
+	/** @hidden */
+	public static final String assessmentCreatedTimePropertyName = "assessmentCreatedTime";
 
 	/**
 	 * Hygiene Assessment
@@ -74,15 +79,25 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Pati
 	 **/
 	private String behaviourAssessment;
 	/**
-	 * Staff
+	 * AssessmentCreatedBy
 	 * <br/>
 	 * Staff who involve in Assessment.
 	 **/
 	private UserExtension staff = null;
 	/**
-	 * Assessment Review
+	 * AssessmentReviewedBy
+	 * <br/>
+	 * Staff who Reviewed Assessment.
+	 **/
+	private UserExtension nurse = null;
+	/**
+	 * Assessment Review Time
 	 **/
 	private DateTime assessmentReview;
+	/**
+	 * Assessment Created Time
+	 **/
+	private DateTime assessmentCreatedTime;
 	private Patient parent;
 
 	private Integer bizOrdinal;
@@ -240,6 +255,26 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Pati
 	}
 
 	/**
+	 * {@link #nurse} accessor.
+	 * @return	The value.
+	 **/
+	public UserExtension getNurse() {
+		return nurse;
+	}
+
+	/**
+	 * {@link #nurse} mutator.
+	 * @param nurse	The new value.
+	 **/
+	@XmlElement
+	public void setNurse(UserExtension nurse) {
+		if (this.nurse != nurse) {
+			preset(nursePropertyName, nurse);
+			this.nurse = nurse;
+		}
+	}
+
+	/**
 	 * {@link #assessmentReview} accessor.
 	 * @return	The value.
 	 **/
@@ -257,6 +292,26 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Pati
 	public void setAssessmentReview(DateTime assessmentReview) {
 		preset(assessmentReviewPropertyName, assessmentReview);
 		this.assessmentReview = assessmentReview;
+	}
+
+	/**
+	 * {@link #assessmentCreatedTime} accessor.
+	 * @return	The value.
+	 **/
+	public DateTime getAssessmentCreatedTime() {
+		return assessmentCreatedTime;
+	}
+
+	/**
+	 * {@link #assessmentCreatedTime} mutator.
+	 * @param assessmentCreatedTime	The new value.
+	 **/
+	@XmlSchemaType(name = "dateTime")
+	@XmlJavaTypeAdapter(DateTimeMapper.class)
+	@XmlElement
+	public void setAssessmentCreatedTime(DateTime assessmentCreatedTime) {
+		preset(assessmentCreatedTimePropertyName, assessmentCreatedTime);
+		this.assessmentCreatedTime = assessmentCreatedTime;
 	}
 
 	/**

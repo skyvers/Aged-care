@@ -28,13 +28,22 @@
 			<displayName>Behaviour Assessment</displayName>
 		</memo>
 		<association type="aggregation" name="staff">
-			<displayName>Staff</displayName>
+			<displayName>AssessmentCreatedBy</displayName>
 			<description><![CDATA[Staff who involve in Assessment.]]></description>
 			<documentName>User</documentName>
 		</association>
+		<association type="aggregation" name="nurse">
+			<displayName>AssessmentReviewedBy</displayName>
+			<description><![CDATA[Staff who Reviewed Assessment.]]></description>
+			<documentName>User</documentName>
+		</association>
 		<dateTime name="assessmentReview">
-			<displayName>Assessment Review</displayName>
+			<displayName>Assessment Review Time</displayName>
 		</dateTime>
+		<dateTime name="assessmentCreatedTime">
+			<displayName>Assessment Created Time</displayName>
+		</dateTime>
+		
 	</attributes>
 	<conditions>
 		<condition name="roleCarer">

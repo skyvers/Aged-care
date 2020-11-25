@@ -17,7 +17,10 @@
 			<component name="_facilityLocation" />
 		</vbox>
 	</hbox>
-
+	<listGrid continueConversation="true" query="qPatient">
+		<filterParameter filterBinding="facilityName"
+			operator="equal" valueBinding="bizId" />
+	</listGrid>
 	<actions>
 		<defaults />
 	</actions>

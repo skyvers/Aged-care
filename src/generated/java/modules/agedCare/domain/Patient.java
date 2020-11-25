@@ -1,7 +1,9 @@
 package modules.agedCare.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlEnum;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlTransient;
@@ -10,15 +12,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateOnly;
+import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
+import org.skyve.metadata.model.document.Bizlet.DomainValue;
 
 /**
  * Patient
  * <br/>
  * Details of the patient admitted to the facility.
  * 
+ * @depend - - - PatientStatus
  * @navcomposed 1 assessments 0..n Assessment
  * @navhas n facilityName 0..1 Facility
  * @stereotype "persistent"
@@ -55,6 +60,86 @@ public class Patient extends AbstractPersistentBean {
 	public static final String facilityNamePropertyName = "facilityName";
 	/** @hidden */
 	public static final String assessmentsPropertyName = "assessments";
+	/** @hidden */
+	public static final String patientStatusPropertyName = "patientStatus";
+
+	/**
+	 * Patient Status
+	 **/
+	@XmlEnum
+	public static enum PatientStatus implements Enumeration {
+		current("Current", "Current"),
+		discharged("Discharged", "Discharged"),
+		deceased("Deceased", "Deceased");
+
+		private String code;
+		private String description;
+
+		/** @hidden */
+		private DomainValue domainValue;
+
+		/** @hidden */
+		private static List<DomainValue> domainValues;
+
+		private PatientStatus(String code, String description) {
+			this.code = code;
+			this.description = description;
+			this.domainValue = new DomainValue(code, description);
+		}
+
+		@Override
+		public String toCode() {
+			return code;
+		}
+
+		@Override
+		public String toDescription() {
+			return description;
+		}
+
+		@Override
+		public DomainValue toDomainValue() {
+			return domainValue;
+		}
+
+		public static PatientStatus fromCode(String code) {
+			PatientStatus result = null;
+
+			for (PatientStatus value : values()) {
+				if (value.code.equals(code)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static PatientStatus fromDescription(String description) {
+			PatientStatus result = null;
+
+			for (PatientStatus value : values()) {
+				if (value.description.equals(description)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static List<DomainValue> toDomainValues() {
+			if (domainValues == null) {
+				PatientStatus[] values = values();
+				domainValues = new ArrayList<>(values.length);
+				for (PatientStatus value : values) {
+					domainValues.add(value.domainValue);
+				}
+			}
+
+			return domainValues;
+		}
+	}
 
 	/**
 	 * Patient ID
@@ -92,6 +177,10 @@ public class Patient extends AbstractPersistentBean {
 	 * Assessments
 	 **/
 	private List<Assessment> assessments = new ChangeTrackingArrayList<>("assessments", this);
+	/**
+	 * Patient Status
+	 **/
+	private PatientStatus patientStatus = PatientStatus.current;
 
 	@Override
 	@XmlTransient
@@ -349,6 +438,24 @@ public class Patient extends AbstractPersistentBean {
 		Assessment result = assessments.remove(index);
 		result.setParent(null);
 		return result;
+	}
+
+	/**
+	 * {@link #patientStatus} accessor.
+	 * @return	The value.
+	 **/
+	public PatientStatus getPatientStatus() {
+		return patientStatus;
+	}
+
+	/**
+	 * {@link #patientStatus} mutator.
+	 * @param patientStatus	The new value.
+	 **/
+	@XmlElement
+	public void setPatientStatus(PatientStatus patientStatus) {
+		preset(patientStatusPropertyName, patientStatus);
+		this.patientStatus = patientStatus;
 	}
 
 	/**

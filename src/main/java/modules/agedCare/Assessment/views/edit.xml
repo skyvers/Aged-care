@@ -19,6 +19,9 @@
 	</hbox>
 	<actions>
 		<defaults />
+		<action className="Reviewed" displayName="Reviewed"
+			inActionPanel="true">
+		</action>
 	</actions>
 	<newParameters />
 </view>

@@ -42,6 +42,15 @@
 			<minCardinality>0</minCardinality>
 			<ordering />
 		</collection>
+		<enum name="patientStatus">
+			<displayName>Patient Status</displayName>
+			<defaultValue>current</defaultValue>
+			<values>
+				<value code="Current" />
+				<value code="Discharged" />
+				<value code="Deceased" />
+			</values>
+		</enum>
 	</attributes>
 	<conditions>
 		<condition name="hasID">
