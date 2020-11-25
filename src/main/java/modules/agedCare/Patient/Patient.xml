@@ -1,50 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document xmlns="http://www.skyve.org/xml/document" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Patient" xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
-    <persistent name="AGE_Patient"/>
-    <singularAlias>Patient</singularAlias>
-    <pluralAlias>Patients</pluralAlias>
-    <iconStyleClass>fa fa-user</iconStyleClass>
-    <description><![CDATA[Details of the patient admitted to the facility.]]></description>
-    <bizKey expression="Patient - {patientID}"/>
-    <attributes>
-        <text required="true" name="patientID">
-            <displayName>Patient ID</displayName>
-            <length>100</length>
-        </text>
-        <text required="true" name="patientName">
-            <displayName>Patient Name</displayName>
-            <length>500</length>
-        </text>
-        <image required="true" name="photo">
-            <displayName>Photo</displayName>
-        </image>
-        <date required="true" name="DOB">
-            <displayName>DOB</displayName>
-        </date>
-        <integer name="roomNo">
-            <displayName>Room No.</displayName>
-        </integer>
-        <memo name="BIO">
-            <displayName>BIO</displayName>
-        </memo>
-        <date required="true" name="admissionDate">
-            <displayName>Admission Date</displayName>
-        </date>
-        <association type="aggregation" name="facilityName">
-            <displayName>Facility Name</displayName>
-            <documentName>Facility</documentName>
-        </association>
-        <collection type="child" name="assessments">
-            <displayName>Assessments</displayName>
-            <documentName>Assessment</documentName>
-            <minCardinality>0</minCardinality>
-            <ordering/>
-        </collection>
-    </attributes>
-    <conditions>
-    <condition name="hasID">
-    <expression><![CDATA[getPatientID()!=null]]></expression>
-    
-   </condition>
-    </conditions>
+<document xmlns="http://www.skyve.org/xml/document"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Patient"
+	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
+	<persistent name="AGE_Patient" />
+	<singularAlias>Patient</singularAlias>
+	<pluralAlias>Patients</pluralAlias>
+	<iconStyleClass>fa fa-user</iconStyleClass>
+	<description><![CDATA[Details of the patient admitted to the facility.]]></description>
+	<bizKey expression="Patient - {patientID}" />
+	<attributes>
+		<text required="true" name="patientID">
+			<displayName>Patient ID</displayName>
+			<length>100</length>
+		</text>
+		<text required="true" name="patientName">
+			<displayName>Patient Name</displayName>
+			<length>500</length>
+		</text>
+		<image required="true" name="photo">
+			<displayName>Photo</displayName>
+		</image>
+		<date required="true" name="DOB">
+			<displayName>DOB</displayName>
+		</date>
+		<integer name="roomNo">
+			<displayName>Room No.</displayName>
+		</integer>
+		<memo name="BIO">
+			<displayName>BIO</displayName>
+		</memo>
+		<date required="true" name="admissionDate">
+			<displayName>Admission Date</displayName>
+		</date>
+		<association type="aggregation" name="facilityName">
+			<displayName>Facility Name</displayName>
+			<documentName>Facility</documentName>
+		</association>
+		<collection type="child" name="assessments">
+			<displayName>Assessments</displayName>
+			<documentName>Assessment</documentName>
+			<minCardinality>0</minCardinality>
+			<ordering />
+		</collection>
+	</attributes>
+	<conditions>
+		<condition name="hasID">
+			<expression><![CDATA[getPatientID()!=null]]></expression>
+
+		</condition>
+	</conditions>
 </document>

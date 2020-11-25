@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Patient" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <tabPane>
-        <tab title="General">
-	<hbox border="true">
-		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
- 			<component name="_patientInfo" />
- 			<component name="_facilityInfo" />
- 			     
-		</vbox>
-		
-		<!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
-			<component name="_photoBio"/>
-		</vbox>
-	</hbox>
-    
-        </tab>
-        <tab title="Assessments">
-            <dataGrid binding="assessments">
-                <boundColumn binding="hygieneAssessment"/>
-                <boundColumn binding="painAssessment"/>
-                <boundColumn binding="continenceAssessment"/>
-                <boundColumn binding="sleepAssessment"/>
-                <boundColumn binding="behaviourAssessment"/>
-                <boundColumn binding="staff"/>
-                <boundColumn binding="assessmentReview"/>
-                <onAddedHandlers/>
-                <onEditedHandlers/>
-                <onRemovedHandlers/>
-                <onSelectedHandlers/>
-            </dataGrid>
-        </tab>
-    </tabPane>
-    <actions>
-        <defaults/>
-    </actions>
-    <newParameters/>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
+	title="Patient"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<tabPane>
+		<tab title="General">
+			<hbox border="true">
+				<!-- left side -->
+				<vbox responsiveWidth="8" percentageWidth="60">
+					<component name="_patientInfo" />
+					<component name="_facilityInfo" />
+
+				</vbox>
+
+				<!-- right side -->
+				<vbox responsiveWidth="4" percentageWidth="40">
+					<component name="_photoBio" />
+				</vbox>
+			</hbox>
+
+		</tab>
+		<tab title="Assessments">
+			<dataGrid binding="assessments">
+				<boundColumn binding="hygieneAssessment" />
+				<boundColumn binding="painAssessment" />
+				<boundColumn binding="continenceAssessment" />
+				<boundColumn binding="sleepAssessment" />
+				<boundColumn binding="behaviourAssessment" />
+				<boundColumn binding="staff" />
+				<boundColumn binding="assessmentReview" />
+				<onAddedHandlers />
+				<onEditedHandlers />
+				<onRemovedHandlers />
+				<onSelectedHandlers />
+			</dataGrid>
+		</tab>
+	</tabPane>
+	<actions>
+		<defaults />
+	</actions>
+	<newParameters />
 </view>

@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_assessmentDetail" title="Assessment Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Assessment Detail">
-                <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-		        <row>
-            <item>
-                <default binding="hygieneAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <textArea invisible ="roleCarer" binding="painAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <default binding="continenceAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <default binding="sleepAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <textArea invisible="roleCarer" binding="behaviourAssessment"/>
-            </item>
-        </row>
-        </form>
-        </view>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_assessmentDetail" title="Assessment Detail"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Assessment Detail">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="hygieneAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<textArea invisible="roleCarer" binding="painAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="continenceAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="sleepAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<textArea invisible="roleCarer"
+					binding="behaviourAssessment" />
+			</item>
+		</row>
+	</form>
+</view>
