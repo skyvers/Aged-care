@@ -22,13 +22,13 @@ Before starting of this tutorial it is important to go through few questions bel
   * [4.5  Set the server](#set-the-server)
 * [5. Deploy and Configure Skyve Project](#deploy-and-configure-skyve-project)
 * [6. List Views](#list-views)
- * [6.1  Patient List](#patient-list)
- * [6.2  Facility List](#facility-list)
- * [6.3  Assessments List](#assessment-list)
+  * [6.1  Patient List](#patient-list)
+  * [6.2  Facility List](#facility-list)
+  * [6.3  Assessments List](#assessment-list)
 * [7. Edit Views, Layout, and Components]
- * [7.1  Patient Edit view](#Patient-Edit-view)
- * [7.2  Facility Edit view](#Facility-Edit-view)
- * [7.3  Assessment Edit view](#Assessment-Edit-view)
+  * [7.1  Patient Edit view](#Patient-Edit-view)
+  * [7.2  Facility Edit view](#Facility-Edit-view)
+  * [7.3  Assessment Edit view](#Assessment-Edit-view)
 * [8. Roles, Conditions, and Action](#Roles-,-Conditions-,-and-Action)
 
 ## 1. Getting Started
