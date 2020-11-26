@@ -5,7 +5,7 @@ In this tutorial, we will create a agedCare application by using the Enterprise 
 This agedCare application will record the patient details, the assessments related to each patient, and details of facilities.
 This project will try to cover the concepts required to develop a application through Skyve.
 
-## 1 Getting Started
+## 1. Getting Started
 Before continuing with our tutorial, there are some pages you may want to visit:
 *  [What is Skyve?](https://skyve.org/what-is-skyve) - Will answer what [Skyve](https://skyve.org) is, and how it will be useful in your Enterprise Application Development.
 
@@ -14,9 +14,13 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 * [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 * [Skyve foundry](https://foundry.skyve.org/)-Will help you to learn about skyve foundry.
 
+Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
 
-## Skyve Maven commands
-These are standard maven goals using the Skyve maven plugin and can be run from the command line or from your IDE. The 6 main goals are described here:
+## 2. Create
+To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started (https://foundry.skyve.org/foundry/register.xhtml)
+
+and if you are already register Sign in with your register email and password.
+
 
 ### Generate Domain
 `mvn skyve:generateDomain`
