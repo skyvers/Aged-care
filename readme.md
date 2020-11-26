@@ -31,10 +31,36 @@ After that start build Data Design
 * Click on Data Design to add the Documents
 
 ## 3. Collaboration
-	
-	### Setup to Github
 
-## 4. 
+#### Setup to Github
+
+## 4. Import Project in Eclipse
+
+#### 4.1  Install Eclipse
+#### 4.2  Install and Configue Wildfly Server
+#### 4.3  Add Repository in Eclipse
+#### 4.4  Import Project
+#### 4.5  Set the server
+
+## 5. Deploy and Configure Skyve Project
+
+## 6. List Views
+
+#### 6.1  Patient List
+#### 6.2  Facility List
+#### 6.3  Assessments List
+
+## 7. Edit Views, Layout, and Components
+
+#### 7.1  Patient Edit view
+#### 7.2  Facility Edit view
+#### 7.3  Assessment Edit view
+
+## 8. Roles, Conditions, and Action
+
+
+
+
 
 
 
