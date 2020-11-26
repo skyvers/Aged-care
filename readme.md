@@ -46,7 +46,7 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
 
 ## 2. Create
-To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started] (https://foundry.skyve.org/foundry/register.xhtml)
+To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started](https://foundry.skyve.org/foundry/register.xhtml)
 
 and if you are already register Sign in with your register email and password.
 
