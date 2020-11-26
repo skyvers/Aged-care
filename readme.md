@@ -85,7 +85,10 @@ After that start build Data Design
 #### 7.2  Facility Edit view
 #### 7.3  Assessment Edit view
 
-## 8. Roles, Conditions, and Action
+## 8. Roles
+## 9. Conditions
+## 10. Bizlets
+## 11. Actions
 
 
 
