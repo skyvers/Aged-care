@@ -1,9 +1,14 @@
 
 # agedCare Application Tutorial
-In this tutorial, we will create a agedCare application by using the Enterprise Application Framework - [Skyve](https://skyve.org/).
 
-This agedCare application will record the patient details, the assessments related to each patient, and details of facilities.
-This project will try to cover the concepts required to develop a application through Skyve.
+Before starting of this tutorial it is important to go through few questions below:
+
+## Is This Tutorial Right For Me ?
+ * Tutorial Purpose
+ * What We'll Cover
+ * What You'll Get Out Of It
+ * Skills You'll Need
+ * Skills You'll Develop
 
 ### Contents
 * [1. Getting Started](#getting-started)
@@ -15,6 +20,16 @@ This project will try to cover the concepts required to develop a application th
   * [4.3  Add Repository in Eclipse](#add-repository-in-eclipse)
   * [4.4  Import Project](#import-project)
   * [4.5  Set the server](#set-the-server)
+* [5. Deploy and Configure Skyve Project](#deploy-and-configure-skyve-project)
+* [6. List Views](#list-views)
+ * [6.1  Patient List](#patient-list)
+ * [6.2  Facility List](#facility-list)
+ * [6.3  Assessments List](#assessment-list)
+* [7. Edit Views, Layout, and Components]
+ * [7.1  Patient Edit view](#Patient-Edit-view)
+ * [7.2  Facility Edit view](#Facility-Edit-view)
+ * [7.3  Assessment Edit view](#Assessment-Edit-view)
+* [8. Roles, Conditions, and Action](#Roles-,-Conditions-,-and-Action)
 
 ## 1. Getting Started
 Before continuing with our tutorial, there are some pages you may want to visit:
