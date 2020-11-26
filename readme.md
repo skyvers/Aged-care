@@ -2,11 +2,17 @@
 # agedCare Application Tutorial
 In this tutorial, we will create a agedCare application by using the Enterprise Application Framework - [Skyve](https://skyve.org/).
 
-This agedCare application will record the patient details, the assessments related to each patient, and detail of facilities.
+This agedCare application will record the patient details, the assessments related to each patient, and details of facilities.
 This project will try to cover the concepts required to develop a application through Skyve.
 
-## Getting Started
+## 1 Getting Started
+Before continuing with our tutorial, there are some pages you may want to visit:
+*  [What is Skyve?](https://skyve.org/what-is-skyve) - Will answer what [Skyve](https://skyve.org) is, and how it will be useful in your Enterprise Application Development.
 
+*  [Getting Started](https://skyve.org/getting-started) - Will help give you some ideas on how to start with our [Skyve](https://skyve.org) Framework.
+
+* [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
+* [Skyve foundry](https://foundry.skyve.org/)-Will help you to learn about skyve foundry.
 
 
 ## Skyve Maven commands
