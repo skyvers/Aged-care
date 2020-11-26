@@ -11,7 +11,7 @@ Before starting of this tutorial it is important to go through few questions bel
  * Skills You'll Develop
 
 ### Contents
-* [1. Getting Started](#getting-started)
+* [1. Getting Started](#https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
 * [2. Create](#create)
 * [3. Collaboration](#collaboration)
 * [4. Import Project in Eclipse](#import-project-in-eclipse)
