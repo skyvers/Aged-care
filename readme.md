@@ -29,10 +29,10 @@ Before starting of this tutorial it is important to go through few questions bel
   * [7.1  Patient Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#71--patient-edit-view)
   * [7.2  Facility Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#72--facility-edit-view)
   * [7.3  Assessment Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#73--assessment-edit-view)
-* [8. Roles]()
-* [9. Conditions]()
-* [10. Bizlets]()
-* [11. Actions]()
+* [8. Roles](https://github.com/seema-source/Aged-care#8-roles)
+* [9. Conditions](https://github.com/seema-source/Aged-care#9-conditions)
+* [10. Bizlets](https://github.com/seema-source/Aged-care#10-bizlets)
+* [11. Actions](https://github.com/seema-source/Aged-care#11-actions)
 
 ## 1. Getting Started
 Before continuing with our tutorial, there are some pages you may want to visit:
@@ -46,7 +46,7 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
 
 ## 2. Create
-To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started (https://foundry.skyve.org/foundry/register.xhtml)
+To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started] (https://foundry.skyve.org/foundry/register.xhtml)
 
 and if you are already register Sign in with your register email and password.
 
