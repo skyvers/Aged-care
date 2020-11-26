@@ -21,7 +21,17 @@ To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve fou
 
 and if you are already register Sign in with your register email and password.
 
-After sign in you see the screen below:
+To create a new skyve project through foundry go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve foundry page and watch the video to create new application.
+
+Now, i will take you step by step creation of application:
+* Click on Add button
+* Enter the name of App and email address
+* Click on save
+After that start build Data Design 
+* Click on Data Design to add the Documents
+
+
+
 
 
 ### Generate Domain
