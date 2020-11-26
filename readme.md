@@ -21,6 +21,8 @@ To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve fou
 
 and if you are already register Sign in with your register email and password.
 
+After sign in you see the screen below:
+
 
 ### Generate Domain
 `mvn skyve:generateDomain`
