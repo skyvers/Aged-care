@@ -57,12 +57,15 @@ To create a new skyve project through foundry go to the [How to get started](htt
 
 Now, I will take you step by step creation of application:
 * Click on Add button
-![Add Button](doc_src_img/foundry.png "Add Button") 
+![Add Button](doc_src_img/chapter1/1.png "Add Button") 
 * Enter the name of App and email address
+![Name and Email](doc_src_img/chapter1/2.png "Name and Email")
 * Click on save
 After that start build Data Design 
 * Click on Data Design to add the Documents
-
+![Data Design](doc_src_img/chapter1/3.jpg "Data Design")
+* Add all information as shown below
+![New Document](doc_src_img/chapter1/4.jpg "New Document")
 ## 3. Collaboration
 
 #### Setup to Github
