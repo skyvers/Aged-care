@@ -156,7 +156,8 @@ Select the JBoss Tools version that the search returns, and click Install.
 
 ![Jboss install](doc_src_img/chapter3/3.JPG "Jboss install")
 
-Select only shows in the list below
+Select list as below
+
 ![Jboss install selection](doc_src_img/chapter3/15.jpg "Jboss install selection")
 
 To check if JBoss Tools is installed properly, click on Help, then click Eclipse Marketplace.
