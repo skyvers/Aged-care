@@ -15,9 +15,9 @@ Before starting of this tutorial it is important to go through few questions bel
   - [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
 - [4. Low-code Extensions](https://github.com/seema-source/Aged-care#4-low-code-extension)
 
-  - [4.1 Configure local environment](https://github.com/seema-source/Aged-care#41-import-project-in-eclipse)
+  - [4.1 Configure local environment](https://github.com/seema-source/Aged-care#41-configure-your-local-environment)
 
-    - [Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care#411-download-and-install-eclipse-and-jdk)
+    - [Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care#download-and-install-eclipse-and-jdk)
 
       - [Download and Install Eclipse](https://github.com/seema-source/Aged-care#download-and-install-eclipse)
 
