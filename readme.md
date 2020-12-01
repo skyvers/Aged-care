@@ -18,20 +18,26 @@ Before starting of this tutorial it is important to go through few questions bel
    * [4.1 Import Project in Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#4-import-project-in-eclipse)
      * [4.1.1 Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care/blob/master/readme.md#41--install-eclipse)
 
-     * [4.2 Download and Install Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#42--install-and-configue-wildfly-server)
+       * [Download and Install Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#42--install-and-configue-wildfly-server)
+
+       * [Download and Install JDK]()
+    * [4.2 Install and Configue Wildfly Server]()
+      * [Install Wildfly Server]()
+
      * [4.3 Add Repository in Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#43--add-repository-in-eclipse)
      * [4.4 Import Project](https://github.com/seema-source/Aged-care/blob/master/readme.md#44--import-project)
-      * [4.5 Set the server](https://github.com/seema-source/Aged-care/blob/master/readme.md#45--set-the-server)
-  * [ Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care/blob/master/readme.md#5-deploy-and-configure-skyve-project)
-  * [List Views](https://github.com/seema-source/Aged-care/blob/master/readme.md#6-list-views)
+
+    * [4.5 Set the server](https://github.com/seema-source/Aged-care/blob/master/readme.md#45--set-the-server)
+  * [4.6 Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care/blob/master/readme.md#5-deploy-and-configure-skyve-project)
+  * [4.7 List Views](https://github.com/seema-source/Aged-care/blob/master/readme.md#6-list-views)
       * [Patient List](https://github.com/seema-source/Aged-care/blob/master/readme.md#61--patient-list)
       * [Facility List](https://github.com/seema-source/Aged-care/blob/master/readme.md#62--facility-list)
       * [Assessments List](https://github.com/seema-source/Aged-care/blob/master/readme.md#63--assessments-list)
-  * [Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care/blob/master/readme.md#7-edit-views-layout-and-components)
+  * [4.8 Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care/blob/master/readme.md#7-edit-views-layout-and-components)
      * [Patient Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#71--patient-edit-view)
      * [Facility Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#72--facility-edit-view)
      * [Assessment Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#73--assessment-edit-view)
-  * [Roles](https://github.com/seema-source/Aged-care#8-roles)
+  * [4.9 Roles](https://github.com/seema-source/Aged-care#8-roles)
 
 - [5. Java Extensions]()
 
@@ -141,10 +147,10 @@ This is the End of create and collaboration of the application...!
 
 To run our agedCare application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
 
- ### 4.2.1 Install Wildfly Server
+ * ### Install Wildfly Server
  You can skip this step if WildFly Server is already installed on your system.
-
-Before installing WildFly Server, make sure JBoss Tools is installed on your system.
+  
+  Before installing WildFly Server, make sure JBoss Tools is installed on your system.
 
 To install JBoss Tools, click on Help, then click Eclipse Marketplace.
 
@@ -213,28 +219,30 @@ Select the latest version of WildFly, then click Next
 
 #### 4.5 Set the server
 
-## 5. Deploy and Configure Skyve Project
+#### 4.6 Deploy and Configure Skyve Project
 
-## 6. List Views
+### 4.7 List Views
 
-#### 6.1 Patient List
+*  #### Patient List
 
-#### 6.2 Facility List
+*  #### Facility List
 
-#### 6.3 Assessments List
+*  #### Assessments List
 
-## 7. Edit Views, Layout, and Components
+### 4.8 Edit Views, Layout, and Components
 
-#### 7.1 Patient Edit view
+ * #### Patient Edit view
 
-#### 7.2 Facility Edit view
+ * #### Facility Edit view
 
-#### 7.3 Assessment Edit view
+ * #### Assessment Edit view
 
-## 8. Roles
+### 4.9 Roles
 
-## 9. Conditions
+## 5. Java Extension
 
-## 10. Bizlets
+* ####  Conditions
 
-## 11. Actions
+* #### Bizlets
+
+* #### Actions
