@@ -4,8 +4,8 @@ Before starting of this tutorial it is important to go through few questions bel
 
 ### Contents
 
-- [1. Is This Tutorial Right For Me ?](#)
-- [2. AgedCare App Overview]()
+- [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
+- [2. AgedCare App Overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-agedcare-app-overview)
   - [Functionality overview]()
   - [Low code App]() using Skyve Foundry
   - [Low-code Extensions]()
@@ -22,31 +22,30 @@ Before starting of this tutorial it is important to go through few questions bel
      * [4.4 Import Project](https://github.com/seema-source/Aged-care/blob/master/readme.md#44--import-project)
       * [4.5 Set the server](https://github.com/seema-source/Aged-care/blob/master/readme.md#45--set-the-server)
   * [ Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care/blob/master/readme.md#5-deploy-and-configure-skyve-project)
+  * [List Views](https://github.com/seema-source/Aged-care/blob/master/readme.md#6-list-views)
+      * [Patient List](https://github.com/seema-source/Aged-care/blob/master/readme.md#61--patient-list)
+      * [Facility List](https://github.com/seema-source/Aged-care/blob/master/readme.md#62--facility-list)
+      * [Assessments List](https://github.com/seema-source/Aged-care/blob/master/readme.md#63--assessments-list)
+  * [Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care/blob/master/readme.md#7-edit-views-layout-and-components)
+     * [Patient Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#71--patient-edit-view)
+     * [Facility Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#72--facility-edit-view)
+     * [Assessment Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#73--assessment-edit-view)
+  * [Roles](https://github.com/seema-source/Aged-care#8-roles)
 
 - [5. Java Extensions]()
 
-- 
-- [6. List Views](https://github.com/seema-source/Aged-care/blob/master/readme.md#6-list-views)
-  - [6.1 Patient List](https://github.com/seema-source/Aged-care/blob/master/readme.md#61--patient-list)
-  - [6.2 Facility List](https://github.com/seema-source/Aged-care/blob/master/readme.md#62--facility-list)
-  - [6.3 Assessments List](https://github.com/seema-source/Aged-care/blob/master/readme.md#63--assessments-list)
-- [7. Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care/blob/master/readme.md#7-edit-views-layout-and-components)
-  - [7.1 Patient Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#71--patient-edit-view)
-  - [7.2 Facility Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#72--facility-edit-view)
-  - [7.3 Assessment Edit view](https://github.com/seema-source/Aged-care/blob/master/readme.md#73--assessment-edit-view)
-- [8. Roles](https://github.com/seema-source/Aged-care#8-roles)
-- [9. Conditions](https://github.com/seema-source/Aged-care#9-conditions)
-- [10. Bizlets](https://github.com/seema-source/Aged-care#10-bizlets)
-- [11. Actions](https://github.com/seema-source/Aged-care#11-actions)
+  * [Conditions](https://github.com/seema-source/Aged-care#9-conditions)
+  * [Bizlets](https://github.com/seema-source/Aged-care#10-bizlets)
+  * [Actions](https://github.com/seema-source/Aged-care#11-actions)
 
 
 # 1. Is This Tutorial Right For Me ?
 
 
 # 2. AgedCare App Overview
-  * [Functionality overview]()
-  - [Low code App]() using Skyve Foundry
-  - [Low-code Extensions]()
+  ###  [Functionality overview]()
+  ###  [Low code App]() using Skyve Foundry
+  ###  [Low-code Extensions]()
 
 # 3. No-code Development
 
