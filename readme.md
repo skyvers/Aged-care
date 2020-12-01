@@ -124,15 +124,84 @@ This is the End of create and collaboration of the application...!
 
 Before import your project in Eclipse, you need to download and install Eclipse in your system.
 
-#### 4.1 Download and Install Eclipse
+### 4.1 Download and Install Eclipse and JDK
+ #### 4.1.1 Download and Install Eclipse
 * Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
 
 * Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
-![Download Eclipse](doc_src_img/chapter3/1.jpg)
+![Download Eclipse](doc_src_img/chapter3/1.jpg "Download Eclipse")
 * Click on download
 * Then, Install Eclipse in your system
+ #### 4.1.2 Download and Install JDK
 
-#### 4.2 Install and Configue Wildfly Server
+* Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
+* Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html) (or an alternative open JDK of your choice)
+
+### 4.2 Install and Configue Wildfly Server
+
+To run our agedCare application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
+
+ #### 4.2.1 Install Wildfly Server
+ You can skip this step if WildFly Server is already installed on your system.
+
+Before installing WildFly Server, make sure JBoss Tools is installed on your system.
+
+To install JBoss Tools, click on Help, then click Eclipse Marketplace.
+
+![Jboss tool](doc_src_img/chapter3/2.jpg "Jboss tool")
+
+In the searchbar, enter 'jboss' then search.
+
+Select the JBoss Tools version that the search returns, and click Install.
+
+![Jboss install](doc_src_img/chapter3/3.jpg "Jboss install")
+
+To check if JBoss Tools is installed properly, click on Help, then click Eclipse Marketplace.
+
+![Jboss tool install](doc_src_img/chapter3/4.jpg "Jboss tool install")
+
+Click Installed.
+
+If the JBoss Tools plugin is present, you are ready to continue.
+
+![Jboss tool plugin](doc_src_img/chapter3/5.jpg "Jboss tool plugin")
+
+After JBoss Tools was installed properly, follow these steps to install WildFly Server.
+
+  1. Once Eclipse is opened, right-click under the Package Explorer tab and highlight New, then from the pop-out, click on Server
+  ![server](doc_src_img/chapter3/6.jpg "server")
+
+ 2. Select the WildFly version you wish to work with and click Next
+
+  ![select server](doc_src_img/chapter3/7.jpg "select server")
+
+ 3. Click Next again
+
+![select Next](doc_src_img/chapter3/8.jpg "select Next")
+
+ 4. Once more, click the Next button
+
+![install runtime](doc_src_img/chapter3/9.jpg "install runtime")
+
+ 5. Click on the Download and install runtime link
+
+![select runtime](doc_src_img/chapter3/10.jpg "select runtime")
+
+Select the latest version of WildFly, then click Next
+
+![accept agreement](doc_src_img/chapter3/11.jpg "accept agreement")
+
+ 7. Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
+
+![select path](doc_src_img/chapter3/12.jpg "select path")
+
+ 8. Finally, select the path for where you wish your download and install locations to be found, then click Finish to complete the installation
+![path](doc_src_img/chapter3/13.jpg "path")
+
+ 9. Wait for Eclipse to complete the download and installation process before moving on to the next step
+
+![Downloading](doc_src_img/chapter3/14.jpg "Downloading")
+
 
 #### 4.3 Add Repository in Eclipse
 
