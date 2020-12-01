@@ -6,10 +6,10 @@ Before starting of this tutorial it is important to go through few questions bel
 
 - [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
 - [2. AgedCare App Overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-agedcare-app-overview)
-  - [Functionality overview]()
-  - [Low code App]() using Skyve Foundry
-  - [Low-code Extensions]()
-- [3. No-code Development]()
+  - [Functionality overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#functionality-overview)
+  - [Low code App](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry) using Skyve Foundry
+  - [Low-code Extensions](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-extensions)
+- [3. No-code Development](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-no-code-development)
     * [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
     * [2. Create](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-create)
     * [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
@@ -43,9 +43,9 @@ Before starting of this tutorial it is important to go through few questions bel
 
 
 # 2. AgedCare App Overview
-  ###  [Functionality overview]()
-  ###  [Low code App]() using Skyve Foundry
-  ###  [Low-code Extensions]()
+  * ### Functionality overview
+  * ### Low code App using Skyve Foundry
+  * ### Low-code Extensions
 
 # 3. No-code Development
 
