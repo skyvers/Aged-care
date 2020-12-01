@@ -15,9 +15,10 @@ Before starting of this tutorial it is important to go through few questions bel
     * [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
 - [4. Low-code Extensions]()
    
-   * [Import Project in Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#4-import-project-in-eclipse)
-     * [4.1 Install Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#41--install-eclipse)
-     * [4.2 Install and Configue Wildfly Server](https://github.com/seema-source/Aged-care/blob/master/readme.md#42--install-and-configue-wildfly-server)
+   * [4.1 Import Project in Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#4-import-project-in-eclipse)
+     * [4.1.1 Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care/blob/master/readme.md#41--install-eclipse)
+
+     * [4.2 Download and Install Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#42--install-and-configue-wildfly-server)
      * [4.3 Add Repository in Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#43--add-repository-in-eclipse)
      * [4.4 Import Project](https://github.com/seema-source/Aged-care/blob/master/readme.md#44--import-project)
       * [4.5 Set the server](https://github.com/seema-source/Aged-care/blob/master/readme.md#45--set-the-server)
@@ -121,29 +122,26 @@ To create a new repository follow the steps below:
   ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
 
 This is the End of create and collaboration of the application...!
+# 4. Low Code Extension
+## 4.1 Import Project in Eclipse
+  Before import your project in Eclipse, you need to download and install Eclipse in your system.
+   ### 4.1.1 Download and Install Eclipse and JDK
+  * #### Download and Install Eclipse
+    * Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
+    * Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
 
-## 4. Import Project in Eclipse
+     ![Download Eclipse](doc_src_img/chapter3/1.jpg "Download Eclipse")
+    * Click on download
+    * Then, Install Eclipse in your system
+  * #### Download and Install JDK
+    * Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
+    * Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
-Before import your project in Eclipse, you need to download and install Eclipse in your system.
-
-### 4.1 Download and Install Eclipse and JDK
- #### 4.1.1 Download and Install Eclipse
-* Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
-
-* Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
-![Download Eclipse](doc_src_img/chapter3/1.jpg "Download Eclipse")
-* Click on download
-* Then, Install Eclipse in your system
- #### 4.1.2 Download and Install JDK
-
-* Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
-* Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
-
-### 4.2 Install and Configue Wildfly Server
+## 4.2 Install and Configue Wildfly Server
 
 To run our agedCare application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
 
- #### 4.2.1 Install Wildfly Server
+ ### 4.2.1 Install Wildfly Server
  You can skip this step if WildFly Server is already installed on your system.
 
 Before installing WildFly Server, make sure JBoss Tools is installed on your system.
