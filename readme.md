@@ -83,26 +83,26 @@ Now, I will take you step by step creation of application:
 Next, we need to Collaborate our application with github.
 To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help.
 Then follow the steps for collaboration.
-![Collaboration](doc_src_img/chapter2/1.jpg "Collaboration")
+![Collaboration](doc_src_img/Chapter2/1.jpg "Collaboration")
 
 #### Setup to Github
 To enable the collaboration, first of all Sign up or log into [Github](https://github.com/) account.
 To create a new repository follow the steps below:
 * Click on the plus icon on the top right side to create the new repository
-![Create repository](doc_src_img/chapter2/2.jpg "Create reposistory")
+![Create repository](doc_src_img/Chapter2/2.jpg "Create reposistory")
 * Next, enter the name of the repository, make it private, and click on create
-![repository name](doc_src_img/chapter2/3.jpg "repository name")
+![repository name](doc_src_img/Chapter2/3.jpg "repository name")
 * After creating repository, you will see the link as shown below, copy the link
-![Link](doc_src_img/chapter2/4.jpg "Link")
+![Link](doc_src_img/Chapter2/4.jpg "Link")
 * Next, go to foundry, open the collaborate tab and paste the link in Remote Endpoint
 * Click on apply
 * Click on Save
-![remote endpoint](doc_src_img/chapter2/5.jpg "remote endpoint")
+![remote endpoint](doc_src_img/Chapter2/5.jpg "remote endpoint")
 * Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
- ![commit and push](doc_src_img/chapter2/6.jpg "commit and push")
+ ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
  * Next, check your project in Github
  * Go to Github, open repository to see all the files
-  ![Repository file](doc_src_img/chapter2/7.jpg "Repository file")
+  ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
 
 This is the End of create and collaboration of the application...!
 
