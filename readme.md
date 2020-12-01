@@ -135,7 +135,7 @@ Before import your project in Eclipse, you need to download and install Eclipse 
  #### 4.1.2 Download and Install JDK
 
 * Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
-* Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html) (or an alternative open JDK of your choice)
+* Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
 ### 4.2 Install and Configue Wildfly Server
 
@@ -155,6 +155,9 @@ In the searchbar, enter 'jboss' then search.
 Select the JBoss Tools version that the search returns, and click Install.
 
 ![Jboss install](doc_src_img/chapter3/3.JPG "Jboss install")
+
+Select only shows in the list below
+![Jboss install selection](doc_src_img/chapter3/15.jpg "Jboss install selection")
 
 To check if JBoss Tools is installed properly, click on Help, then click Eclipse Marketplace.
 
