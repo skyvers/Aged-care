@@ -10,53 +10,55 @@ Before starting of this tutorial it is important to go through few questions bel
   - [Low code App](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry) using Skyve Foundry
   - [Low-code Extensions](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-extensions)
 - [3. No-code Development](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-no-code-development)
-    * [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
-    * [2. Create](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-create)
-    * [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
+  - [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
+  - [2. Create](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-create)
+  - [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
 - [4. Low-code Extensions](https://github.com/seema-source/Aged-care#4-low-code-extension)
-   
-   * [4.1 Import Project in Eclipse](https://github.com/seema-source/Aged-care#41-import-project-in-eclipse)
-     * [4.1.1 Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care#411-download-and-install-eclipse-and-jdk)
 
-       * [Download and Install Eclipse](https://github.com/seema-source/Aged-care#download-and-install-eclipse)
+  - [4.1 Configure local environment](https://github.com/seema-source/Aged-care#41-import-project-in-eclipse)
 
-       * [Download and Install JDK](https://github.com/seema-source/Aged-care#download-and-install-jdk)
-    * [4.2 Install and Configue Wildfly Server](https://github.com/seema-source/Aged-care#42-install-and-configue-wildfly-server)
-      * [Install Wildfly Server](https://github.com/seema-source/Aged-care#install-wildfly-server)
+    - [Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care#411-download-and-install-eclipse-and-jdk)
 
-     * [4.3 Add Repository in Eclipse](https://github.com/seema-source/Aged-care#43-add-repository-in-eclipse)
-     * [4.4 Import Project](https://github.com/seema-source/Aged-care#44-import-project)
+      - [Download and Install Eclipse](https://github.com/seema-source/Aged-care#download-and-install-eclipse)
 
-    * [4.5 Set the server](https://github.com/seema-source/Aged-care#45-set-the-server)
-  * [4.6 Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care#46-deploy-and-configure-skyve-project)
-  * [4.7 List Views](https://github.com/seema-source/Aged-care#47-list-views)
-      * [Patient List](https://github.com/seema-source/Aged-care#patient-list)
-      * [Facility List](https://github.com/seema-source/Aged-care#facility-list)
-      * [Assessments List](https://github.com/seema-source/Aged-care#assessments-list)
-  * [4.8 Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care#48-edit-views-layout-and-components)
-     * [Patient Edit view](https://github.com/seema-source/Aged-care#patient-edit-view)
-     * [Facility Edit view](https://github.com/seema-source/Aged-care#facility-edit-view)
-     * [Assessment Edit view](https://github.com/seema-source/Aged-care#assessment-edit-view)
-  * [4.9 Roles](https://github.com/seema-source/Aged-care#49-roles)
+      - [Download and Install JDK](https://github.com/seema-source/Aged-care#download-and-install-jdk)
+
+  - [4.2 Install and Configue Wildfly Server](https://github.com/seema-source/Aged-care#42-install-and-configue-wildfly-server)
+
+    - [Install Wildfly Server](https://github.com/seema-source/Aged-care#install-wildfly-server)
+
+  - [4.3 Add Repository in Eclipse](https://github.com/seema-source/Aged-care#43-add-repository-in-eclipse)
+  - [4.4 Import Project](https://github.com/seema-source/Aged-care#44-import-project)
+
+  - [4.5 Set the server](https://github.com/seema-source/Aged-care#45-set-the-server)
+  - [4.6 Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care#46-deploy-and-configure-skyve-project)
+  - [4.7 List Views](https://github.com/seema-source/Aged-care#47-list-views)
+    - [Patient List](https://github.com/seema-source/Aged-care#patient-list)
+    - [Facility List](https://github.com/seema-source/Aged-care#facility-list)
+    - [Assessments List](https://github.com/seema-source/Aged-care#assessments-list)
+  - [4.8 Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care#48-edit-views-layout-and-components)
+    - [Patient Edit view](https://github.com/seema-source/Aged-care#patient-edit-view)
+    - [Facility Edit view](https://github.com/seema-source/Aged-care#facility-edit-view)
+    - [Assessment Edit view](https://github.com/seema-source/Aged-care#assessment-edit-view)
+  - [4.9 Roles](https://github.com/seema-source/Aged-care#49-roles)
 
 - [5. Java Extensions](https://github.com/seema-source/Aged-care#5-java-extension)
 
-  * [Conditions](https://github.com/seema-source/Aged-care#conditions)
-  * [Bizlets](https://github.com/seema-source/Aged-care#bizlets)
-  * [Actions](https://github.com/seema-source/Aged-care#actions)
-
+  - [Conditions](https://github.com/seema-source/Aged-care#conditions)
+  - [Bizlets](https://github.com/seema-source/Aged-care#bizlets)
+  - [Actions](https://github.com/seema-source/Aged-care#actions)
 
 # 1. Is This Tutorial Right For Me ?
 
-
 # 2. AgedCare App Overview
-  * ### Functionality overview
-  * ### Low code App using Skyve Foundry
-  * ### Low-code Extensions
+
+- ### Functionality overview
+- ### Low code App using Skyve Foundry
+- ### Low-code Extensions
 
 # 3. No-code Development
 
-   ###  1. Getting Started
+### 1. Getting Started
 
 Before continuing with our tutorial, there are some pages you may want to visit:
 
@@ -128,29 +130,37 @@ To create a new repository follow the steps below:
   ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
 
 This is the End of create and collaboration of the application...!
-# 4. Low Code Extension
-## 4.1 Import Project in Eclipse
-  Before import your project in Eclipse, you need to download and install Eclipse in your system.
-   ### 4.1.1 Download and Install Eclipse and JDK
-  * #### Download and Install Eclipse
-    * Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
-    * Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
 
-     ![Download Eclipse](doc_src_img/chapter3/1.jpg "Download Eclipse")
-    * Click on download
-    * Then, Install Eclipse in your system
-  * #### Download and Install JDK
-    * Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
-    * Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
+# 4. Low Code Extension
+
+## 4.1 Configure your local environment
+
+Before import your project in Eclipse, you need to download and install Eclipse in your system.
+
+### Download and Install Eclipse and JDK
+
+- #### Download and Install Eclipse
+
+  - Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
+  - Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
+
+  ![Download Eclipse](doc_src_img/chapter3/1.jpg "Download Eclipse")
+
+  - Click on download
+  - Then, Install Eclipse in your system
+
+- #### Download and Install JDK
+  - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
+  - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
 ## 4.2 Install and Configue Wildfly Server
 
 To run our agedCare application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
 
- * ### Install Wildfly Server
- You can skip this step if WildFly Server is already installed on your system.
-  
-  Before installing WildFly Server, make sure JBoss Tools is installed on your system.
+- ### Install Wildfly Server
+  You can skip this step if WildFly Server is already installed on your system.
+
+Before installing WildFly Server, make sure JBoss Tools is installed on your system.
 
 To install JBoss Tools, click on Help, then click Eclipse Marketplace.
 
@@ -178,22 +188,22 @@ If the JBoss Tools plugin is present, you are ready to continue.
 
 After JBoss Tools was installed properly, follow these steps to install WildFly Server.
 
-  1. Once Eclipse is opened, right-click under the Package Explorer tab and highlight New, then from the pop-out, click on Server
-  ![server](doc_src_img/chapter3/6.JPG "server")
+1. Once Eclipse is opened, right-click under the Package Explorer tab and highlight New, then from the pop-out, click on Server
+   ![server](doc_src_img/chapter3/6.JPG "server")
 
- 2. Select the WildFly version you wish to work with and click Next
+2. Select the WildFly version you wish to work with and click Next
 
-  ![select server](doc_src_img/chapter3/7.JPG "select server")
+![select server](doc_src_img/chapter3/7.JPG "select server")
 
- 3. Click Next again
+3.  Click Next again
 
 ![select Next](doc_src_img/chapter3/8.JPG "select Next")
 
- 4. Once more, click the Next button
+4.  Once more, click the Next button
 
 ![install runtime](doc_src_img/chapter3/9.JPG "install runtime")
 
- 5. Click on the Download and install runtime link
+5.  Click on the Download and install runtime link
 
 ![select runtime](doc_src_img/chapter3/10.JPG "select runtime")
 
@@ -201,17 +211,16 @@ Select the latest version of WildFly, then click Next
 
 ![accept agreement](doc_src_img/chapter3/11.JPG "accept agreement")
 
- 7. Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
+7.  Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
 
 ![select path](doc_src_img/chapter3/12.JPG "select path")
 
- 8. Finally, select the path for where you wish your download and install locations to be found, then click Finish to complete the installation
-![path](doc_src_img/chapter3/13.JPG "path")
+8.  Finally, select the path for where you wish your download and install locations to be found, then click Finish to complete the installation
+    ![path](doc_src_img/chapter3/13.JPG "path")
 
- 9. Wait for Eclipse to complete the download and installation process before moving on to the next step
+9.  Wait for Eclipse to complete the download and installation process before moving on to the next step
 
 ![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
-
 
 #### 4.3 Add Repository in Eclipse
 
@@ -223,26 +232,26 @@ Select the latest version of WildFly, then click Next
 
 ### 4.7 List Views
 
-*  #### Patient List
+- #### Patient List
 
-*  #### Facility List
+- #### Facility List
 
-*  #### Assessments List
+- #### Assessments List
 
 ### 4.8 Edit Views, Layout, and Components
 
- * #### Patient Edit view
+- #### Patient Edit view
 
- * #### Facility Edit view
+- #### Facility Edit view
 
- * #### Assessment Edit view
+- #### Assessment Edit view
 
 ### 4.9 Roles
 
 ## 5. Java Extension
 
-* ####  Conditions
+- #### Conditions
 
-* #### Bizlets
+- #### Bizlets
 
-* #### Actions
+- #### Actions
