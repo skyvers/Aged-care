@@ -80,35 +80,45 @@ Now, I will take you step by step creation of application:
   ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
 
 ## 3. Collaboration
+
 Next, we need to Collaborate our application with github.
 To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help.
 Then follow the steps for collaboration.
 ![Collaboration](doc_src_img/Chapter2/1.jpg "Collaboration")
 
 #### Setup to Github
+
 To enable the collaboration, first of all Sign up or log into [Github](https://github.com/) account.
 To create a new repository follow the steps below:
-* Click on the plus icon on the top right side to create the new repository
-![Create repository](doc_src_img/Chapter2/2.jpg "Create reposistory")
-* Next, enter the name of the repository, make it private, and click on create
-![repository name](doc_src_img/Chapter2/3.jpg "repository name")
-* After creating repository, you will see the link as shown below, copy the link
-![Link](doc_src_img/Chapter2/4.jpg "Link")
-* Next, go to foundry, open the collaborate tab and paste the link in Remote Endpoint
-* Click on apply
-* Click on Save
-![remote endpoint](doc_src_img/Chapter2/5.jpg "remote endpoint")
-* Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
- ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
- * Next, check your project in Github
- * Go to Github, open repository to see all the files
+
+- Click on the plus icon on the top right side to create the new repository
+  ![Create repository](doc_src_img/Chapter2/2.jpg "Create reposistory")
+- Next, enter the name of the repository, make it private, and click on create
+  ![repository name](doc_src_img/Chapter2/3.jpg "repository name")
+- After creating repository, you will see the link as shown below, copy the link
+  ![Link](doc_src_img/Chapter2/4.jpg "Link")
+- Next, go to foundry, open the collaborate tab and paste the link in Remote Endpoint
+- Click on apply
+- Click on Save
+  ![remote endpoint](doc_src_img/Chapter2/5.jpg "remote endpoint")
+- Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
+  ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
+- Next, check your project in Github
+- Go to Github, open repository to see all the files
   ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
 
 This is the End of create and collaboration of the application...!
 
 ## 4. Import Project in Eclipse
 
-#### 4.1 Install Eclipse
+Before import your project in Eclipse, you need to download and install Eclipse in your system.
+
+#### 4.1 Download and Install Eclipse
+* Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
+
+* Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
+![Download Eclipse](doc_src_img/chapter3/1.jpg)
+* Click on download
 
 #### 4.2 Install and Configue Wildfly Server
 
