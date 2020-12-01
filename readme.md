@@ -148,59 +148,59 @@ Before installing WildFly Server, make sure JBoss Tools is installed on your sys
 
 To install JBoss Tools, click on Help, then click Eclipse Marketplace.
 
-![Jboss tool](doc_src_img/chapter3/2.jpg "Jboss tool")
+![Jboss tool](doc_src_img/chapter3/2.JPG "Jboss tool")
 
 In the searchbar, enter 'jboss' then search.
 
 Select the JBoss Tools version that the search returns, and click Install.
 
-![Jboss install](doc_src_img/chapter3/3.jpg "Jboss install")
+![Jboss install](doc_src_img/chapter3/3.JPG "Jboss install")
 
 To check if JBoss Tools is installed properly, click on Help, then click Eclipse Marketplace.
 
-![Jboss tool install](doc_src_img/chapter3/4.jpg "Jboss tool install")
+![Jboss tool install](doc_src_img/chapter3/4.JPG "Jboss tool install")
 
 Click Installed.
 
 If the JBoss Tools plugin is present, you are ready to continue.
 
-![Jboss tool plugin](doc_src_img/chapter3/5.jpg "Jboss tool plugin")
+![Jboss tool plugin](doc_src_img/chapter3/5.JPG "Jboss tool plugin")
 
 After JBoss Tools was installed properly, follow these steps to install WildFly Server.
 
   1. Once Eclipse is opened, right-click under the Package Explorer tab and highlight New, then from the pop-out, click on Server
-  ![server](doc_src_img/chapter3/6.jpg "server")
+  ![server](doc_src_img/chapter3/6.JPG "server")
 
  2. Select the WildFly version you wish to work with and click Next
 
-  ![select server](doc_src_img/chapter3/7.jpg "select server")
+  ![select server](doc_src_img/chapter3/7.JPG "select server")
 
  3. Click Next again
 
-![select Next](doc_src_img/chapter3/8.jpg "select Next")
+![select Next](doc_src_img/chapter3/8.JPG "select Next")
 
  4. Once more, click the Next button
 
-![install runtime](doc_src_img/chapter3/9.jpg "install runtime")
+![install runtime](doc_src_img/chapter3/9.JPG "install runtime")
 
  5. Click on the Download and install runtime link
 
-![select runtime](doc_src_img/chapter3/10.jpg "select runtime")
+![select runtime](doc_src_img/chapter3/10.JPG "select runtime")
 
 Select the latest version of WildFly, then click Next
 
-![accept agreement](doc_src_img/chapter3/11.jpg "accept agreement")
+![accept agreement](doc_src_img/chapter3/11.JPG "accept agreement")
 
  7. Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
 
-![select path](doc_src_img/chapter3/12.jpg "select path")
+![select path](doc_src_img/chapter3/12.JPG "select path")
 
  8. Finally, select the path for where you wish your download and install locations to be found, then click Finish to complete the installation
-![path](doc_src_img/chapter3/13.jpg "path")
+![path](doc_src_img/chapter3/13.JPG "path")
 
  9. Wait for Eclipse to complete the download and installation process before moving on to the next step
 
-![Downloading](doc_src_img/chapter3/14.jpg "Downloading")
+![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
 
 
 #### 4.3 Add Repository in Eclipse
