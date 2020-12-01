@@ -10,12 +10,12 @@ Before starting of this tutorial it is important to go through few questions bel
   - [Low code App]() using Skyve Foundry
   - [Low-code Extensions]()
 - [3. No-code Development]()
+    * [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
+    * [2. Create](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-create)
+    * [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
 - [4. Low-code Extensions]()
 - [5. Java Extensions]()
 
-- [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
-- [2. Create](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-create)
-- [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
 - [4. Import Project in Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#4-import-project-in-eclipse)
   - [4.1 Install Eclipse](https://github.com/seema-source/Aged-care/blob/master/readme.md#41--install-eclipse)
   - [4.2 Install and Configue Wildfly Server](https://github.com/seema-source/Aged-care/blob/master/readme.md#42--install-and-configue-wildfly-server)
@@ -36,7 +36,18 @@ Before starting of this tutorial it is important to go through few questions bel
 - [10. Bizlets](https://github.com/seema-source/Aged-care#10-bizlets)
 - [11. Actions](https://github.com/seema-source/Aged-care#11-actions)
 
-## 1. Getting Started
+
+# 1. Is This Tutorial Right For Me ?
+
+
+# 2. AgedCare App Overview
+  * [Functionality overview]()
+  - [Low code App]() using Skyve Foundry
+  - [Low-code Extensions]()
+
+# 3. No-code Development
+
+   ###  1. Getting Started
 
 Before continuing with our tutorial, there are some pages you may want to visit:
 
@@ -119,6 +130,7 @@ Before import your project in Eclipse, you need to download and install Eclipse 
 * Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
 ![Download Eclipse](doc_src_img/chapter3/1.jpg)
 * Click on download
+* Then, Install Eclipse in your system
 
 #### 4.2 Install and Configue Wildfly Server
 
