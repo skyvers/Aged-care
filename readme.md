@@ -81,9 +81,9 @@ Now, I will take you step by step creation of application:
 
 ## 3. Collaboration
 Next, we need to Collaborate our application with github.
-To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help
-Then follow the step for collaboration.
- ![Collaboration](doc_src_img/chapter2/1.jpg "Collaboration")
+To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help.
+Then follow the steps for collaboration.
+![Collaboration](doc_src_img/chapter2/1.jpg "Collaboration")
 
 #### Setup to Github
 To enable the collaboration, first of all Sign up or log into [Github](https://github.com/) account.
