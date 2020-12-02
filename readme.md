@@ -133,20 +133,21 @@ _*Attributes:*_ Attributes contain information about each document (e.g. Patient
 In this tutorial we have three documents:
 
 #### 1. Define Patient Document and its attributes:
-   The patient document will contain the personal information about the patient and the information about the facility they admitted.
+
+The patient document will contain the personal information about the patient and the information about the facility they admitted.
 
 Patient documents contain attributes below:
 
-| Attribute name | Data Type - length |
-| -------------- | ------------------ |
-| PatientID      | Text               |
-| Patient Name   | Text               |
-| Photo          | Image              |
-| DOB            | Date               |
-| Room Number    | Integer            |
-| BIO            | Memo               |
-| Admission Date | Date               |
-| Facility Name  | Associtate         |
+| Attribute name | Data Type  |
+| -------------- | ---------- |
+| PatientID      | Text       |
+| Patient Name   | Text       |
+| Photo          | Image      |
+| DOB            | Date       |
+| Room Number    | Integer    |
+| BIO            | Memo       |
+| Admission Date | Date       |
+| Facility Name  | Associtate |
 
 - Click on Data Design to add the Documents
 
@@ -155,6 +156,7 @@ Patient documents contain attributes below:
 - Add all information as shown below and click on Zoom out
 
   ![New Document](doc_src_img/chapter1/4.jpg "New Document")
+
 - You can see your document on screen.
 
 - Next, create documents for Facility and Assessments same as patient and click on arrow to add attributes for each document
@@ -164,12 +166,12 @@ Patient documents contain attributes below:
 - Click on Add button to add attributes to patient document
 
   ![Add attribute](doc_src_img/chapter1/6.jpg "Add attribute")
+
 - Add all the attributes for Patient, Facility, and Assessments as below
   ![Patient attributes](doc_src_img/chapter1/7.jpg "Patient attributes")
 
-
-  ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
-  ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
+![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
+![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
 
 ## 3. Collaboration
 
