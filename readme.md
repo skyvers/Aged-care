@@ -1,13 +1,17 @@
 # agedCare Application Tutorial
 
-Before starting of this tutorial it is important to go through few questions below:
+This tutorial will talk about how to create an advanced application through Enterprise Application Framework - [Skyve foundry](https://foundry.skyve.org/).
+
+In this tutorial, we will build a simple application to manage aged care facilities, their patients, and care assessments. We will also configure collaboration so that both non-coders and Java developers can collaborate and work together on the project.
+
+This project will cover the Skyve development process and its concepts as much as possible.
 
 ### Contents
 
 - [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
 - [2. AgedCare App Overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-agedcare-app-overview)
   - [Functionality overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#functionality-overview)
-  - [Low code App](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry) using Skyve Foundry
+  - [Low code App using Skyve Foundry](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry)
   - [Low-code Extensions](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-extensions)
 - [3. No-code Development](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-no-code-development)
   - [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
@@ -81,12 +85,11 @@ To create a new skyve project through foundry go to the [How to get started](htt
 
 Now, I will take you step by step creation of application:
 
-- Click on Add button
+- Click on the Add button
   ![Add Button](doc_src_img/chapter1/1.png "Add Button")
 - Enter the name of App and email address
   ![Name and Email](doc_src_img/chapter1/2.png "Name and Email")
-- Click on save
-  After that start build Data Design
+- Click on save, after that start build Data Design
 - Click on Data Design to add the Documents
   ![Data Design](doc_src_img/chapter1/3.jpg "Data Design")
 - Add all information as shown below and click on Zoom out
@@ -223,6 +226,13 @@ Select the latest version of WildFly, then click Next
 ![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
 
 #### 4.3 Add Repository in Eclipse
+
+After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
+
+1. Open the Eclipse in your system
+2. Click on window tab and click on show View, then other
+   ![Window](doc_src_img/chapter4/1.jpg "Window")
+3. Select Git Repositoies and click on open
 
 #### 4.4 Import Project
 
