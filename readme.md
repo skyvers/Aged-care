@@ -62,15 +62,15 @@ In this tutorial, we will build a simple application to manage aged care facilit
 
 This project will cover the Skyve development process and its concepts as much as possible.
 
-## 1. Aged Care Functionality overview
+### 2.1. Aged Care Functionality overview
 
 In Aged Care, Patients are regularly assessed to ensure that they are well and safe, and the care is being provided to them matches their needs. Therefore, Care providers record details of different Care Assessments for each Patient daily. These records are maintained both to prompt regular care activities and also for care management to be audited and checked.
 
 In this tutorial, you will create a simple app to maintain details of Aged Care facilities, Patients, and Care Assessments.
 
-## 2. No-code Development
+### 2.2. No-code Development
 
-## 3. Low-code Extension
+### 2.3. Low-code Extension
 
 # 3. No-code Development
 
