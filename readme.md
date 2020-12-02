@@ -1,11 +1,5 @@
 # agedCare Application Tutorial
 
-This tutorial will talk about how to create an advanced application through Enterprise Application Framework - [Skyve foundry](https://foundry.skyve.org/).
-
-In this tutorial, we will build a simple application to manage aged care facilities, their patients, and care assessments. We will also configure collaboration so that both non-coders and Java developers can collaborate and work together on the project.
-
-This project will cover the Skyve development process and its concepts as much as possible.
-
 ### Contents
 
 - [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
@@ -54,11 +48,28 @@ This project will cover the Skyve development process and its concepts as much a
 
 # 1. Is This Tutorial Right For Me ?
 
+- Tutorial Purpose
+- What We'll Cover
+- What You'll Get Out Of It
+- Skills You'll Need
+- Skills You'll Develop
+
 # 2. AgedCare App Overview
 
-- ### Functionality overview
-- ### Low code App using Skyve Foundry
-- ### Low-code Extensions
+This tutorial will talk about how to create an advanced application through the Enterprise Application Framework - [Skyve foundry](https://foundry.skyve.org/).
+
+In this tutorial, we will build a simple application to manage aged care facilities, their patients, and care assessments. We will also configure collaboration so that both non-coders and Java developers can collaborate and work together on the project.
+
+This project will cover the Skyve development process and its concepts as much as possible.
+
+## 1. Aged Care Functionality overview
+
+In Aged Care, there are hundreds of records we need to manage every day related to each patient and their facility. For example, patients have their personal information, care assessments, and the facility information where they are admitted.
+
+To keep a daily record of all this information, we built an Aged Care application that tracks all the information about the patient, their daily assessments, and the facilities.
+
+2. ### Low code App using Skyve Foundry
+3. ### Low-code Extensions
 
 # 3. No-code Development
 
