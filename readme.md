@@ -70,7 +70,15 @@ In this tutorial, you will create a simple app to maintain details of Aged Care 
 
 ### 2.2. No-code Development
 
+In the first part of our tutorial, we will cover the no-code development - a no-code application can be created using only the point-and-click actions in Skyve foundry.
+
+In this tutorial, we will build the Aged Care application step by step using Skyve Foundry covering the three main components of the application: Patient records, their daily Care Assessments, and the details of the Facility at which they reside.
+
+If your goal is limited to developing no-code applications using Foundry, you may wish to leave the tutorial at this point. Otherwise, we encourage you to proceed to the Low-code Extensions.
+
 ### 2.3. Low-code Extension
+
+### 2.4. Java Extension
 
 # 3. No-code Development
 
