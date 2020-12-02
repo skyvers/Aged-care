@@ -149,6 +149,8 @@ Patient documents contain attributes below:
 | Admission Date | Date       |
 | Facility Name  | Associtate |
 
+Now, we will create a Patient document and add attributes in Patient document in next few steps.
+
 - Click on Data Design to add the Documents
 
   ![Data Design](doc_src_img/chapter1/3.jpg "Data Design")
