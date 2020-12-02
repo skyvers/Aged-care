@@ -134,7 +134,7 @@ In this tutorial we have three documents:
 
 #### 1. Define Patient Document and it's attributes:
 
-The patient document will contain the personal information about the patient and the information about the facility they admitted.
+The patient document will contain the personal information about the patients and the information about the facility they admitted.
 
 Patient document contain attributes below:
 
@@ -169,8 +169,25 @@ Now, we will create a Patient document and add attributes in Patient document in
 
   ![Add attribute](doc_src_img/chapter1/6.jpg "Add attribute")
 
-- Add all the attributes for Patient, Facility, and Assessments as below
+- Add all the attributes for Patient document as below
   ![Patient attributes](doc_src_img/chapter1/7.jpg "Patient attributes")
+
+#### 2. Define Facility Document and it's attributes:
+
+The Facility document will contain information about the facility(e.g.facility name, facility manager), facility full address and location.
+
+The attributes for Facility document as below:
+
+| Attribute name   | Data Type |
+| ---------------- | --------- |
+| Facility Name    | Text      |
+| Building Number  | Integer   |
+| Street Name      | Text      |
+| Suburb           | Text      |
+| State            | Text      |
+| Facility manager | Associate |
+
+This document will follow the same steps we followed for Patient document. It will look like as below:
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
