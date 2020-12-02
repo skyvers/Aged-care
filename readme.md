@@ -132,11 +132,11 @@ _*Attributes:*_ Attributes contain information about each document (e.g. Patient
 
 In this tutorial we have three documents:
 
-#### 1. Define Patient Document and its attributes:
+#### 1. Define Patient Document and it's attributes:
 
 The patient document will contain the personal information about the patient and the information about the facility they admitted.
 
-Patient documents contain attributes below:
+Patient document contain attributes below:
 
 | Attribute name | Data Type  |
 | -------------- | ---------- |
