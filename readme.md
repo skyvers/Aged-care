@@ -96,7 +96,7 @@ In this part, we will extend the functionality of the agedCare application using
 
 In this section, we will go through the development of the agedCare application and will cover information about the Skyve framework and Skyve foundry in detail.
 
-This section also covers how to create and add different documents: Patient, Assessments, and Facility in the agedCare application and how to deploy an application in foundr
+This section also covers how to create and add different documents: Patient, Assessments, and Facility in the agedCare application and how to deploy an application in foundry.
 
 ### 1. Getting Started
 
@@ -132,7 +132,7 @@ _*Attributes:*_ Attributes contain information about each document (e.g. Patient
 
 In this tutorial we have three documents:
 
-1. Define Patient Document and its attributes:
+#### 1. Define Patient Document and its attributes:
    The patient document will contain the personal information about the patient and the information about the facility they admitted.
 
 Patient documents contain attributes below:
