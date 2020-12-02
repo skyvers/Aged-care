@@ -78,7 +78,19 @@ If your goal is limited to developing no-code applications using Foundry, you ma
 
 ### 2.3. Low-code Extension
 
+The second part of the tutorial will focus on Low code extension. In Low code extension, we can do some changes in XML files created by Skyve to extend the application functionality beyond point-and-click actions in Skyve foundry.
+
+In the next part of the tutorial, we will load our agedCare application created through Skyve foundry into an IDE- Integrated Development Environment (set of programming tools for writing an application). To extend its functionality using Skyve's Low code XML language.
+
+In this part of the tutorial, we will edit and change the layout to the Patient, Assessment, and Facility documents.
+
+If you believe that you already achieved what you want from this tutorial and you do not have java programming skills, you can leave the tutorial at this point. Otherwise, we encourage you to proceed to the Java Extensions.
+
 ### 2.4. Java Extension
+
+In the third part of our tutorial, we will cover the Java extension-add custom built java code into the Skyve application to make your application more powerful.
+
+In this part, we will extend the functionality of the agedCare application using java code. We will add a few conditions and actions using java in our application so that only particular users can access particular Assessments related to each Patient.
 
 # 3. No-code Development
 
