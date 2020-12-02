@@ -94,26 +94,27 @@ In this part, we will extend the functionality of the agedCare application using
 
 # 3. No-code Development
 
+In this section, we will go through the development of the agedCare application and will cover information about the Skyve framework and Skyve foundry in detail.
+
+This section also covers how to create and add different documents: Patient, Assessments, and Facility in the agedCare application and how to deploy an application in foundr
+
 ### 1. Getting Started
 
 Before continuing with our tutorial, there are some pages you may want to visit:
 
-- [What is Skyve?](https://skyve.org/what-is-skyve) - Will answer what [Skyve](https://skyve.org) is, and how it will be useful in your Enterprise Application Development.
+- [What is Skyve?](https://skyve.org/what-is-skyve) - Skyve is a framework used to build attractive, secure, and scalable application with rich features and mobility. For more detail what [Skyve](https://skyve.org) is, and how it will be useful in your Enterprise Application Development visit our [Skyve](https://skyve.org/) page.
 
 - [Getting Started](https://skyve.org/getting-started) - Will help give you some ideas on how to start with our [Skyve](https://skyve.org) Framework.
 
-- [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
-- [Skyve foundry](https://foundry.skyve.org/)-Will help you to learn about skyve foundry.
+- [Skyve foundry](https://foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve foundry.
 
 Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
 
-## 2. Create
+## 2. Create your app in Foundry
 
-To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started](https://foundry.skyve.org/foundry/register.xhtml)
+To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started](https://foundry.skyve.org/foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
 
-and if you are already register Sign in with your register email and password.
-
-To create a new skyve project through foundry go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve foundry page and watch the video to create new application.
+To create a new skyve project through foundry go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve foundry page and watch the video for more information about how to create new application.
 
 Now, I will take you step by step creation of application:
 
@@ -122,17 +123,51 @@ Now, I will take you step by step creation of application:
 - Enter the name of App and email address
   ![Name and Email](doc_src_img/chapter1/2.png "Name and Email")
 - Click on save, after that start build Data Design
+
+#### About Data design:
+
+_*Documents:*_ In data design, documents are related to the real business documents (e.g.patient, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
+
+_*Attributes:*_ Attributes contain information about each document (e.g. Patient's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
+
+In this tutorial we have three documents:
+
+1. Define Patient Document and its attributes:
+   The patient document will contain the personal information about the patient and the information about the facility they admitted.
+
+Patient documents contain attributes below:
+
+| Attribute name | Data Type - length |
+| -------------- | ------------------ |
+| PatientID      | Text               |
+| Patient Name   | Text               |
+| Photo          | Image              |
+| DOB            | Date               |
+| Room Number    | Integer            |
+| BIO            | Memo               |
+| Admission Date | Date               |
+| Facility Name  | Associtate         |
+
 - Click on Data Design to add the Documents
+
   ![Data Design](doc_src_img/chapter1/3.jpg "Data Design")
+
 - Add all information as shown below and click on Zoom out
+
   ![New Document](doc_src_img/chapter1/4.jpg "New Document")
 - You can see your document on screen.
+
 - Next, create documents for Facility and Assessments same as patient and click on arrow to add attributes for each document
+
   ![Documents and attributes](doc_src_img/chapter1/5.jpg "Documents and attributes")
+
 - Click on Add button to add attributes to patient document
+
   ![Add attribute](doc_src_img/chapter1/6.jpg "Add attribute")
 - Add all the attributes for Patient, Facility, and Assessments as below
   ![Patient attributes](doc_src_img/chapter1/7.jpg "Patient attributes")
+
+
   ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
   ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
 
@@ -167,6 +202,8 @@ To create a new repository follow the steps below:
 This is the End of create and collaboration of the application...!
 
 # 4. Low Code Extension
+
+[Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 
 ## 4.1 Configure your local environment
 
