@@ -64,12 +64,13 @@ This project will cover the Skyve development process and its concepts as much a
 
 ## 1. Aged Care Functionality overview
 
-In Aged Care, there are hundreds of records we need to manage every day related to each patient and their facility. For example, patients have their personal information, care assessments, and the facility information where they are admitted.
+In Aged Care, Patients are regularly assessed to ensure that they are well and safe, and the care is being provided to them matches their needs. Therefore, Care providers record details of different Care Assessments for each Patient daily. These records are maintained both to prompt regular care activities and also for care management to be audited and checked.
 
-To keep a daily record of all this information, we built an Aged Care application that tracks all the information about the patient, their daily assessments, and the facilities.
+In this tutorial, you will create a simple app to maintain details of Aged Care facilities, Patients, and Care Assessments.
 
-2. ### Low code App using Skyve Foundry
-3. ### Low-code Extensions
+## 2. No-code Development
+
+## 3. Low-code Extension
 
 # 3. No-code Development
 
