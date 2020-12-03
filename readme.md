@@ -1,9 +1,9 @@
-# agedCare Application Tutorial
+# Aged care Application Tutorial
 
 ### Contents
 
 - [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
-- [2. AgedCare App Overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-agedcare-app-overview)
+- [2. Aged care App Overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-Aged care-app-overview)
   - [Functionality overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#functionality-overview)
   - [Low code App using Skyve Foundry](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry)
   - [Low-code Extensions](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-extensions)
@@ -54,7 +54,7 @@
 - Skills You'll Need
 - Skills You'll Develop
 
-# 2. AgedCare App Overview
+# 2. Aged care App Overview
 
 This tutorial will talk about how to create an advanced application through the Enterprise Application Framework - [Skyve foundry](https://foundry.skyve.org/).
 
@@ -80,7 +80,7 @@ If your goal is limited to developing no-code applications using Foundry, you ma
 
 The second part of the tutorial will focus on Low code extension. In Low code extension, we can do some changes in XML files created by Skyve to extend the application functionality beyond point-and-click actions in Skyve foundry.
 
-In the next part of the tutorial, we will load our agedCare application created through Skyve foundry into an IDE- Integrated Development Environment (set of programming tools for writing an application). To extend its functionality using Skyve's Low code XML language.
+In the next part of the tutorial, we will load our Aged care application created through Skyve foundry into an IDE- Integrated Development Environment (set of programming tools for writing an application). To extend its functionality using Skyve's Low code XML language.
 
 In this part of the tutorial, we will edit and change the layout to the Patient, Assessment, and Facility documents.
 
@@ -90,13 +90,13 @@ If you believe that you already achieved what you want from this tutorial and yo
 
 In the third part of our tutorial, we will cover the Java extension-add custom built java code into the Skyve application to make your application more powerful.
 
-In this part, we will extend the functionality of the agedCare application using java code. We will add a few conditions and actions using java in our application so that only particular users can access particular Assessments related to each Patient.
+In this part, we will extend the functionality of the Aged care application using java code. We will add a few conditions and actions using java in our application so that only particular users can access particular Assessments related to each Patient.
 
 # 3. No-code Development
 
-In this section, we will go through the development of the agedCare application and will cover information about the Skyve framework and Skyve foundry in detail.
+In this section, we will go through the development of the Aged care application and will cover information about the Skyve framework and Skyve foundry in detail.
 
-This section also covers how to create and add different documents: Patient, Assessments, and Facility in the agedCare application and how to deploy an application in foundry.
+This section also covers how to create and add different documents: Patient, Assessments, and Facility in the Aged care application and how to deploy an application in foundry.
 
 ### 1. Getting Started
 
@@ -190,7 +190,51 @@ The attributes for Facility document as below:
 This document will follow the same steps we followed for Patient document. It will look like as below:
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
+
+#### 3. Define Assessments Document and it's attributes:
+
+The Assessment document will contain information about all the care assessments related to each patient.
+
+The attributes for Assessments document as below:
+
+| Attribute name        | Data Type |
+| --------------------- | --------- |
+| Hygiene Assessment    | Memo      |
+| Pain Assessment       | Memo      |
+| Continence Assessment | Memo      |
+| Sleep Assessment      | Memo      |
+| Behaviour Assessment  | Memo      |
+| Staff                 | Associate |
+
+Follow the same steps like Patient and Assessment documents. Assessment document look like as below.
+
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
+
+### Deploying your Aged care app
+
+Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
+
+There are following steps to deploy Aged care application as we created in foundry:
+
+1. Go to foundry and click on Aged care application
+
+![Deploy](doc_src_img/chapter4/1.jpg "Deploy")
+
+2. Click on Deloy tab and then click on Deploy, usually it take 2 minutes to deploy your application
+
+3. Next step is copy the deploy link and paste into a new brower tab
+
+   ![Deploy link](doc_src_img/chapter4/2.jpg "Deploy link")
+
+4. Log in with user "setup" and password "setup
+
+![SignIn](doc_src_img/chapter4/3.jpg "SignIn")
+
+Your application is ready to go...
+
+![app](doc_src_img/chapter4/4.jpg "app")
+
+Next, as i already mention after one hour we need to redeloy the application again for free trial version same as we have done in previously.
 
 ## 3. Collaboration
 
@@ -248,7 +292,7 @@ Before import your project in Eclipse, you need to download and install Eclipse 
 
 ## 4.2 Install and Configue Wildfly Server
 
-To run our agedCare application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
+To run our Aged care application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
 
 - ### Install Wildfly Server
   You can skip this step if WildFly Server is already installed on your system.
@@ -321,7 +365,7 @@ After downloading and installation of eclipse and server, the next step is add o
 
 1. Open the Eclipse in your system
 2. Click on window tab and click on show View, then other
-   ![Window](doc_src_img/chapter4/1.jpg "Window")
+   ![Window](doc_src_img/chapter5/1.jpg "Window")
 3. Select Git Repositoies and click on open
 
 #### 4.4 Import Project
