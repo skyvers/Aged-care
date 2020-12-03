@@ -209,7 +209,6 @@ The attributes for Assessments document as below:
 Follow the same steps like Patient and Assessment documents. Assessment document look like as below.
 
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
-
 ### Deploying your Aged care app
 
 Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
