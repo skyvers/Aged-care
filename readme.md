@@ -447,7 +447,65 @@ To run our project in server we need to set Server in Eclipse first.
 
 ![Server set](doc_src_img/chapter5/12.jpg "Server set")
 
-#### 4.6 Deploy and Configure Skyve Project
+## 4.6 Deploy and Configure Skyve Project
+
+#### Deploy your Skyve project
+
+Its easy to deploy your Skyve project to your WildFly Server.
+
+1. Open WildFly deployments folder Right-click on the server and click on Show In, then click on File Browser
+
+   ![Deploy](doc_src_img/chapter6/1.jpg "Deploy")
+
+2. Copy the agedCare.json and agedCare-ds.xml and paste in the deployments folder to the WildFly deployments folder that you opened in the previous step.
+
+   ![Copy file](doc_src_img/chapter6/2.jpg "Copy file")
+
+3. Open the File window and content folder which is in your root folder and create new folder with agedCare name
+
+   ![Content](doc_src_img/chapter6/3.jpg "Content")
+
+4. Open the agedCare.json file in the text editor
+
+   Go to Content section and directory to paste in the Content folder address which we created in previous step in json file.
+
+   ![json1](doc_src_img/chapter6/4.JPG "json1")
+
+   Go to the bottom of the file to change the identifier.
+
+   ![json2](doc_src_img/chapter6/5.JPG "json2")
+
+   If you want to change the username and password, you can change in bootstrap in this app it is not changed.
+
+   Lastly, save and close the file.
+
+5. Open agedCare-ds.xml file in the text editor
+
+   ![agedCare-ds](doc_src_img/chapter6/7.JPG "agedCare-ds")
+
+   Go to connection-url and replace ~ sign with content folder address and save the file.
+
+   ![agedCare-ds](doc_src_img/chapter6/8.JPG "agedCare-ds")
+
+#### Run your Aged care application
+
+Before running your project, we will need to generate the domain class first.
+
+![Generate domain](doc_src_img/chapter6/6.jpg "Generate domain")
+
+Right click on server and go to start button to start the server.
+
+![start server](doc_src_img/chapter6/9.jpg "start server")
+
+When you see the below info in your Console Window, agedCare was deployed and is running on your localhost server.
+
+![Console](doc_src_img/chapter6/10.jpg "Console server")
+
+If not, you may try to debug by yourself to find the source of the problem, or [Join Us On Slack](https://join.slack.com/t/skyveframework/shared_invite/enQtNDMwNTcyNzE0NzI2LWNjMTBlMTMzNTA4YzBlMzFhYzE0ZmRhOWIzMWViODY4ZTE1N2QzYWM1MTdlMTliNDIyYTBkOWZhZDAxOGQyYjQ) and ask any questions there. You will get support from the [Skyve](https://skyve.org) team or a community team member.
+
+Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup".
+
+![Aged care app](doc_src_img/chapter6/11.jpg "Aged care app")
 
 ### 4.7 List Views
 
