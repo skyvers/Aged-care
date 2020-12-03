@@ -237,7 +237,7 @@ Click on Aged care
 
 ![app](doc_src_img/chapter4/4.jpg "app")
 
-Click on Facility abd add button
+Click on Facility and then add button
 
 ![Facility](doc_src_img/chapter4/5.jpg "Facility")
 
@@ -252,6 +252,10 @@ Next, click on Assessments
 Add data in Assessments
 
 ![Assessments](doc_src_img/chapter4/8.jpg "Assessments")
+
+#### Making Changes and Re-Deploying
+
+Not completed yet!!!!!!
 
 Next, as i already mention after one hour we need to redeloy the application again for free trial version same as we have done in previously.
 
