@@ -3,7 +3,7 @@
 ### Contents
 
 - [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
-- [2. Aged care App Overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-Aged care-app-overview)
+- [2. Aged care App Overview](https://github.com/seema-source/Aged-care#2-aged-care-app-overview)
   - [Functionality overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#functionality-overview)
   - [Low code App using Skyve Foundry](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry)
   - [Low-code Extensions](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-extensions)
@@ -217,8 +217,7 @@ Our Aged care application is almost ready, now the next step is to deploying our
 There are following steps to deploy Aged care application as we created in foundry:
 
 1. Go to foundry and click on Aged care application
-
-![Deploy](doc_src_img/chapter4/1.jpg "Deploy")
+   ![Deploy](doc_src_img/chapter4/1.jpg "Deploy")
 
 2. Click on Deloy tab and then click on Deploy, usually it take 2 minutes to deploy your application
 
