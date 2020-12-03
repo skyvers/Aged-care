@@ -542,7 +542,9 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
     </query>
     </queries>
     ```
+
 Then you will need to provide `defaultQueryName` attribute to your patient document in `agedCare.xml` like below:
+
 
 ```xml
 <documents>
@@ -554,6 +556,7 @@ Then you will need to provide `defaultQueryName` attribute to your patient docum
         <document ref="User" moduleRef="admin"/>
     </documents>
 ```
+
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
 
