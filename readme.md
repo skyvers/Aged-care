@@ -209,6 +209,7 @@ The attributes for Assessments document as below:
 Follow the same steps like Patient and Assessment documents. Assessment document look like as below.
 
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
+
 ### Deploying your Aged care app
 
 Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
@@ -228,9 +229,29 @@ There are following steps to deploy Aged care application as we created in found
 
 ![SignIn](doc_src_img/chapter4/3.jpg "SignIn")
 
-Your application is ready to go...
+#### Using your Aged care app
+
+Your application is ready to go. See below how it look like...
+
+Click on Aged care
 
 ![app](doc_src_img/chapter4/4.jpg "app")
+
+Click on Facility abd add button
+
+![Facility](doc_src_img/chapter4/5.jpg "Facility")
+
+Enter the detail of facility in the fields
+
+![Facility field](doc_src_img/chapter4/6.jpg "Facility field")
+
+Next, click on Assessments
+
+![Assessments](doc_src_img/chapter4/7.jpg "Assessments")
+
+Add data in Assessments
+
+![Assessments](doc_src_img/chapter4/8.jpg "Assessments")
 
 Next, as i already mention after one hour we need to redeloy the application again for free trial version same as we have done in previously.
 
@@ -363,7 +384,9 @@ After downloading and installation of eclipse and server, the next step is add o
 
 1. Open the Eclipse in your system
 2. Click on window tab and click on show View, then other
+
    ![Window](doc_src_img/chapter5/1.jpg "Window")
+
 3. Select Git Repositoies and click on open
 
 #### 4.4 Import Project
