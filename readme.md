@@ -382,7 +382,7 @@ Select the latest version of WildFly, then click Next
 
 ![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
 
-#### 4.3 Add Repository in Eclipse
+## 4.3 Add Repository in Eclipse
 
 After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
 
@@ -413,13 +413,39 @@ After downloading and installation of eclipse and server, the next step is add o
 
 8. Click on Finish
 
-![Clone Finish](doc_src_img/chapter5/7.jpg "Clone Finish")
+   ![Clone Finish](doc_src_img/chapter5/7.jpg "Clone Finish")
 
 In Git Repositories, we can see our repository is added now!
 
-#### 4.4 Import Project
+## 4.4 Import Project
 
-#### 4.5 Set the server
+As we already created a project in Skyve foundry, now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
+
+1. Click on File tab in Eclipse and Select import
+
+   ![import](doc_src_img/chapter5/8.jpg "import")
+
+2. Select Exiting Maven Project form list and click on Next
+
+   ![Maven](doc_src_img/chapter5/9.jpg "Maven")
+
+3. Set your root directory (Folder where you want to save your application in your System) and click on Finish
+
+   ![Root](doc_src_img/chapter5/10.jpg "Root")
+
+You can see your project in Project Explorer area in Eclipse.
+
+## 4.5 Set the server
+
+To run our project in server we need to set Server in Eclipse first.
+
+1. Click on Server tab in Eclipse and right click
+
+![Server tab](doc_src_img/chapter5/11.jpg "Server tab")
+
+2. Click on Add and Remove and then Finish
+
+![Server set](doc_src_img/chapter5/12.jpg "Server set")
 
 #### 4.6 Deploy and Configure Skyve Project
 
