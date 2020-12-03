@@ -469,11 +469,11 @@ Its easy to deploy your Skyve project to your WildFly Server.
 
    Go to Content section and directory to paste in the Content folder address which we created in previous step in json file.
 
-   ![json1](doc_src_img/chapter6/4.JPG "json1")
+   ![json1](doc_src_img/chapter6/4.jpg "json1")
 
    Go to the bottom of the file to change the identifier.
 
-   ![json2](doc_src_img/chapter6/5.JPG "json2")
+   ![json2](doc_src_img/chapter6/5.jpg "json2")
 
    If you want to change the username and password, you can change in bootstrap in this app it is not changed.
 
@@ -481,11 +481,11 @@ Its easy to deploy your Skyve project to your WildFly Server.
 
 5. Open agedCare-ds.xml file in the text editor
 
-   ![agedCare-ds](doc_src_img/chapter6/7.JPG "agedCare-ds")
+   ![agedCare-ds](doc_src_img/chapter6/7.jpg "agedCare-ds")
 
    Go to connection-url and replace ~ sign with content folder address and save the file.
 
-   ![agedCare-ds](doc_src_img/chapter6/8.JPG "agedCare-ds")
+   ![agedCare-ds](doc_src_img/chapter6/8.jpg "agedCare-ds")
 
 #### Run your Aged care application
 
@@ -499,7 +499,7 @@ Right click on server and go to start button to start the server.
 
 When you see the below info in your Console Window, agedCare was deployed and is running on your localhost server.
 
-![Console](doc_src_img/chapter6/10.jpg "Console server")
+![Console](doc_src_img/chapter6/10.JPG "Console server")
 
 If not, you may try to debug by yourself to find the source of the problem, or [Join Us On Slack](https://join.slack.com/t/skyveframework/shared_invite/enQtNDMwNTcyNzE0NzI2LWNjMTBlMTMzNTA4YzBlMzFhYzE0ZmRhOWIzMWViODY4ZTE1N2QzYWM1MTdlMTliNDIyYTBkOWZhZDAxOGQyYjQ) and ask any questions there. You will get support from the [Skyve](https://skyve.org) team or a community team member.
 
