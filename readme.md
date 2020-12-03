@@ -393,27 +393,27 @@ After downloading and installation of eclipse and server, the next step is add o
 
 3. Select Git Repositoies and click on open
 
-   ![Git](doc_src_img/chapter5/2.JPG "Git")
+   ![Git](doc_src_img/chapter5/2.jpg "Git")
 
 4. Click on Git Repositories in bottom area of eclipse, right click and select clone a Git Repostory...
 
-![Git clone](doc_src_img/chapter5/3.JPG "Git clone")
+![Git clone](doc_src_img/chapter5/3.jpg "Git clone")
 
 5. Get URL from Github, go to Github and click on Code button.
 
-![Git URL](doc_src_img/chapter5/4.JPG "Git URL")
+![Git URL](doc_src_img/chapter5/4.jpg "Git URL")
 
 6. Copy that link and paste in Clone window and click on Next
 
-   ![Clone Window](doc_src_img/chapter5/5.JPG "Clone Window")
+   ![Clone Window](doc_src_img/chapter5/5.jpg "Clone Window")
 
 7. Click on Next again
 
-   ![Clone Next](doc_src_img/chapter5/6.JPG "Clone Next")
+   ![Clone Next](doc_src_img/chapter5/6.jpg "Clone Next")
 
 8. Click on Finish
 
-![Clone Finish](doc_src_img/chapter5/7.JPG "Clone Finish")
+![Clone Finish](doc_src_img/chapter5/7.jpg "Clone Finish")
 
 In Git Repositories, we can see our repository is added now!
 
