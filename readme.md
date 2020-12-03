@@ -507,9 +507,56 @@ Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in
 
 ![Aged care app](doc_src_img/chapter6/11.jpg "Aged care app")
 
-### 4.7 List Views
+## 4.7 List Views
+
+In most of application data is represented in list and detail views. Skyve also capable to provide each type of view.
+
+Skyve will provide generic/default list and edit views. Skyve supports rapid prototyping of the domain model and gives the developer an ability to begin interacting with the application at an early stage.
+
+List views are basically depend on queries which include only key document attributes for searching and review. Each row of the list corresponds to a document instance however the list may represent data from related documents within the document’s object hierarchy.
 
 - #### Patient List
+
+Lets see our `Patient` list, it shows all the information we define in our document's attributes section.
+
+Hide attributes `admission date` and `patient Id` in the `Patient` documents
+
+Open agedCare.xml
+
+Right after the Menu declaration in agedCare.xml, we will declare Queries like below:
+
+````xml
+<queries>
+    <query documentName="Patient" name="qPatient">
+    <description>All Patient</description>
+    <columns>
+   		<content display="thumbnail" binding="photo" pixelHeight="45" pixelWidth="45" />
+    	<column binding="patientID" sortOrder="ascending" hidden="true" />
+    	<column binding="patientName" sortOrder="ascending" />
+    	<column binding="DOB" sortOrder="ascending" />
+    	<column binding="roomNo" sortOrder="ascending" />
+    	<column binding="BIO" sortOrder="ascending" />
+    	<column binding="admissionDate" sortOrder="ascending" hidden="true" />
+    	<column binding="facilityName.facilityName" sortOrder="ascending" />
+    </columns>
+    </query>
+    </queries>
+    ```
+Then you will need to provide `defaultQueryName` attribute to your patient document in `agedCare.xml` like below:
+
+```xml
+<documents>
+        <document ref="Patient" defaultQueryName="qPatient"/>
+        <document ref="Facility"/>
+        <document ref="Assessment"/>
+        <document ref="Contact" moduleRef="admin"/>
+        <document ref="DataGroup" moduleRef="admin"/>
+        <document ref="User" moduleRef="admin"/>
+    </documents>
+```
+To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
+
+
 
 - #### Facility List
 
@@ -532,3 +579,4 @@ Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in
 - #### Bizlets
 
 - #### Actions
+````
