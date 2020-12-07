@@ -605,7 +605,7 @@ Then you will need to provide `defaultQueryName` attribute to your facility docu
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
-![Facility list](doc_src_img/chapter7/1.JPG "Facility list")
+![Facility list](doc_src_img/chapter7/1.jpg "Facility list")
 
 - #### Assessments List
 
