@@ -525,7 +525,7 @@ Open agedCare.xml
 
 Right after the Menu declaration in agedCare.xml, we will declare Queries like below:
 
-````xml
+```xml
 <queries>
     <query documentName="Patient" name="qPatient">
     <description>All Patient</description>
@@ -541,11 +541,10 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
     </columns>
     </query>
     </queries>
-    
-````
+
+```
 
 Then you will need to provide `defaultQueryName` attribute to your patient document in `agedCare.xml` like below:
-
 
 ```xml
 <documents>
@@ -556,17 +555,99 @@ Then you will need to provide `defaultQueryName` attribute to your patient docum
         <document ref="DataGroup" moduleRef="admin"/>
         <document ref="User" moduleRef="admin"/>
     </documents>
-    
-    
+
+
 ```
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
-
+## Image for patient.
 
 - #### Facility List
 
+Next, Lets see our `Facility` list now, it shows all the information we define in our document's attributes section.
+
+Hide attributes `Location` and `Facility Manager` in the `Facility` documents
+
+Open agedCare.xml
+
+Right after the Menu declaration in agedCare.xml, we will declare Queries like below:
+
+```xml
+<query documentName="Facility" name="qFacility">
+			<description>All Facilities</description>
+			<columns>
+				<column binding="facilityName" sortOrder="ascending" />
+				<column binding="buildingNumber" sortOrder="ascending" />
+				<column binding="streetName" sortOrder="ascending" />
+				<column binding="suburb" sortOrder="ascending" />
+				<column binding="state" sortOrder="ascending" />
+				<column binding="facilityManager" sortOrder="ascending"
+					hidden="true" />
+				<column binding="location" sortOrder="ascending"
+					hidden="true" />
+			</columns>
+		</query>
+```
+
+Then you will need to provide `defaultQueryName` attribute to your facility document in `agedCare.xml` like below:
+
+```xml
+<documents>
+		<document ref="Patient" defaultQueryName="qPatient" />
+		<document ref="Facility" defaultQueryName="qFacility" />
+		<document ref="Assessment" />
+		<document ref="Contact" moduleRef="admin" />
+		<document ref="DataGroup" moduleRef="admin" />
+		<document ref="User" moduleRef="admin" />
+	</documents>
+```
+
+To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
+
+![Facility list](doc_src_img/chapter7/1.JPG "Facility list")
+
 - #### Assessments List
+
+As in `Assessment` document, you can see different assessments related to each patient.
+Let's hide `Pain assessement` and `Review date` from the document and add patient name and image.
+
+Let's try it:
+Add query in your `agedCare.xml`
+
+```xml
+<query documentName="Assessment" name="qAssessment">
+    <description>All Assessments</description>
+    <columns>
+    	<content display="thumbnail" binding="parent.photo" pixelHeight="60" pixelWidth="60" />
+    	<column binding="parent.patientName" sortOrder="ascending" />
+    	<column binding="hygieneAssessment" sortOrder="ascending" />
+    	<column binding="painAssessment" sortOrder="ascending"   hidden="true"/>
+    	<column binding="continenceAssessment" sortOrder="ascending" />
+    	<column binding="sleepAssessment" sortOrder="ascending" />
+    	<column binding="behaviourAssessment" sortOrder="ascending" hidden="true" />
+    	<column binding="staff" sortOrder="ascending" />
+    	<column binding="assessmentReview" sortOrder="ascending" hidden="true" />
+    </columns>
+    </query>
+```
+
+Then you will need to provide `defaultQueryName` attribute to your Assessment document in `agedCare.xml`, like below:
+
+```xml
+<documents>
+        <document ref="Patient" defaultQueryName="qPatient"/>
+        <document ref="Facility"  defaultQueryName="qFacility"/>
+        <document ref="Assessment"  defaultQueryName="qAssessment"/>
+        <document ref="Contact" moduleRef="admin"/>
+        <document ref="DataGroup" moduleRef="admin"/>
+        <document ref="User" moduleRef="admin"/>
+    </documents>
+```
+
+Again, to apply the change, stop the WildFly server and run the Generate Domain command, then start the WildFly Server.
+
+![Assessment list](doc_src_img/chapter7/2.jpg "Assessment list")
 
 ### 4.8 Edit Views, Layout, and Components
 
@@ -585,4 +666,7 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 - #### Bizlets
 
 - #### Actions
-````
+
+```
+
+```
