@@ -1544,7 +1544,65 @@ return super.newInstance(bean);
 
 By using this code, we set the patientId for our new document.
 
+#### presave() method
+
+In next few steps, we will see how we can use the `presave()` method.
+In previous step we created a `newInstance` method. Now,
+I want you to change the Bizlet and use the preSave() method instead of newInstance() as follows:
+
+- When we SAVE the patient record, check if the patientId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for new instance)
+- Add a condition to the Patient.xml called `hasID` which checks if `bean.getPatientId()!=null`
+- Only show the `patientID` field in the Patient view, if the `hasID` condition is true
+
+1. In first step, go to `patientBizlet.java` and add new Bizlet
+   go to source > override and implement method and select presave() from list and click on `Ok`
+
+![presave](doc_src_img/chapter9/7.jpg "presave")
+
+2. Add code in the `presave()` method as below
+
+![code presave](doc_src_img/chapter9/8.jpg "code presave")
+
+3. Next, add condition to the `Patient.xml` called `hasID` which checks if `bean.getPatiendId()!=null`
+4. Opem `Patient.xml`, and add condition after `attributes` as below
+
+```xml
+<conditions>
+		<condition name="hasID">
+			<expression><![CDATA[getPatientID()!=null]]></expression>
+
+		</condition>
+	</conditions>
+```
+
+5. To show the `patientID` field in the Patient view, if the `hasID` condition is true, open `_patientInfo.xml`
+
+6. Then, change PatientID field as below:
+
+```xml
+<row>
+			<item>
+				<textField disabled="true" visible="hasID"
+					binding="patientID" />
+			</item>
+		</row>
+
+```
+
+To see the changes, generate domain and deployed application.
+Sign in as a manager, and go to add new patient there is no patient id but it will generate when you save all other details.
+
+![patient document](doc_src_img/chapter9/9.jpg "patient document")
+
+After filling all the details, press on the save button then you see it generate the PatientID field to the document.
+
+![patient document Id](doc_src_img/chapter9/10.jpg "patient document Id")
+
 - #### Actions
+
+```
+
+```
 
 ```
 
