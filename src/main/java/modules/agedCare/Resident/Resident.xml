@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document xmlns="http://www.skyve.org/xml/document"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Patient"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Resident"
 	xsi:schemaLocation="http://www.skyve.org/xml/document ../../../schemas/document.xsd">
-	<persistent name="AGE_Patient" />
-	<singularAlias>Patient</singularAlias>
-	<pluralAlias>Patients</pluralAlias>
+	<persistent name="AGE_Resident" />
+	<singularAlias>Resident</singularAlias>
+	<pluralAlias>Residents</pluralAlias>
 	<iconStyleClass>fa fa-user</iconStyleClass>
-	<description><![CDATA[Details of the patient admitted to the facility.]]></description>
-	<bizKey expression="Patient - {patientID}" />
+	<description><![CDATA[Details of the resident admitted to the facility.]]></description>
+	<bizKey expression="Resident - {residentID}" />
 	<attributes>
-		<text required="true" name="patientID">
-			<displayName>Patient ID</displayName>
+		<text required="true" name="residentID">
+			<displayName>Resident ID</displayName>
 			<length>100</length>
 		</text>
-		<text required="true" name="patientName">
-			<displayName>Patient Name</displayName>
+		<text required="true" name="residentName">
+			<displayName>Resident Name</displayName>
 			<length>500</length>
 		</text>
 		<image required="true" name="photo">
@@ -42,8 +42,8 @@
 			<minCardinality>0</minCardinality>
 			<ordering />
 		</collection>
-		<enum name="patientStatus">
-			<displayName>Patient Status</displayName>
+		<enum name="residentStatus">
+			<displayName>Resident Status</displayName>
 			<defaultValue>current</defaultValue>
 			<values>
 				<value code="Current" />
@@ -54,7 +54,7 @@
 	</attributes>
 	<conditions>
 		<condition name="hasID">
-			<expression><![CDATA[getPatientID()!=null]]></expression>
+			<expression><![CDATA[getResidentID()!=null]]></expression>
 
 		</condition>
 	</conditions>

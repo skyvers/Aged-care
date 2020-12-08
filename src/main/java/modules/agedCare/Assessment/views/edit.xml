@@ -7,7 +7,7 @@
 	<hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
-			<component name="_patientInfo" />
+			<component name="_residentInfo" />
 			<component name="_reviewDetail" />
 
 		</vbox>

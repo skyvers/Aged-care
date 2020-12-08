@@ -20,7 +20,7 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<many-to-one name="parent" entity-name="agedCarePatient" column="parent_id" insert="false" update="false" foreign-key="FK_AGE_Assessment_parent" />
+		<many-to-one name="parent" entity-name="agedCareResident" column="parent_id" insert="false" update="false" foreign-key="FK_AGE_Assessment_parent" />
 		<property name="hygieneAssessment" type="text" />
 		<property name="painAssessment" type="text" />
 		<property name="continenceAssessment" type="text" />
@@ -58,7 +58,7 @@
 		<filter name="agedCareFacilityUserIdFilter" condition="bizUserId=:userIdParam"/>
 	</class>
 
-	<class name="modules.agedCare.domain.Patient" table="AGE_Patient" entity-name="agedCarePatient">
+	<class name="modules.agedCare.domain.Resident" table="AGE_Resident" entity-name="agedCareResident">
 		<id name="bizId" length="36" />
 		<version name="bizVersion" unsaved-value="null" />
 		<property name="bizLock" type="OptimisticLock" length="271" not-null="true" />
@@ -67,27 +67,27 @@
 		<property name="bizFlagComment" length="1024" />
 		<property name="bizDataGroupId" length="36" />
 		<property name="bizUserId" length="36" not-null="true" />
-		<property name="patientID" length="100" />
-		<property name="patientName" length="500" />
+		<property name="residentID" length="100" />
+		<property name="residentName" length="500" />
 		<property name="photo" length="36" />
 		<property name="DOB" type="DateOnly" />
 		<property name="roomNo" />
 		<property name="BIO" type="text" />
 		<property name="admissionDate" type="DateOnly" />
-		<many-to-one name="facilityName" entity-name="agedCareFacility" column="facilityName_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Patient_facilityName"/>
+		<many-to-one name="facilityName" entity-name="agedCareFacility" column="facilityName_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Resident_facilityName"/>
 		<bag name="assessments" cascade="all-delete-orphan">
 			<key column="parent_id" />
 			<one-to-many entity-name="agedCareAssessment" />
 		</bag>
-		<property name="patientStatus" length="10">
+		<property name="residentStatus" length="10">
 			<type name="Enum">
-				<param name="enumClass">modules.agedCare.domain.Patient$PatientStatus</param>
+				<param name="enumClass">modules.agedCare.domain.Resident$ResidentStatus</param>
 			</type>
 		</property>
-		<filter name="agedCarePatientNoneFilter" condition="1=0"/>
-		<filter name="agedCarePatientCustomerFilter" condition="bizCustomer=:customerParam"/>
-		<filter name="agedCarePatientDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
-		<filter name="agedCarePatientUserIdFilter" condition="bizUserId=:userIdParam"/>
+		<filter name="agedCareResidentNoneFilter" condition="1=0"/>
+		<filter name="agedCareResidentCustomerFilter" condition="bizCustomer=:customerParam"/>
+		<filter name="agedCareResidentDataGroupIdFilter" condition="bizDataGroupId=:dataGroupIdParam"/>
+		<filter name="agedCareResidentUserIdFilter" condition="bizUserId=:userIdParam"/>
 	</class>
 
 	<filter-def name="agedCareAssessmentNoneFilter" />
@@ -110,14 +110,14 @@
 	<filter-def name="agedCareFacilityUserIdFilter">
 		<filter-param name="userIdParam" type="string"/>
 	</filter-def>
-	<filter-def name="agedCarePatientNoneFilter" />
-	<filter-def name="agedCarePatientCustomerFilter">
+	<filter-def name="agedCareResidentNoneFilter" />
+	<filter-def name="agedCareResidentCustomerFilter">
 		<filter-param name="customerParam" type="string"/>
 	</filter-def>
-	<filter-def name="agedCarePatientDataGroupIdFilter">
+	<filter-def name="agedCareResidentDataGroupIdFilter">
 		<filter-param name="dataGroupIdParam" type="string"/>
 	</filter-def>
-	<filter-def name="agedCarePatientUserIdFilter">
+	<filter-def name="agedCareResidentUserIdFilter">
 		<filter-param name="userIdParam" type="string"/>
 	</filter-def>
 </hibernate-mapping>

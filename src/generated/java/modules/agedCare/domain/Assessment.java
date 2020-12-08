@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.admin.User.UserExtension;
-import modules.agedCare.domain.Patient;
+import modules.agedCare.domain.Resident;
 import org.skyve.CORE;
 import org.skyve.domain.Bean;
 import org.skyve.domain.ChildBean;
@@ -19,7 +19,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 /**
  * Assessment
  * <br/>
- * Detail of all the treatment for the patient.
+ * Detail of all the treatment for the resident.
  * 
  * @navhas n nurse 0..1 User
  * @navhas n staff 0..1 User
@@ -27,7 +27,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
  */
 @XmlType
 @XmlRootElement
-public class Assessment extends AbstractPersistentBean implements ChildBean<Patient> {
+public class Assessment extends AbstractPersistentBean implements ChildBean<Resident> {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -98,7 +98,7 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Pati
 	 * Assessment Created Time
 	 **/
 	private DateTime assessmentCreatedTime;
-	private Patient parent;
+	private Resident parent;
 
 	private Integer bizOrdinal;
 
@@ -334,13 +334,13 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Pati
 	}
 
 	@Override
-	public Patient getParent() {
+	public Resident getParent() {
 		return parent;
 	}
 
 	@Override
 	@XmlElement
-	public void setParent(Patient parent) {
+	public void setParent(Resident parent) {
 		if (this.parent != parent) {
 			preset(ChildBean.PARENT_NAME, parent);
 			this.parent = parent;

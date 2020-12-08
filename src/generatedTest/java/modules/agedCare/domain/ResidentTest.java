@@ -8,12 +8,12 @@ import util.AbstractDomainTest;
  * Generated - local changes will be overwritten.
  * Extend {@link AbstractDomainTest} to create your own tests for this document.
  */
-public class PatientTest extends AbstractDomainTest<Patient> {
+public class ResidentTest extends AbstractDomainTest<Resident> {
 
 	@Override
-	protected Patient getBean() throws Exception {
+	protected Resident getBean() throws Exception {
 		return new DataBuilder()
 			.fixture(FixtureType.crud)
-			.build(Patient.MODULE_NAME, Patient.DOCUMENT_NAME);
+			.build(Resident.MODULE_NAME, Resident.DOCUMENT_NAME);
 	}
 }

@@ -19,18 +19,18 @@ import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
 
 /**
- * Patient
+ * Resident
  * <br/>
- * Details of the patient admitted to the facility.
+ * Details of the resident admitted to the facility.
  * 
- * @depend - - - PatientStatus
+ * @depend - - - ResidentStatus
  * @navcomposed 1 assessments 0..n Assessment
  * @navhas n facilityName 0..1 Facility
  * @stereotype "persistent"
  */
 @XmlType
 @XmlRootElement
-public class Patient extends AbstractPersistentBean {
+public class Resident extends AbstractPersistentBean {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -40,12 +40,12 @@ public class Patient extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String MODULE_NAME = "agedCare";
 	/** @hidden */
-	public static final String DOCUMENT_NAME = "Patient";
+	public static final String DOCUMENT_NAME = "Resident";
 
 	/** @hidden */
-	public static final String patientIDPropertyName = "patientID";
+	public static final String residentIDPropertyName = "residentID";
 	/** @hidden */
-	public static final String patientNamePropertyName = "patientName";
+	public static final String residentNamePropertyName = "residentName";
 	/** @hidden */
 	public static final String photoPropertyName = "photo";
 	/** @hidden */
@@ -61,13 +61,13 @@ public class Patient extends AbstractPersistentBean {
 	/** @hidden */
 	public static final String assessmentsPropertyName = "assessments";
 	/** @hidden */
-	public static final String patientStatusPropertyName = "patientStatus";
+	public static final String residentStatusPropertyName = "residentStatus";
 
 	/**
-	 * Patient Status
+	 * Resident Status
 	 **/
 	@XmlEnum
-	public static enum PatientStatus implements Enumeration {
+	public static enum ResidentStatus implements Enumeration {
 		current("Current", "Current"),
 		discharged("Discharged", "Discharged"),
 		deceased("Deceased", "Deceased");
@@ -81,7 +81,7 @@ public class Patient extends AbstractPersistentBean {
 		/** @hidden */
 		private static List<DomainValue> domainValues;
 
-		private PatientStatus(String code, String description) {
+		private ResidentStatus(String code, String description) {
 			this.code = code;
 			this.description = description;
 			this.domainValue = new DomainValue(code, description);
@@ -102,10 +102,10 @@ public class Patient extends AbstractPersistentBean {
 			return domainValue;
 		}
 
-		public static PatientStatus fromCode(String code) {
-			PatientStatus result = null;
+		public static ResidentStatus fromCode(String code) {
+			ResidentStatus result = null;
 
-			for (PatientStatus value : values()) {
+			for (ResidentStatus value : values()) {
 				if (value.code.equals(code)) {
 					result = value;
 					break;
@@ -115,10 +115,10 @@ public class Patient extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static PatientStatus fromDescription(String description) {
-			PatientStatus result = null;
+		public static ResidentStatus fromDescription(String description) {
+			ResidentStatus result = null;
 
-			for (PatientStatus value : values()) {
+			for (ResidentStatus value : values()) {
 				if (value.description.equals(description)) {
 					result = value;
 					break;
@@ -130,9 +130,9 @@ public class Patient extends AbstractPersistentBean {
 
 		public static List<DomainValue> toDomainValues() {
 			if (domainValues == null) {
-				PatientStatus[] values = values();
+				ResidentStatus[] values = values();
 				domainValues = new ArrayList<>(values.length);
-				for (PatientStatus value : values) {
+				for (ResidentStatus value : values) {
 					domainValues.add(value.domainValue);
 				}
 			}
@@ -142,13 +142,13 @@ public class Patient extends AbstractPersistentBean {
 	}
 
 	/**
-	 * Patient ID
+	 * Resident ID
 	 **/
-	private String patientID;
+	private String residentID;
 	/**
-	 * Patient Name
+	 * Resident Name
 	 **/
-	private String patientName;
+	private String residentName;
 	/**
 	 * Photo
 	 **/
@@ -178,23 +178,23 @@ public class Patient extends AbstractPersistentBean {
 	 **/
 	private List<Assessment> assessments = new ChangeTrackingArrayList<>("assessments", this);
 	/**
-	 * Patient Status
+	 * Resident Status
 	 **/
-	private PatientStatus patientStatus = PatientStatus.current;
+	private ResidentStatus residentStatus = ResidentStatus.current;
 
 	@Override
 	@XmlTransient
 	public String getBizModule() {
-		return Patient.MODULE_NAME;
+		return Resident.MODULE_NAME;
 	}
 
 	@Override
 	@XmlTransient
 	public String getBizDocument() {
-		return Patient.DOCUMENT_NAME;
+		return Resident.DOCUMENT_NAME;
 	}
 
-	public static Patient newInstance() {
+	public static Resident newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -210,7 +210,7 @@ public class Patient extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("Patient - {patientID}", this);
+			return org.skyve.util.Binder.formatMessage("Resident - {residentID}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
@@ -219,44 +219,44 @@ public class Patient extends AbstractPersistentBean {
 
 	@Override
 	public boolean equals(Object o) {
-		return ((o instanceof Patient) && 
-					this.getBizId().equals(((Patient) o).getBizId()));
+		return ((o instanceof Resident) && 
+					this.getBizId().equals(((Resident) o).getBizId()));
 	}
 
 	/**
-	 * {@link #patientID} accessor.
+	 * {@link #residentID} accessor.
 	 * @return	The value.
 	 **/
-	public String getPatientID() {
-		return patientID;
+	public String getResidentID() {
+		return residentID;
 	}
 
 	/**
-	 * {@link #patientID} mutator.
-	 * @param patientID	The new value.
+	 * {@link #residentID} mutator.
+	 * @param residentID	The new value.
 	 **/
 	@XmlElement
-	public void setPatientID(String patientID) {
-		preset(patientIDPropertyName, patientID);
-		this.patientID = patientID;
+	public void setResidentID(String residentID) {
+		preset(residentIDPropertyName, residentID);
+		this.residentID = residentID;
 	}
 
 	/**
-	 * {@link #patientName} accessor.
+	 * {@link #residentName} accessor.
 	 * @return	The value.
 	 **/
-	public String getPatientName() {
-		return patientName;
+	public String getResidentName() {
+		return residentName;
 	}
 
 	/**
-	 * {@link #patientName} mutator.
-	 * @param patientName	The new value.
+	 * {@link #residentName} mutator.
+	 * @param residentName	The new value.
 	 **/
 	@XmlElement
-	public void setPatientName(String patientName) {
-		preset(patientNamePropertyName, patientName);
-		this.patientName = patientName;
+	public void setResidentName(String residentName) {
+		preset(residentNamePropertyName, residentName);
+		this.residentName = residentName;
 	}
 
 	/**
@@ -441,21 +441,21 @@ public class Patient extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #patientStatus} accessor.
+	 * {@link #residentStatus} accessor.
 	 * @return	The value.
 	 **/
-	public PatientStatus getPatientStatus() {
-		return patientStatus;
+	public ResidentStatus getResidentStatus() {
+		return residentStatus;
 	}
 
 	/**
-	 * {@link #patientStatus} mutator.
-	 * @param patientStatus	The new value.
+	 * {@link #residentStatus} mutator.
+	 * @param residentStatus	The new value.
 	 **/
 	@XmlElement
-	public void setPatientStatus(PatientStatus patientStatus) {
-		preset(patientStatusPropertyName, patientStatus);
-		this.patientStatus = patientStatus;
+	public void setResidentStatus(ResidentStatus residentStatus) {
+		preset(residentStatusPropertyName, residentStatus);
+		this.residentStatus = residentStatus;
 	}
 
 	/**
@@ -465,7 +465,7 @@ public class Patient extends AbstractPersistentBean {
 	 */
 	@XmlTransient
 	public boolean isHasID() {
-		return (getPatientID()!=null);
+		return (getResidentID()!=null);
 	}
 
 	/**
