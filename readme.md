@@ -1415,6 +1415,7 @@ End of section 4!!!
 ## 5. Java Extension
 
 Before start conditions section, let's create Groups and Users in the application.
+For more detail click on link for adding users and groups: https://skyvers.github.io/skyve-user-guide/users/
 
 Go to the application and create group for carer, nurse, manager as below:
 Open Admin>Security Admin>Groups
@@ -1465,11 +1466,37 @@ Carer login page shown below:
 
 ![Carer login page](doc_src_img/chapter8/8.jpg "Carer login page")
 
-If you want to check Nurse and Manager, login as the user name and password set for them.
+If you want to check Nurse and Manager, login as their user name and password.
 
 - #### Conditions
 
-* #### Bizlets
+In `Assessment` document, when we login as a carer, we can not see, we can not see few assessments such as `Pain assessment` and `Behaviour assessment`. This can be achieved through further usage of conditions. In particular, we can have a condition to determine the visibility of some specified attributes on the screen. To begin with, we define the condition in the `Assessment.xml`. We will define this condition as follows:
+
+```xml
+<conditions>
+    <condition name="roleCarer">
+    <expression><![CDATA[isUserInRole("agedCare", "Carers")]]></expression>
+    </condition>
+    </conditions>
+```
+
+To see the changes we also need to change the visibility of the assessments as below:
+
+Open the `assessmentDetail.xml` and change the visibility of `Pain assessment` and `Behaviour assessment`
+
+![Carer visibity](doc_src_img/chapter8/9.jpg "Carer visibility")
+
+To see the changes, generate domain and re-deployed the server.
+
+Login as a Carer
+
+![Carer login](doc_src_img/chapter8/7.jpg "Carer login")
+
+Open the Assessment module, you can see the pain assessment and the Behavious assessment are not available for the carer any more.
+
+![Carer assessments](doc_src_img/chapter8/10.jpg "Carer assessments")
+
+- #### Bizlets
 
 * #### Actions
 
