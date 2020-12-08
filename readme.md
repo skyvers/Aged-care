@@ -1512,9 +1512,9 @@ The new Class window will appear like below:
 
 The `PatientBizlet` class is created, It shows some errors, to remove these errors we will use "Eclipse Quick Fix suggestions" as below:
 
-![Quickfix patient](doc_src_img/chapter9/2.JPG "Quickfix patient")
+![Quickfix patient](doc_src_img/chapter9/2.jpg "Quickfix patient")
 
-![Quickfix PatientBizlet](doc_src_img/chapter9/3.JPG "Quickfix PatientBizlet")
+![Quickfix PatientBizlet](doc_src_img/chapter9/3.jpg "Quickfix PatientBizlet")
 
 Alright, after fixing the above two issues, we will override the `newInstance` method to read patient information. Create the `newInstance` as follow:
 
