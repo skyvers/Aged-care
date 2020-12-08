@@ -1598,12 +1598,110 @@ After filling all the details, press on the save button then you see it generate
 
 ![patient document Id](doc_src_img/chapter9/10.jpg "patient document Id")
 
+#### Enhancement in Aged care application
+
+In this section, we will add more functionality in our documents as below:
+
+- Add a new `datetime` to Assessment called `assesmentCreatedTime`
+- Add a `Bizlet` for `Assessment` to set the `assesmentCreatedTime` when a new assessment is created and record the user who created the assessment
+- In the `Facility` view, show a `listGrid` of `Patients` at that facility
+- Add a `status` enumeration for Patient with appropriate values (current, discharged, deceased), where the default value is current
+
+1. Add a new `datetime` to Assessment called `assesmentCreatedTime`, go to `Assessment.xml` and add new attribute as below
+
+```xml
+<dateTime name="assessmentCreatedTime">
+			<displayName>Assessment Created Time</displayName>
+		</dateTime>
+```
+
+Open `_reviewInfo` to add that column, so add new row
+
+```xml
+<row>
+			<item>
+				<default binding="assessmentCreatedTime" />
+			</item>
+		</row>
+
+```
+
+Generate domain, deploy app and you an see the new field in Assessment.
+
+![Assessment created date](doc_src_img/chapter10/1.jpg "Assessment created date")
+
+2. Add a Bizlet for Assessment to set the `assesmentCreatedTime` when a new assessment is created and record the user who created the assessment
+
+As we already know how to create a Bizlet for the document, follow the same steps.
+
+Right-click to the `Assessment` package and select `New`, then select `Class` in the sub-menu.
+
+After following the Quick Fix suggestions to fixed error in AssessmentBizlet.java
+
+Next, we will override the `newInstance` method.
+
+Click on source > override and implement method. Choose `newInstance` form the list.
+
+Eclipse will generate `newInstance` method and override notation for us. We will need to update the method like below:
+
+```java
+private static final long serialVersionUID = 2286961040250324230L;
+
+	@Override
+	public Assessment newInstance(Assessment bean) throws Exception {
+		// TODO Auto-generated method stub
+		bean.setAssessmentCreatedTime(new DateTime());
+		bean.setStaff(ModulesUtil.currentAdminUser());
+		return super.newInstance(bean);
+	}
+
+}
+```
+
+Generate domain and deploy the application to see the changes.
+
+So, now you set the assessment time and staff in your Assessment document as below.
+
+![Set assessment created by](doc_src_img/chapter10/2.jpg "Assessment created by")
+
+3. In the Facility view, show a listGrid of Patients at that facility
+
+Go to the `Facility` package and open the `edit.xml` to add listGrid as below
+
+![listGrid](doc_src_img/chapter10/3.jpg "listGrid")
+
+Generate domain to check result.
+
+![listGrid of patient](doc_src_img/chapter10/4.jpg "listGrid of patient")
+
+4. Add a `status` enumeration for Patient with appropriate values (current, discharged, deceased), where the default value is current
+
+Open the `Patient.xml` and add this code in `<attributes>`
+
+```xml
+<enum name="patientStatus">
+			<displayName>Patient Status</displayName>
+			<defaultValue>current</defaultValue>
+			<values>
+				<value code="Current" />
+				<value code="Discharged" />
+				<value code="Deceased" />
+			</values>
+		</enum>
+```
+
+Next, open `_patientInfo.xml` and add row
+
+```xml
+<row>
+			<item>
+				<default binding="patientStatus" />
+			</item>
+		</row>
+```
+
+Generate domain, deploy app again. You can see the new field in Assessment `Patient Status`.
+
+![Status](doc_src_img/chapter10/5.jpg "Status")
+
 - #### Actions
-
-```
-
-```
-
-```
-
-```
