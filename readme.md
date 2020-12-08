@@ -1315,9 +1315,143 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ### 4.9 Roles
 
+Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin.
+
+For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete) and the document scope access level, either G (Global), C (Customer), D (Data Group) or U (User). The underscore character (\_) means no permission is granted.
+
+In our Aged care App, we will define below roles:
+
+1. Nurse: Nurse can have all permissions in the patient and assessment documents. But, in the facility document nurses can only have update and scope permission.
+
+2. Carer: Carer can have _RU_C permissions in Patient document, \_R_ \_C permissions in the facility document, and in Assessment carer can CRU_C permissions.
+
+3. Manager: Manager have all the permissions in all three documents.
+
+Note: Before creating a new role just careful about the roles which is already created by the foundry: Viewer and Maintainer. if you want to delete any of this role please, we careful that these roles are not assigned to any user before. Otherwise it will not work. For this tutorial, we are not doing anything with Viewer and Maintainer role.
+
+Open `agedCare.xml` to create new roles and change menu.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged care" prototype="true" name="agedCare" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+    <homeRef>list</homeRef>
+    <homeDocument>Patient</homeDocument>
+    <documents>
+        <document ref="Patient" defaultQueryName="qPatient"/>
+        <document ref="Facility"  defaultQueryName="qFacility"/>
+        <document ref="Assessment"  defaultQueryName="qAssessment"/>
+        <document ref="Contact" moduleRef="admin"/>
+        <document ref="DataGroup" moduleRef="admin"/>
+        <document ref="User" moduleRef="admin"/>
+    </documents>
+    <roles>
+        <role name="Viewer">
+            <description><![CDATA[Enough privileges to view Aged care documents.]]></description>
+            <privileges>
+                <document name="Patient" permission="_R__C"/>
+                <document name="Facility" permission="_R__C"/>
+                <document name="Assessment" permission="_R__C"/>
+            </privileges>
+        </role>
+        <role name="Maintainer">
+            <description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
+            <privileges>
+                <document name="Patient" permission="CRUDC"/>
+                <document name="Facility" permission="CRUDC"/>
+                <document name="Assessment" permission="CRUDC"/>
+            </privileges>
+        </role>
+
+        <role name="Nurses">
+	<description>Permission to see all Assessments</description>
+	<privileges>
+		<document name="Patient" permission="CRUDC" />
+		<document name="Facility" permission="_R__C"/>
+		<document name="Assessment" permission="CRUDC" />
+	</privileges>
+
+</role>
+	<role name="Carers">
+		<description>Permission to see only Carer Assessments</description>
+		<privileges>
+			<document name="Patient" permission="_RU_C"></document>
+			<document name="Facility" permission="_R__C" />
+			<document name="Assessment" permission="CRU_C" />
+		</privileges>
+	</role>
+
+<role name="Manager">
+		<description>Permission to manage Facility, Staff, and Assessments</description>
+		<privileges>
+			<document name="Patient" permission="CRUDC" />
+			<document name="Facility" permission="CRUDC" />
+			<document name="Assessment" permission="CRUDC" />
+		</privileges>
+</role>
+    </roles>
+    <menu>
+        <list document="Patient" name="Patients">
+            <role name="Nurses"/>
+            <role name="Manager"/>
+            <role name="Carers"/>
+        </list>
+        <list document="Facility" name="Facilities">
+            <role name="Manager"/>
+
+        </list>
+        <list document="Assessment" name="Assessments">
+            <role name="Nurses"/>
+            <role name="Carers"/>
+            <role name="Manager"/>
+        </list>
+    </menu>
+<module>
+```
+
+In the next section, we will use these permission by applying some contions in our documents.
+
+End of section 4!!!
+
 ## 5. Java Extension
 
 - #### Conditions
+  Before start conditions section, let's create Groups and Users in the application.
+
+Go to the application and create group for carer, nurse, manager as below:
+Open Admin>Security Admin>Groups
+
+1. Create group for the Carer as below:
+
+![Carer Groups](doc_src_img/chapter8/1.jpg "Carer Groups")
+
+2. Create group for the Manager as below:
+
+   ![Manager Groups](doc_src_img/chapter8/2.jpg "Manager Groups")
+
+3. Create group for the Nurse as below:
+
+   ![Nurse Groups](doc_src_img/chapter8/3.jpg "Nurse Groups")
+
+Next, create Users for Carer, Manager, and Nurse.
+Go to the application, Open Admin>Security Admin>Users
+
+1. Create Users for Carer by adding Full name and Email
+
+2. Click on New contact
+
+   ![Carer User](doc_src_img/chapter8/4.jpg "Carer User")
+
+3. Set user name and password
+
+![Set Username](doc_src_img/chapter8/5.jpg "Set username")
+
+4. Click on Existing group, select carer and add in Assigned Group
+
+![Assigned group](doc_src_img/chapter8/6.jpg "Assigned group")
+
+5. Click on save
+
+Now, create Users for Manager and Nurse same as we created for Carer in the previous steps.
 
 - #### Bizlets
 
