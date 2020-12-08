@@ -1705,3 +1705,53 @@ Generate domain, deploy app again. You can see the new field in Assessment `Pati
 ![Status](doc_src_img/chapter10/5.jpg "Status")
 
 - #### Actions
+  Actions are basically represent the behaviours that impact our application status or data. It can be in the form of button, hyperlinks or API calls.
+  For more detail visit the link https://skyvers.github.io/skyve-dev-guide/actions/.
+
+Now, we will add action that only a nurse can click, and it sets a status on the assessment to `reviewed=true` and sets the `assessmentReviewdate`.
+
+1. Create an action class in the `actions` package within the document package that implements `org.skyve.metadata.controller.ServerSideAction` (or one of the other subtypes)
+
+2. To create action, go to `Assessment` package and create a new package `actions` under `Assessment` package
+
+3. Then, under `actions` package create a action class `reviewed.java`
+
+![Reviewed class](doc_src_img/chapter11/1.jpg "reviewed class")
+
+4. Click on import Assessment `(modules.agedCare.domain)`
+
+![import assessment](doc_src_img/chapter11/2.jpg "import assessment")
+
+5.  Click on Add unimplemented methods
+
+![unimplemented](doc_src_img/chapter11/3.jpg "unimplemented")
+
+6. Add the code as shown below
+
+![Action class](doc_src_img/chapter11/4.jpg "Action class")
+
+7. Declare the action in the section of the `view` declaration
+
+open `edit.xml` in the `Assessment` package to add action as below
+
+![add action in edit](doc_src_img/chapter11/5.jpg "Add action")
+
+8. Set privileges to execute the action within the role definitions section of the `agedCare.xml` file
+
+In our document only nurse can review the assessments, So we can add the `action` in nurse role under `privileges` as below
+
+![Action in nurse role](doc_src_img/chapter11/6.jpg "Add action in nurse role")
+
+Generate domain and deploy application.
+
+Log in as a nurse user
+
+![Nurse login](doc_src_img/chapter11/7.jpg "Nurse login")
+
+You can see the Reviewed button on the top.
+
+When you click on the Reviewed button it set the Assessment Review field with current date and time.
+
+![Reviewed](doc_src_img/chapter11/8.jpg "Reviewed")
+
+The end!!!!
