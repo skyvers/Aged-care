@@ -1414,8 +1414,7 @@ End of section 4!!!
 
 ## 5. Java Extension
 
-- #### Conditions
-  Before start conditions section, let's create Groups and Users in the application.
+Before start conditions section, let's create Groups and Users in the application.
 
 Go to the application and create group for carer, nurse, manager as below:
 Open Admin>Security Admin>Groups
@@ -1453,9 +1452,26 @@ Go to the application, Open Admin>Security Admin>Users
 
 Now, create Users for Manager and Nurse same as we created for Carer in the previous steps.
 
-- #### Bizlets
+After completing creation of Groups and Users. Let's check it is working or not?
+Logout your application and login with the user we created in preview steps.
 
-- #### Actions
+First login with carer.
+
+![Carer login](doc_src_img/chapter8/7.jpg "Carer login")
+
+You can see, the carer can access patient and assessment in Agedcare module. This is because in `agedCare.xml` in menu we gave permission to only Manager to see the facility module.
+
+Carer login page shown below:
+
+![Carer login page](doc_src_img/chapter8/8.jpg "Carer login page")
+
+If you want to check Nurse and Manager, login as the user name and password set for them.
+
+- #### Conditions
+
+* #### Bizlets
+
+* #### Actions
 
 ```
 
