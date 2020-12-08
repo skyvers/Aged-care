@@ -1408,7 +1408,7 @@ Open `agedCare.xml` to create new roles and change menu.
 <module>
 ```
 
-In the next section, we will use these permission by applying some contions in our documents.
+In the next section, we will use these permissions by applying some conditions in our documents.
 
 End of section 4!!!
 
