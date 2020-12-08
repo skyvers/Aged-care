@@ -778,7 +778,7 @@ Open patient `edit.xml` and add the code given below;
 
 To see the changes re-deployed the application.
 
-/////image for patient document
+#### ///image for patient document
 
 Next, we will group related information together to make it easier to manage.
 The easiest way is to use the `border` and `borderTitle` attributes of the Form container.
@@ -1036,6 +1036,143 @@ We will re-deploy our application to see affect. After re-deployment and re-logi
 #### image here for patient document
 
 - #### Facility Edit view
+
+In the previous section we explore and practice how to create an edit view and customize it to meet our requirements. Now it should be easier for us to create an edit view for your
+Facility document right?
+
+Lets demonstrate our Facility edit view below:
+It contains three components:
+
+1. Facility Info
+2. Facility address
+3. Facility location
+
+Let's start with Facility Info component.
+
+1. Generate the edit view for Facility document
+
+   ![Edit Facility](doc_src_img/chapter7/4.jpg "Edit view facility")
+
+2. Add facility component same as patient component
+
+##### Facility Info component
+
+In the Facility > views package, create new `_facilityInfo.xml`
+as below content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityInfo" title="Facility Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form border="true" borderTitle="Facility Info">
+        <column percentageWidth="30" responsiveWidth="4"/>
+        <column/>
+        <row>
+            <item>
+                <default binding="facilityName"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="facilityManager"/>
+            </item>
+        </row>
+        </form>
+        </view>
+
+```
+
+##### Facility address component
+
+In the Facility > views package, create new `_facilityAddress.xml` as below content:
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityAddress" title="Facility Address" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form borderTitle="Facility Address" border="true">
+        <column percentageWidth="30" responsiveWidth="4"/>
+        <column/>
+
+        <row>
+            <item>
+                <default binding="buildingNumber"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="streetName"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="suburb"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="state"/>
+            </item>
+        </row>
+		</form>
+		</view>
+```
+
+##### Facility location Component
+
+In the Facility > views package, create new `_facilityLocation.xml` as below content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityLocation" title="Facility Location" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form border="true" borderTitle="Facility Location">
+        <column />
+
+        <row>
+            <item showLabel="false">
+                <geometryMap binding="location">
+                    <onChangedHandlers/>
+                </geometryMap>
+            </item>
+        </row>
+    </form>
+    </view>
+```
+
+##### Combine together
+
+After done with component creation, we will go to use it on our `edit` view.
+Change `edit.xml` view like below:
+
+```xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Facility" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+
+        <hbox border="true">
+		<!-- left side -->
+		<vbox responsiveWidth="8" percentageWidth="60">
+ 			<component name="_facilityInfo" />
+ 			<component name="_facilityAddress" />
+
+		</vbox>
+
+		<!-- right side -->
+		<vbox responsiveWidth="4" percentageWidth="40">
+			<component name="_facilityLocation"/>
+		</vbox>
+	</hbox>
+
+            <actions>
+        <defaults/>
+    </actions>
+    <newParameters/>
+</view>
+
+```
+
+Again re-deploy the application to see the changes in your Facility document.
+
+![Facility document](doc_src_img/chapter7/5.jpg "Facilty document editview")
 
 - #### Assessment Edit view
 
