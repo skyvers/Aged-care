@@ -1176,6 +1176,143 @@ Again re-deploy the application to see the changes in your Facility document.
 
 - #### Assessment Edit view
 
+As we finish our edit view for patient and facility document. Now, in this step we will do edit view for our Assessment document.
+Assessment document will show sections below:
+
+1. Patient Info
+2. Assessment Detail
+3. Review Detail
+
+Let's start with Patient Info
+
+Generate edit view for the assessment document first.
+
+![Edit assessment](doc_src_img/chapter7/6.jpg "Edit assessment")
+
+##### Patient info component
+
+In the Assessment > views package, create new `_patientInfo.xml` as below content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_patientInfo" title="Patient Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form border="true" borderTitle="Patient Info">
+                <column percentageWidth="30" responsiveWidth="4"/>
+		        <column/>
+                <row>
+                <item>
+                        <default binding="parent.patientName"/>
+                    </item>
+                </row>
+                </form>
+               <form border="true" borderTitle="Patient Photo">
+                <column percentageWidth="30" responsiveWidth="4"/>
+		        <column/>
+                <row>
+                    <item showLabel="false">
+                        <contentImage binding="parent.photo"/>
+                    </item>
+                </row>
+      </form>
+      </view>
+```
+
+##### Assessment Detail component
+
+In the Assessment > views package, create new `_assessmentDetail.xml` as below content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_assessmentDetail" title="Assessment Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form border="true" borderTitle="Assessment Detail">
+                <column percentageWidth="30" responsiveWidth="4"/>
+		        <column/>
+		        <row>
+            <item>
+                <default binding="hygieneAssessment"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="painAssessment"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="continenceAssessment"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="sleepAssessment"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="behaviourAssessment"/>
+            </item>
+        </row>
+        </form>
+        </view>
+```
+
+##### Review Detail component
+
+In the Assessment > views package, create new `_reviewDetail.xml` as below content:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_reviewDetail" title="Review Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form border="true" borderTitle="Review Detail">
+                <column percentageWidth="30" responsiveWidth="4"/>
+		        <column/>
+		        <row>
+            <item>
+                <default binding="staff"/>
+            </item>
+        </row>
+        <row>
+            <item>
+                <default binding="assessmentReview"/>
+            </item>
+        </row>
+        </form>
+        </view>
+```
+
+##### Combine together:
+
+After done with component creation, we will go to use it on our edit view.
+Change `edit.xml` view like below:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Assessment" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+
+  <hbox border="true">
+		<!-- left side -->
+		<vbox responsiveWidth="8" percentageWidth="60">
+ 			<component name="_patientInfo" />
+ 			<component name="_reviewDetail" />
+
+		</vbox>
+
+		<!-- right side -->
+		<vbox responsiveWidth="4" percentageWidth="40">
+			<component name="_assessmentDetail"/>
+		</vbox>
+	</hbox>
+    <actions>
+        <defaults/>
+    </actions>
+    <newParameters/>
+</view>
+```
+
+Let's re-deploy the application to see the changes we made in this step.
+
+![Assessment editview](doc_src_img/chapter7/7.jpg "Assessment editview")
+
 ### 4.9 Roles
 
 ## 5. Java Extension
