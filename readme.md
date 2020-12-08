@@ -1518,15 +1518,15 @@ The `PatientBizlet` class is created, It shows some errors, to remove these erro
 
 Alright, after fixing the above two issues, we will override the `newInstance` method to read patient information. Create the `newInstance` as follow:
 
-![override](doc_src_img/chapter9/4.JPG "override")
+![override](doc_src_img/chapter9/4.jpg "override")
 
 Select newInstance from the list.
 
-![newInstance](doc_src_img/chapter9/5.JPG "newInstance")
+![newInstance](doc_src_img/chapter9/5.jpg "newInstance")
 
 The override method is generated in the file
 
-![code](doc_src_img/chapter9/6.JPG "code")
+![code](doc_src_img/chapter9/6.jpg "code")
 
 Add the below code in the method
 
