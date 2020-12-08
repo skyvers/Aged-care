@@ -1498,7 +1498,53 @@ Open the Assessment module, you can see the pain assessment and the Behavious as
 
 - #### Bizlets
 
-* #### Actions
+The document package includes declarations of actions, reports, views and the associated Bizlet file. The Bizlet file contains document-specific behaviours including overrides of default action behaviours and document bean lifecycle events (e.g. newInstance, preSave, etc.).
+
+More info on Bizlets can be found at the following Skyve Developer Guide link: https://skyvers.github.io/skyve-dev-guide/bizlets/
+
+##### Bizlet PatientID
+
+First of all, let's show you how to create `PatientBizlet` to customize the document as we want.
+Right-click to the `Patient` package and select `New`, then select `Class` in the sub-menu.
+The new Class window will appear like below:
+
+![Class defination](doc_src_img/chapter9/1.jpg "Class defination")
+
+The `PatientBizlet` class is created, It shows some errors, to remove these errors we will use "Eclipse Quick Fix suggestions" as below:
+
+![Quickfix patient](doc_src_img/chapter9/2.JPG "Quickfix patient")
+
+![Quickfix PatientBizlet](doc_src_img/chapter9/3.JPG "Quickfix PatientBizlet")
+
+Alright, after fixing the above two issues, we will override the `newInstance` method to read patient information. Create the `newInstance` as follow:
+
+![override](doc_src_img/chapter9/4.JPG "override")
+
+Select newInstance from the list.
+
+![newInstance](doc_src_img/chapter9/5.JPG "newInstance")
+
+The override method is generated in the file
+
+![code](doc_src_img/chapter9/6.JPG "code")
+
+Add the below code in the method
+
+```java
+{
+String patientId;
+
+patientId=ModulesUtil.getNextDocumentNumber("P", Patient.MODULE_NAME, Patient.DOCUMENT_NAME, Patient.patientIDPropertyName, 4);
+bean.setPatientID(patientId);
+
+return super.newInstance(bean);
+
+}
+```
+
+By using this code, we set the patientId for our new document.
+
+- #### Actions
 
 ```
 
