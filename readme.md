@@ -199,7 +199,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
 - Add all the attributes for Resident document as below
 
-  ![Resident attributes](doc_src_img/chapter1/7.JPG "Resident attributes")
+  ![Resident attributes](doc_src_img/chapter1/7.jpg "Resident attributes")
 
 #### 2. Define Facility Document and it's attributes:
 
