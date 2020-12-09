@@ -154,7 +154,7 @@ Now, I will take you step by step creation of application:
 
 #### About Data design:
 
-_*Documents:*_ In data design, documents are related to the real business documents (e.g.resident, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
+_*Documents:*_ In data design, documents are related to the real business entities (e.g.resident, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
 
 _*Attributes:*_ Attributes contain information about each document (e.g. Resident's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
 
@@ -166,16 +166,16 @@ The resident document will contain the personal information about the residents 
 
 Resident document contain attributes below:
 
-| Attribute name | Data Type  |
-| -------------- | ---------- |
-| ResidentID     | Text       |
-| Resident Name  | Text       |
-| Photo          | Image      |
-| DOB            | Date       |
-| Room Number    | Integer    |
-| BIO            | Memo       |
-| Admission Date | Date       |
-| Facility Name  | Associtate |
+| Attribute name | Data Type   |
+| -------------- | ----------- |
+| ResidentID     | Text        |
+| Resident Name  | Text        |
+| Photo          | Image       |
+| DOB            | Date        |
+| Room Number    | Integer     |
+| BIO            | Memo        |
+| Admission Date | Date        |
+| Facility Name  | Association |
 
 Now, we will create a Resident document and add attributes in Resident document in next few steps.
 
@@ -206,14 +206,14 @@ The Facility document will contain information about the facility(e.g.facility n
 
 The attributes for Facility document as below:
 
-| Attribute name   | Data Type |
-| ---------------- | --------- |
-| Facility Name    | Text      |
-| Building Number  | Integer   |
-| Street Name      | Text      |
-| Suburb           | Text      |
-| State            | Text      |
-| Facility manager | Associate |
+| Attribute name   | Data Type   |
+| ---------------- | ----------- |
+| Facility Name    | Text        |
+| Building Number  | Integer     |
+| Street Name      | Text        |
+| Suburb           | Text        |
+| State            | Text        |
+| Facility manager | Association |
 
 This document will follow the same steps we followed for Resident document. It will look like as below:
 
@@ -225,14 +225,14 @@ The Assessment document will contain information about all the care assessments 
 
 The attributes for Assessments document as below:
 
-| Attribute name        | Data Type |
-| --------------------- | --------- |
-| Hygiene Assessment    | Memo      |
-| Pain Assessment       | Memo      |
-| Continence Assessment | Memo      |
-| Sleep Assessment      | Memo      |
-| Behaviour Assessment  | Memo      |
-| Staff                 | Associate |
+| Attribute name        | Data Type   |
+| --------------------- | ----------- |
+| Hygiene Assessment    | Memo        |
+| Pain Assessment       | Memo        |
+| Continence Assessment | Memo        |
+| Sleep Assessment      | Memo        |
+| Behaviour Assessment  | Memo        |
+| Staff                 | Association |
 
 Follow the same steps like Resident and Assessment documents. Assessment document look like as below.
 
@@ -249,11 +249,11 @@ There are following steps to deploy Aged care application as we created in found
 
 2. Click on Deloy tab and then click on Deploy, usually it take 2 minutes to deploy your application
 
-3. Next step is copy the deploy link and paste into a new brower tab
+3. Next, click on the deploy link
 
-   ![Deploy link](doc_src_img/chapter4/2.jpg "Deploy link")
+   ![Deploy link](doc_src_img/chapter4/2.JPG "Deploy link")
 
-4. Log in with user "setup" and password "setup
+4. Log in with user "setup" and password which you initialised during deployment
 
 ![SignIn](doc_src_img/chapter4/3.jpg "SignIn")
 
@@ -283,13 +283,16 @@ Add data in Assessments
 
 #### Making Changes and Re-Deploying
 
-Not completed yet!!!!!!
-
 The Skyve free trial server will automatically undeploy your project after one hour - but you can redeploy your application as many times as you need during your testing and your data is saved while the project is offline.
 
-## 3. Collaboration
 
-Next, we need to Collaborate our application with github.
+# 3. Low Code Extension
+
+[Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
+
+## 3.1 Collaboration
+
+Next, we need to Collaborate our application with Github.
 To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help.
 Then follow the steps for collaboration.
 ![Collaboration](doc_src_img/Chapter2/1.jpg "Collaboration")
@@ -310,6 +313,7 @@ To create a new repository follow the steps below:
 - Click on Save
   ![remote endpoint](doc_src_img/Chapter2/5.jpg "remote endpoint")
 - Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
+
   ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
 - Next, check your project in Github
 - Go to Github, open repository to see all the files
@@ -317,11 +321,7 @@ To create a new repository follow the steps below:
 
 This is the End of create and collaboration of the application...!
 
-# 4. Low Code Extension
-
-[Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
-
-## 4.1 Configure your local environment
+## 3.2 Configure your local environment
 
 Before import your project in Eclipse, you need to download and install Eclipse in your system.
 
@@ -341,7 +341,7 @@ Before import your project in Eclipse, you need to download and install Eclipse 
   - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
   - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
-## 4.2 Install and Configue Wildfly Server
+## 3.3 Install and Configue Wildfly Server
 
 To run our Aged care application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
 
@@ -410,7 +410,7 @@ Select the latest version of WildFly, then click Next
 
 ![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
 
-## 4.3 Add Repository in Eclipse
+## 3.4 Add Repository in Eclipse
 
 After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
 
@@ -445,7 +445,7 @@ After downloading and installation of eclipse and server, the next step is add o
 
 In Git Repositories, we can see our repository is added now!
 
-## 4.4 Import Project
+## 3.5 Import Project
 
 As we already created a project in Skyve foundry, now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
 
@@ -457,13 +457,13 @@ As we already created a project in Skyve foundry, now it is time to import that 
 
    ![Maven](doc_src_img/chapter5/9.jpg "Maven")
 
-3. Set your root directory (Folder where you want to save your application in your System) and click on Finish
+3. Set your root directory (Folder wwhere you cloned your git repository to in the previous section) and click on Finish
 
    ![Root](doc_src_img/chapter5/10.jpg "Root")
 
 You can see your project in Project Explorer area in Eclipse.
 
-## 4.5 Set the server
+## 3.6 Set the server
 
 To run our project in server we need to set Server in Eclipse first.
 
@@ -475,7 +475,7 @@ To run our project in server we need to set Server in Eclipse first.
 
 ![Server set](doc_src_img/chapter5/12.jpg "Server set")
 
-## 4.6 Deploy and Configure Skyve Project
+## 3.7 Deploy and Configure Skyve Project
 
 #### Deploy your Skyve project
 
@@ -535,7 +535,7 @@ Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in
 
 ![Aged care app](doc_src_img/chapter6/11.jpg "Aged care app")
 
-## 4.7 List Views
+## 3.8 List Views
 
 In most of application data is represented in list and detail views. Skyve also capable to provide each type of view.
 
@@ -677,7 +677,7 @@ Again, to apply the change, stop the WildFly server and run the Generate Domain 
 
 ![Assessment list](doc_src_img/chapter7/2.jpg "Assessment list")
 
-### 4.8 Edit Views, Layout, and Components
+### 3.9 Edit Views, Layout, and Components
 
 In this section we will override the default detail view which is generated by Skyve.
 
@@ -707,7 +707,7 @@ Showing all the personal information in the one side and the photo and BIO in ot
 
 We will plan to split our view into 2 sections: left and right. We will show Resident information on the left side and the Resident Image and BIO will be shown on the right part.
 
-To do that, we will need to understand about Skyve Containers - https://skyvers.github.io/skyve-dev-guide/views/#containers
+To do that, we will need to understand about Skyve Views Containers - https://skyvers.github.io/skyve-dev-guide/views/#containers
 
 After reading through the Skyve Containers document, you may have already guessed how to split our view into 2 parts.
 
@@ -1341,7 +1341,7 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ![Assessment editview](doc_src_img/chapter7/7.jpg "Assessment editview")
 
-### 4.9 Roles
+### 3.10 Roles
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin.
 
@@ -1440,7 +1440,7 @@ In the next section, we will use these permissions by applying some conditions i
 
 End of section 4!!!
 
-## 5. Java Extension
+## 4. Java Extension
 
 Before start conditions section, let's create Groups and Users in the application.
 For more detail click on link for adding users and groups: https://skyvers.github.io/skyve-user-guide/users/
