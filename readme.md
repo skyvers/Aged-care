@@ -696,7 +696,7 @@ So to create our Resident `edit view`, we will go through the following steps:
 
 2. If you go to the agedCare module left side of eclipse and open the resident module. You can see view module and in view module there is a document with `generatedit.xml`. Rename the document, `edit.xml`
 
-![Edit.xml](doc_src_img/chapter7/9.jpg "edit.xml")
+![Edit.xml](doc_src_img/chapter7/9.JPG "edit.xml")
 
 #### Enhance the edit view
 
@@ -907,7 +907,7 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 </view>
 ```
 
-![Resident seprate form](doc_src_img/chapter7/11.jpg "Resident edit form")
+![Resident seprate form](doc_src_img/chapter7/11.JPG "Resident edit form")
 
 As, we have already made a nice view for Resident. However, I also want to introduce View Components to you.
 
@@ -1062,7 +1062,7 @@ Change `edit.xml` view like below:
 
 We will re-deploy our application to see affect. After re-deployment and re-login to the system. We will have the same view as our original before:
 
-![Resident seprate form](doc_src_img/chapter7/11.jpg "Resident edit form")
+![Resident seprate form](doc_src_img/chapter7/11.JPG "Resident edit form")
 
 - #### Facility Edit view
 
