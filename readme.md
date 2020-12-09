@@ -286,7 +286,6 @@ Add data in Assessments
 
 The Skyve free trial server will automatically undeploy your project after one hour - but you can redeploy your application as many times as you need during your testing and your data is saved while the project is offline.
 
-
 # 3. Low Code Extension
 
 [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
@@ -316,6 +315,7 @@ To create a new repository follow the steps below:
 - Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
 
   ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
+
 - Next, check your project in Github
 - Go to Github, open repository to see all the files
   ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
@@ -590,7 +590,7 @@ Then you will need to provide `defaultQueryName` attribute to your resident docu
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
-## Image for resident.
+![Resident attributes](doc_src_img/chapter7/8.jpg "Resident attributes")
 
 - #### Facility List
 
@@ -692,11 +692,11 @@ So to create our Resident `edit view`, we will go through the following steps:
 
 1. Click on `Generate edit view` in the right side of the eclipse window and write the module and document name in the Console window.
 
-### !image for resident document.
+![Edit resident](doc_src_img/chapter7/3.jpg "edit resident")
 
 2. If you go to the agedCare module left side of eclipse and open the resident module. You can see view module and in view module there is a document with `generatedit.xml`. Rename the document, `edit.xml`
 
-### image for how to edit.xml
+![Edit.xml](doc_src_img/chapter7/9.jpg "edit.xml")
 
 #### Enhance the edit view
 
@@ -807,7 +807,7 @@ Open resident `edit.xml` and add the code given below;
 
 To see the changes re-deployed the application.
 
-#### ///image for resident document
+![Resident edit ](doc_src_img/chapter7/10.jpg "Resident edit")
 
 Next, we will group related information together to make it easier to manage.
 The easiest way is to use the `border` and `borderTitle` attributes of the Form container.
@@ -907,7 +907,7 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 </view>
 ```
 
-#### image for resident with seprate forms
+![Resident seprate form](doc_src_img/chapter7/11.jpg "Resident edit form")
 
 As, we have already made a nice view for Resident. However, I also want to introduce View Components to you.
 
@@ -1062,7 +1062,7 @@ Change `edit.xml` view like below:
 
 We will re-deploy our application to see affect. After re-deployment and re-login to the system. We will have the same view as our original before:
 
-#### image here for resident document
+![Resident seprate form](doc_src_img/chapter7/11.jpg "Resident edit form")
 
 - #### Facility Edit view
 
@@ -1573,9 +1573,9 @@ return super.newInstance(bean);
 
 By using this code, we set the residentId for our new document.
 
-#### presave() method
+#### preSave() method
 
-In next few steps, we will see how we can use the `presave()` method.
+In next few steps, we will see how we can use the `preSave()` method.
 In previous step we created a `newInstance` method. Now,
 I want you to change the Bizlet and use the preSave() method instead of newInstance() as follows:
 
@@ -1586,9 +1586,9 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 1. In first step, go to `residentBizlet.java` and add new Bizlet
    go to source > override and implement method and select presave() from list and click on `Ok`
 
-![presave](doc_src_img/chapter9/7.jpg "presave")
+![preSave](doc_src_img/chapter9/7.jpg "preSave")
 
-2. Add code in the `presave()` method as below
+2. Add code in the `preSave()` method as below
 
 ![code presave](doc_src_img/chapter9/8.jpg "code presave")
 
