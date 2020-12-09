@@ -198,7 +198,8 @@ Now, we will create a Resident document and add attributes in Resident document 
   ![Add attribute](doc_src_img/chapter1/6.jpg "Add attribute")
 
 - Add all the attributes for Resident document as below
-  ![Resident attributes](doc_src_img/chapter1/7.jpg "Resident attributes")
+
+  ![Resident attributes](doc_src_img/chapter1/7.JPG "Resident attributes")
 
 #### 2. Define Facility Document and it's attributes:
 
@@ -251,7 +252,7 @@ There are following steps to deploy Aged care application as we created in found
 
 3. Next, click on the deploy link
 
-   ![Deploy link](doc_src_img/chapter4/2.JPG "Deploy link")
+   ![Deploy link](doc_src_img/chapter4/2.jpg "Deploy link")
 
 4. Log in with user "setup" and password which you initialised during deployment
 
@@ -271,7 +272,7 @@ Click on Facility and then add button
 
 Enter the detail of facility in the fields
 
-![Facility field](doc_src_img/chapter4/6.jpg "Facility field")
+![Facility field](doc_src_img/chapter4/6.JPG "Facility field")
 
 Next, click on Assessments
 
