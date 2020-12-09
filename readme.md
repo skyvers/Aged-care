@@ -54,47 +54,75 @@
 - Skills You'll Need
 - Skills You'll Develop
 
-# 2. Aged care App Overview
+# 2. Tutorial Overview
 
-This tutorial will talk about how to create an advanced application through the Enterprise Application Framework - [Skyve foundry](https://foundry.skyve.org/).
+In this tutorial, we will show you how easy it is to build a powerful application using the Skyve Enterprise Application platform.
 
-In this tutorial, we will build a simple application to manage aged care facilities, their residents, and care assessments. We will also configure collaboration so that both non-coders and Java developers can collaborate and work together on the project.
+To familiarise you with Skyve application development, we will build a simple application together to manage aged care facilities, their residents, and care assessments.
 
-This project will cover the Skyve development process and its concepts as much as possible.
+### 2.1. Aged Care Management
 
-### 2.1. Aged Care Functionality overview
+A typical aged care provider might manage multiple facilities, each housing many residents. Residents are regularly assessed to ensure that they are well and safe, and that their care matches their needs.
 
-In Aged Care, Residents are regularly assessed to ensure that they are well and safe, and the care is being provided to them matches their needs. Therefore, Care providers record details of different Care Assessments for each Resident daily. These records are maintained both to prompt regular care activities and also for care management to be audited and checked.
+Care providers must record the personal details of each resident and where they are located. They must also retain records care assessments for each resident both to facilitate regualar activities and to satisfy audit requirements.
 
-In this tutorial, you will create a simple app to maintain details of Aged Care facilities, Residents, and Care Assessments.
+Our app will meet these record storage and retrieval needs for an (imaginary!) aged care provider.
 
 ### 2.2. No-code Development
 
-In the first part of our tutorial, we will cover the no-code development - a no-code application can be created using only the point-and-click actions in Skyve foundry.
+In the first main section of our tutorial, we will lead you through the no-code development of our Aged Care app.
 
-In this tutorial, we will build the Aged Care application step by step using Skyve Foundry covering the three main components of the application: Resident records, their daily Care Assessments, and the details of the Facility at which they reside.
+No-code application development means developing an app using only a point-and-click interface - in this case Skyve Foundry.
 
-If your goal is limited to developing no-code applications using Foundry, you may wish to leave the tutorial at this point. Otherwise, we encourage you to proceed to the Low-code Extensions.
+In Foundry, you will use a point-and-click interface to define:
+
+- ‘documents’ representing facilities, residents, and assessments
+- data ‘attributes’ that need to be recorded for each different document type
+- relationships between different types of documents (e.g. each resident belongs to one facility; each resident has many assessments)
+
+Behind the scenes and hidden from sight, Foundry takes care of all the ‘coding’ for you. It builds the app to your specifications and will even deploy it to a web-server and run it for you, so that you can immediately use it.
+
+At the end of this section of the tutorial, you’ll have a functioning, usable Aged Care app up and running. At that point, you may decide that Foundry provides everything you need to build your app, in which case you could stop here and leave the tutorial.
+
+Or, if you have some basic coding skills or you’re willing to acquire them, we’d encourage you to move on to the ‘Low-code Extensions’ section which will show you how to enhance your app in ways that are beyond the scope of Foundry.
 
 ### 2.3. Low-code Extension
 
-The second part of the tutorial will focus on Low code extension. In Low code extension, we can do some changes in XML files created by Skyve to extend the application functionality beyond point-and-click actions in Skyve foundry.
+In the second main section of the tutorial, we will lead you through the addition of some low-code enhancements to the same Aged Care app that we just developed using Foundry in the previous section.
 
-In the next part of the tutorial, we will load our Aged care application created through Skyve foundry into an IDE- Integrated Development Environment (set of programming tools for writing an application). To extend its functionality using Skyve's Low code XML language.
+When you create a no-code app using the Foundry point-and-click interface, Foundry automatically converts your app definition into a suite of Skyve low-code XML (eXtensible Markup Language) files. In Foundry, these are hidden away and no-code users never need to interact with them directly.
 
-In this part of the tutorial, we will edit and change the layout to the Resident, Assessment, and Facility documents.
+In this section of the tutorial, you will export your Aged Care app out of Foundry and access it using an IDE (Integrated Development Environment – a developer’s coding toolkit) located on your own computer. This will allow you to manipulate the Skyve XML code directly, opening up an even broader range of functionality options to you.
 
-If you believe that you already achieved what you want from this tutorial and you do not have java programming skills, you can leave the tutorial at this point. Otherwise, we encourage you to proceed to the Java Extensions.
+Why do we call this ‘low-code’ ?
 
-### 2.4. Java Extension
+Web-based applications are typically written in Java or a similarly complex and powerful programming language. Indeed, Skyve itself uses Java - Skyve apps are automatically converted from Skyve XML into Java during the build process so that they can be deployed to a web server and run.
 
-In the third part of our tutorial, we will cover the Java extension-add custom built java code into the Skyve application to make your application more powerful.
+By contrast, the Skyve XML language is a dramatically simpler language – it allows you to select from a wide array of common application functions and configure them quite specifically to your needs. For Skyve users who need or want to go beyond the capabilities of Foundry, Skyve XML typically allows them to avoid the steep learning curve required to learn Java and the long development times required to write native Java apps.
 
-In this part, we will extend the functionality of the Aged care application using java code. We will add a few conditions and actions using java in our application so that only particular users can access particular Assessments related to each Resident.
+So, using Skyve XML is still coding. But in contrast to coding in Java or a similar web-based language, it’s a great deal simpler, easier, faster and far more succinct. Hence, ‘low-code’. Furthermore, even when you do need to add code to extend a Skyve app, Skyve provides high level APIs to common Java frameworks, meaning that your code will be simpler and more succinct than usual.
+
+In this section of the tutorial,we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the Foundry point-and-click interface. We will edit and change the layouts of the Resident, Assessment, and Facility documents.
+
+At the end of this section of the tutorial, you’ll have a significantly enhanced AgedCare app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
+
+### 2.4. Java Extensions
+
+While Skyve XML is already very powerful (and constantly growing) and covers a huge range of common functionality needs, there remain some bespoke requirements that cannot be met through Skyve XML alone. For those situations, Java extensions are the answer.
+
+The Skyve platform provides an extensive system of programming hooks that enable you to develop discrete Java methods and graft them into your Skyve XML app, where they can leverage the full functionality of the Skyve system to provide you with the bespoke functionality you need.
+
+If you don't have Java coding skills yourself, your simplest and cheapest option might be to buy support hours from one of our expert developers - you can do this within your Account in Skyve Foundry.
+
+If you already have some Java skills, however, you can do this yourself ! In the third main section of the tutorial, we will lead you through the development of some Java enhancements to your AgedCare app.
+
+Specifically, we will add some Java-code conditions and actions into our app to restrict, in a very granular and specific way, which users can access particular assessments relating to particular residents.
+
+At the end of this section of the tutorial, you’ll have a further-enhanced AgedCare app up and running. More significantly, though, you’ll be able to combine your powerful new Skyve app development capabilities with your existing Java skills to create no-limits applications far faster than you could ever do with Java alone.
 
 # 3. No-code Development
 
-In this section, we will go through the development of the Aged care application and will cover information about the Skyve framework and Skyve foundry in detail.
+In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve foundry in detail.
 
 This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in foundry.
 
@@ -140,8 +168,8 @@ Resident document contain attributes below:
 
 | Attribute name | Data Type  |
 | -------------- | ---------- |
-| ResidentID      | Text       |
-| Resident Name   | Text       |
+| ResidentID     | Text       |
+| Resident Name  | Text       |
 | Photo          | Image      |
 | DOB            | Date       |
 | Room Number    | Integer    |
