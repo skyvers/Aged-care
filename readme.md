@@ -272,7 +272,7 @@ Click on Facility and then add button
 
 Enter the detail of facility in the fields
 
-![Facility field](doc_src_img/chapter4/6.JPG "Facility field")
+![Facility field](doc_src_img/chapter4/6.jpg "Facility field")
 
 Next, click on Assessments
 
