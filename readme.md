@@ -31,11 +31,11 @@
   - [4.5 Set the server](https://github.com/seema-source/Aged-care#45-set-the-server)
   - [4.6 Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care#46-deploy-and-configure-skyve-project)
   - [4.7 List Views](https://github.com/seema-source/Aged-care#47-list-views)
-    - [Patient List](https://github.com/seema-source/Aged-care#patient-list)
+    - [Resident List](https://github.com/seema-source/Aged-care#resident-list)
     - [Facility List](https://github.com/seema-source/Aged-care#facility-list)
     - [Assessments List](https://github.com/seema-source/Aged-care#assessments-list)
   - [4.8 Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care#48-edit-views-layout-and-components)
-    - [Patient Edit view](https://github.com/seema-source/Aged-care#patient-edit-view)
+    - [Resident Edit view](https://github.com/seema-source/Aged-care#resident-edit-view)
     - [Facility Edit view](https://github.com/seema-source/Aged-care#facility-edit-view)
     - [Assessment Edit view](https://github.com/seema-source/Aged-care#assessment-edit-view)
   - [4.9 Roles](https://github.com/seema-source/Aged-care#49-roles)
@@ -58,21 +58,21 @@
 
 This tutorial will talk about how to create an advanced application through the Enterprise Application Framework - [Skyve foundry](https://foundry.skyve.org/).
 
-In this tutorial, we will build a simple application to manage aged care facilities, their patients, and care assessments. We will also configure collaboration so that both non-coders and Java developers can collaborate and work together on the project.
+In this tutorial, we will build a simple application to manage aged care facilities, their residents, and care assessments. We will also configure collaboration so that both non-coders and Java developers can collaborate and work together on the project.
 
 This project will cover the Skyve development process and its concepts as much as possible.
 
 ### 2.1. Aged Care Functionality overview
 
-In Aged Care, Patients are regularly assessed to ensure that they are well and safe, and the care is being provided to them matches their needs. Therefore, Care providers record details of different Care Assessments for each Patient daily. These records are maintained both to prompt regular care activities and also for care management to be audited and checked.
+In Aged Care, Residents are regularly assessed to ensure that they are well and safe, and the care is being provided to them matches their needs. Therefore, Care providers record details of different Care Assessments for each Resident daily. These records are maintained both to prompt regular care activities and also for care management to be audited and checked.
 
-In this tutorial, you will create a simple app to maintain details of Aged Care facilities, Patients, and Care Assessments.
+In this tutorial, you will create a simple app to maintain details of Aged Care facilities, Residents, and Care Assessments.
 
 ### 2.2. No-code Development
 
 In the first part of our tutorial, we will cover the no-code development - a no-code application can be created using only the point-and-click actions in Skyve foundry.
 
-In this tutorial, we will build the Aged Care application step by step using Skyve Foundry covering the three main components of the application: Patient records, their daily Care Assessments, and the details of the Facility at which they reside.
+In this tutorial, we will build the Aged Care application step by step using Skyve Foundry covering the three main components of the application: Resident records, their daily Care Assessments, and the details of the Facility at which they reside.
 
 If your goal is limited to developing no-code applications using Foundry, you may wish to leave the tutorial at this point. Otherwise, we encourage you to proceed to the Low-code Extensions.
 
@@ -82,7 +82,7 @@ The second part of the tutorial will focus on Low code extension. In Low code ex
 
 In the next part of the tutorial, we will load our Aged care application created through Skyve foundry into an IDE- Integrated Development Environment (set of programming tools for writing an application). To extend its functionality using Skyve's Low code XML language.
 
-In this part of the tutorial, we will edit and change the layout to the Patient, Assessment, and Facility documents.
+In this part of the tutorial, we will edit and change the layout to the Resident, Assessment, and Facility documents.
 
 If you believe that you already achieved what you want from this tutorial and you do not have java programming skills, you can leave the tutorial at this point. Otherwise, we encourage you to proceed to the Java Extensions.
 
@@ -90,13 +90,13 @@ If you believe that you already achieved what you want from this tutorial and yo
 
 In the third part of our tutorial, we will cover the Java extension-add custom built java code into the Skyve application to make your application more powerful.
 
-In this part, we will extend the functionality of the Aged care application using java code. We will add a few conditions and actions using java in our application so that only particular users can access particular Assessments related to each Patient.
+In this part, we will extend the functionality of the Aged care application using java code. We will add a few conditions and actions using java in our application so that only particular users can access particular Assessments related to each Resident.
 
 # 3. No-code Development
 
 In this section, we will go through the development of the Aged care application and will cover information about the Skyve framework and Skyve foundry in detail.
 
-This section also covers how to create and add different documents: Patient, Assessments, and Facility in the Aged care application and how to deploy an application in foundry.
+This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in foundry.
 
 ### 1. Getting Started
 
@@ -126,22 +126,22 @@ Now, I will take you step by step creation of application:
 
 #### About Data design:
 
-_*Documents:*_ In data design, documents are related to the real business documents (e.g.patient, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
+_*Documents:*_ In data design, documents are related to the real business documents (e.g.resident, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
 
-_*Attributes:*_ Attributes contain information about each document (e.g. Patient's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
+_*Attributes:*_ Attributes contain information about each document (e.g. Resident's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
 
 In this tutorial we have three documents:
 
-#### 1. Define Patient Document and it's attributes:
+#### 1. Define Resident Document and it's attributes:
 
-The patient document will contain the personal information about the patients and the information about the facility they admitted.
+The resident document will contain the personal information about the residents and the information about the facility they admitted.
 
-Patient document contain attributes below:
+Resident document contain attributes below:
 
 | Attribute name | Data Type  |
 | -------------- | ---------- |
-| PatientID      | Text       |
-| Patient Name   | Text       |
+| ResidentID      | Text       |
+| Resident Name   | Text       |
 | Photo          | Image      |
 | DOB            | Date       |
 | Room Number    | Integer    |
@@ -149,7 +149,7 @@ Patient document contain attributes below:
 | Admission Date | Date       |
 | Facility Name  | Associtate |
 
-Now, we will create a Patient document and add attributes in Patient document in next few steps.
+Now, we will create a Resident document and add attributes in Resident document in next few steps.
 
 - Click on Data Design to add the Documents
 
@@ -161,16 +161,16 @@ Now, we will create a Patient document and add attributes in Patient document in
 
 - You can see your document on screen.
 
-- Next, create documents for Facility and Assessments same as patient and click on arrow to add attributes for each document
+- Next, create documents for Facility and Assessments same as resident and click on arrow to add attributes for each document
 
   ![Documents and attributes](doc_src_img/chapter1/5.jpg "Documents and attributes")
 
-- Click on Add button to add attributes to patient document
+- Click on Add button to add attributes to resident document
 
   ![Add attribute](doc_src_img/chapter1/6.jpg "Add attribute")
 
-- Add all the attributes for Patient document as below
-  ![Patient attributes](doc_src_img/chapter1/7.jpg "Patient attributes")
+- Add all the attributes for Resident document as below
+  ![Resident attributes](doc_src_img/chapter1/7.jpg "Resident attributes")
 
 #### 2. Define Facility Document and it's attributes:
 
@@ -187,13 +187,13 @@ The attributes for Facility document as below:
 | State            | Text      |
 | Facility manager | Associate |
 
-This document will follow the same steps we followed for Patient document. It will look like as below:
+This document will follow the same steps we followed for Resident document. It will look like as below:
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
 
 #### 3. Define Assessments Document and it's attributes:
 
-The Assessment document will contain information about all the care assessments related to each patient.
+The Assessment document will contain information about all the care assessments related to each resident.
 
 The attributes for Assessments document as below:
 
@@ -206,7 +206,7 @@ The attributes for Assessments document as below:
 | Behaviour Assessment  | Memo      |
 | Staff                 | Associate |
 
-Follow the same steps like Patient and Assessment documents. Assessment document look like as below.
+Follow the same steps like Resident and Assessment documents. Assessment document look like as below.
 
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
 
@@ -515,11 +515,11 @@ Skyve will provide generic/default list and edit views. Skyve supports rapid pro
 
 List views are basically depend on queries which include only key document attributes for searching and review. Each row of the list corresponds to a document instance however the list may represent data from related documents within the document’s object hierarchy.
 
-- #### Patient List
+- #### Resident List
 
-Lets see our `Patient` list, it shows all the information we define in our document's attributes section.
+Lets see our `Resident` list, it shows all the information we define in our document's attributes section.
 
-Hide attributes `admission date` and `patient Id` in the `Patient` documents
+Hide attributes `admission date` and `resident Id` in the `Resident` documents
 
 Open agedCare.xml
 
@@ -527,12 +527,12 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 
 ```xml
 <queries>
-    <query documentName="Patient" name="qPatient">
-    <description>All Patient</description>
+    <query documentName="Resident" name="qResident">
+    <description>All Resident</description>
     <columns>
    		<content display="thumbnail" binding="photo" pixelHeight="45" pixelWidth="45" />
-    	<column binding="patientID" sortOrder="ascending" hidden="true" />
-    	<column binding="patientName" sortOrder="ascending" />
+    	<column binding="residentID" sortOrder="ascending" hidden="true" />
+    	<column binding="residentName" sortOrder="ascending" />
     	<column binding="DOB" sortOrder="ascending" />
     	<column binding="roomNo" sortOrder="ascending" />
     	<column binding="BIO" sortOrder="ascending" />
@@ -544,11 +544,11 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 
 ```
 
-Then you will need to provide `defaultQueryName` attribute to your patient document in `agedCare.xml` like below:
+Then you will need to provide `defaultQueryName` attribute to your resident document in `agedCare.xml` like below:
 
 ```xml
 <documents>
-        <document ref="Patient" defaultQueryName="qPatient"/>
+        <document ref="Resident" defaultQueryName="qResident"/>
         <document ref="Facility"/>
         <document ref="Assessment"/>
         <document ref="Contact" moduleRef="admin"/>
@@ -561,7 +561,7 @@ Then you will need to provide `defaultQueryName` attribute to your patient docum
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
-## Image for patient.
+## Image for resident.
 
 - #### Facility List
 
@@ -594,7 +594,7 @@ Then you will need to provide `defaultQueryName` attribute to your facility docu
 
 ```xml
 <documents>
-		<document ref="Patient" defaultQueryName="qPatient" />
+		<document ref="Resident" defaultQueryName="qResident" />
 		<document ref="Facility" defaultQueryName="qFacility" />
 		<document ref="Assessment" />
 		<document ref="Contact" moduleRef="admin" />
@@ -609,8 +609,8 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 - #### Assessments List
 
-As in `Assessment` document, you can see different assessments related to each patient.
-Let's hide `Pain assessement` and `Review date` from the document and add patient name and image.
+As in `Assessment` document, you can see different assessments related to each resident.
+Let's hide `Pain assessement` and `Review date` from the document and add resident name and image.
 
 Let's try it:
 Add query in your `agedCare.xml`
@@ -620,7 +620,7 @@ Add query in your `agedCare.xml`
     <description>All Assessments</description>
     <columns>
     	<content display="thumbnail" binding="parent.photo" pixelHeight="60" pixelWidth="60" />
-    	<column binding="parent.patientName" sortOrder="ascending" />
+    	<column binding="parent.residentName" sortOrder="ascending" />
     	<column binding="hygieneAssessment" sortOrder="ascending" />
     	<column binding="painAssessment" sortOrder="ascending"   hidden="true"/>
     	<column binding="continenceAssessment" sortOrder="ascending" />
@@ -636,7 +636,7 @@ Then you will need to provide `defaultQueryName` attribute to your Assessment do
 
 ```xml
 <documents>
-        <document ref="Patient" defaultQueryName="qPatient"/>
+        <document ref="Resident" defaultQueryName="qResident"/>
         <document ref="Facility"  defaultQueryName="qFacility"/>
         <document ref="Assessment"  defaultQueryName="qAssessment"/>
         <document ref="Contact" moduleRef="admin"/>
@@ -653,19 +653,19 @@ Again, to apply the change, stop the WildFly server and run the Generate Domain 
 
 In this section we will override the default detail view which is generated by Skyve.
 
-- #### Patient Edit view
+- #### Resident Edit view
 
 Skyve provides us with a very useful function to create default `edit view` based on our document attributes and attributes type, the default widget will be applied for each attribute type.
 
-So to create our Patient `edit view`, we will go through the following steps:
+So to create our Resident `edit view`, we will go through the following steps:
 
 #### Create edit view
 
 1. Click on `Generate edit view` in the right side of the eclipse window and write the module and document name in the Console window.
 
-### !image for patient document.
+### !image for resident document.
 
-2. If you go to the agedCare module left side of eclipse and open the patient module. You can see view module and in view module there is a document with `generatedit.xml`. Rename the document, `edit.xml`
+2. If you go to the agedCare module left side of eclipse and open the resident module. You can see view module and in view module there is a document with `generatedit.xml`. Rename the document, `edit.xml`
 
 ### image for how to edit.xml
 
@@ -673,11 +673,11 @@ So to create our Patient `edit view`, we will go through the following steps:
 
 In the previous step we generated an edit view by using the Generate Edit View function. Now we will enhance our edit view to make it more visually appealing.
 
-As of now, Patient attributes show one by one, from top to bottom. We will enhance the view by:
+As of now, Resident attributes show one by one, from top to bottom. We will enhance the view by:
 
 Showing all the personal information in the one side and the photo and BIO in other side.
 
-We will plan to split our view into 2 sections: left and right. We will show Patient information on the left side and the Patient Image and BIO will be shown on the right part.
+We will plan to split our view into 2 sections: left and right. We will show Resident information on the left side and the Resident Image and BIO will be shown on the right part.
 
 To do that, we will need to understand about Skyve Containers - https://skyvers.github.io/skyve-dev-guide/views/#containers
 
@@ -685,11 +685,11 @@ After reading through the Skyve Containers document, you may have already guesse
 
 Yes, hbox container will help us on this.
 
-Open patient `edit.xml` and add the code given below;
+Open resident `edit.xml` and add the code given below;
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Patient" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Resident" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
     <tabPane>
         <tab title="General">
         <hbox border="true">
@@ -701,12 +701,12 @@ Open patient `edit.xml` and add the code given below;
 
                <row>
                     <item>
-                        <default binding="patientID"/>
+                        <default binding="residentID"/>
                     </item>
                 </row>
                 <row>
                     <item>
-                        <default binding="patientName"/>
+                        <default binding="residentName"/>
                     </item>
                 </row>
                  <row>
@@ -778,33 +778,33 @@ Open patient `edit.xml` and add the code given below;
 
 To see the changes re-deployed the application.
 
-#### ///image for patient document
+#### ///image for resident document
 
 Next, we will group related information together to make it easier to manage.
 The easiest way is to use the `border` and `borderTitle` attributes of the Form container.
-So, in this case, I will have 2 forms, one for `Patient Info`, one for `Faciltiy Info`.
+So, in this case, I will have 2 forms, one for `Resident Info`, one for `Faciltiy Info`.
 Let's add `border` and `borderTitle` in the `<form>` tag.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Patient" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Resident" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
     <tabPane>
         <tab title="General">
         <hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
- 			<form border="true" borderTitle="Patient Info">
+ 			<form border="true" borderTitle="Resident Info">
 		        <column percentageWidth="30" responsiveWidth="4"/>
 		        <column/>
 
                <row>
                     <item>
-                        <default binding="patientID"/>
+                        <default binding="residentID"/>
                     </item>
                 </row>
                 <row>
                     <item>
-                        <default binding="patientName"/>
+                        <default binding="residentName"/>
                     </item>
                 </row>
                  <row>
@@ -878,9 +878,9 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 </view>
 ```
 
-#### image for patient with seprate forms
+#### image for resident with seprate forms
 
-As, we have already made a nice view for Patient. However, I also want to introduce View Components to you.
+As, we have already made a nice view for Resident. However, I also want to introduce View Components to you.
 
 So, what is View Components?
 
@@ -888,32 +888,32 @@ Let's imagine that our view is very complex, lots of sections and these sections
 
 To demonstrate how to re-use components, we will split our view into three components:
 
-1. Patient Info
+1. Resident Info
 2. Facility Info
 3. Photo and Bio
 
 The view component must be declared according to the convention, with the file name matching the declared name.
 
-##### Patient Info component
+##### Resident Info component
 
-In the Patient > views package, create new `_patientInfo.xml` file with below content:
+In the Resident > views package, create new `_residentInfo.xml` file with below content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_patientInfo" title="Patient Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_residentInfo" title="Resident Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
 
-		<form border="true" borderTitle="Patient Info">
+		<form border="true" borderTitle="Resident Info">
 		        <column percentageWidth="30" responsiveWidth="4"/>
 		        <column/>
 
                <row>
                     <item>
-                        <default binding="patientID"/>
+                        <default binding="residentID"/>
                     </item>
                 </row>
                 <row>
                     <item>
-                        <default binding="patientName"/>
+                        <default binding="residentName"/>
                     </item>
                 </row>
                  <row>
@@ -927,7 +927,7 @@ In the Patient > views package, create new `_patientInfo.xml` file with below co
 
 ##### Facility Info component
 
-In the Patient > views package, create new `_facilityInfo.xml` file with below content:
+In the Resident > views package, create new `_facilityInfo.xml` file with below content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -958,11 +958,11 @@ In the Patient > views package, create new `_facilityInfo.xml` file with below c
 
 ##### Photo and Bio component
 
-In the Patient > views package, create new `_photoBio.xml` file with below content:
+In the Resident > views package, create new `_photoBio.xml` file with below content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_photoBio" title="Patient Photo and Bio" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_photoBio" title="Resident Photo and Bio" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
 <form>
 		        <column percentageWidth="20" responsiveWidth="1" />
 				<column />
@@ -990,13 +990,13 @@ Change `edit.xml` view like below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Patient" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Resident" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
     <tabPane>
         <tab title="General">
 	<hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
- 			<component name="_patientInfo" />
+ 			<component name="_residentInfo" />
  			<component name="_facilityInfo" />
 
 		</vbox>
@@ -1033,7 +1033,7 @@ Change `edit.xml` view like below:
 
 We will re-deploy our application to see affect. After re-deployment and re-login to the system. We will have the same view as our original before:
 
-#### image here for patient document
+#### image here for resident document
 
 - #### Facility Edit view
 
@@ -1053,7 +1053,7 @@ Let's start with Facility Info component.
 
    ![Edit Facility](doc_src_img/chapter7/4.jpg "Edit view facility")
 
-2. Add facility component same as patient component
+2. Add facility component same as resident component
 
 ##### Facility Info component
 
@@ -1176,36 +1176,36 @@ Again re-deploy the application to see the changes in your Facility document.
 
 - #### Assessment Edit view
 
-As we finish our edit view for patient and facility document. Now, in this step we will do edit view for our Assessment document.
+As we finish our edit view for resident and facility document. Now, in this step we will do edit view for our Assessment document.
 Assessment document will show sections below:
 
-1. Patient Info
+1. Resident Info
 2. Assessment Detail
 3. Review Detail
 
-Let's start with Patient Info
+Let's start with Resident Info
 
 Generate edit view for the assessment document first.
 
 ![Edit assessment](doc_src_img/chapter7/6.jpg "Edit assessment")
 
-##### Patient info component
+##### Resident info component
 
-In the Assessment > views package, create new `_patientInfo.xml` as below content:
+In the Assessment > views package, create new `_residentInfo.xml` as below content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_patientInfo" title="Patient Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Patient Info">
+<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_residentInfo" title="Resident Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+    <form border="true" borderTitle="Resident Info">
                 <column percentageWidth="30" responsiveWidth="4"/>
 		        <column/>
                 <row>
                 <item>
-                        <default binding="parent.patientName"/>
+                        <default binding="parent.residentName"/>
                     </item>
                 </row>
                 </form>
-               <form border="true" borderTitle="Patient Photo">
+               <form border="true" borderTitle="Resident Photo">
                 <column percentageWidth="30" responsiveWidth="4"/>
 		        <column/>
                 <row>
@@ -1292,7 +1292,7 @@ Change `edit.xml` view like below:
   <hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
- 			<component name="_patientInfo" />
+ 			<component name="_residentInfo" />
  			<component name="_reviewDetail" />
 
 		</vbox>
@@ -1321,9 +1321,9 @@ For each document, the privilege level is specified in terms of C (Create) R (Re
 
 In our Aged care App, we will define below roles:
 
-1. Nurse: Nurse can have all permissions in the patient and assessment documents. But, in the facility document nurses can only have update and scope permission.
+1. Nurse: Nurse can have all permissions in the resident and assessment documents. But, in the facility document nurses can only have update and scope permission.
 
-2. Carer: Carer can have _RU_C permissions in Patient document, \_R_ \_C permissions in the facility document, and in Assessment carer can CRU_C permissions.
+2. Carer: Carer can have _RU_C permissions in Resident document, \_R_ \_C permissions in the facility document, and in Assessment carer can CRU_C permissions.
 
 3. Manager: Manager have all the permissions in all three documents.
 
@@ -1335,9 +1335,9 @@ Open `agedCare.xml` to create new roles and change menu.
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged care" prototype="true" name="agedCare" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
     <homeRef>list</homeRef>
-    <homeDocument>Patient</homeDocument>
+    <homeDocument>Resident</homeDocument>
     <documents>
-        <document ref="Patient" defaultQueryName="qPatient"/>
+        <document ref="Resident" defaultQueryName="qResident"/>
         <document ref="Facility"  defaultQueryName="qFacility"/>
         <document ref="Assessment"  defaultQueryName="qAssessment"/>
         <document ref="Contact" moduleRef="admin"/>
@@ -1348,7 +1348,7 @@ Open `agedCare.xml` to create new roles and change menu.
         <role name="Viewer">
             <description><![CDATA[Enough privileges to view Aged care documents.]]></description>
             <privileges>
-                <document name="Patient" permission="_R__C"/>
+                <document name="Resident" permission="_R__C"/>
                 <document name="Facility" permission="_R__C"/>
                 <document name="Assessment" permission="_R__C"/>
             </privileges>
@@ -1356,7 +1356,7 @@ Open `agedCare.xml` to create new roles and change menu.
         <role name="Maintainer">
             <description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
             <privileges>
-                <document name="Patient" permission="CRUDC"/>
+                <document name="Resident" permission="CRUDC"/>
                 <document name="Facility" permission="CRUDC"/>
                 <document name="Assessment" permission="CRUDC"/>
             </privileges>
@@ -1365,7 +1365,7 @@ Open `agedCare.xml` to create new roles and change menu.
         <role name="Nurses">
 	<description>Permission to see all Assessments</description>
 	<privileges>
-		<document name="Patient" permission="CRUDC" />
+		<document name="Resident" permission="CRUDC" />
 		<document name="Facility" permission="_R__C"/>
 		<document name="Assessment" permission="CRUDC" />
 	</privileges>
@@ -1374,7 +1374,7 @@ Open `agedCare.xml` to create new roles and change menu.
 	<role name="Carers">
 		<description>Permission to see only Carer Assessments</description>
 		<privileges>
-			<document name="Patient" permission="_RU_C"></document>
+			<document name="Resident" permission="_RU_C"></document>
 			<document name="Facility" permission="_R__C" />
 			<document name="Assessment" permission="CRU_C" />
 		</privileges>
@@ -1383,14 +1383,14 @@ Open `agedCare.xml` to create new roles and change menu.
 <role name="Manager">
 		<description>Permission to manage Facility, Staff, and Assessments</description>
 		<privileges>
-			<document name="Patient" permission="CRUDC" />
+			<document name="Resident" permission="CRUDC" />
 			<document name="Facility" permission="CRUDC" />
 			<document name="Assessment" permission="CRUDC" />
 		</privileges>
 </role>
     </roles>
     <menu>
-        <list document="Patient" name="Patients">
+        <list document="Resident" name="Residents">
             <role name="Nurses"/>
             <role name="Manager"/>
             <role name="Carers"/>
@@ -1460,7 +1460,7 @@ First login with carer.
 
 ![Carer login](doc_src_img/chapter8/7.jpg "Carer login")
 
-You can see, the carer can access patient and assessment in Agedcare module. This is because in `agedCare.xml` in menu we gave permission to only Manager to see the facility module.
+You can see, the carer can access resident and assessment in Agedcare module. This is because in `agedCare.xml` in menu we gave permission to only Manager to see the facility module.
 
 Carer login page shown below:
 
@@ -1502,21 +1502,21 @@ The document package includes declarations of actions, reports, views and the as
 
 More info on Bizlets can be found at the following Skyve Developer Guide link: https://skyvers.github.io/skyve-dev-guide/bizlets/
 
-##### Bizlet PatientID
+##### Bizlet ResidentID
 
-First of all, let's show you how to create `PatientBizlet` to customize the document as we want.
-Right-click to the `Patient` package and select `New`, then select `Class` in the sub-menu.
+First of all, let's show you how to create `ResidentBizlet` to customize the document as we want.
+Right-click to the `Resident` package and select `New`, then select `Class` in the sub-menu.
 The new Class window will appear like below:
 
 ![Class defination](doc_src_img/chapter9/1.jpg "Class defination")
 
-The `PatientBizlet` class is created, It shows some errors, to remove these errors we will use "Eclipse Quick Fix suggestions" as below:
+The `ResidentBizlet` class is created, It shows some errors, to remove these errors we will use "Eclipse Quick Fix suggestions" as below:
 
-![Quickfix patient](doc_src_img/chapter9/2.jpg "Quickfix patient")
+![Quickfix resident](doc_src_img/chapter9/2.jpg "Quickfix resident")
 
-![Quickfix PatientBizlet](doc_src_img/chapter9/3.jpg "Quickfix PatientBizlet")
+![Quickfix ResidentBizlet](doc_src_img/chapter9/3.jpg "Quickfix ResidentBizlet")
 
-Alright, after fixing the above two issues, we will override the `newInstance` method to read patient information. Create the `newInstance` as follow:
+Alright, after fixing the above two issues, we will override the `newInstance` method to read resident information. Create the `newInstance` as follow:
 
 ![override](doc_src_img/chapter9/4.jpg "override")
 
@@ -1532,17 +1532,17 @@ Add the below code in the method
 
 ```java
 {
-String patientId;
+String residentId;
 
-patientId=ModulesUtil.getNextDocumentNumber("P", Patient.MODULE_NAME, Patient.DOCUMENT_NAME, Patient.patientIDPropertyName, 4);
-bean.setPatientID(patientId);
+residentId=ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
+bean.setResidentID(residentId);
 
 return super.newInstance(bean);
 
 }
 ```
 
-By using this code, we set the patientId for our new document.
+By using this code, we set the residentId for our new document.
 
 #### presave() method
 
@@ -1550,11 +1550,11 @@ In next few steps, we will see how we can use the `presave()` method.
 In previous step we created a `newInstance` method. Now,
 I want you to change the Bizlet and use the preSave() method instead of newInstance() as follows:
 
-- When we SAVE the patient record, check if the patientId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for new instance)
-- Add a condition to the Patient.xml called `hasID` which checks if `bean.getPatientId()!=null`
-- Only show the `patientID` field in the Patient view, if the `hasID` condition is true
+- When we SAVE the resident record, check if the residentId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for new instance)
+- Add a condition to the Resident.xml called `hasID` which checks if `bean.getResidentId()!=null`
+- Only show the `residentID` field in the Resident view, if the `hasID` condition is true
 
-1. In first step, go to `patientBizlet.java` and add new Bizlet
+1. In first step, go to `residentBizlet.java` and add new Bizlet
    go to source > override and implement method and select presave() from list and click on `Ok`
 
 ![presave](doc_src_img/chapter9/7.jpg "presave")
@@ -1563,40 +1563,40 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 
 ![code presave](doc_src_img/chapter9/8.jpg "code presave")
 
-3. Next, add condition to the `Patient.xml` called `hasID` which checks if `bean.getPatiendId()!=null`
-4. Opem `Patient.xml`, and add condition after `attributes` as below
+3. Next, add condition to the `Resident.xml` called `hasID` which checks if `bean.getPatiendId()!=null`
+4. Opem `Resident.xml`, and add condition after `attributes` as below
 
 ```xml
 <conditions>
 		<condition name="hasID">
-			<expression><![CDATA[getPatientID()!=null]]></expression>
+			<expression><![CDATA[getResidentID()!=null]]></expression>
 
 		</condition>
 	</conditions>
 ```
 
-5. To show the `patientID` field in the Patient view, if the `hasID` condition is true, open `_patientInfo.xml`
+5. To show the `residentID` field in the Resident view, if the `hasID` condition is true, open `_residentInfo.xml`
 
-6. Then, change PatientID field as below:
+6. Then, change ResidentID field as below:
 
 ```xml
 <row>
 			<item>
 				<textField disabled="true" visible="hasID"
-					binding="patientID" />
+					binding="residentID" />
 			</item>
 		</row>
 
 ```
 
 To see the changes, generate domain and deployed application.
-Sign in as a manager, and go to add new patient there is no patient id but it will generate when you save all other details.
+Sign in as a manager, and go to add new resident there is no resident id but it will generate when you save all other details.
 
-![patient document](doc_src_img/chapter9/9.jpg "patient document")
+![resident document](doc_src_img/chapter9/9.jpg "resident document")
 
-After filling all the details, press on the save button then you see it generate the PatientID field to the document.
+After filling all the details, press on the save button then you see it generate the ResidentID field to the document.
 
-![patient document Id](doc_src_img/chapter9/10.jpg "patient document Id")
+![resident document Id](doc_src_img/chapter9/10.jpg "resident document Id")
 
 #### Enhancement in Aged care application
 
@@ -1604,8 +1604,8 @@ In this section, we will add more functionality in our documents as below:
 
 - Add a new `datetime` to Assessment called `assesmentCreatedTime`
 - Add a `Bizlet` for `Assessment` to set the `assesmentCreatedTime` when a new assessment is created and record the user who created the assessment
-- In the `Facility` view, show a `listGrid` of `Patients` at that facility
-- Add a `status` enumeration for Patient with appropriate values (current, discharged, deceased), where the default value is current
+- In the `Facility` view, show a `listGrid` of `Residents` at that facility
+- Add a `status` enumeration for Resident with appropriate values (current, discharged, deceased), where the default value is current
 
 1. Add a new `datetime` to Assessment called `assesmentCreatedTime`, go to `Assessment.xml` and add new attribute as below
 
@@ -1664,7 +1664,7 @@ So, now you set the assessment time and staff in your Assessment document as bel
 
 ![Set assessment created by](doc_src_img/chapter10/2.jpg "Assessment created by")
 
-3. In the Facility view, show a listGrid of Patients at that facility
+3. In the Facility view, show a listGrid of Residents at that facility
 
 Go to the `Facility` package and open the `edit.xml` to add listGrid as below
 
@@ -1672,15 +1672,15 @@ Go to the `Facility` package and open the `edit.xml` to add listGrid as below
 
 Generate domain to check result.
 
-![listGrid of patient](doc_src_img/chapter10/4.jpg "listGrid of patient")
+![listGrid of resident](doc_src_img/chapter10/4.jpg "listGrid of resident")
 
-4. Add a `status` enumeration for Patient with appropriate values (current, discharged, deceased), where the default value is current
+4. Add a `status` enumeration for Resident with appropriate values (current, discharged, deceased), where the default value is current
 
-Open the `Patient.xml` and add this code in `<attributes>`
+Open the `Resident.xml` and add this code in `<attributes>`
 
 ```xml
-<enum name="patientStatus">
-			<displayName>Patient Status</displayName>
+<enum name="residentStatus">
+			<displayName>Resident Status</displayName>
 			<defaultValue>current</defaultValue>
 			<values>
 				<value code="Current" />
@@ -1690,17 +1690,17 @@ Open the `Patient.xml` and add this code in `<attributes>`
 		</enum>
 ```
 
-Next, open `_patientInfo.xml` and add row
+Next, open `_residentInfo.xml` and add row
 
 ```xml
 <row>
 			<item>
-				<default binding="patientStatus" />
+				<default binding="residentStatus" />
 			</item>
 		</row>
 ```
 
-Generate domain, deploy app again. You can see the new field in Assessment `Patient Status`.
+Generate domain, deploy app again. You can see the new field in Assessment `Resident Status`.
 
 ![Status](doc_src_img/chapter10/5.jpg "Status")
 
