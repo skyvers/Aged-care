@@ -534,7 +534,7 @@ If not, you may try to debug by yourself to find the source of the problem, or [
 
 Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup".
 
-![Aged care app](doc_src_img/chapter6/11.jpg "Aged care app")
+![Aged care app](doc_src_img/chapter6/"Aged care app")
 
 ## 3.8 List Views
 
@@ -590,7 +590,7 @@ Then you will need to provide `defaultQueryName` attribute to your resident docu
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
-![Resident attributes](doc_src_img/chapter7/8.jpg "Resident attributes")
+![Resident attributes](doc_src_img/chapter7/8.JPG "Resident attributes")
 
 - #### Facility List
 
