@@ -147,9 +147,13 @@ To create a new skyve project through foundry go to the [How to get started](htt
 Now, I will take you step by step creation of application:
 
 - Click on the Add button
+
   ![Add Button](doc_src_img/chapter1/1.png "Add Button")
+
 - Enter the name of App and email address
+
   ![Name and Email](doc_src_img/chapter1/2.png "Name and Email")
+
 - Click on save, after that start build Data Design
 
 #### About Data design:
@@ -246,6 +250,7 @@ Our Aged care application is almost ready, now the next step is to deploying our
 There are following steps to deploy Aged care application as we created in foundry:
 
 1. Go to foundry and click on Aged care application
+
    ![Deploy](doc_src_img/chapter4/1.jpg "Deploy")
 
 2. Click on Deloy tab and then click on Deploy, usually it take 2 minutes to deploy your application
@@ -293,8 +298,13 @@ The Skyve free trial server will automatically undeploy your project after one h
 ## 3.1 Collaboration
 
 Next, we need to Collaborate our application with Github.
-To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help.
-Then follow the steps for collaboration.
+
+Why we need collaboration?
+
+Collaboration will allow another user of your team to do editing in your application or between foundry users and developer. So, to do collaboration we need to provide our application with a remote endpoint of new Git repository.
+
+To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help, and follow the steps for collaboration.
+
 ![Collaboration](doc_src_img/Chapter2/1.jpg "Collaboration")
 
 #### Setup to Github
@@ -302,22 +312,33 @@ Then follow the steps for collaboration.
 To enable the collaboration, first of all Sign up or log into [Github](https://github.com/) account.
 To create a new repository follow the steps below:
 
-- Click on the plus icon on the top right side to create the new repository
+- Click on the Add button on the top right side to create the new repository
+
   ![Create repository](doc_src_img/Chapter2/2.jpg "Create reposistory")
+
 - Next, enter the name of the repository, make it private, and click on create
+
   ![repository name](doc_src_img/Chapter2/3.jpg "repository name")
+
 - After creating repository, you will see the link as shown below, copy the link
+
   ![Link](doc_src_img/Chapter2/4.jpg "Link")
+
 - Next, go to foundry, open the collaborate tab and paste the link in Remote Endpoint
+
 - Click on apply
 - Click on Save
+
   ![remote endpoint](doc_src_img/Chapter2/5.jpg "remote endpoint")
+
 - Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
 
   ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
 
 - Next, check your project in Github
+
 - Go to Github, open repository to see all the files
+
   ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
 
 This is the End of create and collaboration of the application...!
@@ -378,38 +399,40 @@ If the JBoss Tools plugin is present, you are ready to continue.
 After JBoss Tools was installed properly, follow these steps to install WildFly Server.
 
 1. Once Eclipse is opened, right-click under the Package Explorer tab and highlight New, then from the pop-out, click on Server
+
    ![server](doc_src_img/chapter3/6.JPG "server")
 
 2. Select the WildFly version you wish to work with and click Next
 
-![select server](doc_src_img/chapter3/7.JPG "select server")
+   ![select server](doc_src_img/chapter3/7.JPG "select server")
 
-3.  Click Next again
+3. Click Next again
 
-![select Next](doc_src_img/chapter3/8.JPG "select Next")
+   ![select Next](doc_src_img/chapter3/8.JPG "select Next")
 
-4.  Once more, click the Next button
+4. Once more, click the Next button
 
-![install runtime](doc_src_img/chapter3/9.JPG "install runtime")
+   ![install runtime](doc_src_img/chapter3/9.JPG "install runtime")
 
-5.  Click on the Download and install runtime link
+5. Click on the Download and install runtime link
 
-![select runtime](doc_src_img/chapter3/10.JPG "select runtime")
+   ![select runtime](doc_src_img/chapter3/10.JPG "select runtime")
 
 Select the latest version of WildFly, then click Next
 
-![accept agreement](doc_src_img/chapter3/11.JPG "accept agreement")
+    ![accept agreement](doc_src_img/chapter3/11.JPG "accept agreement")
 
 7.  Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
 
-![select path](doc_src_img/chapter3/12.JPG "select path")
+    ![select path](doc_src_img/chapter3/12.JPG "select path")
 
 8.  Finally, select the path for where you wish your download and install locations to be found, then click Finish to complete the installation
+
     ![path](doc_src_img/chapter3/13.JPG "path")
 
 9.  Wait for Eclipse to complete the download and installation process before moving on to the next step
 
-![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
+    ![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
 
 ## 3.4 Add Repository in Eclipse
 
@@ -426,11 +449,11 @@ After downloading and installation of eclipse and server, the next step is add o
 
 4. Click on Git Repositories in bottom area of eclipse, right click and select clone a Git Repostory...
 
-![Git clone](doc_src_img/chapter5/3.jpg "Git clone")
+   ![Git clone](doc_src_img/chapter5/3.jpg "Git clone")
 
 5. Get URL from Github, go to Github and click on Code button.
 
-![Git URL](doc_src_img/chapter5/4.jpg "Git URL")
+   ![Git URL](doc_src_img/chapter5/4.jpg "Git URL")
 
 6. Copy that link and paste in Clone window and click on Next
 
@@ -470,11 +493,11 @@ To run our project in server we need to set Server in Eclipse first.
 
 1. Click on Server tab in Eclipse and right click
 
-![Server tab](doc_src_img/chapter5/11.jpg "Server tab")
+   ![Server tab](doc_src_img/chapter5/11.jpg "Server tab")
 
 2. Click on Add and Remove and then Finish
 
-![Server set](doc_src_img/chapter5/12.jpg "Server set")
+   ![Server set](doc_src_img/chapter5/12.jpg "Server set")
 
 ## 3.7 Deploy and Configure Skyve Project
 
@@ -692,11 +715,11 @@ So to create our Resident `edit view`, we will go through the following steps:
 
 1. Click on `Generate edit view` in the right side of the eclipse window and write the module and document name in the Console window.
 
-![Edit resident](doc_src_img/chapter7/3.jpg "edit resident")
+   ![Edit resident](doc_src_img/chapter7/3.jpg "edit resident")
 
 2. If you go to the agedCare module left side of eclipse and open the resident module. You can see view module and in view module there is a document with `generatedit.xml`. Rename the document, `edit.xml`
 
-![Edit.xml](doc_src_img/chapter7/9.JPG "edit.xml")
+   ![Edit.xml](doc_src_img/chapter7/9.JPG "edit.xml")
 
 #### Enhance the edit view
 
@@ -1451,7 +1474,7 @@ Open Admin>Security Admin>Groups
 
 1. Create group for the Carer as below:
 
-![Carer Groups](doc_src_img/chapter8/1.jpg "Carer Groups")
+   ![Carer Groups](doc_src_img/chapter8/1.jpg "Carer Groups")
 
 2. Create group for the Manager as below:
 
@@ -1472,11 +1495,11 @@ Go to the application, Open Admin>Security Admin>Users
 
 3. Set user name and password
 
-![Set Username](doc_src_img/chapter8/5.jpg "Set username")
+   ![Set Username](doc_src_img/chapter8/5.jpg "Set username")
 
 4. Click on Existing group, select carer and add in Assigned Group
 
-![Assigned group](doc_src_img/chapter8/6.jpg "Assigned group")
+   ![Assigned group](doc_src_img/chapter8/6.jpg "Assigned group")
 
 5. Click on save
 
@@ -1586,11 +1609,11 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 1. In first step, go to `residentBizlet.java` and add new Bizlet
    go to source > override and implement method and select presave() from list and click on `Ok`
 
-![preSave](doc_src_img/chapter9/7.jpg "preSave")
+   ![preSave](doc_src_img/chapter9/7.jpg "preSave")
 
 2. Add code in the `preSave()` method as below
 
-![code presave](doc_src_img/chapter9/8.jpg "code presave")
+   ![code presave](doc_src_img/chapter9/8.jpg "code presave")
 
 3. Next, add condition to the `Resident.xml` called `hasID` which checks if `bean.getPatiendId()!=null`
 4. Opem `Resident.xml`, and add condition after `attributes` as below
@@ -1749,19 +1772,19 @@ Now, we will add action that only a nurse can click, and it sets a status on the
 
 3. Then, under `actions` package create a action class `reviewed.java`
 
-![Reviewed class](doc_src_img/chapter11/1.jpg "reviewed class")
+   ![Reviewed class](doc_src_img/chapter11/1.jpg "reviewed class")
 
 4. Click on import Assessment `(modules.agedCare.domain)`
 
-![import assessment](doc_src_img/chapter11/2.jpg "import assessment")
+   ![import assessment](doc_src_img/chapter11/2.jpg "import assessment")
 
-5.  Click on Add unimplemented methods
+5. Click on Add unimplemented methods
 
-![unimplemented](doc_src_img/chapter11/3.jpg "unimplemented")
+   ![unimplemented](doc_src_img/chapter11/3.jpg "unimplemented")
 
 6. Add the code as shown below
 
-![Action class](doc_src_img/chapter11/4.jpg "Action class")
+   ![Action class](doc_src_img/chapter11/4.jpg "Action class")
 
 7. Declare the action in the section of the `view` declaration
 
