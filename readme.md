@@ -419,7 +419,7 @@ Before import your project in Eclipse, you need to download and install Eclipse 
 
 ### 3.3. Install and Configue Wildfly Server
 
-To run our Aged care application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
+To run our Aged care application, we will need to install and configure for WildFly Server. Skyve apps can be deployed on recent versions of Wildfly (10-20).
 
 - #### Install Wildfly Server
   You can skip this step if WildFly Server is already installed on your system.
@@ -597,6 +597,8 @@ Its easy to deploy your Skyve project to your WildFly Server.
 
 Before running your project, we will need to generate the domain class first.
 
+Generate domain validates and compiles the metadata (XML files) in your project and checks that the application domain is in a valid state. Errors for the developer to fix are written to your console, and if generate is successful, the domain will be compiled to produce Java domain files and unit tests.
+
 ![Generate domain](doc_src_img/chapter6/6.jpg "Generate domain")
 
 Right click on server and go to start button to start the server.
@@ -650,7 +652,9 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 
 ```
 
-Then you will need to provide `defaultQueryName` attribute to your resident document in `agedCare.xml` like below:
+Here the `content query column` provides a `content` column type for content items like image and file attachments.
+
+Then you will need to provide `defaultQueryName`- "which is the name of the metadata query to use by default wherever lists of document instances may be required" attribute to your resident document in `agedCare.xml` like below:
 
 ```xml
 <documents>
