@@ -46,14 +46,6 @@
   - [Bizlets](https://github.com/seema-source/Aged-care#bizlets)
   - [Actions](https://github.com/seema-source/Aged-care#actions)
 
-# 1. Is This Tutorial Right For Me ?
-
-- Tutorial Purpose
-- What We'll Cover
-- What You'll Get Out Of It
-- Skills You'll Need
-- Skills You'll Develop
-
 # 1. Tutorial Overview
 
 ### 1.1. Is This Tutorial Right For Me ?
@@ -161,7 +153,7 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 
 Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
 
-###  2.2. Create your app in Foundry
+### 2.2. Create your app in Foundry
 
 To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started](https://foundry.skyve.org/foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
 
