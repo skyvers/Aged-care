@@ -170,10 +170,10 @@ The resident document will contain the personal information about the residents 
 
 Resident document contain attributes below:
 
-| Attribute name | Data Type   |
-| -------------- | ----------- |
-| ResidentID     | Text        |
-| Resident Name  | Text        |
+| Attribute name | Data Type   | Length |
+| -------------- | ----------- | ------ |
+| ResidentID     | Text        | 100    |
+| Resident Name  | Text        | 500    |
 | Photo          | Image       |
 | DOB            | Date        |
 | Room Number    | Integer     |
@@ -211,13 +211,13 @@ The Facility document will contain information about the facility(e.g.facility n
 
 The attributes for Facility document as below:
 
-| Attribute name   | Data Type   |
-| ---------------- | ----------- |
-| Facility Name    | Text        |
+| Attribute name   | Data Type   | Length |
+| ---------------- | ----------- | ------ |
+| Facility Name    | Text        | 500    |
 | Building Number  | Integer     |
-| Street Name      | Text        |
-| Suburb           | Text        |
-| State            | Text        |
+| Street Name      | Text        | 500    |
+| Suburb           | Text        | 500    |
+| State            | Text        | 100    |
 | Facility manager | Association |
 
 This document will follow the same steps we followed for Resident document. It will look like as below:
@@ -230,12 +230,12 @@ The Assessment document will contain information about all the care assessments 
 
 The attributes for Assessments document as below:
 
-| Attribute name        | Data Type   |
-| --------------------- | ----------- |
+| Attribute name        | Data Type   | Length |
+| --------------------- | ----------- | ------ |
 | Hygiene Assessment    | Memo        |
 | Pain Assessment       | Memo        |
 | Continence Assessment | Memo        |
-| Sleep Assessment      | Memo        |
+| Sleep Assessment      | Text        | 600    |
 | Behaviour Assessment  | Memo        |
 | Staff                 | Association |
 
