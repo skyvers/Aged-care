@@ -633,7 +633,7 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
     	<column binding="facilityName.facilityName" sortOrder="ascending" />
     </columns>
     </query>
-    </queries>
+</queries>
 
 ```
 
@@ -649,7 +649,7 @@ Then you will need to provide `defaultQueryName`- "which is the name of the meta
         <document ref="Contact" moduleRef="admin"/>
         <document ref="DataGroup" moduleRef="admin"/>
         <document ref="User" moduleRef="admin"/>
-    </documents>
+</documents>
 
 
 ```
@@ -682,7 +682,7 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 				<column binding="location" sortOrder="ascending"
 					hidden="true" />
 			</columns>
-		</query>
+</query>
 ```
 
 Then you will need to provide `defaultQueryName` attribute to your facility document in `agedCare.xml` like below:
@@ -695,7 +695,7 @@ Then you will need to provide `defaultQueryName` attribute to your facility docu
 		<document ref="Contact" moduleRef="admin" />
 		<document ref="DataGroup" moduleRef="admin" />
 		<document ref="User" moduleRef="admin" />
-	</documents>
+</documents>
 ```
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
@@ -724,7 +724,7 @@ Add query in your `agedCare.xml`
     	<column binding="staff" sortOrder="ascending" />
     	<column binding="assessmentReview" sortOrder="ascending" hidden="true" />
     </columns>
-    </query>
+</query>
 ```
 
 Then you will need to provide `defaultQueryName` attribute to your Assessment document in `agedCare.xml`, like below:
@@ -737,7 +737,7 @@ Then you will need to provide `defaultQueryName` attribute to your Assessment do
         <document ref="Contact" moduleRef="admin"/>
         <document ref="DataGroup" moduleRef="admin"/>
         <document ref="User" moduleRef="admin"/>
-    </documents>
+</documents>
 ```
 
 Again, to apply the change, stop the WildFly server and run the Generate Domain command, then start the WildFly Server.
@@ -1011,13 +1011,13 @@ In the Resident > views package, create new `_residentInfo.xml` file with below 
                         <default binding="residentName"/>
                     </item>
                 </row>
-                 <row>
+                <row>
                     <item>
                         <default binding="DOB"/>
                     </item>
                 </row>
-                </form>
-                </view>
+      </form>
+  </view>
 ```
 
 ##### Facility Info component
@@ -1048,7 +1048,7 @@ In the Resident > views package, create new `_facilityInfo.xml` file with below 
                 </row>
 
           </form>
-          </view>
+ </view>
 ```
 
 ##### Photo and Bio component
@@ -1058,24 +1058,24 @@ In the Resident > views package, create new `_photoBio.xml` file with below cont
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_photoBio" title="Resident Photo and Bio" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-<form>
-		        <column percentageWidth="20" responsiveWidth="1" />
+  <form>
+		    <column percentageWidth="20" responsiveWidth="1" />
 				<column />
-			<row>
-                    <item showLabel="false">
-                        <contentImage binding="photo"/>
-                    </item>
-                </row>
- </form>
-            <form border="true" borderTitle="BIO">
- 		  <column/>
-			   <row>
-			       <item showLabel="false">
+		        <row>
+              <item showLabel="false">
+              <contentImage binding="photo"/>
+              </item>
+            </row>
+  </form>
+  <form border="true" borderTitle="BIO">
+ 		    <column/>
+			      <row>
+			        <item showLabel="false">
 			           <textArea binding="BIO"/>
-			      </item>
-			   </row>
-			</form>
-  </view>
+			        </item>
+			      </row>
+	</form>
+</view>
 ```
 
 ##### Combine together
@@ -1171,8 +1171,8 @@ as below content:
                 <default binding="facilityManager"/>
             </item>
         </row>
-        </form>
-        </view>
+    </form>
+</view>
 
 ```
 
@@ -1209,7 +1209,7 @@ In the Facility > views package, create new `_facilityAddress.xml` as below cont
             </item>
         </row>
 		</form>
-		</view>
+</view>
 ```
 
 ##### Facility location Component
@@ -1230,7 +1230,7 @@ In the Facility > views package, create new `_facilityLocation.xml` as below con
             </item>
         </row>
     </form>
-    </view>
+</view>
 ```
 
 ##### Combine together
@@ -1243,7 +1243,7 @@ Change `edit.xml` view like below:
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Facility" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
 
-        <hbox border="true">
+  <hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
  			<component name="_facilityInfo" />
@@ -1257,7 +1257,7 @@ Change `edit.xml` view like below:
 		</vbox>
 	</hbox>
 
-            <actions>
+   <actions>
         <defaults/>
     </actions>
     <newParameters/>
@@ -1292,24 +1292,24 @@ In the Assessment > views package, create new `_residentInfo.xml` as below conte
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_residentInfo" title="Resident Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
     <form border="true" borderTitle="Resident Info">
-                <column percentageWidth="30" responsiveWidth="4"/>
+            <column percentageWidth="30" responsiveWidth="4"/>
 		        <column/>
                 <row>
-                <item>
+                  <item>
                         <default binding="parent.residentName"/>
-                    </item>
+                  </item>
                 </row>
-                </form>
-               <form border="true" borderTitle="Resident Photo">
-                <column percentageWidth="30" responsiveWidth="4"/>
+    </form>
+    <form border="true" borderTitle="Resident Photo">
+            <column percentageWidth="30" responsiveWidth="4"/>
 		        <column/>
-                <row>
+                  <row>
                     <item showLabel="false">
                         <contentImage binding="parent.photo"/>
                     </item>
-                </row>
+                  </row>
       </form>
-      </view>
+</view>
 ```
 
 ##### Assessment Detail component
@@ -1320,35 +1320,35 @@ In the Assessment > views package, create new `_assessmentDetail.xml` as below c
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_assessmentDetail" title="Assessment Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
     <form border="true" borderTitle="Assessment Detail">
-                <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
+        <column percentageWidth="30" responsiveWidth="4"/>
+		    <column/>
 		        <row>
-            <item>
+              <item>
                 <default binding="hygieneAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
+              </item>
+            </row>
+            <row>
+              <item>
                 <default binding="painAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
+              </item>
+            </row>
+            <row>
+              <item>
                 <default binding="continenceAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
+              </item>
+            </row>
+            <row>
+              <item>
                 <default binding="sleepAssessment"/>
-            </item>
-        </row>
-        <row>
-            <item>
+              </item>
+            </row>
+            <row>
+              <item>
                 <default binding="behaviourAssessment"/>
-            </item>
-        </row>
-        </form>
-        </view>
+              </item>
+            </row>
+      </form>
+</view>
 ```
 
 ##### Review Detail component
@@ -1359,20 +1359,20 @@ In the Assessment > views package, create new `_reviewDetail.xml` as below conte
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_reviewDetail" title="Review Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
     <form border="true" borderTitle="Review Detail">
-                <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-		        <row>
-            <item>
+        <column percentageWidth="30" responsiveWidth="4"/>
+		    <column/>
+		      <row>
+              <item>
                 <default binding="staff"/>
             </item>
-        </row>
-        <row>
-            <item>
+          </row>
+          <row>
+              <item>
                 <default binding="assessmentReview"/>
-            </item>
-        </row>
-        </form>
-        </view>
+              </item>
+          </row>
+    </form>
+</view>
 ```
 
 ##### Combine together:
@@ -1439,51 +1439,51 @@ Open `agedCare.xml` to create new roles and change menu.
         <document ref="DataGroup" moduleRef="admin"/>
         <document ref="User" moduleRef="admin"/>
     </documents>
-    <roles>
-        <role name="Viewer">
-            <description><![CDATA[Enough privileges to view Aged care documents.]]></description>
-            <privileges>
-                <document name="Resident" permission="_R__C"/>
-                <document name="Facility" permission="_R__C"/>
-                <document name="Assessment" permission="_R__C"/>
-            </privileges>
-        </role>
-        <role name="Maintainer">
-            <description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
-            <privileges>
-                <document name="Resident" permission="CRUDC"/>
-                <document name="Facility" permission="CRUDC"/>
-                <document name="Assessment" permission="CRUDC"/>
-            </privileges>
-        </role>
+      <roles>
+          <role name="Viewer">
+              <description><![CDATA[Enough privileges to view Aged care documents.]]></description>
+              <privileges>
+                  <document name="Resident" permission="_R__C"/>
+                  <document name="Facility" permission="_R__C"/>
+                  <document name="Assessment" permission="_R__C"/>
+              </privileges>
+          </role>
+          <role name="Maintainer">
+              <description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
+              <privileges>
+                  <document name="Resident" permission="CRUDC"/>
+                  <document name="Facility" permission="CRUDC"/>
+                  <document name="Assessment" permission="CRUDC"/>
+              </privileges>
+          </role>
 
-        <role name="Nurses">
-	<description>Permission to see all Assessments</description>
-	<privileges>
-		<document name="Resident" permission="CRUDC" />
-		<document name="Facility" permission="_R__C"/>
-		<document name="Assessment" permission="CRUDC" />
-	</privileges>
+          <role name="Nurses">
+              <description>Permission to see all Assessments</description>
+              <privileges>
+                  <document name="Resident" permission="CRUDC" />
+                  <document name="Facility" permission="_R__C"/>
+                  <document name="Assessment" permission="CRUDC" />
+              </privileges>
 
-</role>
-	<role name="Carers">
-		<description>Permission to see only Carer Assessments</description>
-		<privileges>
-			<document name="Resident" permission="_RU_C"></document>
-			<document name="Facility" permission="_R__C" />
-			<document name="Assessment" permission="CRU_C" />
-		</privileges>
-	</role>
+            </role>
+            <role name="Carers">
+                <description>Permission to see only Carer Assessments</description>
+                <privileges>
+                  <document name="Resident" permission="_RU_C"></document>
+                  <document name="Facility" permission="_R__C" />
+                  <document name="Assessment" permission="CRU_C" />
+                </privileges>
+            </role>
 
-<role name="Manager">
-		<description>Permission to manage Facility, Staff, and Assessments</description>
-		<privileges>
-			<document name="Resident" permission="CRUDC" />
-			<document name="Facility" permission="CRUDC" />
-			<document name="Assessment" permission="CRUDC" />
-		</privileges>
-</role>
-    </roles>
+            <role name="Manager">
+                <description>Permission to manage Facility, Staff, and Assessments</description>
+                <privileges>
+                  <document name="Resident" permission="CRUDC" />
+                  <document name="Facility" permission="CRUDC" />
+                  <document name="Assessment" permission="CRUDC" />
+                </privileges>
+            </role>
+      </roles>
     <menu>
         <list document="Resident" name="Residents">
             <role name="Nurses"/>
@@ -1572,7 +1572,7 @@ In `Assessment` document, when we login as a carer, we can not see, we can not s
     <condition name="roleCarer">
     <expression><![CDATA[isUserInRole("agedCare", "Carers")]]></expression>
     </condition>
-    </conditions>
+</conditions>
 ```
 
 To see the changes we also need to change the visibility of the assessments as below:
@@ -1629,8 +1629,8 @@ Add the below code in the method
 {
 String residentId;
 
-residentId=ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
-bean.setResidentID(residentId);
+  residentId=ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
+  bean.setResidentID(residentId);
 
 return super.newInstance(bean);
 
@@ -1662,12 +1662,11 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 4. Opem `Resident.xml`, and add condition after `attributes` as below
 
 ```xml
-<conditions>
-		<condition name="hasID">
-			<expression><![CDATA[getResidentID()!=null]]></expression>
-
-		</condition>
-	</conditions>
+  <conditions>
+      <condition name="hasID">
+        <expression><![CDATA[getResidentID()!=null]]></expression>
+      </condition>
+  </conditions>
 ```
 
 5. To show the `residentID` field in the Resident view, if the `hasID` condition is true, open `_residentInfo.xml`
@@ -1680,7 +1679,7 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 				<textField disabled="true" visible="hasID"
 					binding="residentID" />
 			</item>
-		</row>
+</row>
 
 ```
 
@@ -1707,7 +1706,7 @@ In this section, we will add more functionality in our documents as below:
 ```xml
 <dateTime name="assessmentCreatedTime">
 			<displayName>Assessment Created Time</displayName>
-		</dateTime>
+</dateTime>
 ```
 
 Open `_reviewInfo` to add that column, so add new row
@@ -1717,7 +1716,7 @@ Open `_reviewInfo` to add that column, so add new row
 			<item>
 				<default binding="assessmentCreatedTime" />
 			</item>
-		</row>
+</row>
 
 ```
 
@@ -1745,8 +1744,8 @@ private static final long serialVersionUID = 2286961040250324230L;
 	@Override
 	public Assessment newInstance(Assessment bean) throws Exception {
 		// TODO Auto-generated method stub
-		bean.setAssessmentCreatedTime(new DateTime());
-		bean.setStaff(ModulesUtil.currentAdminUser());
+      bean.setAssessmentCreatedTime(new DateTime());
+      bean.setStaff(ModulesUtil.currentAdminUser());
 		return super.newInstance(bean);
 	}
 
@@ -1786,7 +1785,7 @@ Open the `Resident.xml` and add this code in `<attributes>`
 				<value code="Discharged" />
 				<value code="Deceased" />
 			</values>
-		</enum>
+</enum>
 ```
 
 Next, open `_residentInfo.xml` and add row
@@ -1796,7 +1795,7 @@ Next, open `_residentInfo.xml` and add row
 			<item>
 				<default binding="residentStatus" />
 			</item>
-		</row>
+</row>
 ```
 
 Generate domain, deploy app again. You can see the new field in Assessment `Resident Status`.
