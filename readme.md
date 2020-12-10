@@ -293,7 +293,11 @@ The Skyve free trial server will automatically undeploy your project after one h
 
 # 3. Low Code Extension
 
-[Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - Will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
+As we already explained about the low code extension at the beginning of the tutorial.
+
+In this section, we will work on collaboration and configuration of the local environment. After that, we will do some editing in the XML files, which will change the lists, views, and layout of our application. So, this step will enable us to test and deploy our application locally on our own (or another machine).
+
+For more detail visit our [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - which will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 
 ## 3.1 Collaboration
 
@@ -332,6 +336,8 @@ To create a new repository follow the steps below:
   ![remote endpoint](doc_src_img/Chapter2/5.jpg "remote endpoint")
 
 - Then, Go to collaborate tab of your application and describe changes with comment, click on commit and push button
+
+  (Note: "Commit will put your changes into your local repo and "Push" sends that changes to remote location)
 
   ![commit and push](doc_src_img/Chapter2/6.jpg "commit and push")
 
