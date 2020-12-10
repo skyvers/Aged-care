@@ -45,7 +45,8 @@
   - [Conditions](https://github.com/seema-source/Aged-care#conditions)
   - [Bizlets](https://github.com/seema-source/Aged-care#bizlets)
   - [Actions](https://github.com/seema-source/Aged-care#actions)
- Is This Tutorial Right For Me ?
+    Is This Tutorial Right For Me ?
+
 # 1. Tutorial Overview
 
 ### 1.1.
@@ -177,23 +178,23 @@ _*Documents:*_ In data design, documents are related to the real business entiti
 
 _*Attributes:*_ Attributes contain information about each document (e.g. Resident's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
 
-_*Data type*_ Data type specifies which type of value an attribute name hold.
-* Text or String: Used for a combination of any characters that appear on a keyboard, such as letters, numbers and symbols.
+_*Data type:*_ Data type specifies which type of value an attribute name hold.
 
-* Memo: Memo data type also called "Long Text". It is used to store large amount of text.
+- Text or String: Used for a combination of any characters that appear on a keyboard, such as letters, numbers and symbols.
 
-* Date: A Date includes the time, the year, the name of the day of the week, and the time zone.
+- Memo: Memo data type also called "Long Text". It is used to store large amount of text.
 
-* Image: Image data type is used where we want to upload an image in our document.
+- Date: A Date includes the time, the year, the name of the day of the week, and the time zone.
 
-* Integer: It is used to store the numeric values.
+- Image: Image data type is used where we want to upload an image in our document.
 
-* Association: This data type is used where there is a relationship between two entity object based on common attributes. An entity object only needs an association to access the data of another entity object.
+- Integer: It is used to store the numeric values.
+
+- Association: This data type is used where there is a relationship between two entity object based on common attributes. An entity object only needs an association to access the data of another entity object.
 
 In this tutorial we have three documents:
 
-##### 1. Define Resident Document and it's attributes:
-
+#### 1. Define Resident Document and it's attributes:
 
 The resident document will contain the personal information about the residents and the information about the facility they admitted.
 
@@ -234,7 +235,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
   ![Resident attributes](doc_src_img/chapter1/7.jpg "Resident attributes")
 
-##### 2. Define Facility Document and it's attributes:
+#### 2. Define Facility Document and it's attributes:
 
 The Facility document will contain information about the facility(e.g.facility name, facility manager), facility full address and location.
 
@@ -253,7 +254,7 @@ This document will follow the same steps we followed for Resident document. It w
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
 
-##### 3. Define Assessments Document and it's attributes:
+#### 3. Define Assessments Document and it's attributes:
 
 The Assessment document will contain information about all the care assessments related to each resident.
 
@@ -304,7 +305,13 @@ Click on Facility and then add button
 
 ![Facility](doc_src_img/chapter4/5.jpg "Facility")
 
-Enter the detail of facility in the fields
+Enter the detail of facility in the fields and click on "Ok" or "Save" button.
+
+**Ok button:** This button performs Save and Close action on cliked. This will save the changes and return you in previous page.
+
+**Save button:** This button will save any changes you perform in the current page when you click on it.
+
+So, press Ok or Save as you go.
 
 ![Facility field](doc_src_img/chapter4/6.jpg "Facility field")
 
@@ -315,6 +322,18 @@ Next, click on Assessments
 Add data in Assessments
 
 ![Assessments](doc_src_img/chapter4/8.jpg "Assessments")
+
+#### Desktop Mode
+
+Skyve provides two seprate user interface: Normal mode and power user mode. In normal mode, the interface is responsive and mobile and tablet friendly where as the power user mode is great for desktop browsers.
+
+To switch between interface click on the switch icon on the top-right of the application screen.
+
+![Switch icon](doc_src_img/chapter4/9.jpg "Switch icon")
+
+After clicking
+
+![Switch icon click](doc_src_img/chapter4/10.jpg "Switch icon click")
 
 #### Making Changes and Re-Deploying
 
