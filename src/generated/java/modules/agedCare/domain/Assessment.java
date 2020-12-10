@@ -52,11 +52,11 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	/** @hidden */
 	public static final String staffPropertyName = "staff";
 	/** @hidden */
-	public static final String nursePropertyName = "nurse";
-	/** @hidden */
 	public static final String assessmentReviewPropertyName = "assessmentReview";
 	/** @hidden */
 	public static final String assessmentCreatedTimePropertyName = "assessmentCreatedTime";
+	/** @hidden */
+	public static final String nursePropertyName = "nurse";
 
 	/**
 	 * Hygiene Assessment
@@ -85,12 +85,6 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	 **/
 	private UserExtension staff = null;
 	/**
-	 * AssessmentReviewedBy
-	 * <br/>
-	 * Staff who Reviewed Assessment.
-	 **/
-	private UserExtension nurse = null;
-	/**
 	 * Assessment Review Time
 	 **/
 	private DateTime assessmentReview;
@@ -98,6 +92,12 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	 * Assessment Created Time
 	 **/
 	private DateTime assessmentCreatedTime;
+	/**
+	 * AssessmentReviewedBy
+	 * <br/>
+	 * Staff who Reviewed Assessment.
+	 **/
+	private UserExtension nurse = null;
 	private Resident parent;
 
 	private Integer bizOrdinal;
@@ -255,26 +255,6 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	}
 
 	/**
-	 * {@link #nurse} accessor.
-	 * @return	The value.
-	 **/
-	public UserExtension getNurse() {
-		return nurse;
-	}
-
-	/**
-	 * {@link #nurse} mutator.
-	 * @param nurse	The new value.
-	 **/
-	@XmlElement
-	public void setNurse(UserExtension nurse) {
-		if (this.nurse != nurse) {
-			preset(nursePropertyName, nurse);
-			this.nurse = nurse;
-		}
-	}
-
-	/**
 	 * {@link #assessmentReview} accessor.
 	 * @return	The value.
 	 **/
@@ -312,6 +292,26 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	public void setAssessmentCreatedTime(DateTime assessmentCreatedTime) {
 		preset(assessmentCreatedTimePropertyName, assessmentCreatedTime);
 		this.assessmentCreatedTime = assessmentCreatedTime;
+	}
+
+	/**
+	 * {@link #nurse} accessor.
+	 * @return	The value.
+	 **/
+	public UserExtension getNurse() {
+		return nurse;
+	}
+
+	/**
+	 * {@link #nurse} mutator.
+	 * @param nurse	The new value.
+	 **/
+	@XmlElement
+	public void setNurse(UserExtension nurse) {
+		if (this.nurse != nurse) {
+			preset(nursePropertyName, nurse);
+			this.nurse = nurse;
+		}
 	}
 
 	/**

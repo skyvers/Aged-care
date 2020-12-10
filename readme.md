@@ -1631,12 +1631,12 @@ After filling all the details, press on the save button then you see it generate
 
 In this section, we will add more functionality in our documents as below:
 
-- Add a new `datetime` to Assessment called `assesmentCreatedTime`
+- Add a new `dateTime` to Assessment called `assesmentCreatedTime`
 - Add a `Bizlet` for `Assessment` to set the `assesmentCreatedTime` when a new assessment is created and record the user who created the assessment
 - In the `Facility` view, show a `listGrid` of `Residents` at that facility
 - Add a `status` enumeration for Resident with appropriate values (current, discharged, deceased), where the default value is current
 
-1. Add a new `datetime` to Assessment called `assesmentCreatedTime`, go to `Assessment.xml` and add new attribute as below
+1. Add a new `dateTime` to Assessment called `assesmentCreatedTime`, go to `Assessment.xml` and add new attribute as below
 
 ```xml
 <dateTime name="assessmentCreatedTime">
@@ -1687,9 +1687,13 @@ private static final long serialVersionUID = 2286961040250324230L;
 }
 ```
 
+Change the display name to AssessmentCreatedBy in `Assessment.xml` file. I will be clear to know who created the assessment.
+
+![display name change for staff](doc_src_img/chapter10/6.JPG "display name change")
+
 Generate domain and deploy the application to see the changes.
 
-So, now you set the assessment time and staff in your Assessment document as below.
+So, now you set the assessment time and AssessmentCreatedBy in your Assessment document as below.
 
 ![Set assessment created by](doc_src_img/chapter10/2.jpg "Assessment created by")
 

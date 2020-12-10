@@ -14,18 +14,17 @@
 		
 		<row>
 			<item>
-				<default binding="nurse" />
-			</item>
-		</row>
-		
-		<row>
-			<item>
 				<default binding="assessmentReview" />
 			</item>
 		</row>
 		<row>
 			<item>
 				<default binding="assessmentCreatedTime" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="nurse" />
 			</item>
 		</row>
 	</form>
