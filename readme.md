@@ -2,7 +2,7 @@
 
 ### Contents
 
-- [1. Is This Tutorial Right For Me ?](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
+- [1. Tutorial Overview ](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
 - [2. Aged care App Overview](https://github.com/seema-source/Aged-care#2-aged-care-app-overview)
   - [Functionality overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#functionality-overview)
   - [Low code App using Skyve Foundry](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry)
@@ -45,10 +45,10 @@
   - [Conditions](https://github.com/seema-source/Aged-care#conditions)
   - [Bizlets](https://github.com/seema-source/Aged-care#bizlets)
   - [Actions](https://github.com/seema-source/Aged-care#actions)
-
+ Is This Tutorial Right For Me ?
 # 1. Tutorial Overview
 
-### 1.1. Is This Tutorial Right For Me ?
+### 1.1.
 
 Before we start the tutorial, it is important to know about the answers to a few questions as below:
 
@@ -177,9 +177,23 @@ _*Documents:*_ In data design, documents are related to the real business entiti
 
 _*Attributes:*_ Attributes contain information about each document (e.g. Resident's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
 
+_*Data type*_ Data type specifies which type of value an attribute name hold.
+* Text or String: Used for a combination of any characters that appear on a keyboard, such as letters, numbers and symbols.
+
+* Memo: Memo data type also called "Long Text". It is used to store large amount of text.
+
+* Date: A Date includes the time, the year, the name of the day of the week, and the time zone.
+
+* Image: Image data type is used where we want to upload an image in our document.
+
+* Integer: It is used to store the numeric values.
+
+* Association: This data type is used where there is a relationship between two entity object based on common attributes. An entity object only needs an association to access the data of another entity object.
+
 In this tutorial we have three documents:
 
 ##### 1. Define Resident Document and it's attributes:
+
 
 The resident document will contain the personal information about the residents and the information about the facility they admitted.
 
