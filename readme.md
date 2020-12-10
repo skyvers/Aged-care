@@ -280,7 +280,7 @@ There are following steps to deploy Aged care application as we created in found
 
 ### 2.4. Using your Aged care app
 
-Your application is ready to go. See below how it look like...
+Your application is ready to go. It contains two modules:Admin and Aged care. Admin module is the part of the Skyve platform. In the Aged care module, you we see the all three documents we created in the foundry. Let's see how it look like...
 
 Click on Aged care
 
