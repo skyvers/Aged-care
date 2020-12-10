@@ -54,13 +54,36 @@
 - Skills You'll Need
 - Skills You'll Develop
 
-# 2. Tutorial Overview
+# 1. Tutorial Overview
+
+### 1.1. Is This Tutorial Right For Me ?
+
+Before we start the tutorial, it is important to know about the answers to a few questions as below:
+
+##### Will I benefit from it ?
+
+If a custom app is what you need, the potential benefits of the Skyve system are significant.
+You can develop your own powerful app, quickly and cheaply, with a dramatically reduced learning curve.
+This tutorial will help you work out what can be achieved. You’ll also find out whether you’re personally up to the challenge (tip: you probably are).
+
+##### Do I have enough skills ?
+
+This tutorial has been designed to cater to people with a wide variety of skill levels.
+
+We’ve split it into 3 sections:
+
+- The first section is for everyone and requires no coding skills – we lead you through building a sample app using only “point and click” !
+
+- Those with basic coding skills (or who are willing to learn some) can progress to the second section and extend their app
+
+- Those with more advanced Java coding skills can progress from there on to the third section and extend their app even further
+  So even if “point and click” is all you can manage and you’re allergic to any sort of ‘coding’, this tutorial is still for you ! It’ll help you get a ‘no-code’ Skyve app with a simple but functional interface, up and running in no time.
 
 In this tutorial, we will show you how easy it is to build a powerful application using the Skyve Enterprise Application platform.
 
 To familiarise you with Skyve application development, we will build a simple application together to manage aged care facilities, their residents, and care assessments.
 
-### 2.1. Aged Care Management
+### 1.2. Aged Care Management
 
 A typical aged care provider might manage multiple facilities, each housing many residents. Residents are regularly assessed to ensure that they are well and safe, and that their care matches their needs.
 
@@ -68,7 +91,7 @@ Care providers must record the personal details of each resident and where they 
 
 Our app will meet these record storage and retrieval needs for an (imaginary!) aged care provider.
 
-### 2.2. No-code Development
+### 1.3. No-code Development
 
 In the first main section of our tutorial, we will lead you through the no-code development of our Aged Care app.
 
@@ -86,7 +109,7 @@ At the end of this section of the tutorial, you’ll have a functioning, usable 
 
 Or, if you have some basic coding skills or you’re willing to acquire them, we’d encourage you to move on to the ‘Low-code Extensions’ section which will show you how to enhance your app in ways that are beyond the scope of Foundry.
 
-### 2.3. Low-code Extension
+### 1.4. Low-code Extension
 
 In the second main section of the tutorial, we will lead you through the addition of some low-code enhancements to the same Aged Care app that we just developed using Foundry in the previous section.
 
@@ -106,7 +129,7 @@ In this section of the tutorial,we will focus on building in some user interface
 
 At the end of this section of the tutorial, you’ll have a significantly enhanced AgedCare app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
 
-### 2.4. Java Extensions
+### 1.5. Java Extensions
 
 While Skyve XML is already very powerful (and constantly growing) and covers a huge range of common functionality needs, there remain some bespoke requirements that cannot be met through Skyve XML alone. For those situations, Java extensions are the answer.
 
@@ -120,13 +143,13 @@ Specifically, we will add some Java-code conditions and actions into our app to 
 
 At the end of this section of the tutorial, you’ll have a further-enhanced AgedCare app up and running. More significantly, though, you’ll be able to combine your powerful new Skyve app development capabilities with your existing Java skills to create no-limits applications far faster than you could ever do with Java alone.
 
-# 3. No-code Development
+# 2. No-code Development
 
 In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve foundry in detail.
 
 This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in foundry.
 
-### 1. Getting Started
+### 2.1. Getting Started
 
 Before continuing with our tutorial, there are some pages you may want to visit:
 
@@ -138,7 +161,7 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 
 Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
 
-## 2. Create your app in Foundry
+###  2.2. Create your app in Foundry
 
 To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started](https://foundry.skyve.org/foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
 
@@ -164,7 +187,7 @@ _*Attributes:*_ Attributes contain information about each document (e.g. Residen
 
 In this tutorial we have three documents:
 
-#### 1. Define Resident Document and it's attributes:
+##### 1. Define Resident Document and it's attributes:
 
 The resident document will contain the personal information about the residents and the information about the facility they admitted.
 
@@ -205,7 +228,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
   ![Resident attributes](doc_src_img/chapter1/7.jpg "Resident attributes")
 
-#### 2. Define Facility Document and it's attributes:
+##### 2. Define Facility Document and it's attributes:
 
 The Facility document will contain information about the facility(e.g.facility name, facility manager), facility full address and location.
 
@@ -224,7 +247,7 @@ This document will follow the same steps we followed for Resident document. It w
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
 
-#### 3. Define Assessments Document and it's attributes:
+##### 3. Define Assessments Document and it's attributes:
 
 The Assessment document will contain information about all the care assessments related to each resident.
 
@@ -243,7 +266,7 @@ Follow the same steps like Resident and Assessment documents. Assessment documen
 
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
 
-### Deploying your Aged care app
+### 2.3. Deploying your Aged care app
 
 Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
 
@@ -263,7 +286,7 @@ There are following steps to deploy Aged care application as we created in found
 
 ![SignIn](doc_src_img/chapter4/3.jpg "SignIn")
 
-#### Using your Aged care app
+### 2.4. Using your Aged care app
 
 Your application is ready to go. See below how it look like...
 
@@ -299,7 +322,7 @@ In this section, we will work on collaboration and configuration of the local en
 
 For more detail visit our [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - which will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 
-## 3.1 Collaboration
+### 3.1. Collaboration
 
 Next, we need to Collaborate our application with Github.
 
@@ -349,13 +372,13 @@ To create a new repository follow the steps below:
 
 This is the End of create and collaboration of the application...!
 
-## 3.2 Configure your local environment
+### 3.2. Configure your local environment
 
 Before import your project in Eclipse, you need to download and install Eclipse in your system.
 
-### Download and Install Eclipse and JDK
+#### Download and Install Eclipse and JDK
 
-- #### Download and Install Eclipse
+- ##### Download and Install Eclipse
 
   - Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
   - Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
@@ -365,15 +388,15 @@ Before import your project in Eclipse, you need to download and install Eclipse 
   - Click on download
   - Then, Install Eclipse in your system
 
-- #### Download and Install JDK
+- ##### Download and Install JDK
   - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
   - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
-## 3.3 Install and Configue Wildfly Server
+### 3.3. Install and Configue Wildfly Server
 
 To run our Aged care application, we will need to install and configure for WildFly Server. Skyve works well on WildFly version 13+.
 
-- ### Install Wildfly Server
+- #### Install Wildfly Server
   You can skip this step if WildFly Server is already installed on your system.
 
 Before installing WildFly Server, make sure JBoss Tools is installed on your system.
@@ -440,7 +463,7 @@ Select the latest version of WildFly, then click Next
 
     ![Downloading](doc_src_img/chapter3/14.JPG "Downloading")
 
-## 3.4 Add Repository in Eclipse
+### 3.4. Add Repository in Eclipse
 
 After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
 
@@ -475,7 +498,7 @@ After downloading and installation of eclipse and server, the next step is add o
 
 In Git Repositories, we can see our repository is added now!
 
-## 3.5 Import Project
+### 3.5. Import Project
 
 As we already created a project in Skyve foundry, now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
 
@@ -493,7 +516,7 @@ As we already created a project in Skyve foundry, now it is time to import that 
 
 You can see your project in Project Explorer area in Eclipse.
 
-## 3.6 Set the server
+### 3.6. Set the server
 
 To run our project in server we need to set Server in Eclipse first.
 
@@ -507,7 +530,7 @@ To run our project in server we need to set Server in Eclipse first.
 
 ## 3.7 Deploy and Configure Skyve Project
 
-#### Deploy your Skyve project
+##### Deploy your Skyve project
 
 Its easy to deploy your Skyve project to your WildFly Server.
 
@@ -545,7 +568,7 @@ Its easy to deploy your Skyve project to your WildFly Server.
 
    ![agedCare-ds](doc_src_img/chapter6/8.jpg "agedCare-ds")
 
-#### Run your Aged care application
+##### Run your Aged care application
 
 Before running your project, we will need to generate the domain class first.
 
@@ -565,7 +588,7 @@ Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in
 
 ![Aged care app](doc_src_img/chapter6/"Aged care app")
 
-## 3.8 List Views
+### 3.8. List Views
 
 In most of application data is represented in list and detail views. Skyve also capable to provide each type of view.
 
@@ -707,7 +730,7 @@ Again, to apply the change, stop the WildFly server and run the Generate Domain 
 
 ![Assessment list](doc_src_img/chapter7/2.jpg "Assessment list")
 
-### 3.9 Edit Views, Layout, and Components
+### 3.9. Edit Views, Layout, and Components
 
 In this section we will override the default detail view which is generated by Skyve.
 
@@ -1041,7 +1064,7 @@ In the Resident > views package, create new `_photoBio.xml` file with below cont
   </view>
 ```
 
-#### Combine together
+##### Combine together
 
 After done with component creation, we will go to use it on our `edit view`.
 Change `edit.xml` view like below:
@@ -1371,7 +1394,7 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ![Assessment editview](doc_src_img/chapter7/7.jpg "Assessment editview")
 
-### 3.10 Roles
+### 3.10. Roles
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin.
 
@@ -1470,7 +1493,7 @@ In the next section, we will use these permissions by applying some conditions i
 
 End of section 4!!!
 
-## 4. Java Extension
+# 4. Java Extension
 
 Before start conditions section, let's create Groups and Users in the application.
 For more detail click on link for adding users and groups: https://skyvers.github.io/skyve-user-guide/users/
