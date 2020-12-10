@@ -2,54 +2,39 @@
 
 ### Contents
 
-- [1. Tutorial Overview ](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-is-this-tutorial-right-for-me-)
-- [2. Aged care App Overview](https://github.com/seema-source/Aged-care#2-aged-care-app-overview)
-  - [Functionality overview](https://github.com/seema-source/Aged-care/blob/master/readme.md#functionality-overview)
-  - [Low code App using Skyve Foundry](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-app-using-skyve-foundry)
-  - [Low-code Extensions](https://github.com/seema-source/Aged-care/blob/master/readme.md#low-code-extensions)
-- [3. No-code Development](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-no-code-development)
-  - [1. Getting Started](https://github.com/seema-source/Aged-care/blob/master/readme.md#1-getting-started)
-  - [2. Create](https://github.com/seema-source/Aged-care/blob/master/readme.md#2-create)
-  - [3. Collaboration](https://github.com/seema-source/Aged-care/blob/master/readme.md#3-collaboration)
-- [4. Low-code Extensions](https://github.com/seema-source/Aged-care#4-low-code-extension)
+- [1. Tutorial Overview ]()
+  - [1.1. Is this Tutorial right for me ?]()
+  - [1.2. Aged Care Management]()
+  - [1.3. No-code Development]()
+  - [1.4. Low-code Extension]()
+  - [1.5. Java Extensions]()
 
-  - [4.1 Configure local environment](https://github.com/seema-source/Aged-care#41-configure-your-local-environment)
+* [2. No-code Development]()
+  * [2.1. Getting Started]()
+  * [2.2. Create your app in Foundry]()
+  * [2.3. Deploying your Aged care app]()
+  * [2.4. Using your Aged care app]()
 
-    - [Download and Install Eclipse and JDK](https://github.com/seema-source/Aged-care#download-and-install-eclipse-and-jdk)
+- [ 3. Low Code Extension]()
+  * [3.1. Collaboration]()
+  * [3.2. Configure your local environment]()
+  * [3.3. Install and Configue Wildfly Server]()
+  * [3.4. Add Repository in Eclipse]()
+  * [3.5. Import Project]()
+  * [3.6. Set the server]()
+  * [3.7. Deploy and Configure Skyve Project]()
+  * [3.8 List Views]()
+  * [3.9. Edit Views, Layout, and Components]()
+  * [3.10. Roles]()
 
-      - [Download and Install Eclipse](https://github.com/seema-source/Aged-care#download-and-install-eclipse)
-
-      - [Download and Install JDK](https://github.com/seema-source/Aged-care#download-and-install-jdk)
-
-  - [4.2 Install and Configue Wildfly Server](https://github.com/seema-source/Aged-care#42-install-and-configue-wildfly-server)
-
-    - [Install Wildfly Server](https://github.com/seema-source/Aged-care#install-wildfly-server)
-
-  - [4.3 Add Repository in Eclipse](https://github.com/seema-source/Aged-care#43-add-repository-in-eclipse)
-  - [4.4 Import Project](https://github.com/seema-source/Aged-care#44-import-project)
-
-  - [4.5 Set the server](https://github.com/seema-source/Aged-care#45-set-the-server)
-  - [4.6 Deploy and Configure Skyve Project](https://github.com/seema-source/Aged-care#46-deploy-and-configure-skyve-project)
-  - [4.7 List Views](https://github.com/seema-source/Aged-care#47-list-views)
-    - [Resident List](https://github.com/seema-source/Aged-care#resident-list)
-    - [Facility List](https://github.com/seema-source/Aged-care#facility-list)
-    - [Assessments List](https://github.com/seema-source/Aged-care#assessments-list)
-  - [4.8 Edit Views, Layout, and Components](https://github.com/seema-source/Aged-care#48-edit-views-layout-and-components)
-    - [Resident Edit view](https://github.com/seema-source/Aged-care#resident-edit-view)
-    - [Facility Edit view](https://github.com/seema-source/Aged-care#facility-edit-view)
-    - [Assessment Edit view](https://github.com/seema-source/Aged-care#assessment-edit-view)
-  - [4.9 Roles](https://github.com/seema-source/Aged-care#49-roles)
-
-- [5. Java Extensions](https://github.com/seema-source/Aged-care#5-java-extension)
-
-  - [Conditions](https://github.com/seema-source/Aged-care#conditions)
-  - [Bizlets](https://github.com/seema-source/Aged-care#bizlets)
-  - [Actions](https://github.com/seema-source/Aged-care#actions)
-    Is This Tutorial Right For Me ?
+* [4. Java Extensions]()
+  - [Conditions]()
+  - [Bizlets]()
+  - [Actions]()
 
 # 1. Tutorial Overview
 
-### 1.1.
+### 1.1. Is this Tutorial right for me ?
 
 Before we start the tutorial, it is important to know about the answers to a few questions as below:
 
