@@ -459,7 +459,7 @@ After JBoss Tools was installed properly, follow these steps to install WildFly 
 
 Select the latest version of WildFly, then click Next
 
-    ![accept agreement](doc_src_img/chapter3/11.JPG "accept agreement")
+![accept agreement](doc_src_img/chapter3/11.JPG "accept agreement")
 
 7.  Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
 
