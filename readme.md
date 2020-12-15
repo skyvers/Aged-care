@@ -11,7 +11,7 @@
 
 * [2. No-code Development](https://github.com/seema-source/Aged-care#2-no-code-development)
   - [2.1. Getting Started](https://github.com/seema-source/Aged-care#21-getting-started)
-  - [2.2. Create your app in Foundry](https://github.com/seema-source/Aged-care#22-create-your-app-in-foundry)
+  - [2.2. Create your app in Foundry](https://github.com/seema-source/Aged-care#22-create-your-app-in-Foundry)
   - [2.3. Deploying your Aged care app](https://github.com/seema-source/Aged-care#23-deploying-your-aged-care-app)
   - [2.4. Using your Aged care app](https://github.com/seema-source/Aged-care#24-using-your-aged-care-app)
 
@@ -73,37 +73,37 @@ Our app will meet these record storage and retrieval needs for an (imaginary!) a
 
 In the first main section of our tutorial, we will lead you through the no-code development of our Aged Care app.
 
-No-code application development means developing an app using only a point-and-click interface - in this case Skyve Foundry.
+No-code application development means developing an app using only a point-and-click interface - in this case Skyve [Foundry](https://foundry.skyve.org/foundry/).
 
-In Foundry, you will use a point-and-click interface to define:
+In [Foundry](https://foundry.skyve.org/foundry/), you will use a point-and-click interface to define:
 
 - ‘documents’ representing facilities, residents, and assessments
 - data ‘attributes’ that need to be recorded for each different document type
 - relationships between different types of documents (e.g. each resident belongs to one facility; each resident has many assessments)
 
-Behind the scenes and hidden from sight, Foundry takes care of all the ‘coding’ for you. It builds the app to your specifications and will even deploy it to a web-server and run it for you, so that you can immediately use it.
+Behind the scenes and hidden from sight, [Foundry](https://foundry.skyve.org/foundry/) takes care of all the ‘coding’ for you. It builds the app to your specifications and will even deploy it to a web-server and run it for you, so that you can immediately use it.
 
-At the end of this section of the tutorial, you’ll have a functioning, usable Aged Care app up and running. At that point, you may decide that Foundry provides everything you need to build your app, in which case you could stop here and leave the tutorial.
+At the end of this section of the tutorial, you’ll have a functioning, usable Aged Care app up and running. At that point, you may decide that [Foundry](https://foundry.skyve.org/foundry/) provides everything you need to build your app, in which case you could stop here and leave the tutorial.
 
-Or, if you have some basic coding skills or you’re willing to acquire them, we’d encourage you to move on to the ‘Low-code Extensions’ section which will show you how to enhance your app in ways that are beyond the scope of Foundry.
+Or, if you have some basic coding skills or you’re willing to acquire them, we’d encourage you to move on to the ‘Low-code Extensions’ section which will show you how to enhance your app in ways that are beyond the scope of [Foundry](https://foundry.skyve.org/foundry/).
 
 ### 1.4. Low-code Extension
 
-In the second main section of the tutorial, we will lead you through the addition of some low-code enhancements to the same Aged Care app that we just developed using Foundry in the previous section.
+In the second main section of the tutorial, we will lead you through the addition of some low-code enhancements to the same Aged Care app that we just developed using [Foundry](https://foundry.skyve.org/foundry/) in the previous section.
 
-When you create a no-code app using the Foundry point-and-click interface, Foundry automatically converts your app definition into a suite of Skyve low-code XML (eXtensible Markup Language) files. In Foundry, these are hidden away and no-code users never need to interact with them directly.
+When you create a no-code app using the [Foundry](https://foundry.skyve.org/foundry/) point-and-click interface, [Foundry](https://foundry.skyve.org/foundry/) automatically converts your app definition into a suite of Skyve low-code XML (eXtensible Markup Language) files. In [Foundry](https://foundry.skyve.org/foundry/), these are hidden away and no-code users never need to interact with them directly.
 
-In this section of the tutorial, you will export your Aged Care app out of Foundry and access it using an IDE (Integrated Development Environment – a developer’s coding toolkit) located on your own computer. This will allow you to manipulate the Skyve XML code directly, opening up an even broader range of functionality options to you.
+In this section of the tutorial, you will export your Aged Care app out of [Foundry](https://foundry.skyve.org/foundry/) and access it using an IDE (Integrated Development Environment – a developer’s coding toolkit) located on your own computer. This will allow you to manipulate the Skyve XML code directly, opening up an even broader range of functionality options to you.
 
 Why do we call this ‘low-code’ ?
 
 Web-based applications are typically written in Java or a similarly complex and powerful programming language. Indeed, Skyve itself uses Java - Skyve apps are automatically converted from Skyve XML into Java during the build process so that they can be deployed to a web server and run.
 
-By contrast, the Skyve XML language is a dramatically simpler language – it allows you to select from a wide array of common application functions and configure them quite specifically to your needs. For Skyve users who need or want to go beyond the capabilities of Foundry, Skyve XML typically allows them to avoid the steep learning curve required to learn Java and the long development times required to write native Java apps.
+By contrast, the Skyve XML language is a dramatically simpler language – it allows you to select from a wide array of common application functions and configure them quite specifically to your needs. For Skyve users who need or want to go beyond the capabilities of [Foundry](https://foundry.skyve.org/foundry/), Skyve XML typically allows them to avoid the steep learning curve required to learn Java and the long development times required to write native Java apps.
 
 So, using Skyve XML is still coding. But in contrast to coding in Java or a similar web-based language, it’s a great deal simpler, easier, faster and far more succinct. Hence, ‘low-code’. Furthermore, even when you do need to add code to extend a Skyve app, Skyve provides high level APIs to common Java frameworks, meaning that your code will be simpler and more succinct than usual.
 
-In this section of the tutorial,we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the Foundry point-and-click interface. We will edit and change the layouts of the Resident, Assessment, and Facility documents.
+In this section of the tutorial,we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the [Foundry](https://foundry.skyve.org/foundry/) point-and-click interface. We will edit and change the layouts of the Resident, Assessment, and Facility documents.
 
 At the end of this section of the tutorial, you’ll have a significantly enhanced AgedCare app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
 
@@ -113,7 +113,7 @@ While Skyve XML is already very powerful (and constantly growing) and covers a h
 
 The Skyve platform provides an extensive system of programming hooks that enable you to develop discrete Java methods and graft them into your Skyve XML app, where they can leverage the full functionality of the Skyve system to provide you with the bespoke functionality you need.
 
-If you don't have Java coding skills yourself, your simplest and cheapest option might be to buy support hours from one of our expert developers - you can do this within your Account in Skyve Foundry.
+If you don't have Java coding skills yourself, your simplest and cheapest option might be to buy support hours from one of our expert developers - you can do this within your Account in Skyve [Foundry](https://foundry.skyve.org/foundry/).
 
 If you already have some Java skills, however, you can do this yourself ! In the third main section of the tutorial, we will lead you through the development of some Java enhancements to your AgedCare app.
 
@@ -123,9 +123,9 @@ At the end of this section of the tutorial, you’ll have a further-enhanced Age
 
 # 2. No-code Development
 
-In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve foundry in detail.
+In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
 
-This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in foundry.
+This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
 
 ### 2.1. Getting Started
 
@@ -135,15 +135,15 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 
 - [Getting Started](https://skyve.org/getting-started) - Will help give you some ideas on how to start with our [Skyve](https://skyve.org) Framework.
 
-- [Skyve foundry](https://foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve foundry.
+- [Skyve Foundry](https://Foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve [Foundry](https://foundry.skyve.org/foundry/).
 
-Now, lets move to the next step how to create application with [Skyve foundry](https://foundry.skyve.org/)
+Now, lets move to the next step how to create application with [Skyve Foundry](https://Foundry.skyve.org/)
 
 ### 2.2. Create your app in Foundry
 
-To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve foundry](https://foundry.skyve.org/) and [Get started](https://foundry.skyve.org/foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
+To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve Foundry](https://Foundry.skyve.org/) and [Get started](https://Foundry.skyve.org/Foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
 
-To create a new skyve project through foundry go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve foundry page and watch the video for more information about how to create new application.
+To create a new skyve project through [Foundry](https://foundry.skyve.org/foundry/) go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve [Foundry](https://foundry.skyve.org/foundry/) page and watch the video for more information about how to create new application.
 
 Now, I will take you step by step creation of application:
 
@@ -194,7 +194,9 @@ Resident document contain attributes below:
 | Room Number    | Integer     |
 | BIO            | Memo        |
 | Admission Date | Date        |
-| Facility Name  | Association |
+| Facility name  | Association |
+
+The `Facility name` attribute will be an association to a Facility (held in the Facility data table). The association represents a link to the entire Facility record (including name, address etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated Facility record."
 
 Now, we will create a Resident document and add attributes in Resident document in next few steps.
 
@@ -235,6 +237,8 @@ The attributes for Facility document as below:
 | State            | Text        | 100    |
 | Facility manager | Association |
 
+The `Facility manager` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Facility manager."
+
 This document will follow the same steps we followed for Resident document. It will look like as below:
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
@@ -254,6 +258,8 @@ The attributes for Assessments document as below:
 | Behaviour Assessment  | Memo        |
 | Staff                 | Association |
 
+The `Staff` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Staff person.
+
 Follow the same steps like Resident and Assessment documents. Assessment document look like as below.
 
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
@@ -262,9 +268,9 @@ Follow the same steps like Resident and Assessment documents. Assessment documen
 
 Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
 
-There are following steps to deploy Aged care application as we created in foundry:
+There are following steps to deploy Aged care application as we created in [Foundry](https://foundry.skyve.org/foundry/):
 
-1. Go to foundry and click on Aged care application
+1. Go to [Foundry](https://foundry.skyve.org/foundry/) and click on Aged care application
 
    ![Deploy](doc_src_img/chapter4/1.jpg "Deploy")
 
@@ -280,7 +286,7 @@ There are following steps to deploy Aged care application as we created in found
 
 ### 2.4. Using your Aged care app
 
-Your application is ready to go. It contains two modules:Admin and Aged care. Admin module is the part of the Skyve platform. In the Aged care module, you we see the all three documents we created in the foundry. Let's see how it look like...
+Your application is ready to go. It contains two modules:Admin and Aged care. Admin module is the part of the Skyve platform. In the Aged care module, you we see the all three documents we created in the [Foundry](https://foundry.skyve.org/foundry/). Let's see how it look like...
 
 Click on Aged care
 
@@ -338,9 +344,9 @@ Next, we need to Collaborate our application with Github.
 
 Why we need collaboration?
 
-Collaboration will allow another user of your team to do editing in your application or between foundry users and developer. So, to do collaboration we need to provide our application with a remote endpoint of new Git repository.
+Collaboration will allow another user of your team to do editing in your application or between [Foundry](https://foundry.skyve.org/foundry/) users and developer. So, to do collaboration we need to provide our application with a remote endpoint of new Git repository.
 
-To find the more detail how to collaborate Go to [Help button](https://foundry.skyve.org/foundry/loggedIn.jsp?a=e&m=foundry&d=Help) top right of the screen Foundry Help, and follow the steps for collaboration.
+To find the more detail how to collaborate Go to [Help button](https://Foundry.skyve.org/Foundry/loggedIn.jsp?a=e&m=Foundry&d=Help) top right of the screen [Foundry](https://foundry.skyve.org/foundry/) Help, and follow the steps for collaboration.
 
 ![Collaboration](doc_src_img/Chapter2/1.jpg "Collaboration")
 
@@ -361,7 +367,7 @@ To create a new repository follow the steps below:
 
   ![Link](doc_src_img/Chapter2/4.jpg "Link")
 
-- Next, go to foundry, open the collaborate tab and paste the link in Remote Endpoint
+- Next, go to [Foundry](https://foundry.skyve.org/foundry/), open the collaborate tab and paste the link in Remote Endpoint
 
 - Click on apply
 - Click on Save
@@ -510,7 +516,7 @@ In Git Repositories, we can see our repository is added now!
 
 ### 3.5. Import Project
 
-As we already created a project in Skyve foundry, now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
+As we already created a project in Skyve [Foundry](https://foundry.skyve.org/foundry/), now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
 
 1. Click on File tab in Eclipse and Select import
 
@@ -1422,7 +1428,7 @@ In our Aged care App, we will define below roles:
 
 3. Manager: Manager have all the permissions in all three documents.
 
-Note: Before creating a new role just careful about the roles which is already created by the foundry: Viewer and Maintainer. if you want to delete any of this role please, we careful that these roles are not assigned to any user before. Otherwise it will not work. For this tutorial, we are not doing anything with Viewer and Maintainer role.
+Note: Before creating a new role just careful about the roles which is already created by the [Foundry](https://foundry.skyve.org/foundry/): Viewer and Maintainer. if you want to delete any of this role please, we careful that these roles are not assigned to any user before. Otherwise it will not work. For this tutorial, we are not doing anything with Viewer and Maintainer role.
 
 Open `agedCare.xml` to create new roles and change menu.
 
