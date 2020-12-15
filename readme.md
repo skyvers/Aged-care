@@ -121,15 +121,12 @@ Specifically, we will add some Java-code conditions and actions into our app to 
 
 At the end of this section of the tutorial, you’ll have a further-enhanced AgedCare app up and running. More significantly, though, you’ll be able to combine your powerful new Skyve app development capabilities with your existing Java skills to create no-limits applications far faster than you could ever do with Java alone.
 
-# 2. No-code Development
+### 1.6. Primer: Skyve & Foundry
 
-In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
+In the next section, we’ll start using the Skyve Foundry.
+If you’ve already explored the Skyve website, you’ve probably already gained some insight into Skyve in general, including the Foundry.
 
-This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
-
-### 2.1. Getting Started
-
-Before continuing with our tutorial, there are some pages you may want to visit:
+If not, we invite you to orient yourself now by briefly exploring these webpages before you proceed with the rest of the tutorial:
 
 - [What is Skyve?](https://skyve.org/what-is-skyve) - Skyve is a framework used to build attractive, secure, and scalable application with rich features and mobility. For more detail what [Skyve](https://skyve.org) is, and how it will be useful in your Enterprise Application Development visit our [Skyve](https://skyve.org/) page.
 
@@ -138,6 +135,12 @@ Before continuing with our tutorial, there are some pages you may want to visit:
 - [Skyve Foundry](https://Foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve [Foundry](https://foundry.skyve.org/foundry/).
 
 Now, lets move to the next step how to create application with [Skyve Foundry](https://Foundry.skyve.org/)
+
+# 2. No-code Development
+
+In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
+
+This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
 
 ### 2.2. Create your app in Foundry
 
