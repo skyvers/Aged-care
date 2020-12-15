@@ -224,7 +224,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
 #### 2. Define Facility Document and it's attributes:
 
-The Facility document will contain information about the facility(e.g.facility name, facility manager), facility full address and location.
+The Facility document will contain information about the facility(e.g.facility name, Facility manager), facility full address and location.
 
 The attributes for Facility document as below:
 
@@ -640,9 +640,15 @@ For example, the list of Residents may include columns for the Facility and Staf
 
 - #### Resident List
 
-Lets see our `Resident` list, it shows all the information we define in our document's attributes section.
+The Resident list shows the details of each resident, according to the attributes we defined when creating the Aged care application.
 
-Hide attributes `admission date` and `resident Id` in the `Resident` documents
+So that we can control exactly what is shown in the list, we will define a query and specify what columns are shown and in which order. To do this we add a query definition to the agedCare module (as shown below).
+
+To make the application easier to use, it can be useful to hide some columns in the list. In this case we will hide the attributes `admissionDate` and `residentId` for the Resident records, and display the Resident photo as a thumbnail image.
+
+A thumbnail is a scaled down version of the image. If you store high quality images of each resident (e.g 5MB each), when you include these images in the list, the user would have to receive a lot of data to view the list. For example, for 50 rows (for example) of Resident data, this would mean the user would have to receive 50x5MB of data, and this would make the `list` view appear very slow to use. Instead, Skyve automatically generates scaled down versions of images (thumbnails) and these can be included in the `list` so that application performance is not compromised.
+
+This means we can include a thumbnail column in our query to show the images of each Resident without significantly impacting on the performance of our application.
 
 Open agedCare.xml
 
@@ -669,7 +675,9 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 
 Here the `content query column` provides a `content` column type for content items like image and file attachments.
 
-Then you will need to provide `defaultQueryName`- "which is the name of the metadata query to use by default wherever lists of document instances may be required" attribute to your resident document in `agedCare.xml` like below:
+You can specify a default query for each document in the module (in the agedCare.xml file ) and this will ensure that wherever a list is shown for this document in your application, you will always get the same query.
+
+To do this, set defaultQueryName for the Resident document to be the name of our query as shown below:
 
 ```xml
 <documents>
@@ -690,9 +698,11 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 - #### Facility List
 
-Next, Lets see our `Facility` list now, it shows all the information we define in our document's attributes section.
+Next, let's see our Facility list: it now shows a column for each of the attributes we defined in the document.
 
-Hide attributes `Location` and `Facility Manager` in the `Facility` documents
+Instead, we will create another module query, so that we can define precisely which columns are show.
+
+In the module (the agedCare.xml file), define a Facility query as shown below, hiding the attributes `Location` and `Facility manager`.
 
 Open agedCare.xml
 
@@ -734,11 +744,11 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 - #### Assessments List
 
-As in `Assessment` document, you can see different assessments related to each resident.
+As in the `Assessment` document, you can see different assessments related to each resident.
+
 Let's hide `Pain assessement` and `Review date` from the document and add resident name and image.
 
-Let's try it:
-Add query in your `agedCare.xml`
+Let's try it: Add a query to your module (the agedCare.xml file)
 
 ```xml
 <query documentName="Assessment" name="qAssessment">
@@ -757,7 +767,7 @@ Add query in your `agedCare.xml`
 </query>
 ```
 
-Then you will need to provide `defaultQueryName` attribute to your Assessment document in `agedCare.xml`, like below:
+Then, set the `defaultQueryName` attribute to your Assessment document, as shown:
 
 ```xml
 <documents>
@@ -792,112 +802,109 @@ So to create our Resident `edit view`, we will go through the following steps:
 
 2. If you go to the agedCare module left side of eclipse and open the resident module. You can see view module and in view module there is a document with `generatedit.xml`. Rename the document, `edit.xml`
 
-   ![Edit.xml](doc_src_img/chapter7/9.JPG "edit.xml")
+   ![Edit.xml](doc_src_img/chapter7/9.jpg "edit.xml")
 
 #### Enhance the edit view
 
 In the previous step we generated an edit view by using the Generate Edit View function. Now we will enhance our edit view to make it more visually appealing.
 
-As of now, Resident attributes show one by one, from top to bottom. We will enhance the view by:
+As of now, Resident attributes show one by one, from top to bottom.
 
-Showing all the personal information in the one side and the photo and BIO in other side.
+We will enhance the view by showing all personal information one the left-hand side of the screen and the photo and BIO on the right-hand side.
 
-We will plan to split our view into 2 sections: left and right. We will show Resident information on the left side and the Resident Image and BIO will be shown on the right part.
+To do that, we will need to understand about Skyve View Containers - https://skyvers.github.io/skyve-dev-guide/views/#containers
 
-To do that, we will need to understand about Skyve Views Containers - https://skyvers.github.io/skyve-dev-guide/views/#containers
+After reading through the chapter on Skyve Containers, you may have already guessed how to split our view into 2 parts.
 
-After reading through the Skyve Containers document, you may have already guessed how to split our view into 2 parts.
-
-Yes, hbox container will help us on this.
+The `hbox` container lays out items horizontally.
 
 Open resident `edit.xml` and add the code given below;
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Resident" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <tabPane>
-        <tab title="General">
-        <hbox border="true">
-		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
- 			<form>
-		        <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-
-               <row>
-                    <item>
-                        <default binding="residentID"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="residentName"/>
-                    </item>
-                </row>
-                 <row>
-                    <item>
-                        <default binding="DOB"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="roomNo"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="admissionDate"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="facilityName"/>
-                    </item>
-                </row>
-
-          </form>
-		</vbox>
-          <!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
-			<form>
-		        <column percentageWidth="20" responsiveWidth="1" />
-				<column />
-			<row>
-                    <item showLabel="false">
-                        <contentImage binding="photo"/>
-                    </item>
-                </row>
-
-                <row>
-                    <item>
-                        <default binding="BIO"/>
-                    </item>
-                </row>
-
-            </form>
-            </vbox>
-            </hbox>
-        </tab>
-        <tab title="Assessments">
-            <dataGrid binding="assessments">
-                <boundColumn binding="hygieneAssessment"/>
-                <boundColumn binding="painAssessment"/>
-                <boundColumn binding="continenceAssessment"/>
-                <boundColumn binding="sleepAssessment"/>
-                <boundColumn binding="behaviourAssessment"/>
-                <boundColumn binding="staff"/>
-                <boundColumn binding="assessmentReview"/>
-                <onAddedHandlers/>
-                <onEditedHandlers/>
-                <onRemovedHandlers/>
-                <onSelectedHandlers/>
-            </dataGrid>
-        </tab>
-    </tabPane>
-    <actions>
-        <defaults/>
-    </actions>
-    <newParameters/>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
+	title="Resident"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<tabPane>
+		<tab title="General">
+			<hbox border="true">
+				<!-- left side -->
+				<vbox responsiveWidth="8" percentageWidth="60">
+					<form>
+						<column percentageWidth="30" responsiveWidth="4" />
+						<column />
+						<row>
+							<item>
+								<default binding="residentID" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="residentName" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="DOB" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="roomNo" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="admissionDate" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="facilityName" />
+							</item>
+						</row>
+					</form>
+				</vbox>
+				<!-- right side -->
+				<vbox responsiveWidth="4" percentageWidth="40">
+					<form>
+						<column percentageWidth="20" responsiveWidth="1" />
+						<column />
+						<row>
+							<item showLabel="false">
+								<contentImage binding="photo" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="BIO" />
+							</item>
+						</row>
+					</form>
+				</vbox>
+			</hbox>
+		</tab>
+		<tab title="Assessments">
+			<dataGrid binding="assessments">
+				<boundColumn binding="hygieneAssessment" />
+				<boundColumn binding="painAssessment" />
+				<boundColumn binding="continenceAssessment" />
+				<boundColumn binding="sleepAssessment" />
+				<boundColumn binding="behaviourAssessment" />
+				<boundColumn binding="staff" />
+				<boundColumn binding="assessmentReview" />
+				<onAddedHandlers />
+				<onEditedHandlers />
+				<onRemovedHandlers />
+				<onSelectedHandlers />
+			</dataGrid>
+		</tab>
+	</tabPane>
+	<actions>
+		<defaults />
+	</actions>
+	<newParameters />
 </view>
 ```
 
@@ -912,94 +919,93 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Resident" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <tabPane>
-        <tab title="General">
-        <hbox border="true">
-		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
- 			<form border="true" borderTitle="Resident Info">
-		        <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-
-               <row>
-                    <item>
-                        <default binding="residentID"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="residentName"/>
-                    </item>
-                </row>
-                 <row>
-                    <item>
-                        <default binding="DOB"/>
-                    </item>
-                </row>
-                </form>
-               <form border="true" borderTitle="Facility Info">
-                <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-                <row>
-                    <item>
-                        <default binding="roomNo"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="admissionDate"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="facilityName"/>
-                    </item>
-                </row>
-
-          </form>
-		</vbox>
-          <!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
-			<form>
-		        <column percentageWidth="20" responsiveWidth="1" />
-				<column />
-			<row>
-                    <item showLabel="false">
-                        <contentImage binding="photo"/>
-                    </item>
-                </row>
-
-                <row>
-                    <item>
-                        <default binding="BIO"/>
-                    </item>
-                </row>
-
-            </form>
-            </vbox>
-            </hbox>
-        </tab>
-        <tab title="Assessments">
-            <dataGrid binding="assessments">
-                <boundColumn binding="hygieneAssessment"/>
-                <boundColumn binding="painAssessment"/>
-                <boundColumn binding="continenceAssessment"/>
-                <boundColumn binding="sleepAssessment"/>
-                <boundColumn binding="behaviourAssessment"/>
-                <boundColumn binding="staff"/>
-                <boundColumn binding="assessmentReview"/>
-                <onAddedHandlers/>
-                <onEditedHandlers/>
-                <onRemovedHandlers/>
-                <onSelectedHandlers/>
-            </dataGrid>
-        </tab>
-    </tabPane>
-    <actions>
-        <defaults/>
-    </actions>
-    <newParameters/>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
+	title="Resident"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<tabPane>
+		<tab title="General">
+			<hbox border="true">
+				<!-- left side -->
+				<vbox responsiveWidth="8" percentageWidth="60">
+					<form border="true" borderTitle="Resident Info">
+						<column percentageWidth="30" responsiveWidth="4" />
+						<column />
+						<row>
+							<item>
+								<default binding="residentID" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="residentName" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="DOB" />
+							</item>
+						</row>
+					</form>
+					<form border="true" borderTitle="Facility Info">
+						<column percentageWidth="30" responsiveWidth="4" />
+						<column />
+						<row>
+							<item>
+								<default binding="roomNo" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="admissionDate" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="facilityName" />
+							</item>
+						</row>
+					</form>
+				</vbox>
+				<!-- right side -->
+				<vbox responsiveWidth="4" percentageWidth="40">
+					<form>
+						<column percentageWidth="20" responsiveWidth="1" />
+						<column />
+						<row>
+							<item showLabel="false">
+								<contentImage binding="photo" />
+							</item>
+						</row>
+						<row>
+							<item>
+								<default binding="BIO" />
+							</item>
+						</row>
+					</form>
+				</vbox>
+			</hbox>
+		</tab>
+		<tab title="Assessments">
+			<dataGrid binding="assessments">
+				<boundColumn binding="hygieneAssessment" />
+				<boundColumn binding="painAssessment" />
+				<boundColumn binding="continenceAssessment" />
+				<boundColumn binding="sleepAssessment" />
+				<boundColumn binding="behaviourAssessment" />
+				<boundColumn binding="staff" />
+				<boundColumn binding="assessmentReview" />
+				<onAddedHandlers />
+				<onEditedHandlers />
+				<onRemovedHandlers />
+				<onSelectedHandlers />
+			</dataGrid>
+		</tab>
+	</tabPane>
+	<actions>
+		<defaults />
+	</actions>
+	<newParameters />
 </view>
 ```
 
@@ -1025,29 +1031,30 @@ In the Resident > views package, create new `_residentInfo.xml` file with below 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_residentInfo" title="Resident Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-
-		<form border="true" borderTitle="Resident Info">
-		        <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-
-               <row>
-                    <item>
-                        <default binding="residentID"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="residentName"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="DOB"/>
-                    </item>
-                </row>
-      </form>
-  </view>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_residentInfo" title="Resident Info"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Resident Info">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="residentID" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="residentName" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="DOB" />
+			</item>
+		</row>
+	</form>
+</view>
 ```
 
 ##### Facility Info component
@@ -1056,29 +1063,30 @@ In the Resident > views package, create new `_facilityInfo.xml` file with below 
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityInfo" title="Facility Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-
-         <form border="true" borderTitle="Facility Info">
-                <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-                <row>
-                    <item>
-                        <default binding="roomNo"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="admissionDate"/>
-                    </item>
-                </row>
-                <row>
-                    <item>
-                        <default binding="facilityName"/>
-                    </item>
-                </row>
-
-          </form>
- </view>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_facilityInfo" title="Facility Info"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Facility Info">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="roomNo" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="admissionDate" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="facilityName" />
+			</item>
+		</row>
+	</form>
+</view>
 ```
 
 ##### Photo and Bio component
@@ -1087,23 +1095,26 @@ In the Resident > views package, create new `_photoBio.xml` file with below cont
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_photoBio" title="Resident Photo and Bio" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-  <form>
-		    <column percentageWidth="20" responsiveWidth="1" />
-				<column />
-		        <row>
-              <item showLabel="false">
-              <contentImage binding="photo"/>
-              </item>
-            </row>
-  </form>
-  <form border="true" borderTitle="BIO">
- 		    <column/>
-			      <row>
-			        <item showLabel="false">
-			           <textArea binding="BIO"/>
-			        </item>
-			      </row>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_photoBio"
+	title="Resident Photo and Bio"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form>
+		<column percentageWidth="20" responsiveWidth="1" />
+		<column />
+		<row>
+			<item showLabel="false">
+				<contentImage binding="photo" />
+			</item>
+		</row>
+	</form>
+	<form border="true" borderTitle="BIO">
+		<column />
+		<row>
+			<item showLabel="false">
+				<textArea binding="BIO" />
+			</item>
+		</row>
 	</form>
 </view>
 ```
@@ -1115,44 +1126,44 @@ Change `edit.xml` view like below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Resident" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <tabPane>
-        <tab title="General">
-	<hbox border="true">
-		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
- 			<component name="_residentInfo" />
- 			<component name="_facilityInfo" />
-
-		</vbox>
-
-		<!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
-			<component name="_photoBio"/>
-		</vbox>
-	</hbox>
-
-        </tab>
-        <tab title="Assessments">
-            <dataGrid binding="assessments">
-                <boundColumn binding="hygieneAssessment"/>
-                <boundColumn binding="painAssessment"/>
-                <boundColumn binding="continenceAssessment"/>
-                <boundColumn binding="sleepAssessment"/>
-                <boundColumn binding="behaviourAssessment"/>
-                <boundColumn binding="staff"/>
-                <boundColumn binding="assessmentReview"/>
-                <onAddedHandlers/>
-                <onEditedHandlers/>
-                <onRemovedHandlers/>
-                <onSelectedHandlers/>
-            </dataGrid>
-        </tab>
-    </tabPane>
-    <actions>
-        <defaults/>
-    </actions>
-    <newParameters/>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
+	title="Resident"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<tabPane>
+		<tab title="General">
+			<hbox border="true">
+				<!-- left side -->
+				<vbox responsiveWidth="8" percentageWidth="60">
+					<component name="_residentInfo" />
+					<component name="_facilityInfo" />
+				</vbox>
+				<!-- right side -->
+				<vbox responsiveWidth="4" percentageWidth="40">
+					<component name="_photoBio" />
+				</vbox>
+			</hbox>
+		</tab>
+		<tab title="Assessments">
+			<dataGrid binding="assessments">
+				<boundColumn binding="hygieneAssessment" />
+				<boundColumn binding="painAssessment" />
+				<boundColumn binding="continenceAssessment" />
+				<boundColumn binding="sleepAssessment" />
+				<boundColumn binding="behaviourAssessment" />
+				<boundColumn binding="staff" />
+				<boundColumn binding="assessmentReview" />
+				<onAddedHandlers />
+				<onEditedHandlers />
+				<onRemovedHandlers />
+				<onSelectedHandlers />
+			</dataGrid>
+		</tab>
+	</tabPane>
+	<actions>
+		<defaults />
+	</actions>
+	<newParameters />
 </view>
 ```
 
@@ -1187,21 +1198,24 @@ as below content:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityInfo" title="Facility Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Facility Info">
-        <column percentageWidth="30" responsiveWidth="4"/>
-        <column/>
-        <row>
-            <item>
-                <default binding="facilityName"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <default binding="facilityManager"/>
-            </item>
-        </row>
-    </form>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_facilityInfo" title="Facility Info"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Facility Info">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="facilityName" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="facilityManager" />
+			</item>
+		</row>
+	</form>
 </view>
 
 ```
@@ -1213,32 +1227,34 @@ In the Facility > views package, create new `_facilityAddress.xml` as below cont
 ```xml
 
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityAddress" title="Facility Address" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form borderTitle="Facility Address" border="true">
-        <column percentageWidth="30" responsiveWidth="4"/>
-        <column/>
-
-        <row>
-            <item>
-                <default binding="buildingNumber"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <default binding="streetName"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <default binding="suburb"/>
-            </item>
-        </row>
-        <row>
-            <item>
-                <default binding="state"/>
-            </item>
-        </row>
-		</form>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_facilityAddress" title="Facility Address"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form borderTitle="Facility Address" border="true">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="buildingNumber" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="streetName" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="suburb" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="state" />
+			</item>
+		</row>
+	</form>
 </view>
 ```
 
@@ -1248,18 +1264,20 @@ In the Facility > views package, create new `_facilityLocation.xml` as below con
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_facilityLocation" title="Facility Location" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Facility Location">
-        <column />
-
-        <row>
-            <item showLabel="false">
-                <geometryMap binding="location">
-                    <onChangedHandlers/>
-                </geometryMap>
-            </item>
-        </row>
-    </form>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_facilityLocation" title="Facility Location"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Facility Location">
+		<column />
+		<row>
+			<item showLabel="false">
+				<geometryMap binding="location">
+					<onChangedHandlers />
+				</geometryMap>
+			</item>
+		</row>
+	</form>
 </view>
 ```
 
@@ -1271,26 +1289,25 @@ Change `edit.xml` view like below:
 ```xml
 
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Facility" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-
-  <hbox border="true">
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
+	title="Facility"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
- 			<component name="_facilityInfo" />
- 			<component name="_facilityAddress" />
-
+			<component name="_facilityInfo" />
+			<component name="_facilityAddress" />
 		</vbox>
-
 		<!-- right side -->
 		<vbox responsiveWidth="4" percentageWidth="40">
-			<component name="_facilityLocation"/>
+			<component name="_facilityLocation" />
 		</vbox>
 	</hbox>
-
-   <actions>
-        <defaults/>
-    </actions>
-    <newParameters/>
+	<actions>
+		<defaults />
+	</actions>
+	<newParameters />
 </view>
 
 ```
@@ -1320,25 +1337,28 @@ In the Assessment > views package, create new `_residentInfo.xml` as below conte
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_residentInfo" title="Resident Info" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Resident Info">
-            <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-                <row>
-                  <item>
-                        <default binding="parent.residentName"/>
-                  </item>
-                </row>
-    </form>
-    <form border="true" borderTitle="Resident Photo">
-            <column percentageWidth="30" responsiveWidth="4"/>
-		        <column/>
-                  <row>
-                    <item showLabel="false">
-                        <contentImage binding="parent.photo"/>
-                    </item>
-                  </row>
-      </form>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_residentInfo" title="Resident Info"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Resident Info">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="parent.residentName" />
+			</item>
+		</row>
+	</form>
+	<form border="true" borderTitle="Resident Photo">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item showLabel="false">
+				<contentImage binding="parent.photo" />
+			</item>
+		</row>
+	</form>
 </view>
 ```
 
@@ -1348,36 +1368,39 @@ In the Assessment > views package, create new `_assessmentDetail.xml` as below c
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_assessmentDetail" title="Assessment Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Assessment Detail">
-        <column percentageWidth="30" responsiveWidth="4"/>
-		    <column/>
-		        <row>
-              <item>
-                <default binding="hygieneAssessment"/>
-              </item>
-            </row>
-            <row>
-              <item>
-                <default binding="painAssessment"/>
-              </item>
-            </row>
-            <row>
-              <item>
-                <default binding="continenceAssessment"/>
-              </item>
-            </row>
-            <row>
-              <item>
-                <default binding="sleepAssessment"/>
-              </item>
-            </row>
-            <row>
-              <item>
-                <default binding="behaviourAssessment"/>
-              </item>
-            </row>
-      </form>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_assessmentDetail" title="Assessment Detail"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Assessment Detail">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="hygieneAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="painAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="continenceAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="sleepAssessment" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="behaviourAssessment" />
+			</item>
+		</row>
+	</form>
 </view>
 ```
 
@@ -1387,21 +1410,24 @@ In the Assessment > views package, create new `_reviewDetail.xml` as below conte
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="_reviewDetail" title="Review Detail" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-    <form border="true" borderTitle="Review Detail">
-        <column percentageWidth="30" responsiveWidth="4"/>
-		    <column/>
-		      <row>
-              <item>
-                <default binding="staff"/>
-            </item>
-          </row>
-          <row>
-              <item>
-                <default binding="assessmentReview"/>
-              </item>
-          </row>
-    </form>
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="_reviewDetail" title="Review Detail"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<form border="true" borderTitle="Review Detail">
+		<column percentageWidth="30" responsiveWidth="4" />
+		<column />
+		<row>
+			<item>
+				<default binding="staff" />
+			</item>
+		</row>
+		<row>
+			<item>
+				<default binding="assessmentReview" />
+			</item>
+		</row>
+	</form>
 </view>
 ```
 
@@ -1412,25 +1438,25 @@ Change `edit.xml` view like below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Assessment" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
-
-  <hbox border="true">
+<view xmlns="http://www.skyve.org/xml/view"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
+	title="Assessment"
+	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
+	<hbox border="true">
 		<!-- left side -->
 		<vbox responsiveWidth="8" percentageWidth="60">
- 			<component name="_residentInfo" />
- 			<component name="_reviewDetail" />
-
+			<component name="_residentInfo" />
+			<component name="_reviewDetail" />
 		</vbox>
-
 		<!-- right side -->
 		<vbox responsiveWidth="4" percentageWidth="40">
-			<component name="_assessmentDetail"/>
+			<component name="_assessmentDetail" />
 		</vbox>
 	</hbox>
-    <actions>
-        <defaults/>
-    </actions>
-    <newParameters/>
+	<actions>
+		<defaults />
+	</actions>
+	<newParameters />
 </view>
 ```
 
@@ -1458,78 +1484,77 @@ Open `agedCare.xml` to create new roles and change menu.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="http://www.skyve.org/xml/module" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged care" prototype="true" name="agedCare" xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
-    <homeRef>list</homeRef>
-    <homeDocument>Resident</homeDocument>
-    <documents>
-        <document ref="Resident" defaultQueryName="qResident"/>
-        <document ref="Facility"  defaultQueryName="qFacility"/>
-        <document ref="Assessment"  defaultQueryName="qAssessment"/>
-        <document ref="Contact" moduleRef="admin"/>
-        <document ref="DataGroup" moduleRef="admin"/>
-        <document ref="User" moduleRef="admin"/>
-    </documents>
-      <roles>
-          <role name="Viewer">
-              <description><![CDATA[Enough privileges to view Aged care documents.]]></description>
-              <privileges>
-                  <document name="Resident" permission="_R__C"/>
-                  <document name="Facility" permission="_R__C"/>
-                  <document name="Assessment" permission="_R__C"/>
-              </privileges>
-          </role>
-          <role name="Maintainer">
-              <description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
-              <privileges>
-                  <document name="Resident" permission="CRUDC"/>
-                  <document name="Facility" permission="CRUDC"/>
-                  <document name="Assessment" permission="CRUDC"/>
-              </privileges>
-          </role>
-
-          <role name="Nurses">
-              <description>Permission to see all Assessments</description>
-              <privileges>
-                  <document name="Resident" permission="CRUDC" />
-                  <document name="Facility" permission="_R__C"/>
-                  <document name="Assessment" permission="CRUDC" />
-              </privileges>
-
-            </role>
-            <role name="Carers">
-                <description>Permission to see only Carer Assessments</description>
-                <privileges>
-                  <document name="Resident" permission="_RU_C"></document>
-                  <document name="Facility" permission="_R__C" />
-                  <document name="Assessment" permission="CRU_C" />
-                </privileges>
-            </role>
-
-            <role name="Manager">
-                <description>Permission to manage Facility, Staff, and Assessments</description>
-                <privileges>
-                  <document name="Resident" permission="CRUDC" />
-                  <document name="Facility" permission="CRUDC" />
-                  <document name="Assessment" permission="CRUDC" />
-                </privileges>
-            </role>
-      </roles>
-    <menu>
-        <list document="Resident" name="Residents">
-            <role name="Nurses"/>
-            <role name="Manager"/>
-            <role name="Carers"/>
-        </list>
-        <list document="Facility" name="Facilities">
-            <role name="Manager"/>
-
-        </list>
-        <list document="Assessment" name="Assessments">
-            <role name="Nurses"/>
-            <role name="Carers"/>
-            <role name="Manager"/>
-        </list>
-    </menu>
+<module xmlns="http://www.skyve.org/xml/module"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged care"
+	prototype="true" name="agedCare"
+	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+	<homeRef>list</homeRef>
+	<homeDocument>Resident</homeDocument>
+	<documents>
+		<document ref="Resident" defaultQueryName="qResident" />
+		<document ref="Facility" defaultQueryName="qFacility" />
+		<document ref="Assessment" defaultQueryName="qAssessment" />
+		<document ref="Contact" moduleRef="admin" />
+		<document ref="DataGroup" moduleRef="admin" />
+		<document ref="User" moduleRef="admin" />
+	</documents>
+	<roles>
+		<role name="Viewer">
+			<description><![CDATA[Enough privileges to view Aged care documents.]]></description>
+			<privileges>
+				<document name="Resident" permission="_R__C" />
+				<document name="Facility" permission="_R__C" />
+				<document name="Assessment" permission="_R__C" />
+			</privileges>
+		</role>
+		<role name="Maintainer">
+			<description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
+			<privileges>
+				<document name="Resident" permission="CRUDC" />
+				<document name="Facility" permission="CRUDC" />
+				<document name="Assessment" permission="CRUDC" />
+			</privileges>
+		</role>
+		<role name="Nurses">
+			<description>Permission to see all Assessments</description>
+			<privileges>
+				<document name="Resident" permission="CRUDC" />
+				<document name="Facility" permission="_R__C" />
+				<document name="Assessment" permission="CRUDC" />
+			</privileges>
+		</role>
+		<role name="Carers">
+			<description>Permission to see only Carer Assessments</description>
+			<privileges>
+				<document name="Resident" permission="_RU_C"></document>
+				<document name="Facility" permission="_R__C" />
+				<document name="Assessment" permission="CRU_C" />
+			</privileges>
+		</role>
+		<role name="Manager">
+			<description>Permission to manage Facility, Staff, and Assessments</description>
+			<privileges>
+				<document name="Resident" permission="CRUDC" />
+				<document name="Facility" permission="CRUDC" />
+				<document name="Assessment" permission="CRUDC" />
+			</privileges>
+		</role>
+	</roles>
+	<menu>
+		<list document="Resident" name="Residents">
+			<role name="Nurses" />
+			<role name="Manager" />
+			<role name="Carers" />
+		</list>
+		<list document="Facility" name="Facilities">
+			<role name="Manager" />
+		</list>
+		<list document="Assessment" name="Assessments">
+			<role name="Nurses" />
+			<role name="Carers" />
+			<role name="Manager" />
+		</list>
+	</menu>
 <module>
 ```
 
@@ -1599,9 +1624,9 @@ In `Assessment` document, when we login as a carer, we can not see, we can not s
 
 ```xml
 <conditions>
-    <condition name="roleCarer">
-    <expression><![CDATA[isUserInRole("agedCare", "Carers")]]></expression>
-    </condition>
+	<condition name="roleCarer">
+		<expression><![CDATA[isUserInRole("agedCare", "Carers")]]></expression>
+	</condition>
 </conditions>
 ```
 
@@ -1656,11 +1681,13 @@ The override method is generated in the file
 Add the below code in the method
 
 ```java
+
 {
 String residentId;
 
-  residentId=ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
-  bean.setResidentID(residentId);
+residentId=ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME,
+Resident.residentIDPropertyName, 4);
+bean.setResidentID(residentId);
 
 return super.newInstance(bean);
 
@@ -1692,11 +1719,12 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 4. Opem `Resident.xml`, and add condition after `attributes` as below
 
 ```xml
-  <conditions>
-      <condition name="hasID">
-        <expression><![CDATA[getResidentID()!=null]]></expression>
-      </condition>
-  </conditions>
+
+<conditions>
+	<condition name="hasID">
+		<expression><![CDATA[getResidentID()!=null]]></expression>
+	</condition>
+</conditions>
 ```
 
 5. To show the `residentID` field in the Resident view, if the `hasID` condition is true, open `_residentInfo.xml`
@@ -1705,10 +1733,10 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 
 ```xml
 <row>
-			<item>
-				<textField disabled="true" visible="hasID"
-					binding="residentID" />
-			</item>
+	<item>
+		<textField disabled="true" visible="hasID"
+			binding="residentID" />
+	</item>
 </row>
 
 ```
@@ -1735,7 +1763,7 @@ In this section, we will add more functionality in our documents as below:
 
 ```xml
 <dateTime name="assessmentCreatedTime">
-			<displayName>Assessment Created Time</displayName>
+	<displayName>Assessment Created Time</displayName>
 </dateTime>
 ```
 
@@ -1743,9 +1771,9 @@ Open `_reviewInfo` to add that column, so add new row
 
 ```xml
 <row>
-			<item>
-				<default binding="assessmentCreatedTime" />
-			</item>
+	<item>
+		<default binding="assessmentCreatedTime" />
+	</item>
 </row>
 
 ```
@@ -1769,17 +1797,17 @@ Click on source > override and implement method. Choose `newInstance` form the l
 Eclipse will generate `newInstance` method and override notation for us. We will need to update the method like below:
 
 ```java
+
 private static final long serialVersionUID = 2286961040250324230L;
 
-	@Override
-	public Assessment newInstance(Assessment bean) throws Exception {
-		// TODO Auto-generated method stub
-      bean.setAssessmentCreatedTime(new DateTime());
-      bean.setStaff(ModulesUtil.currentAdminUser());
-		return super.newInstance(bean);
-	}
-
+@Override
+public Assessment newInstance(Assessment bean) throws Exception {
+// TODO Auto-generated method stub
+bean.setAssessmentCreatedTime(new DateTime());
+bean.setStaff(ModulesUtil.currentAdminUser());
+return super.newInstance(bean);
 }
+
 ```
 
 Change the display name to AssessmentCreatedBy in `Assessment.xml` file. I will be clear to know who created the assessment.
@@ -1808,13 +1836,13 @@ Open the `Resident.xml` and add this code in `<attributes>`
 
 ```xml
 <enum name="residentStatus">
-			<displayName>Resident Status</displayName>
-			<defaultValue>current</defaultValue>
-			<values>
-				<value code="Current" />
-				<value code="Discharged" />
-				<value code="Deceased" />
-			</values>
+	<displayName>Resident Status</displayName>
+	<defaultValue>current</defaultValue>
+	<values>
+		<value code="Current" />
+		<value code="Discharged" />
+		<value code="Deceased" />
+	</values>
 </enum>
 ```
 
@@ -1822,9 +1850,9 @@ Next, open `_residentInfo.xml` and add row
 
 ```xml
 <row>
-			<item>
-				<default binding="residentStatus" />
-			</item>
+	<item>
+		<default binding="residentStatus" />
+	</item>
 </row>
 ```
 
