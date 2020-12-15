@@ -908,13 +908,15 @@ Open resident `edit.xml` and add the code given below;
 </view>
 ```
 
-To see the changes re-deployed the application.
+To see the changes, generate domain and re-deploy the application as you did before (stop the WildFly server, run Generate Domain, then restart WildFly).
 
 ![Resident edit ](doc_src_img/chapter7/10.jpg "Resident edit")
 
 Next, we will group related information together to make it easier to manage.
 The easiest way is to use the `border` and `borderTitle` attributes of the Form container.
-So, in this case, I will have 2 forms, one for `Resident Info`, one for `Faciltiy Info`.
+
+So, in this case, we will have 2 forms, one for Resident information, one for Faciltiy information. Let's add border and borderTitle in the <form> tag.
+
 Let's add `border` and `borderTitle` in the `<form>` tag.
 
 ```xml
@@ -1011,9 +1013,9 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 
 ![Resident seprate form](doc_src_img/chapter7/11.JPG "Resident edit form")
 
-As, we have already made a nice view for Resident. However, I also want to introduce View Components to you.
+Now that we have created a view for Resident records, it's time learn about View Components.
 
-So, what is View Components?
+So, what are View Components?
 
 Let's imagine that our view is very complex, lots of sections and these sections can be reused in different views. Skyve allows for reuse of view sections via the component widget.
 
@@ -1167,17 +1169,15 @@ Change `edit.xml` view like below:
 </view>
 ```
 
-We will re-deploy our application to see affect. After re-deployment and re-login to the system. We will have the same view as our original before:
+Now re-deploy the application to check that the view appears as it did before:
 
 ![Resident seprate form](doc_src_img/chapter7/11.JPG "Resident edit form")
 
 - #### Facility Edit view
 
-In the previous section we explore and practice how to create an edit view and customize it to meet our requirements. Now it should be easier for us to create an edit view for your
-Facility document right?
+In the previous section we explore and practice how to create an edit view and customize it to meet our requirements. It's now easy for us to create an edit view for the Facility document.
 
-Lets demonstrate our Facility edit view below:
-It contains three components:
+The Facility edit view will contain three components:
 
 1. Facility Info
 2. Facility address
@@ -1189,7 +1189,7 @@ Let's start with Facility Info component.
 
    ![Edit Facility](doc_src_img/chapter7/4.jpg "Edit view facility")
 
-2. Add facility component same as resident component
+2. Add the facility component the same way we have done for the resident component
 
 ##### Facility Info component
 
@@ -1283,8 +1283,7 @@ In the Facility > views package, create new `_facilityLocation.xml` as below con
 
 ##### Combine together
 
-After done with component creation, we will go to use it on our `edit` view.
-Change `edit.xml` view like below:
+After creating the components, add then to the edit.xml view as shown:
 
 ```xml
 
@@ -1318,8 +1317,7 @@ Again re-deploy the application to see the changes in your Facility document.
 
 - #### Assessment Edit view
 
-As we finish our edit view for resident and facility document. Now, in this step we will do edit view for our Assessment document.
-Assessment document will show sections below:
+This completes the edit views for Resident and Facility documents. Next we will create an edit view for our Assessment document. The Assessment document will show the following sections:
 
 1. Resident Info
 2. Assessment Detail
@@ -1433,8 +1431,7 @@ In the Assessment > views package, create new `_reviewDetail.xml` as below conte
 
 ##### Combine together:
 
-After done with component creation, we will go to use it on our edit view.
-Change `edit.xml` view like below:
+After creating the components, add then to the edit.xml view as shown:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1468,7 +1465,15 @@ Let's re-deploy the application to see the changes we made in this step.
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin.
 
-For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete) and the document scope access level, either G (Global), C (Customer), D (Data Group) or U (User). The underscore character (\_) means no permission is granted.
+For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete). The underscore character (_) means no permission is granted.
+For example, if a role has `CRU_` privileges, this means a user with this role could Create, Read and Update documents but not Delete them.
+
+Skyve also introduces a new concept called Scope. The document scope access level can either be G (Global), C (Customer), D (Data Group) or U (User).
+
+For example, if a role has `CRUDU` privilege, this would mean that a user with this role could Create, Read, Update and Delete documents, but only within the User scope - this means they can only change their own documents - documents they have created - and not documents created by any other user.
+If the role specified the privilege `CRUDC` this would mean that a user with this role could Create, Read, Update and Delete documents, for all records within the Customer scope. If you were to offer the Aged care application as Software as a Service, to many different customers, users with this role could only change data for their own Customer tenancy.
+
+For more information about Document Scope, read https://skyvers.github.io/skyve-dev-guide/concepts/#document-scoping
 
 In our Aged care App, we will define below roles:
 
@@ -1559,8 +1564,6 @@ Open `agedCare.xml` to create new roles and change menu.
 ```
 
 In the next section, we will use these permissions by applying some conditions in our documents.
-
-End of section 4!!!
 
 # 4. Java Extension
 
