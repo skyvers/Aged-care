@@ -659,7 +659,7 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
     <query documentName="Resident" name="qResident">
     <description>All Resident</description>
     <columns>
-   		<content display="thumbnail" binding="photo" pixelHeight="45" pixelWidth="45" />
+   	<content display="thumbnail" binding="photo" pixelHeight="45" pixelWidth="45" />
     	<column binding="residentID" sortOrder="ascending" hidden="true" />
     	<column binding="residentName" sortOrder="ascending" />
     	<column binding="DOB" sortOrder="ascending" />
