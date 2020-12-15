@@ -286,11 +286,27 @@ There are following steps to deploy Aged care application as we created in [Foun
 
 ### 2.4. Using your Aged care app
 
-Your application is ready to go. It contains two modules:Admin and Aged care. Admin module is the part of the Skyve platform. In the Aged care module, you we see the all three documents we created in the [Foundry](https://foundry.skyve.org/foundry/). Let's see how it look like...
+Your application is ready to go. It contains two modules:Admin and Aged care. These two modules show as two menus in the application as shown below.
+The Admin module is the provided as part of the Skyve platform for all applications. It provides a range of powerful administration features, including:
 
-Click on Aged care
+- user and access management
+- scheduled backups and restoring from backups
+- ability to import and export data
+- scheduled jobs and tasks
+- comprehensive system user activity audit tracking, keeping records of every user interaction in the system.
+
+In the Aged care module, you we see the a menu item for each of the three documents we created in the foundry. Let's see how it look like...
+
+Click to expand the Aged menu.
 
 ![app](doc_src_img/chapter4/4.jpg "app")
+
+You will notice two red lines- one at the top of the screen and one at the bottom of the screen.
+Generally organisations will run several instances of their application, for example, Production, Quality Assurance, Test/UAT and Development etc. For non-production instances, Skyve adds these labels so that the person using the system clearly understands whether they are working on a Production instance or not.
+
+In this case, we are using the Foundry `Free Trial` instance, so the two red indicators show. When you move to a production instance (either hosted on Foundry, or on your own infrastructure) these instance identifiers will not show.
+
+![free trail](doc_src_img/chapter4/11.jpg "free trail")
 
 Click on Facility and then add button
 
@@ -298,7 +314,7 @@ Click on Facility and then add button
 
 Enter the detail of facility in the fields and click on "Ok" or "Save" button.
 
-**Ok button:** This button performs Save and Close action on cliked. This will save the changes and return you in previous page.
+**Ok button:** This button performs Save and Close action on clicked. This will save the changes and return you in previous page.
 
 **Save button:** This button will save any changes you perform in the current page when you click on it.
 
@@ -316,23 +332,21 @@ Add data in Assessments
 
 #### Desktop Mode
 
-Skyve provides two seprate user interface: Normal mode and power user mode. In normal mode, the interface is responsive and mobile and tablet friendly where as the power user mode is great for desktop browsers.
+Skyve provides two separate user interface: Normal mode and power user mode. In normal mode, the interface is responsive and mobile and tablet friendly where as the power user mode is great for desktop browsers.
 
 To switch between interface click on the switch icon on the top-right of the application screen.
 
 ![Switch icon](doc_src_img/chapter4/9.jpg "Switch icon")
 
-After clicking
+After switching
 
 ![Switch icon click](doc_src_img/chapter4/10.jpg "Switch icon click")
 
 #### Making Changes and Re-Deploying
 
-The Skyve free trial server will automatically undeploy your project after one hour - but you can redeploy your application as many times as you need during your testing and your data is saved while the project is offline.
+The [Foundry](https://foundry.skyve.org/foundry) free trial server will automatically undeploy your project after one hour - but you can redeploy your application as many times as you need during your testing and your data is saved while the project is offline.
 
 # 3. Low Code Extension
-
-As we already explained about the low code extension at the beginning of the tutorial.
 
 In this section, we will work on collaboration and configuration of the local environment. After that, we will do some editing in the XML files, which will change the lists, views, and layout of our application. So, this step will enable us to test and deploy our application locally on our own (or another machine).
 
@@ -386,11 +400,13 @@ To create a new repository follow the steps below:
 
   ![Repository file](doc_src_img/Chapter2/7.jpg "Repository file")
 
-This is the End of create and collaboration of the application...!
+You have now successfully created your application and configured it for collaboration!
 
 ### 3.2. Configure your local environment
 
-Before import your project in Eclipse, you need to download and install Eclipse in your system.
+For this section, we have chosen to show how to use Eclipse as the development environment, however if you prefer you can use other development environment tools such as IntelliJ, NetBeans, Visual Studio Code etc. However, if you're not completely familiar with these, use Eclipse so that you can follow the steps below.
+
+Before you can import the project into Eclipse, you need to download and install Eclipse in your system.
 
 #### Download and Install Eclipse and JDK
 
@@ -408,9 +424,9 @@ Before import your project in Eclipse, you need to download and install Eclipse 
   - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
   - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
-### 3.3. Install and Configue Wildfly Server
+### 3.3. Install and Configure Wildfly Server
 
-To run our Aged care application, we will need to install and configure for WildFly Server. Skyve apps can be deployed on recent versions of Wildfly (10-20).
+We need an application server to be able to access the application through our browser, for this we will demonstrate using Red Hat's Wildfly application server plugin. Skyve apps can be deployed on recent versions of Wildfly (10-20).
 
 - #### Install Wildfly Server
   You can skip this step if WildFly Server is already installed on your system.
@@ -435,7 +451,7 @@ To check if JBoss Tools is installed properly, click on Help, then click Eclipse
 
 ![Jboss tool install](doc_src_img/chapter3/4.JPG "Jboss tool install")
 
-Click Installed.
+Change to the `Installed` tab.
 
 If the JBoss Tools plugin is present, you are ready to continue.
 
@@ -544,11 +560,11 @@ To run our project in server we need to set Server in Eclipse first.
 
    ![Server set](doc_src_img/chapter5/12.jpg "Server set")
 
-## 3.7 Deploy and Configure Skyve Project
+## 3.7 Configure and Deploy the Skyve Project
 
 ##### Deploy your Skyve project
 
-Its easy to deploy your Skyve project to your WildFly Server.
+Once the Wildfly Server is configured, it's easy to deploy your Skyve project to your WildFly Server.
 
 1. Open WildFly deployments folder Right-click on the server and click on Show In, then click on File Browser
 
@@ -558,23 +574,28 @@ Its easy to deploy your Skyve project to your WildFly Server.
 
    ![Copy file](doc_src_img/chapter6/2.jpg "Copy file")
 
-3. Open the File window and content folder which is in your root folder and create new folder with agedCare name
+Skyve applications can store images and other types of rich content. To be able to do this, Skyve needs to have full access to a folder to store and manage content.
+You need to create a dedicated folder for Skyve to do this. The content folder can be located anywhere and named whatever you like, however it is easiest to place it inside your eclipse folder and name it something simple like `content`.
+
+3. Open the File window and browse to the content folder (which is in your root folder) and create new folder named `agedCare`.
 
    ![Content](doc_src_img/chapter6/3.jpg "Content")
 
-4. Open the agedCare.json file in the text editor
+4. Open the agedCare.json file in your preferred text editor.
 
-   Go to Content section and directory to paste in the Content folder address which we created in previous step in json file.
+Go to the `content` section and modify the `directory` setting to tell Skyve where the content folder is located.
+Note that you must not use backslashes even if you are running on Windows - and the folder path must be terminated with a slash
+e.g. `directory: "C:/eclipse/content/",`
 
-   ![json1](doc_src_img/chapter6/4.jpg "json1")
+![json1](doc_src_img/chapter6/4.jpg "json1")
 
-   Go to the bottom of the file to change the identifier.
+Go to the bottom of the file to change the identifier.
 
-   ![json2](doc_src_img/chapter6/5.jpg "json2")
+![json2](doc_src_img/chapter6/5.jpg "json2")
 
-   If you want to change the username and password, you can change in bootstrap in this app it is not changed.
+If you want to change the username and password, you can change in bootstrap in this app it is not changed.
 
-   Lastly, save and close the file.
+Lastly, save and close the file.
 
 5. Open agedCare-ds.xml file in the text editor
 
@@ -586,33 +607,36 @@ Its easy to deploy your Skyve project to your WildFly Server.
 
 ##### Run your Aged care application
 
-Before running your project, we will need to generate the domain class first.
+Part of Skyve's low-code approach is to generate Java code for you (in the background) so that you don't have to write large amounts of Java code. We call this step `Generate Domain` because Java classes will be created representing the `domain` (the `problem domain` or `area of knowledge`) of your project. The domain classes are Java classes that do the work of managing data access and storage for your application.
 
 Generate domain validates and compiles the metadata (XML files) in your project and checks that the application domain is in a valid state. Errors for the developer to fix are written to your console, and if generate is successful, the domain will be compiled to produce Java domain files and unit tests.
 
 ![Generate domain](doc_src_img/chapter6/6.jpg "Generate domain")
 
-Right click on server and go to start button to start the server.
+Right click the server and use the start button to start the server.
 
 ![start server](doc_src_img/chapter6/9.jpg "start server")
 
-When you see the below info in your Console Window, agedCare was deployed and is running on your localhost server.
+When your Console Window shows text similar to that shown below, your agedCare has been deployed and is running on your localhost server (your local machine).
 
 ![Console](doc_src_img/chapter6/10.JPG "Console server")
 
 If not, you may try to debug by yourself to find the source of the problem, or [Join Us On Slack](https://join.slack.com/t/skyveframework/shared_invite/enQtNDMwNTcyNzE0NzI2LWNjMTBlMTMzNTA4YzBlMzFhYzE0ZmRhOWIzMWViODY4ZTE1N2QzYWM1MTdlMTliNDIyYTBkOWZhZDAxOGQyYjQ) and ask any questions there. You will get support from the [Skyve](https://skyve.org) team or a community team member.
 
-Access Aged care app from Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup".
+Access the Aged care app from your Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup"..
 
 ![Aged care app](doc_src_img/chapter6/"Aged care app")
 
 ### 3.8. List Views
 
-In most of application data is represented in list and detail views. Skyve also capable to provide each type of view.
+Skyve provides two main ways of accessing data - either via list or detail views. The `list` view allows you to search and find the data you wish to change and is normally what you see when you choose a menu item. Once you select a record you will see the `detail` view - which allows you to enter, change or delete data.
 
 Skyve will provide generic/default list and edit views. Skyve supports rapid prototyping of the domain model and gives the developer an ability to begin interacting with the application at an early stage.
 
-List views are basically depend on queries which include only key document attributes for searching and review. Each row of the list corresponds to a document instance however the list may represent data from related documents within the document’s object hierarchy.
+List views provide for searching and review of data - they show data in the context of other data in the system. Lists are usually based on queries that you can define, however, for simple applications Skyve will automatically list all records for each type of `document`.
+
+Each row of the list corresponds to an instance of the document (a record) but may include columns from associated documents within the document's object hierarchy.
+For example, the list of Residents may include columns for the Facility and Staff - because these documents are associated to the Resident records.
 
 - #### Resident List
 
