@@ -150,7 +150,14 @@ Succinct statement of the purpose, key functions and general nature of Foundry, 
 - Define all the data to be managed by your app, how it’s organised and how it’s related
 - Deploy apps to a webserver so anyone can use them on the web
 
-To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve Foundry](https://Foundry.skyve.org/) and [Get started](https://Foundry.skyve.org/Foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
+To create a new [Skyve](https://skyve.org) Project, we need to register our account first with following steps:
+
+- Go to the [Skyve Foundry](https://Foundry.skyve.org/)
+- Click on [Register](https://Foundry.skyve.org/Foundry/register.xhtml) and Enter your account details
+
+  ![Register](doc_src_img/chapter1/11.jpg "Register")
+
+- Active your Email address and if you are already register [Sign in](https://foundry.skyve.org/foundry/login) with your register email and password.
 
 To create a new skyve project through [Foundry](https://foundry.skyve.org/foundry/) go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve [Foundry](https://foundry.skyve.org/foundry/) page and watch the video for more information about how to create new application.
 
