@@ -156,6 +156,10 @@ To create a new skyve project through [Foundry](https://foundry.skyve.org/foundr
 
 ### 2.2. Establish your AgedCare app in Foundry
 
+In the Skyve [Foundry](https://foundry.skyve.org/foundry/), we can create and manage the browser-based applications. Skyve [Foundry](https://foundry.skyve.org/foundry/) allows us to create numbers of application, and that each one will have a single record showing here on welcome screen.
+
+![Welcome screen](doc_src_img/chapter1/10.jpg "Welcome screen")
+
 Now, I will take you step by step creation of application:
 
 - Click on the Add button
