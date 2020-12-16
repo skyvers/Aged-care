@@ -1592,7 +1592,7 @@ In the next section, we will use these permissions by applying some conditions i
 # 4. Java Extension
 
 Before start conditions section, let's create Groups and Users in the application.
-For more detail click on link for adding users and groups: https://skyvers.github.io/skyve-user-guide/users/
+For more detail click on link for adding Users and Groups: https://skyvers.github.io/skyve-user-guide/users/
 
 Go to the application and create group for carer, nurse, manager as below:
 Open Admin>Security Admin>Groups
