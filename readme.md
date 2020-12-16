@@ -142,11 +142,19 @@ In this section, we will go through the development of the Aged care application
 
 This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
 
-### 2.2. Create your app in Foundry
+### 2.1. Introduction to Foundry
+
+Succinct statement of the purpose, key functions and general nature of Foundry, including (but not necessarily limited to):
+
+- One-stop point-and-click tool for building apps
+- Define all the data to be managed by your app, how it’s organised and how it’s related
+- Deploy apps to a webserver so anyone can use them on the web
 
 To create a new [Skyve](https://skyve.org) Project, you can go to the [Skyve Foundry](https://Foundry.skyve.org/) and [Get started](https://Foundry.skyve.org/Foundry/register.xhtml) to register your account and if you are already register Sign in with your register email and password.
 
 To create a new skyve project through [Foundry](https://foundry.skyve.org/foundry/) go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve [Foundry](https://foundry.skyve.org/foundry/) page and watch the video for more information about how to create new application.
+
+### 2.2. Establish your AgedCare app in Foundry
 
 Now, I will take you step by step creation of application:
 
@@ -160,7 +168,11 @@ Now, I will take you step by step creation of application:
 
 - Click on save, after that start build Data Design
 
-#### About Data design:
+### 2.3. Data-driven Design in Foundry
+
+Data driven design refers to how organisations use data to make their content more appealing to users by analysing their behaviour. In Skyve Foundry, we used different data designs such as modules, documents, and attributes to design an application.
+
+_*Modules:*_ In Skyve, modules define self-contained areas of functionality and have their own menu group. By default, Foundry apps start with a single module i.e Admin module. In the Design tab of your application, you can add or remove a module using the Add button.
 
 _*Documents:*_ In data design, documents are related to the real business entities (e.g.resident, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
 
@@ -180,9 +192,7 @@ _*Data type:*_ Data type specifies which type of value an attribute name hold.
 
 - Association: This data type is used where there is a relationship between two entity object based on common attributes. An entity object only needs an association to access the data of another entity object.
 
-In this tutorial we have three documents:
-
-#### 1. Define Resident Document and it's attributes:
+### 2.4. Create your Resident document
 
 The resident document will contain the personal information about the residents and the information about the facility they admitted.
 
@@ -225,7 +235,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
   ![Resident attributes](doc_src_img/chapter1/7.jpg "Resident attributes")
 
-#### 2. Define Facility Document and it's attributes:
+### 2.5. Create your Facility document
 
 The Facility document will contain information about the facility(e.g.facility name, Facility manager), facility full address and location.
 
@@ -246,7 +256,7 @@ This document will follow the same steps we followed for Resident document. It w
 
 ![Facility attributes](doc_src_img/chapter1/8.jpg "Facility attributes")
 
-#### 3. Define Assessments Document and it's attributes:
+### 2.6. Create your Assessment document
 
 The Assessment document will contain information about all the care assessments related to each resident.
 
@@ -267,7 +277,7 @@ Follow the same steps like Resident and Assessment documents. Assessment documen
 
 ![Assessment attributes](doc_src_img/chapter1/9.jpg "Assessment attributes")
 
-### 2.3. Deploying your Aged care app
+### 2.7. Deploy your AgedCare app
 
 Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
 
@@ -287,7 +297,7 @@ There are following steps to deploy Aged care application as we created in [Foun
 
 ![SignIn](doc_src_img/chapter4/3.jpg "SignIn")
 
-### 2.4. Using your Aged care app
+### 2.8. Using your AgedCare app
 
 Your application is ready to go. It contains two modules:Admin and Aged care. These two modules show as two menus in the application as shown below.
 The Admin module is the provided as part of the Skyve platform for all applications. It provides a range of powerful administration features, including:
@@ -348,6 +358,13 @@ After switching
 #### Making Changes and Re-Deploying
 
 The [Foundry](https://foundry.skyve.org/foundry) free trial server will automatically undeploy your project after one hour - but you can redeploy your application as many times as you need during your testing and your data is saved while the project is offline.
+
+### 2.9. Foundry & App FAQs
+
+- Can I make changes to my app after I’ve deployed it?
+- I deployed my app – why did it stop working ?
+- How do I re-deploy my app ?
+- I’ve got what I came for. Can I build my own app now ?
 
 # 3. Low Code Extension
 
