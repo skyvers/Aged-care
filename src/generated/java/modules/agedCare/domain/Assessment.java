@@ -21,8 +21,8 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
  * <br/>
  * Detail of all the treatment for the resident.
  * 
+ * @navhas n createdBy 0..1 User
  * @navhas n nurse 0..1 User
- * @navhas n staff 0..1 User
  * @stereotype "persistent child"
  */
 @XmlType
@@ -50,7 +50,7 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	/** @hidden */
 	public static final String behaviourAssessmentPropertyName = "behaviourAssessment";
 	/** @hidden */
-	public static final String staffPropertyName = "staff";
+	public static final String createdByPropertyName = "createdBy";
 	/** @hidden */
 	public static final String assessmentReviewPropertyName = "assessmentReview";
 	/** @hidden */
@@ -79,11 +79,11 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	 **/
 	private String behaviourAssessment;
 	/**
-	 * AssessmentCreatedBy
+	 * Assessment Created By
 	 * <br/>
 	 * Staff who involve in Assessment.
 	 **/
-	private UserExtension staff = null;
+	private UserExtension createdBy = null;
 	/**
 	 * Assessment Review Time
 	 **/
@@ -235,22 +235,22 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	}
 
 	/**
-	 * {@link #staff} accessor.
+	 * {@link #createdBy} accessor.
 	 * @return	The value.
 	 **/
-	public UserExtension getStaff() {
-		return staff;
+	public UserExtension getCreatedBy() {
+		return createdBy;
 	}
 
 	/**
-	 * {@link #staff} mutator.
-	 * @param staff	The new value.
+	 * {@link #createdBy} mutator.
+	 * @param createdBy	The new value.
 	 **/
 	@XmlElement
-	public void setStaff(UserExtension staff) {
-		if (this.staff != staff) {
-			preset(staffPropertyName, staff);
-			this.staff = staff;
+	public void setCreatedBy(UserExtension createdBy) {
+		if (this.createdBy != createdBy) {
+			preset(createdByPropertyName, createdBy);
+			this.createdBy = createdBy;
 		}
 	}
 

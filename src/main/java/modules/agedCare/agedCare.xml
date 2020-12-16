@@ -121,7 +121,7 @@
 				<column binding="sleepAssessment" sortOrder="ascending" />
 				<column binding="behaviourAssessment" sortOrder="ascending"
 					hidden="true" />
-				<column binding="staff" sortOrder="ascending" />
+				<column binding="createdBy" sortOrder="ascending" />
 				<column binding="assessmentReview" sortOrder="ascending"
 					hidden="true" />
 			</columns>

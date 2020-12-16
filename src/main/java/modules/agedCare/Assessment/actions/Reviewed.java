@@ -12,9 +12,8 @@ public class Reviewed implements ServerSideAction<Assessment> {
 
 	@Override
 	public ServerSideActionResult<Assessment> execute(Assessment bean, WebContext webContext) throws Exception {
-		// TODO Auto-generated method stub
 		bean.setAssessmentReview(new DateTime());
-		bean.setStaff(ModulesUtil.currentAdminUser());
+		bean.setCreatedBy(ModulesUtil.currentAdminUser());
 		return new ServerSideActionResult<>(bean);
 	}
 

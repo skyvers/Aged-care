@@ -27,8 +27,8 @@
 		<memo name="behaviourAssessment">
 			<displayName>Behaviour Assessment</displayName>
 		</memo>
-		<association type="aggregation" name="staff">
-			<displayName>AssessmentCreatedBy</displayName>
+		<association type="aggregation" name="createdBy">
+			<displayName>Assessment Created By</displayName>
 			<description><![CDATA[Staff who involve in Assessment.]]></description>
 			<documentName>User</documentName>
 		</association>

@@ -18,8 +18,7 @@
 		</vbox>
 	</hbox>
 	<listGrid continueConversation="true" query="qResident">
-		<filterParameter filterBinding="facilityName"
-			operator="equal" valueBinding="bizId" />
+		<filterParameter filterBinding="facilityName" operator="equal" valueBinding="bizId" />
 	</listGrid>
 	<actions>
 		<defaults />

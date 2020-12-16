@@ -17,7 +17,7 @@ public class AssessmentBizlet extends Bizlet<Assessment> {
 	public Assessment newInstance(Assessment bean) throws Exception {
 		// TODO Auto-generated method stub
 		bean.setAssessmentCreatedTime(new DateTime());
-		bean.setStaff(ModulesUtil.currentAdminUser());
+		bean.setCreatedBy(ModulesUtil.currentAdminUser());
 		return super.newInstance(bean);
 	}
 

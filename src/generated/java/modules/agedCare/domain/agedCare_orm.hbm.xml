@@ -26,7 +26,7 @@
 		<property name="continenceAssessment" type="text" />
 		<property name="sleepAssessment" length="600" />
 		<property name="behaviourAssessment" type="text" />
-		<many-to-one name="staff" entity-name="adminUser" column="staff_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Assessment_staff"/>
+		<many-to-one name="createdBy" entity-name="adminUser" column="createdBy_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Assessment_createdBy"/>
 		<property name="assessmentReview" type="DateTime" />
 		<property name="assessmentCreatedTime" type="DateTime" />
 		<many-to-one name="nurse" entity-name="adminUser" column="nurse_id" cascade="persist,save-update,refresh,merge" foreign-key="FK_AGE_Assessment_nurse"/>

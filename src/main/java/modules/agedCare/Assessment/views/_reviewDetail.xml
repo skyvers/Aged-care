@@ -8,7 +8,7 @@
 		<column />
 		<row>
 			<item>
-				<default binding="staff" />
+				<default binding="createdBy" />
 			</item>
 		</row>
 		

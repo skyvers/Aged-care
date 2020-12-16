@@ -27,7 +27,7 @@
 				<boundColumn binding="continenceAssessment" />
 				<boundColumn binding="sleepAssessment" />
 				<boundColumn binding="behaviourAssessment" />
-				<boundColumn binding="staff" />
+				<boundColumn binding="createdBy" />
 				<boundColumn binding="assessmentReview" />
 				<onAddedHandlers />
 				<onEditedHandlers />
