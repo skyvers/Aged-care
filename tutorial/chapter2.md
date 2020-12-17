@@ -16,8 +16,6 @@ In this section, we will go through the development of the Aged care application
 
 This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
 
-**[⬆ back to top](#contents)**
-
 ### 2.1. Introduction to Foundry
 
 Succinct statement of the purpose, key functions and general nature of Foundry, including (but not necessarily limited to):
