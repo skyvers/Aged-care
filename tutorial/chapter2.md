@@ -1,14 +1,18 @@
 # Contents
 
-- [2.1. Introduction to Foundry](#21-introduction-to-foundry)
-- [2.2. Establish your AgedCare app in Foundry](#22-establish-your-agedcare-app-in-Foundry)
-- [2.3. Data-driven Design in Foundry](#23-data-driven-design-in-foundry)
-- [2.4. Create your Resident document](#24-create-your-resident-document)
-- [2.5. Create your Facility document](#25-create-your-facility-document)
-- [2.6. Create your Assessment document](#26-create-your-assessment-document)
-- [2.7. Deploy your AgedCare app](#27-deploy-your-agedcare-app)
-- [2.8. Using your AgedCare app](#28-using-your-agedcare-app)
-- [2.9. Foundry & App FAQs](#29-foundry-&-app-)
+* [1. Tutorial Overview ](../readme.md/#1-tutorial-overview)
+* [2. No-code Development](#2-no-code-development)
+  - [2.1. Introduction to Foundry](#21-introduction-to-foundry)
+  - [2.2. Establish your AgedCare app in Foundry](#22-establish-your-agedcare-app-in-Foundry)
+  - [2.3. Data-driven Design in Foundry](#23-data-driven-design-in-foundry)
+  - [2.4. Create your Resident document](#24-create-your-resident-document)
+  - [2.5. Create your Facility document](#25-create-your-facility-document)
+  - [2.6. Create your Assessment document](#26-create-your-assessment-document)
+  - [2.7. Deploy your AgedCare app](#27-deploy-your-agedcare-app)
+  - [2.8. Using your AgedCare app](#28-using-your-agedcare-app)
+  - [2.9. Foundry & App FAQs](#29-foundry-&-app-)
+* [3. Low Code Extensions](../tutorial/chapter3.md/#3-low-code-extension)
+* [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
 
 # 2. No-code Development
 
