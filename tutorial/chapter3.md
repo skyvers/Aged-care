@@ -1,8 +1,8 @@
 # Contents
 
-* [1. Tutorial Overview ](../readme.md/#1-tutorial-overview)
-* [2. No-code Development](../tutorial/chapter2.md/#2-no-code-development)
-* [3. Low Code Extensions](#3-low-code-extension)
+- [1. Tutorial Overview ](../readme.md/#1-tutorial-overview)
+- [2. No-code Development](../tutorial/chapter2.md/#2-no-code-development)
+- [3. Low Code Extensions](#3-low-code-extension)
   - [3.1. Collaboration](#31-collaboration)
   - [3.2. Configure your local environment](#32-configure-your-local-environment)
   - [3.3. Install and Configue Wildfly Server](#33-install-and-configue-wildfly-server)
@@ -13,7 +13,7 @@
   - [3.8 List Views](#38-list-views)
   - [3.9. Edit Views, Layout, and Components](#39-edit-views-layout-and-components)
   - [3.10. Roles](#310-roles)
-* [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
+- [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
 
 # 3. Low Code Extension
 
