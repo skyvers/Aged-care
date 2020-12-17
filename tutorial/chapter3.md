@@ -1,4 +1,4 @@
-# Content
+# Contents
   - [3.1. Collaboration](#31-collaboration)
   - [3.2. Configure your local environment](#32-configure-your-local-environment)
   - [3.3. Install and Configue Wildfly Server](#33-install-and-configue-wildfly-server)
