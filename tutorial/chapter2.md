@@ -10,7 +10,7 @@
   - [2.6. Create your Assessment document](#26-create-your-assessment-document)
   - [2.7. Deploy your AgedCare app](#27-deploy-your-agedcare-app)
   - [2.8. Using your AgedCare app](#28-using-your-agedcare-app)
-  - [2.9. Foundry & App FAQs](#29-foundry-&-app-faqs)
+  - [2.9. Foundry & App FAQs](#29-foundry--app-faqs)
 - [3. Low Code Extensions](../tutorial/chapter3.md/#3-low-code-extension)
 - [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
 
