@@ -11,7 +11,7 @@
   - [2.7. Deploy your AgedCare app](#27-deploy-your-agedcare-app)
   - [2.8. Using your AgedCare app](#28-using-your-agedcare-app)
   - [2.9. Foundry & App FAQs](#29-foundry--app-faqs)
-- [3. Low Code Extensions](../tutorial/chapter3.md/#3-low-code-extension)
+- [3. Low Code Extensions](../tutorial/chapter3.md/#3-low-code-extensions)
 - [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
 
 # 2. No-code Development
@@ -272,3 +272,5 @@ The [Foundry](https://foundry.skyve.org/foundry) free trial server will automati
 - I’ve got what I came for. Can I build my own app now ?
 
 **[⬆ back to top](#contents)**
+
+**[ go to 3: Low-Code extensions](../tutorial/chapter3.md/#3-low-code-extensions)**

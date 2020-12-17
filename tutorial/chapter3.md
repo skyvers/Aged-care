@@ -1257,3 +1257,5 @@ Open `agedCare.xml` to create new roles and change menu.
 In the next section, we will use these permissions by applying some conditions in our documents.
 
 **[⬆ back to top](#contents)**
+
+**[ go to 4: Java extensions](../tutorial/chapter4.md/#4-java-extension)**
