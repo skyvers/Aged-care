@@ -1258,4 +1258,4 @@ In the next section, we will use these permissions by applying some conditions i
 
 **[⬆ back to top](#contents)**
 
-**[:arrow_right: go to 4: Java extensions](../tutorial/chapter4.md/#4-java-extension)**
+**[:arrow_right: go to 4: Java Extensions](../tutorial/chapter4.md/#4-java-extension)**

@@ -133,4 +133,4 @@ Now, lets move to the next step how to create application with [Skyve Foundry](h
 
 **[⬆ back to top](#contents)**
 
-**[:arrow_right: go to 2: No-Code development](tutorial/chapter2.md/#-no-code-development)**
+**[:arrow_right: go to 2: No-code Development](tutorial/chapter2.md/#-no-code-development)**
