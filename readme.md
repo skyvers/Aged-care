@@ -15,7 +15,9 @@
 
 # 1. Tutorial Overview
 
+
  ![App](doc_src_img/chapter1/12.jpg "App")
+
 
 ### 1.1. Is this Tutorial right for me ?
 
