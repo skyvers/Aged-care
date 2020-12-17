@@ -8,7 +8,7 @@
   - [Bizlets](#bizlets)
   - [Actions](#actions)
 
-# 4. Java Extension
+# 4. Java Extensions
 
 It's now time to create Groups and Users in the application.
 
