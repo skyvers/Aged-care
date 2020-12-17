@@ -273,4 +273,4 @@ The [Foundry](https://foundry.skyve.org/foundry) free trial server will automati
 
 **[⬆ back to top](#contents)**
 
-**[ go to 3: Low-Code extensions](../tutorial/chapter3.md/#3-low-code-extensions)**
+**[:arrow_right: go to 3: Low-Code extensions](../tutorial/chapter3.md/#3-low-code-extensions)**
