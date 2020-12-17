@@ -8,7 +8,7 @@
   - [1.3. No-code Development](#13-no-code-development)
   - [1.4. Low-code Extension](#14-low-code-extension)
   - [1.5. Java Extensions](#15-java-extensions)
-  * [1.6. Primer: Skyve & Foundry](#16-primer:-skyve-&-foundry)
+  * [1.6. Primer: Skyve & Foundry](#16-primer-skyve--foundry)
 
 * [2. No-code Development](tutorial/chapter2.md/#-no-code-development)
 
