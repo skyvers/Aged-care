@@ -19,7 +19,6 @@ In this section, we will work on collaboration and configuration of the local en
 
 For more detail visit our [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - which will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 
-**[⬆ back to top](#contents)**
 
 ### 3.1. Collaboration
 
