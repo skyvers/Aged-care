@@ -1,4 +1,4 @@
-# Aged care Application Tutorial
+# Aged Care Application Tutorial
 
 ### Contents
 
