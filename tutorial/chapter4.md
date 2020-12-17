@@ -68,6 +68,8 @@ The Carer sign in page is shown below:
 
 You should also check Nurse and Manager can access what they need correctly by signing in as those users.
 
+**[⬆ back to top](#contents)**
+
 - #### Conditions
 
 In the Assessment document, Carers should not have access to see Pain or Behaviour assessments and so these should not be available to users in the Carer security group.
@@ -97,6 +99,8 @@ Login as a Carer
 Open an Assessment, and check that Pain and Behaviour assessments are not available when signed in as a Carer.
 
 ![Carer assessments](../doc_src_img/chapter8/10.jpg "Carer assessments")
+
+**[⬆ back to top](#contents)**
 
 - #### Bizlets
 
@@ -254,6 +258,8 @@ After completing the details for the Resident record, press the save button and 
 
 ![resident document Id](../doc_src_img/chapter9/10.jpg "resident document Id")
 
+**[⬆ back to top](#contents)**
+
 #### Enhancement in Aged care application
 
 In this section, we will add more functionality to the Assessment document, to automatically record the date and time that the Assessment record is created.
@@ -375,6 +381,8 @@ Next, open `_residentInfo.xml` and add row
 Generate domain, deploy app again. You can see the new field in Assessment `Resident Status`.
 
 ![Status](../doc_src_img/chapter10/5.jpg "Status")
+
+**[⬆ back to top](#contents)**
 
 - #### Actions
   Actions represent behaviours that impact our application data. Actions can be in the form of button, hyperlinks or API calls. For more detail visit the link https://skyvers.github.io/skyve-dev-guide/actions/.

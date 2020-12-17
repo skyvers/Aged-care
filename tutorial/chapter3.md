@@ -19,6 +19,8 @@ In this section, we will work on collaboration and configuration of the local en
 
 For more detail visit our [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - which will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 
+**[⬆ back to top](#contents)**
+
 ### 3.1. Collaboration
 
 Next, we need to Collaborate our application with Github.
@@ -69,6 +71,8 @@ To create a new repository follow the steps below:
 
 You have now successfully created your application and configured it for collaboration!
 
+**[⬆ back to top](#contents)**
+
 ### 3.2. Configure your local environment
 
 For this section, we have chosen to show how to use Eclipse as the development environment, however if you prefer you can use other development environment tools such as IntelliJ, NetBeans, Visual Studio Code etc. However, if you're not completely familiar with these, use Eclipse so that you can follow the steps below.
@@ -90,6 +94,8 @@ Before you can import the project into Eclipse, you need to download and install
 - ##### Download and Install JDK
   - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
   - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
+
+**[⬆ back to top](#contents)**
 
 ### 3.3. Install and Configure Wildfly Server
 
@@ -162,6 +168,8 @@ Select the latest version of WildFly, then click Next
 
     ![Downloading](../doc_src_img/chapter3/14.JPG "Downloading")
 
+**[⬆ back to top](#contents)**
+
 ### 3.4. Add Repository in Eclipse
 
 After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
@@ -197,6 +205,8 @@ After downloading and installation of eclipse and server, the next step is add o
 
 In Git Repositories, we can see our repository is added now!
 
+**[⬆ back to top](#contents)**
+
 ### 3.5. Import Project
 
 As we already created a project in Skyve [Foundry](https://foundry.skyve.org/foundry/), now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
@@ -215,6 +225,8 @@ As we already created a project in Skyve [Foundry](https://foundry.skyve.org/fou
 
 You can see your project in Project Explorer area in Eclipse.
 
+**[⬆ back to top](#contents)**
+
 ### 3.6. Set the server
 
 To run our project in server we need to set Server in Eclipse first.
@@ -226,6 +238,8 @@ To run our project in server we need to set Server in Eclipse first.
 2. Click on Add and Remove and then Finish
 
    ![Server set](../doc_src_img/chapter5/12.jpg "Server set")
+
+**[⬆ back to top](#contents)**
 
 ## 3.7 Configure and Deploy the Skyve Project
 
@@ -293,6 +307,8 @@ If not, you may try to debug by yourself to find the source of the problem, or [
 Access the Aged care app from your Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup"..
 
 ![Aged care app](../doc_src_img/chapter6/"Aged care app")
+
+**[⬆ back to top](#contents)**
 
 ### 3.8. List Views
 
@@ -450,6 +466,8 @@ Then, set the `defaultQueryName` attribute to your Assessment document, as shown
 Again, to apply the change, stop the WildFly server and run the Generate Domain command, then start the WildFly Server.
 
 ![Assessment list](../doc_src_img/chapter7/2.jpg "Assessment list")
+
+**[⬆ back to top](#contents)**
 
 ### 3.9. Edit Views, Layout, and Components
 
@@ -840,6 +858,8 @@ Now re-deploy the application to check that the view appears as it did before:
 
 ![Resident seprate form](../doc_src_img/chapter7/11.JPG "Resident edit form")
 
+**[⬆ back to top](#contents)**
+
 - #### Facility Edit view
 
 In the previous section we explore and practice how to create an edit view and customize it to meet our requirements. It's now easy for us to create an edit view for the Facility document.
@@ -981,6 +1001,8 @@ After creating the components, add then to the edit.xml view as shown:
 Again re-deploy the application to see the changes in your Facility document.
 
 ![Facility document](../doc_src_img/chapter7/5.jpg "Facilty document editview")
+
+**[⬆ back to top](#contents)**
 
 - #### Assessment Edit view
 
@@ -1127,6 +1149,8 @@ After creating the components, add then to the edit.xml view as shown:
 Let's re-deploy the application to see the changes we made in this step.
 
 ![Assessment editview](../doc_src_img/chapter7/7.jpg "Assessment editview")
+
+**[⬆ back to top](#contents)**
 
 ### 3.10. Roles
 
