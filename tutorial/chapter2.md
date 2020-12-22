@@ -67,7 +67,7 @@ Data driven design refers to how organisations use data to make their content mo
 
 _*Modules:*_ In Skyve, modules define self-contained areas of functionality and have their own menu group. By default, Foundry apps start with a single module i.e Admin module. In the Design tab of your application, you can add or remove a module using the Add button.
 
-_*Documents:*_ In data design, documents are related to the real business entities (e.g.resident, facility, assessment). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
+_*Documents:*_ In data design, documents are related to the real business entities (e.g.Residents, Facilities, Assessments). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
 
 _*Attributes:*_ Attributes contain information about each document (e.g. Resident's document attributes : name, id, photo, bio etc.). Attributes can have different data types and different view.
 
@@ -122,7 +122,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
   ![Documents and attributes](../doc_src_img/chapter1/5.jpg "Documents and attributes")
 
-- Click on Add button to add attributes to resident document
+- Click on Add button to add attributes to Resident document
 
   ![Add attribute](../doc_src_img/chapter1/6.jpg "Add attribute")
 
