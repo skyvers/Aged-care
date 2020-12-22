@@ -256,7 +256,7 @@ Skyve provides two separate user interface: Normal mode and power user mode. In 
 
 To switch between interface click on the switch icon on the top-right of the application screen.
 
-![Switch icon](../doc_src_img/chapter4/9.jpg "Switch icon")
+![Switch icon](../doc_src_img/chapter4/13.jpg "Switch icon")
 
 After switching
 
