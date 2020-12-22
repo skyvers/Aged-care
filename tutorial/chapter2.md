@@ -3,22 +3,22 @@
 - [1. Tutorial Overview ](../readme.md/#1-tutorial-overview)
 - [2. No-code Development](#2-no-code-development)
   - [2.1. Introduction to Foundry](#21-introduction-to-foundry)
-  - [2.2. Establish your AgedCare app in Foundry](#22-establish-your-agedcare-app-in-Foundry)
+  - [2.2. Establish your Agedcare app in Foundry](#22-establish-your-agedcare-app-in-Foundry)
   - [2.3. Data-driven Design in Foundry](#23-data-driven-design-in-foundry)
   - [2.4. Create your Resident document](#24-create-your-resident-document)
   - [2.5. Create your Facility document](#25-create-your-facility-document)
   - [2.6. Create your Assessment document](#26-create-your-assessment-document)
-  - [2.7. Deploy your AgedCare app](#27-deploy-your-agedcare-app)
-  - [2.8. Using your AgedCare app](#28-using-your-agedcare-app)
+  - [2.7. Deploy your Agedcare app](#27-deploy-your-agedcare-app)
+  - [2.8. Using your Agedcare app](#28-using-your-agedcare-app)
   - [2.9. Foundry & App FAQs](#29-foundry--app-faqs)
 - [3. Low Code Extensions](../tutorial/chapter3.md/#3-low-code-extensions)
 - [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
 
 # 2. No-code Development
 
-In this section, we will go through the development of the Aged Care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
+In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
 
-This section also covers how to create and add different documents: Residents, Assessments, and Facilities in the Aged Care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
+This section also covers how to create and add different documents: Residents, Assessments, and Facilities in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
 
 ### 2.1. Introduction to Foundry
 
@@ -41,7 +41,7 @@ To create a new skyve project through [Foundry](https://foundry.skyve.org/foundr
 
 **[⬆ back to top](#contents)**
 
-### 2.2. Establish your Aged Care app in Foundry
+### 2.2. Establish your Aged care app in Foundry
 
 In the Skyve [Foundry](https://foundry.skyve.org/foundry/), we can create and manage the browser-based applications. Skyve [Foundry](https://foundry.skyve.org/foundry/) allows us to create numbers of application, and that each one will have a single record showing here on welcome screen.
 
@@ -104,7 +104,7 @@ Resident document contain attributes below:
 | Admission Date | Date        |
 | Facility       | Association |
 
-The `Facility` attribute will be an association to a Facility (held in the Facility data table). The association represents a link to the entire Facility record (including name, address etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated Facility record."
+The `Facility` attribute will be an association to a Facility (held in the Facility data table). The association represents a link to the entire Facility record (including name, address etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated Facility record."
 
 Now, we will create a Resident document and add attributes in Resident document in next few steps.
 
@@ -118,7 +118,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
 - You can see your document on screen.
 
-- Next, create documents for Facility and Assessments same as resident and click on arrow to add attributes for each document
+- Next, create documents for Facility and Assessment same as Resident and click on arrow to add attributes for each document
 
   ![Documents and attributes](../doc_src_img/chapter1/5.jpg "Documents and attributes")
 
@@ -134,7 +134,7 @@ Now, we will create a Resident document and add attributes in Resident document 
 
 ### 2.5. Create your Facility document
 
-The Facility document will contain information about the facility(e.g.facility name, Facility manager), facility full address and location.
+The Facility document will contain information about the facility(e.g.facility name, Facility manager, facility full address and location).
 
 The attributes for Facility document as below:
 
@@ -147,7 +147,7 @@ The attributes for Facility document as below:
 | State            | Text        | 100    |
 | Facility manager | Association |
 
-The `Facility manager` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Facility manager."
+The `Facility manager` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Facility manager."
 
 This document will follow the same steps we followed for Resident document. It will look like as below:
 
@@ -170,7 +170,7 @@ The attributes for Assessments document as below:
 | Behaviour Assessment  | Memo        |
 | Staff                 | Association |
 
-The `Staff` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Staff person.
+The `Staff` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Staff person.
 
 Follow the same steps like Resident and Assessment documents. Assessment document look like as below.
 
@@ -178,7 +178,7 @@ Follow the same steps like Resident and Assessment documents. Assessment documen
 
 **[⬆ back to top](#contents)**
 
-### 2.7. Deploy your AgedCare app
+### 2.7. Deploy your Aged care app
 
 Our Aged care application is almost ready, now the next step is to deploying our application to check how it look like. (Note: If you are using a free trail version, you can only deploy your application for an hours. To use the free version for another hour you need to redeploy it).
 
@@ -188,7 +188,7 @@ There are following steps to deploy Aged care application as we created in [Foun
 
    ![Deploy](../doc_src_img/chapter4/1.jpg "Deploy")
 
-2. Click on Deloy tab and then click on Deploy, usually it take 2 minutes to deploy your application
+2. Click on Deloy tab and add User password and Confirm password then click on Deploy, usually it take 2 minutes to deploy your application
 
 3. Next, click on the deploy link
 
@@ -200,7 +200,7 @@ There are following steps to deploy Aged care application as we created in [Foun
 
 **[⬆ back to top](#contents)**
 
-### 2.8. Using your AgedCare app
+### 2.8. Using your Aged care app
 
 Your application is ready to go. It contains two modules:Admin and Aged care. These two modules show as two menus in the application as shown below.
 The Admin module is the provided as part of the Skyve platform for all applications. It provides a range of powerful administration features, including:
@@ -224,7 +224,7 @@ In this case, we are using the Foundry `Free Trial` instance, so the two red ind
 
 ![free trail](../doc_src_img/chapter4/11.jpg "free trail")
 
-Click on Facility and then add button
+Click on Facilities and then add button
 
 ![Facility](../doc_src_img/chapter4/5.jpg "Facility")
 
@@ -238,7 +238,11 @@ So, press Ok or Save as you go.
 
 ![Facility field](../doc_src_img/chapter4/6.jpg "Facility field")
 
-Next, click on Assessments
+Next, click on Residents and add button
+
+![Residents](../doc_src_img/chapter4/12.jpg "Residents")
+
+Then, click on Assessments
 
 ![Assessments](../doc_src_img/chapter4/7.jpg "Assessments")
 
