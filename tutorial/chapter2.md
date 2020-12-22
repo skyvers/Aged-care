@@ -16,9 +16,9 @@
 
 # 2. No-code Development
 
-In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
+In this section, we will go through the development of the Aged Care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.
 
-This section also covers how to create and add different documents: Resident, Assessments, and Facility in the Aged care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
+This section also covers how to create and add different documents: Residents, Assessments, and Facilities in the Aged Care application and how to deploy an application in [Foundry](https://foundry.skyve.org/foundry/).
 
 ### 2.1. Introduction to Foundry
 
@@ -31,7 +31,7 @@ Succinct statement of the purpose, key functions and general nature of Foundry, 
 To create a new [Skyve](https://skyve.org) Project, we need to register our account first with following steps:
 
 - Go to the [Skyve Foundry](https://Foundry.skyve.org/)
-- Click on [Register](https://Foundry.skyve.org/Foundry/register.xhtml) and Enter your account details
+- Click on [Register](https://foundry.skyve.org/foundry/register.xhtml) and Enter your account details
 
   ![Register](../doc_src_img/chapter1/11.jpg "Register")
 
