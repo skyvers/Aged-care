@@ -35,7 +35,7 @@ To create a new [Skyve](https://skyve.org) Project, we need to register our acco
 
   ![Register](../doc_src_img/chapter1/11.jpg "Register")
 
-- Active your Email address and if you are already register [Sign in](https://foundry.skyve.org/foundry Signin) with your register email and password.
+- Active your Email address and if you are already register [Sign in](https://foundry.skyve.org/foundry/login) with your register email and password.
 
 To create a new skyve project through [Foundry](https://foundry.skyve.org/foundry/) go to the [How to get started](https://youtu.be/G3OQu5PeUn8) on the top right-hand side of skyve [Foundry](https://foundry.skyve.org/foundry/) page and watch the video for more information about how to create new application.
 
