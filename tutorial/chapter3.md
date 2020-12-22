@@ -199,7 +199,7 @@ After downloading and installation of eclipse and server, the next step is add o
 
    ![Clone Next](../doc_src_img/chapter5/6.jpg "Clone Next")
 
-8. Click on Finish
+8. Choose the directory where you want to put your project and Click on Finish
 
    ![Clone Finish](../doc_src_img/chapter5/7.jpg "Clone Finish")
 
