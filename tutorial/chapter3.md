@@ -219,7 +219,7 @@ As we already created a project in Skyve [Foundry](https://foundry.skyve.org/fou
 
    ![Maven](../doc_src_img/chapter5/9.jpg "Maven")
 
-3. Set your root directory (Folder wwhere you cloned your git repository to in the previous section) and click on Finish
+3. Set your root directory (Folder where you cloned your git repository to in the previous section) and click on Finish
 
    ![Root](../doc_src_img/chapter5/10.jpg "Root")
 
@@ -256,13 +256,15 @@ Once the Wildfly Server is configured, it's easy to deploy your Skyve project to
    ![Copy file](../doc_src_img/chapter6/2.jpg "Copy file")
 
 Skyve applications can store images and other types of rich content. To be able to do this, Skyve needs to have full access to a folder to store and manage content.
-You need to create a dedicated folder for Skyve to do this. The content folder can be located anywhere and named whatever you like, however it is easiest to place it inside your eclipse folder and name it something simple like `content`.
+You need to create a dedicated folder for Skyve to do this. The content folder which can be located anywhere and named whatever you like, however it is easiest to place it inside your eclipse folder and name it something simple like `content`.
 
-3. Open the File window and browse to the content folder (which is in your root folder) and create new folder named `agedCare`.
+3. Create a folder name `content` inside your eclipse folder
+
+4. Open the File window and browse to the content folder (which is in your root folder) and create new folder named `agedCare`.
 
    ![Content](../doc_src_img/chapter6/3.jpg "Content")
 
-4. Open the agedCare.json file in your preferred text editor.
+5. Open the agedCare.json file in your preferred text editor.
 
 Go to the `content` section and modify the `directory` setting to tell Skyve where the content folder is located.
 Note that you must not use backslashes even if you are running on Windows - and the folder path must be terminated with a slash
@@ -274,7 +276,7 @@ Go to the bottom of the file to change the identifier.
 
 ![json2](../doc_src_img/chapter6/5.jpg "json2")
 
-If you want to change the username and password, you can change in bootstrap in this app it is not changed.
+If you want to change the username and password, you can change in bootstrap, in this app it is not changed.
 
 Lastly, save and close the file.
 
@@ -306,7 +308,7 @@ If not, you may try to debug by yourself to find the source of the problem, or [
 
 Access the Aged care app from your Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup"..
 
-![Aged care app](../doc_src_img/chapter6/"Aged care app")
+![Aged care app](../doc_src_img/chapter6/11.jpg "Aged care app")
 
 **[⬆ back to top](#contents)**
 
