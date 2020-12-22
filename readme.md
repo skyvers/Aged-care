@@ -40,7 +40,8 @@ We’ve split it into 3 sections:
 - Those with basic coding skills (or who are willing to learn some) can progress to the second section and extend their app
 
 - Those with more advanced Java coding skills can progress from there on to the third section and extend their app even further
-  So even if “point and click” is all you can manage and you’re allergic to any sort of ‘coding’, this tutorial is still for you ! It’ll help you get a ‘no-code’ Skyve app with a simple but functional interface, up and running in no time.
+
+So even if “point and click” is all you can manage and you’re allergic to any sort of ‘coding’, this tutorial is still for you ! It’ll help you get a ‘no-code’ Skyve app with a simple but functional interface, up and running in no time.
 
 In this tutorial, we will show you how easy it is to build a powerful application using the Skyve Enterprise Application platform.
 
@@ -52,7 +53,7 @@ To familiarise you with Skyve application development, we will build a simple ap
 
 A typical aged care provider might manage multiple facilities, each housing many residents. Residents are regularly assessed to ensure that they are well and safe, and that their care matches their needs.
 
-Care providers must record the personal details of each resident and where they are located. They must also retain records care assessments for each resident both to facilitate regualar activities and to satisfy audit requirements.
+Care providers must record the personal details of each resident and where they are located. They must also retain records care assessments for each resident both to facilitate regular activities and to satisfy audit requirements.
 
 Our app will meet these record storage and retrieval needs for an (imaginary!) aged care provider.
 
@@ -66,7 +67,7 @@ No-code application development means developing an app using only a point-and-c
 
 In [Foundry](https://foundry.skyve.org/foundry/), you will use a point-and-click interface to define:
 
-- ‘documents’ representing facilities, residents, and assessments
+- ‘documents’ representing Facilities, Fesidents, and Assessments
 - data ‘attributes’ that need to be recorded for each different document type
 - relationships between different types of documents (e.g. each resident belongs to one facility; each resident has many assessments)
 
@@ -78,7 +79,7 @@ Or, if you have some basic coding skills or you’re willing to acquire them, we
 
 **[⬆ back to top](#contents)**
 
-### 1.4. Low-code Extension
+### 1.4. Low-code Extensions
 
 In the second main section of the tutorial, we will lead you through the addition of some low-code enhancements to the same Aged Care app that we just developed using [Foundry](https://foundry.skyve.org/foundry/) in the previous section.
 
@@ -94,9 +95,9 @@ By contrast, the Skyve XML language is a dramatically simpler language – it al
 
 So, using Skyve XML is still coding. But in contrast to coding in Java or a similar web-based language, it’s a great deal simpler, easier, faster and far more succinct. Hence, ‘low-code’. Furthermore, even when you do need to add code to extend a Skyve app, Skyve provides high level APIs to common Java frameworks, meaning that your code will be simpler and more succinct than usual.
 
-In this section of the tutorial,we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the [Foundry](https://foundry.skyve.org/foundry/) point-and-click interface. We will edit and change the layouts of the Resident, Assessment, and Facility documents.
+In this section of the tutorial,we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the [Foundry](https://foundry.skyve.org/foundry/) point-and-click interface. We will edit and change the layouts of the Residents, Assessments, and Facilities documents.
 
-At the end of this section of the tutorial, you’ll have a significantly enhanced AgedCare app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
+At the end of this section of the tutorial, you’ll have a significantly enhanced Aged Care app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
 
 **[⬆ back to top](#contents)**
 
@@ -108,11 +109,11 @@ The Skyve platform provides an extensive system of programming hooks that enable
 
 If you don't have Java coding skills yourself, your simplest and cheapest option might be to buy support hours from one of our expert developers - you can do this within your Account in Skyve [Foundry](https://foundry.skyve.org/foundry/).
 
-If you already have some Java skills, however, you can do this yourself ! In the third main section of the tutorial, we will lead you through the development of some Java enhancements to your AgedCare app.
+If you already have some Java skills, however, you can do this yourself ! In the third main section of the tutorial, we will lead you through the development of some Java enhancements to your Aged Care app.
 
-Specifically, we will add some Java-code conditions and actions into our app to restrict, in a very granular and specific way, which users can access particular assessments relating to particular residents.
+Specifically, we will add some Java-code conditions and actions into our app to restrict, in a very granular and specific way, which users can access particular Assessments relating to particular residents.
 
-At the end of this section of the tutorial, you’ll have a further-enhanced AgedCare app up and running. More significantly, though, you’ll be able to combine your powerful new Skyve app development capabilities with your existing Java skills to create no-limits applications far faster than you could ever do with Java alone.
+At the end of this section of the tutorial, you’ll have a further-enhanced Aged Care app up and running. More significantly, though, you’ll be able to combine your powerful new Skyve app development capabilities with your existing Java skills to create no-limits applications far faster than you could ever do with Java alone.
 
 **[⬆ back to top](#contents)**
 
