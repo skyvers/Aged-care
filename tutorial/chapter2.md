@@ -57,7 +57,7 @@ Now, I will take you step by step creation of application:
 
   ![Name and Email](../doc_src_img/chapter1/2.png "Name and Email")
 
-- Click on save, after that start build Data Design
+- After that start build Data Design
 
 **[⬆ back to top](#contents)**
 
