@@ -1154,7 +1154,7 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ### 3.10. Roles
 
-Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin.
+Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin module.
 
 For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete). The underscore character (_) means no permission is granted.
 For example, if a role has `CRU_` privileges, this means a user with this role could Create, Read and Update documents but not Delete them.

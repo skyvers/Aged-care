@@ -6,14 +6,14 @@
 
 	<hbox border="true">
 		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
+		<vbox responsiveWidth="5" percentageWidth="40">
 			<component name="_residentInfo" />
 			<component name="_reviewDetail" />
 
 		</vbox>
 
 		<!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
+		<vbox responsiveWidth="7" percentageWidth="60">
 			<component name="_assessmentDetail" />
 		</vbox>
 	</hbox>
