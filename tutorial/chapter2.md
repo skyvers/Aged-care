@@ -102,9 +102,9 @@ Resident document contain attributes below:
 | Room Number    | Integer     |
 | BIO            | Memo        |
 | Admission Date | Date        |
-| Facility name  | Association |
+| Facility       | Association |
 
-The `Facility name` attribute will be an association to a Facility (held in the Facility data table). The association represents a link to the entire Facility record (including name, address etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated Facility record."
+The `Facility` attribute will be an association to a Facility (held in the Facility data table). The association represents a link to the entire Facility record (including name, address etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged Care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated Facility record."
 
 Now, we will create a Resident document and add attributes in Resident document in next few steps.
 
