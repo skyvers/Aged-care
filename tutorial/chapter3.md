@@ -821,12 +821,12 @@ Change `edit.xml` view like below:
 		<tab title="General">
 			<hbox border="true">
 				<!-- left side -->
-				<vbox responsiveWidth="8" percentageWidth="60">
+				<vbox responsiveWidth="6" percentageWidth="50">
 					<component name="_residentInfo" />
 					<component name="_facilityInfo" />
 				</vbox>
 				<!-- right side -->
-				<vbox responsiveWidth="4" percentageWidth="40">
+				<vbox responsiveWidth="6" percentageWidth="50">
 					<component name="_photoBio" />
 				</vbox>
 			</hbox>
@@ -981,12 +981,12 @@ After creating the components, add then to the edit.xml view as shown:
 	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
 	<hbox border="true">
 		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
+		<vbox responsiveWidth="6" percentageWidth="50">
 			<component name="_facilityInfo" />
 			<component name="_facilityAddress" />
 		</vbox>
 		<!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
+		<vbox responsiveWidth="6" percentageWidth="50">
 			<component name="_facilityLocation" />
 		</vbox>
 	</hbox>
@@ -1130,12 +1130,12 @@ After creating the components, add then to the edit.xml view as shown:
 	xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd">
 	<hbox border="true">
 		<!-- left side -->
-		<vbox responsiveWidth="8" percentageWidth="60">
+		<vbox responsiveWidth="5" percentageWidth="40">
 			<component name="_residentInfo" />
 			<component name="_reviewDetail" />
 		</vbox>
 		<!-- right side -->
-		<vbox responsiveWidth="4" percentageWidth="40">
+		<vbox responsiveWidth="7" percentageWidth="60">
 			<component name="_assessmentDetail" />
 		</vbox>
 	</hbox>
