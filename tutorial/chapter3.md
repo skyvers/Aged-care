@@ -429,7 +429,7 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 As in the `Assessment` document, you can see different assessments related to each resident.
 
-Let's hide `Pain assessement` and `Review date` from the document and add resident name and image.
+Let's hide `painAassessement` `behaviourAssessment` and `assessmentReview` from the document and add resident name and image.
 
 Let's try it: Add a query to your module (the agedCare.xml file)
 

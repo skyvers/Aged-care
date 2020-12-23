@@ -162,16 +162,17 @@ The Assessment document will contain information about all the care assessments 
 
 The attributes for Assessments document as below:
 
-| Attribute name        | Data Type   | Length |
-| --------------------- | ----------- | ------ |
-| Hygiene Assessment    | Memo        |
-| Pain Assessment       | Memo        |
-| Continence Assessment | Memo        |
-| Sleep Assessment      | Text        | 600    |
-| Behaviour Assessment  | Memo        |
-| Staff                 | Association |
+| Attribute name         | Data Type   | Length |
+| ---------------------- | ----------- | ------ |
+| Hygiene Assessment     | Memo        |
+| Pain Assessment        | Memo        |
+| Continence Assessment  | Memo        |
+| Sleep Assessment       | Text        | 600    |
+| Behaviour Assessment   | Memo        |
+| Assessment Created By  | Association |
+| Assessment Review Time | Date/Time   |
 
-The `Staff` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Staff person.
+The `Assessment Created By` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Staff person.
 
 Follow the same steps like Resident and Assessment documents. Assessment document look like as below.
 
