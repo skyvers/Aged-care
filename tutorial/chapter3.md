@@ -1122,12 +1122,12 @@ In the Assessment > views package, create new `_reviewDetail.xml` as below conte
 		<column />
 		<row>
 			<item>
-				<default binding="staff" />
+				<default binding="assessmentCreatedBy" />
 			</item>
 		</row>
 		<row>
 			<item>
-				<default binding="assessmentReview" />
+				<default binding="assessmentReviewTime" />
 			</item>
 		</row>
 	</form>
