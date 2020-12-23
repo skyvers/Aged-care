@@ -429,9 +429,9 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 As in the `Assessment` document, you can see different assessments related to each resident.
 
-Let's hide `painAassessement` `behaviourAssessment` and `assessmentReviewTime` from the document and add resident name and image.
+Let's hide `painAassessement` `behaviourAssessment` and `assessmentReviewTime` from the document and add resident name and photo.
 
-To add the resident name and image in `Assessment` document, we need to define the collection in Resident document first. 
+To add the resident name and photo in `Assessment` document, we need to define the collection in Resident document first. 
 
 So, go to [Foundry]() and open Resident document in the App.
 
