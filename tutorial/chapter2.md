@@ -141,11 +141,12 @@ The attributes for Facility document as below:
 | Attribute name   | Data Type   | Length |
 | ---------------- | ----------- | ------ |
 | Facility Name    | Text        | 500    |
-| Building Number  | Integer     |
+| Building Number  | Integer     |        |
 | Street Name      | Text        | 500    |
 | Suburb           | Text        | 500    |
 | State            | Text        | 100    |
-| Facility manager | Association |
+| Facility manager | Association |        |
+| Location         | Geometry    |        |
 
 The `Facility manager` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Facility manager."
 

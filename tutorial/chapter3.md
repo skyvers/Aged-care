@@ -331,7 +331,7 @@ So that we can control exactly what is shown in the list, we will define a query
 
 To make the application easier to use, it can be useful to hide some columns in the list. In this case we will hide the attributes `admissionDate` and `residentId` for the Resident records, and display the Resident photo as a thumbnail image.
 
-A thumbnail is a scaled down version of the image. If you store high quality images of each resident (e.g 5MB each), when you include these images in the list, the user would have to receive a lot of data to view the list. For example, for 50 rows (for example) of Resident data, this would mean the user would have to receive 50x5MB of data, and this would make the `list` view appear very slow to use. Instead, Skyve automatically generates scaled down versions of images (thumbnails) and these can be included in the `list` so that application performance is not compromised.
+A thumbnail is a scaled down version of the image. If you store high quality images of each resident (e.g 5MB each), when you include these images in the list, the user would have to receive a lot of data to view the list. For example, for 50 rows of Resident data, this would mean the user would have to receive 50x5MB of data, and this would make the `list` view appear very slow to use. Instead, Skyve automatically generates scaled down versions of images (thumbnails) and these can be included in the `list` so that application performance is not compromised.
 
 This means we can include a thumbnail column in our query to show the images of each Resident without significantly impacting on the performance of our application.
 
@@ -351,7 +351,7 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
     	<column binding="roomNo" sortOrder="ascending" />
     	<column binding="BIO" sortOrder="ascending" />
     	<column binding="admissionDate" sortOrder="ascending" hidden="true" />
-    	<column binding="facilityName.facilityName" sortOrder="ascending" />
+    	<column binding="facility.facilityName" sortOrder="ascending" />
     </columns>
     </query>
 </queries>
@@ -362,7 +362,7 @@ Here the `content query column` provides a `content` column type for content ite
 
 You can specify a default query for each document in the module (in the agedCare.xml file ) and this will ensure that wherever a list is shown for this document in your application, you will always get the same query.
 
-To do this, set defaultQueryName for the Resident document to be the name of our query as shown below:
+To do this, set defaultQueryName for the Resident document to be the name of our query (agedCare.xml in documents declaration) as shown below:
 
 ```xml
 <documents>
@@ -402,10 +402,8 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 				<column binding="streetName" sortOrder="ascending" />
 				<column binding="suburb" sortOrder="ascending" />
 				<column binding="state" sortOrder="ascending" />
-				<column binding="facilityManager" sortOrder="ascending"
-					hidden="true" />
-				<column binding="location" sortOrder="ascending"
-					hidden="true" />
+				<column binding="facilityManager" sortOrder="ascending" hidden="true" />
+				<column binding="location" sortOrder="ascending" hidden="true" />
 			</columns>
 </query>
 ```
