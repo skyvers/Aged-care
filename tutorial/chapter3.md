@@ -562,7 +562,7 @@ Open resident `edit.xml` and add the code given below;
 						</row>
 						<row>
 							<item>
-								<default binding="facilityName" />
+								<default binding="facility" />
 							</item>
 						</row>
 					</form>
@@ -593,8 +593,8 @@ Open resident `edit.xml` and add the code given below;
 				<boundColumn binding="continenceAssessment" />
 				<boundColumn binding="sleepAssessment" />
 				<boundColumn binding="behaviourAssessment" />
-				<boundColumn binding="staff" />
-				<boundColumn binding="assessmentReview" />
+				<boundColumn binding="assessmentCreatedBy" />
+				<boundColumn binding="assessmentReviewTime" />
 				<onAddedHandlers />
 				<onEditedHandlers />
 				<onRemovedHandlers />
@@ -665,7 +665,7 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 						</row>
 						<row>
 							<item>
-								<default binding="facilityName" />
+								<default binding="facility" />
 							</item>
 						</row>
 					</form>
@@ -696,8 +696,8 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 				<boundColumn binding="continenceAssessment" />
 				<boundColumn binding="sleepAssessment" />
 				<boundColumn binding="behaviourAssessment" />
-				<boundColumn binding="staff" />
-				<boundColumn binding="assessmentReview" />
+				<boundColumn binding="assessmentCreatedBy" />
+				<boundColumn binding="assessmentReviewTime" />
 				<onAddedHandlers />
 				<onEditedHandlers />
 				<onRemovedHandlers />
@@ -712,7 +712,7 @@ Let's add `border` and `borderTitle` in the `<form>` tag.
 </view>
 ```
 
-![Resident seprate form](../doc_src_img/chapter7/11.JPG "Resident edit form")
+![Resident seprate form](../doc_src_img/chapter7/11.jpg "Resident seprate form")
 
 Now that we have created a view for Resident records, it's time learn about View Components.
 
