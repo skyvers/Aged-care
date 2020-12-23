@@ -211,9 +211,9 @@ public class ResidentBizlet extends Bizlet<Resident> {
 	}
 	@Override
 	public void preSave(Resident bean) throws Exception {
-		if (bean.getResidentID() == null) {
-			String residentId = ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME,
-					Resident.residentIDPropertyName, 4);
+	    if (bean.getResidentID() == null) {
+			String residentId = ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
+
 			bean.setResidentID(residentId);
 			return;
 		}
@@ -277,7 +277,7 @@ To do this we will:
 </dateTime>
 ```
 
-Next, modify the `_reviewInfo` view component - modify the \_reviewInfo.xml file to add that attribute in new row.
+Next, modify the `_reviewInfo` view component - open the `_reviewInfo.xml` file to add that attribute in new row.
 
 ```xml
 <row>
@@ -295,35 +295,35 @@ Generate domain, and deploy your app to check that you can see the new field in 
 2. Add a Bizlet for the Assessment document to automatically set the `assesmentCreatedTime` when a new assessment is created - and to record the user who created the assessment. First create the `AssessmentBizlet.java` file as we did above:
 
 - Right-click to the `Assessment` package and select New, then select Class in the sub-menu.
-- Follow the Quick Fix suggestions to resolve errors in `AssessmentBizlet.java` file.
+- Follow the Quick Fix suggestions to resolve errors in `AssessmentBizlet.java` file and import all the packages.
 - Override the `newInstance` method. (Click on source > override and implement method. Choose newInstance form the list - Eclipse will generate newInstance method and override notation for us.)
   Then update the method as shown below:
 
 ```java
-private static final long serialVersionUID = 2286961040250324230L;
-@Override
-public Assessment newInstance(Assessment bean) throws Exception
-{
-    bean.setAssessmentCreatedTime(new DateTime());
-    bean.setStaff(ModulesUtil.currentAdminUser());
-    return super.newInstance(bean);
+package modules.agedCare1.Assessment;
+
+import org.skyve.domain.types.DateTime;
+import org.skyve.metadata.model.document.Bizlet;
+
+import modules.admin.ModulesUtil;
+import modules.agedCare1.domain.Assessment;
+
+public class AssessmentBizlet extends Bizlet<Assessment> {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 3621162734311172527L;
+
+	@Override
+	public Assessment newInstance(Assessment bean) throws Exception {
+		bean.setAssessmentCreatedTime(new DateTime());
+		bean.setAssessmentCreatedBy(ModulesUtil.currentAdminUser());
+		return super.newInstance(bean);
+	}
+
 }
-
 ```
-
-Next, add an attribute to record who the assessment was created by. This attribute will be an association to the Staff member user who creates the record.
-The attribute will be defined as:
-
-```xml
-<association type="aggregation" name="createdBy">
-   <displayName>Assessment Created By</displayName>
-   <documentName>User</documentName>
-</association>
-```
-
-Change the display name to `Assessment Created By` in Assessment.xml file.
-
-![display name change for staff](../doc_src_img/chapter10/6.JPG "display name change")
 
 Generate domain and deploy the application to see the changes.
 
