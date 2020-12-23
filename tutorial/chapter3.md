@@ -431,7 +431,7 @@ As in the `Assessment` document, you can see different assessments related to ea
 
 Let's hide `painAassessement` `behaviourAssessment` and `assessmentReviewTime` from the document and add resident name and photo.
 
-To add the resident name and photo in `Assessment` document, we need to define the collection in Resident document first. 
+To add the resident name and photo in `Assessment` document, we need to define the collection in Resident document first.
 
 So, go to [Foundry]() and open Resident document in the App.
 
