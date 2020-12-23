@@ -79,7 +79,7 @@ You should also check Nurse and Manager can access what they need correctly by s
 
 In the Assessment document, Carers should not have access to see Pain or Behaviour assessments and so these should not be available to users in the Carer security group.
 
-This can be achieved in Skyve by declaring a condition. In particular, we can have a condition to determine the visibility of some specified attributes on the screen. To begin with, we define the condition in the `Assessment.xml`. We will define this condition as follows::
+This can be achieved in Skyve by declaring a condition. In particular, we can have a condition to determine the visibility of some specified attributes on the screen. To begin with, we define the condition in the `Assessment.xml`. We will define this condition as follows:
 
 ```xml
 <conditions>
@@ -113,7 +113,7 @@ Adding business logic to the record lifecycle using a Bizlet class.
 
 In Skyve you can add business logic using a special class called a Bizlet class. For each document you can create a Bizlet class to extend lifecycle stages like `newInstance` (when a record is created) `preSave` (just before a record is saved) etc.
 
-Each document package can include declarations of for actions, reports, views and the associated Bizlet file. The Bizlet file contains document-specific behaviours including overrides of default action behaviours and document bean lifecycle events.
+Each document package can include declarations of actions, reports, views and the associated Bizlet file. The Bizlet file contains document-specific behaviours including overrides of default action behaviours and document bean lifecycle events.
 
 You can read more about Bizlet and Extension classes here - https://skyvers.github.io/skyve-dev-guide/bizlets/#bizlets
 
@@ -160,8 +160,7 @@ Add the below code in the method
 {
 String residentId;
 
-residentId=ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME,
-Resident.residentIDPropertyName, 4);
+residentId=ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
 bean.setResidentID(residentId);
 
 return super.newInstance(bean);
@@ -173,6 +172,8 @@ The method `ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Residen
 
 Because this code is called in the newInstance() method, the ResidentID number will be assigned as soon as a new record is created.
 
+To test, redeploy the application and click on a new record in the Resident document. We will see the `ResidentID` is already generated.
+
 #### preSave() method of the Bizlet
 
 In next few steps, we will see how we can use the `preSave()` Bizlet method.
@@ -180,7 +181,7 @@ In next few steps, we will see how we can use the `preSave()` Bizlet method.
 In previous step we created a `newInstance` method. Now,
 I want you to change the Bizlet and use the preSave() method instead of newInstance() as follows:
 
-- When we SAVE the resident record, check if the residentId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for new instance)
+- When we Save the resident record, check if the residentId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for new instance)
 - Add a condition to the Resident.xml called `hasID` which checks if `bean.getResidentId()!=null`
 - Only show the `residentID` field in the Resident view, if the `hasID` condition is true
 
@@ -188,7 +189,7 @@ I want you to change the Bizlet and use the preSave() method instead of newInsta
 
    ![preSave](../doc_src_img/chapter9/7.jpg "preSave")
 
-2. Add code in the `preSave()` method the following code
+2. Add following code in the `preSave()` method in `ResidentBizlet.java`
 
 ```java
 package modules.agedCare.Resident;
@@ -206,32 +207,25 @@ public class ResidentBizlet extends Bizlet<Resident> {
 	private static final long serialVersionUID = 1455780144763235289L;
 
 	public Resident newInstance(Resident bean) throws Exception {
-		// TODO Auto-generated method stub
-
 		return super.newInstance(bean);
-
 	}
-
 	@Override
 	public void preSave(Resident bean) throws Exception {
-
 		if (bean.getResidentID() == null) {
 			String residentId = ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME,
 					Resident.residentIDPropertyName, 4);
 			bean.setResidentID(residentId);
 			return;
-
 		}
 		return;
 	}
-
 }
 ```
 
 ![code presave](../doc_src_img/chapter9/8.jpg "code presave")
 
 3. Next, add a condition to the `Resident.xml` called `hasID` which checks if bean.getResident()!=null
-4. Opem `Resident.xml`, and add condition after `attributes` as below
+4. Open `Resident.xml`, and add condition after `attributes` as below
 
 ```xml
 
