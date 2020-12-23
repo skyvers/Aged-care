@@ -1192,7 +1192,7 @@ In our Aged care App, we will define below roles:
 
 Note: Before creating a new role just careful about the roles which is already created by the [Foundry](https://foundry.skyve.org/foundry/): Viewer and Maintainer. if you want to delete any of this role please, we careful that these roles are not assigned to any user before. Otherwise it will not work. For this tutorial, we are not doing anything with Viewer and Maintainer role.
 
-Open `agedCare.xml` to create new roles under <roles> and change menu in <menu> tag.
+Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<menu>` tag.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
