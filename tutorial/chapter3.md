@@ -429,9 +429,25 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 As in the `Assessment` document, you can see different assessments related to each resident.
 
-Let's hide `painAassessement` `behaviourAssessment` and `assessmentReview` from the document and add resident name and image.
+Let's hide `painAassessement` `behaviourAssessment` and `assessmentReviewTime` from the document and add resident name and image.
 
-Let's try it: Add a query to your module (the agedCare.xml file)
+To add the resident name and image in `Assessment` document, we need to define the collection in Resident document first. 
+
+So, go to [Foundry]() and open Resident document in the App.
+
+Add new attribute `Assessments` of type collection and the related document is `Assessment` as shown below:
+
+![collection](../doc_src_img/chapter7/12.jpg "Collection")
+
+Then, go to collaborate Tab and commit and push the changes to Github.
+
+Next, go to Eclipse and pull the change to your local environment by right click on project and select Team>Pull.
+
+To see changes open `Resident.xml`. There is a new collection attribute is added in your attributes.
+
+![collection attribute](../doc_src_img/chapter7/13.jpg "Collection attribute")
+
+Let's try query: Add a query to your module (the agedCare.xml file)
 
 ```xml
 <query documentName="Assessment" name="qAssessment">
@@ -444,8 +460,8 @@ Let's try it: Add a query to your module (the agedCare.xml file)
     	<column binding="continenceAssessment" sortOrder="ascending" />
     	<column binding="sleepAssessment" sortOrder="ascending" />
     	<column binding="behaviourAssessment" sortOrder="ascending" hidden="true" />
-    	<column binding="staff" sortOrder="ascending" />
-    	<column binding="assessmentReview" sortOrder="ascending" hidden="true" />
+    	<column binding="assessmentCreatedBy" sortOrder="ascending" />
+    	<column binding="assessmentReviewTime" sortOrder="ascending" hidden="true" />
     </columns>
 </query>
 ```
