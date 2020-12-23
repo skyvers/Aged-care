@@ -785,7 +785,7 @@ In the Resident > views package, create new `_facilityInfo.xml` file with below 
 		</row>
 		<row>
 			<item>
-				<default binding="facilityName" />
+				<default binding="facility" />
 			</item>
 		</row>
 	</form>
@@ -854,8 +854,8 @@ Change `edit.xml` view like below:
 				<boundColumn binding="continenceAssessment" />
 				<boundColumn binding="sleepAssessment" />
 				<boundColumn binding="behaviourAssessment" />
-				<boundColumn binding="staff" />
-				<boundColumn binding="assessmentReview" />
+				<boundColumn binding="assessmentCreatedBy" />
+				<boundColumn binding="assessmentReviewTime" />
 				<onAddedHandlers />
 				<onEditedHandlers />
 				<onRemovedHandlers />
@@ -872,7 +872,7 @@ Change `edit.xml` view like below:
 
 Now re-deploy the application to check that the view appears as it did before:
 
-![Resident seprate form](../doc_src_img/chapter7/11.JPG "Resident edit form")
+![Resident seprate form](../doc_src_img/chapter7/11.jpg "Resident edit form")
 
 **[⬆ back to top](#contents)**
 
