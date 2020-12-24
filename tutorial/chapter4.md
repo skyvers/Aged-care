@@ -484,7 +484,7 @@ When you click on the Reviewed button it set the Assessment Review field with cu
 
 ![Reviewed](../doc_src_img/chapter11/8.jpg "Reviewed")
 
-Congratulations you have completed the AgedCare tutorial.
+Congratulations you have completed the Aged Care tutorial.
 
 In this tutorial, you learned how:
 
