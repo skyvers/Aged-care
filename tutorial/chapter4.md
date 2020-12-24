@@ -300,7 +300,7 @@ Generate domain, and deploy your app to check that you can see the new field in 
   Then update the method as shown below:
 
 ```java
-package modules.agedCare1.Assessment;
+package modules.agedCare.Assessment;
 
 import org.skyve.domain.types.DateTime;
 import org.skyve.metadata.model.document.Bizlet;
@@ -339,7 +339,7 @@ Go to the `Facility` package and open the `edit.xml` to add listGrid as below
 
 ```xml
 <listGrid continueConversation="true" query="qResident">
-		<filterParameter filterBinding="facilityName" operator="equal"valueBinding="bizId" />
+		<filterParameter filterBinding="facility" operator="equal"valueBinding="bizId" />
 </listGrid>
 ```
 
@@ -415,14 +415,19 @@ import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.web.WebContext;
 
 import modules.admin.ModulesUtil;
-import modules.agedCare.domain.Assessment;
+import modules.agedCare1.domain.Assessment;
 
 public class Reviewed implements ServerSideAction<Assessment> {
 
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -7544189610898309931L;
+
 	@Override
 	public ServerSideActionResult<Assessment> execute(Assessment bean, WebContext webContext) throws Exception {
-		bean.setAssessmentReview(new DateTime());
-		bean.setCreatedBy(ModulesUtil.currentAdminUser());
+		bean.setAssessmentReviewTime(new DateTime());
+		bean.setAssessmentCreatedBy(ModulesUtil.currentAdminUser());
 		return new ServerSideActionResult<>(bean);
 	}
 
@@ -461,7 +466,7 @@ Congratulations, we are almost finished.
 
 The last step is to ensure that the Assessment Reviewed Time can only be changed using the action (which is restricted to Nurse users).
 
-To do this, modify the Resident view, and change the `Assessment Reviewed Time` attribute to be `enabled="false"`, like this:
+To do this, modify the Resident view in `_reviewDetail.xml`, and change the `Assessment Reviewed Time` attribute to be `enabled="false"`, like this:
 
 ```xml
 <row>
