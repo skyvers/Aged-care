@@ -277,7 +277,7 @@ To do this we will:
 </dateTime>
 ```
 
-Next, modify the `_reviewInfo` view component - open the `_reviewInfo.xml` file to add that attribute in new row.
+Next, modify the `_reviewDetail` view component - open the `_reviewDetail.xml` file to add that attribute in new row.
 
 ```xml
 <row>
