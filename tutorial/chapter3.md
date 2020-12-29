@@ -872,7 +872,7 @@ Change `edit.xml` view like below:
 
 Now re-deploy the application to check that the view appears as it did before:
 
-![Resident seprate form](../doc_src_img/chapter7/11.jpg "Resident edit form")
+![Resident seprate form](../doc_src_img/chapter7/14.jpg "Resident edit form")
 
 **[⬆ back to top](#contents)**
 
