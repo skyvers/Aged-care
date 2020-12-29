@@ -83,6 +83,10 @@ _*Data type:*_ Data type specifies which type of value an attribute name hold.
 
 - Integer: It is used to store the numeric values.
 
+* Geomatry: It is used to map a three-dimensional object, such as a building.
+
+* Date/Time: The Date/Time type is used for values that contain both date and time parts.
+
 - Association: This data type is used where there is a relationship between two entity object based on common attributes. An entity object only needs an association to access the data of another entity object.
 
 **[⬆ back to top](#contents)**
@@ -144,7 +148,7 @@ The attributes for Facility document as below:
 | Building Number  | Integer     |        |
 | Street Name      | Text        | 500    |
 | Suburb           | Text        | 500    |
-| State            | Text        | 100    |
+| State            | Text        | 500    |
 | Facility manager | Association |        |
 | Location         | Geometry    |        |
 
@@ -173,6 +177,8 @@ The attributes for Assessments document as below:
 | Assessment Review Time | Date/Time   |
 
 The `Assessment Created By` attribute will be an association to a system user (held in the User data table). The association represents a link to the entire User record (including name, access levels, contact details etc). In a database this would be called a foreign key. In Skyve it is called an association, and in the Aged care application we are building - we will expect to see a drop-down list for this attribute so that the user can select the associated record for the system user who is the Staff person.
+
+In our attributes list, `Sleep Assessment` does not need unlimited size, because it is a brief description of what state of sleep the resident is in at the time of the assessment, e.g. Awake, Asleep, Active, Resting etc.
 
 Follow the same steps like Resident and Assessment documents. Assessment document look like as below.
 
