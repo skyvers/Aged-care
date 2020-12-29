@@ -395,16 +395,16 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
 
 ```xml
 <query documentName="Facility" name="qFacility">
-			<description>All Facilities</description>
-			<columns>
-				<column binding="facilityName" sortOrder="ascending" />
-				<column binding="buildingNumber" sortOrder="ascending" />
-				<column binding="streetName" sortOrder="ascending" />
-				<column binding="suburb" sortOrder="ascending" />
-				<column binding="state" sortOrder="ascending" />
-				<column binding="facilityManager" sortOrder="ascending" hidden="true" />
-				<column binding="location" sortOrder="ascending" hidden="true" />
-			</columns>
+	<description>All Facilities</description>
+	<columns>
+		<column binding="facilityName" sortOrder="ascending" />
+		<column binding="buildingNumber" sortOrder="ascending" />
+		<column binding="streetName" sortOrder="ascending" />
+		<column binding="suburb" sortOrder="ascending" />
+		<column binding="state" sortOrder="ascending" />
+		<column binding="facilityManager" sortOrder="ascending" hidden="true" />
+		<column binding="location" sortOrder="ascending" hidden="true" />
+	</columns>
 </query>
 ```
 
@@ -412,12 +412,12 @@ Then you will need to provide `defaultQueryName` attribute to your facility docu
 
 ```xml
 <documents>
-		<document ref="Resident" defaultQueryName="qResident" />
-		<document ref="Facility" defaultQueryName="qFacility" />
-		<document ref="Assessment" />
-		<document ref="Contact" moduleRef="admin" />
-		<document ref="DataGroup" moduleRef="admin" />
-		<document ref="User" moduleRef="admin" />
+	<document ref="Resident" defaultQueryName="qResident" />
+	<document ref="Facility" defaultQueryName="qFacility" />
+	<document ref="Assessment" />
+	<document ref="Contact" moduleRef="admin" />
+	<document ref="DataGroup" moduleRef="admin" />
+	<document ref="User" moduleRef="admin" />
 </documents>
 ```
 
@@ -470,12 +470,12 @@ Then, set the `defaultQueryName` attribute to your Assessment document, as shown
 
 ```xml
 <documents>
-        <document ref="Resident" defaultQueryName="qResident"/>
-        <document ref="Facility"  defaultQueryName="qFacility"/>
-        <document ref="Assessment"  defaultQueryName="qAssessment"/>
-        <document ref="Contact" moduleRef="admin"/>
-        <document ref="DataGroup" moduleRef="admin"/>
-        <document ref="User" moduleRef="admin"/>
+    <document ref="Resident" defaultQueryName="qResident"/>
+    <document ref="Facility"  defaultQueryName="qFacility"/>
+    <document ref="Assessment"  defaultQueryName="qAssessment"/>
+    <document ref="Contact" moduleRef="admin"/>
+    <document ref="DataGroup" moduleRef="admin"/>
+    <document ref="User" moduleRef="admin"/>
 </documents>
 ```
 
