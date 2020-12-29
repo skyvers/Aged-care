@@ -269,7 +269,7 @@ To do this we will:
 - In the `Facility` view, show a `listGrid` of `Residents` at that facility
 - Add a `status` enumeration for Resident with appropriate values (current, discharged, deceased), where the default value is current
 
-1. Add a new `dateTime` attribute to the Assessment document called `assesmentCreatedTime` - to do this, in the Assessment.xml file and add a new attribute as below:
+1. Add a new `dateTime` attribute to the Assessment document called `assesmentCreatedTime` - to do this, in the `Assessment.xml` file and add a new attribute as below:
 
 ```xml
 <dateTime name="assessmentCreatedTime">
