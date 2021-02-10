@@ -2,7 +2,7 @@
 title: "4. Java Extensions"
 permalink: /chapter4/
 excerpt: "Extending your tutorial application with business logic"
-toc: true
+toc: false
 sidebar:
   title: "Index"
   nav: docs

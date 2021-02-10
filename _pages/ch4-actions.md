@@ -2,7 +2,7 @@
 title: "Actions"
 permalink: /ch4-actions/
 excerpt: "Adding business logic to your application using Actions"
-toc: true
+toc: false
 sidebar:
   title: "Index"
   nav: docs

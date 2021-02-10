@@ -2,7 +2,7 @@
 title: "Conditions"
 permalink: /ch4-conditions/
 excerpt: "Adding Conditions to your Skyve application"
-toc: true
+toc: false
 sidebar:
   title: "Index"
   nav: docs
