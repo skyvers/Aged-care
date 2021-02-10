@@ -72,4 +72,4 @@ The Carer sign in page is shown below:
 
 You should also check Nurse and Manager can access what they need correctly by signing in as those users.
 
-Continue to [Bizlets](/ch4-bizlets)
+Continue to [Bizlets]({{ site.url }}{{ site.baseurl }}/ch4-bizlets/)
