@@ -1,30 +1,28 @@
-# Contents
+---
+title: "Java Extensions"
+permalink: /chapter4/
+excerpt: "Extending your tutorial application with business logic"
+toc: true
+sidebar:
+  title: "Index"
+  nav: docs
+---
 
-- [1. Tutorial Overview ](../readme.md/#1-tutorial-overview)
-- [2. No-code Development](../tutorial/chapter2.md/#2-no-code-development)
-- [3. Low Code Extensions](../tutorial/chapter3.md#3-low-code-extension)
-- [4. Java Extensions](#4-java-extension)
-  - [Conditions](#conditions)
-  - [Bizlets](#bizlets)
-  - [Actions](#actions)
-
-# 4. Java Extensions
+## 4. Java Extensions
 
 It's now time to create Groups and Users in the application.
 
 In most applications, there are usually groups of users who have similar permissions, e.g. Staff, or Client and this approach allows you to assign access on the basis of the kinds of roles users might perform in the application. The `admin` module that Skyve provides includes a security group concept as well as a user administration function. For more detail click on link for adding Users and Groups: https://skyvers.github.io/skyve-user-guide/users/
 
-For our application, we will create groups for Carer, Nurse and Manager.
+For our application, we will create groups for Carer, Nurse and Manager:
 
-A Carer is someone who can see all the Residents information and do few assessments for them.
-
-A Nurse is qualified to distribute and do an Assessment review.
-
-A Manager has access to all information and can also manage user access.
+* A Carer is someone who can see all the Residents information and do few assessments for them.
+* A Nurse is qualified to distribute and do an Assessment review.
+* A Manager has access to all information and can also manage user access.
 
 Go to the application and create group for carer, nurse, manager as below:
 
-Open Admin>Security Admin>Groups
+Open `Admin`>`Security Admin`>`Groups`
 
 1. Create group for the Carer as below:
 
@@ -73,9 +71,7 @@ The Carer sign in page is shown below:
 
 You should also check Nurse and Manager can access what they need correctly by signing in as those users.
 
-**[⬆ back to top](#contents)**
-
-- #### Conditions
+### Conditions
 
 In the Assessment document, Carers should not have access to see Pain or Behaviour assessments and so these should not be available to users in the Carer security group.
 
@@ -105,9 +101,7 @@ Open an Assessment, and check that Pain and Behaviour assessments are not availa
 
 ![Carer assessments](../doc_src_img/chapter8/10.jpg "Carer assessments")
 
-**[⬆ back to top](#contents)**
-
-- #### Bizlets
+### Bizlets
 
 Adding business logic to the record lifecycle using a Bizlet class.
 
@@ -117,7 +111,7 @@ Each document package can include declarations of actions, reports, views and th
 
 You can read more about Bizlet and Extension classes here - https://skyvers.github.io/skyve-dev-guide/bizlets/#bizlets
 
-##### Bizlet ResidentID
+#### Bizlet ResidentID
 
 First of all, let's show you how to create `ResidentBizlet` to customize the document as we want.
 
@@ -156,15 +150,13 @@ The override method is generated in the file
 Add the below code in the method
 
 ```java
-
 {
-String residentId;
+	String residentId;
 
-residentId=ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
-bean.setResidentID(residentId);
+	residentId = ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Resident.				DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
+	bean.setResidentID(residentId);
 
-return super.newInstance(bean);
-
+	return super.newInstance(bean);
 }
 ```
 
@@ -257,9 +249,7 @@ After completing the details for the Resident record, press the save button and 
 
 ![resident document Id](../doc_src_img/chapter9/10.jpg "resident document Id")
 
-**[⬆ back to top](#contents)**
-
-#### Enhancement in Aged care application
+#### Enhancements to the Aged Care application
 
 In this section, we will add more functionality to the Assessment document, to automatically record the date and time that the Assessment record is created.
 To do this we will:
@@ -285,7 +275,6 @@ Next, modify the `_reviewDetail` view component - open the `_reviewDetail.xml` f
 		<default binding="assessmentCreatedTime" />
 	</item>
 </row>
-
 ```
 
 Generate domain, and deploy your app to check that you can see the new field in the Assessment records.
@@ -310,9 +299,6 @@ import modules.agedCare1.domain.Assessment;
 
 public class AssessmentBizlet extends Bizlet<Assessment> {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 3621162734311172527L;
 
 	@Override
@@ -321,7 +307,6 @@ public class AssessmentBizlet extends Bizlet<Assessment> {
 		bean.setAssessmentCreatedBy(ModulesUtil.currentAdminUser());
 		return super.newInstance(bean);
 	}
-
 }
 ```
 
@@ -381,9 +366,7 @@ Generate domain, deploy app again. You can see the new field in Assessment `Resi
 
 ![Status](../doc_src_img/chapter10/5.jpg "Status")
 
-**[⬆ back to top](#contents)**
-
-- #### Actions
+### Actions
   Actions represent behaviours that impact our application data. Actions can be in the form of button, hyperlinks or API calls. For more detail visit the link https://skyvers.github.io/skyve-dev-guide/actions/.
 
 Next, we will add an action that only a nurse can click, that sets the status on the assessment to `reviewed=true` and sets the `assessmentReviewDate`.
@@ -419,9 +402,6 @@ import modules.agedCare1.domain.Assessment;
 
 public class Reviewed implements ServerSideAction<Assessment> {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = -7544189610898309931L;
 
 	@Override
@@ -430,7 +410,6 @@ public class Reviewed implements ServerSideAction<Assessment> {
 		bean.setAssessmentCreatedBy(ModulesUtil.currentAdminUser());
 		return new ServerSideActionResult<>(bean);
 	}
-
 }
 ```
 
@@ -488,17 +467,13 @@ Congratulations you have completed the Aged Care tutorial.
 
 In this tutorial, you learned how:
 
-- To create a Skyve application using Skyve Foundry
+- to create a Skyve application using Skyve Foundry
 - to deploy your application
-- To configure your application for collaboration
-- To configure your local developer environment and build and deploy
-- To modify the XML metadata that defines the data, menus and roles within your application
-- To add custom Java code to control visibility, set values and perform action behaviours within the application.
+- to configure your application for collaboration
+- to configure your local developer environment and build and deploy
+- to modify the XML metadata that defines the data, menus and roles within your application
+- to add custom Java code to control visibility, set values and perform action behaviours within the application.
 
-From here it is time for you to explore Skyve some more and try your own applications and changes. Remember you can ask questions on the Skyve slack channel, or purchase direct assistance from Skyve specialist developers through Skyve Foundry. Check the skyve.org homepage for self-help training videos and don't forget the Developer Guide (https://skyvers.github.io/skyve-dev-guide/).
+From here it is time for you to explore Skyve some more and try your own applications and changes. Remember you can ask questions on the Skyve slack channel, or purchase direct assistance from Skyve specialist developers through Skyve Foundry. Check the skyve.org homepage for self-help training videos and don't forget the [Developer Guide](https://skyvers.github.io/skyve-dev-guide/).
 
 We hope that you have enjoyed this tutorial!
-
-**[⬆ back to top](#contents)**
-
-**[:arrow_left: go back to 1: Tutorial Overview](../readme.md/#1-tutorial-overview)**

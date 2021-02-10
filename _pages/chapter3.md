@@ -196,7 +196,7 @@ In Git Repositories, we can see our repository is added now!
 
 ### 3.5. Import Project
 
-As we already created a project in Skyve [Foundry](https://foundry.skyve.org/foundry/), now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
+As we already created a project in Skyve [Foundry](https://foundry.skyve.org/foundry/), now it is time to import that project in Eclipse to do changes in the Aged Care app. To import project in Eclipse follow the steps below:
 
 1. Click on File tab in Eclipse and Select import
 
@@ -271,7 +271,7 @@ Lastly, save and close the file.
 
    ![agedCare-ds](../doc_src_img/chapter6/8.jpg "agedCare-ds")
 
-#### Run your Aged care application
+#### Run your Aged Care application
 
 Part of Skyve's low-code approach is to generate Java code for you (in the background) so that you don't have to write large amounts of Java code. We call this step `Generate Domain` because Java classes will be created representing the `domain` (the `problem domain` or `area of knowledge`) of your project. The domain classes are Java classes that do the work of managing data access and storage for your application.
 
@@ -289,9 +289,9 @@ When your Console Window shows text similar to that shown below, your agedCare h
 
 If not, you may try to debug by yourself to find the source of the problem, or [Join Us On Slack](https://join.slack.com/t/skyveframework/shared_invite/enQtNDMwNTcyNzE0NzI2LWNjMTBlMTMzNTA4YzBlMzFhYzE0ZmRhOWIzMWViODY4ZTE1N2QzYWM1MTdlMTliNDIyYTBkOWZhZDAxOGQyYjQ) and ask any questions there. You will get support from the [Skyve](https://skyve.org) team or a community team member.
 
-Access the Aged care app from your Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup"..
+Access the Aged Care app from your Web Browser at http://localhost:8080/agedCare. Sign in with by default username "setup" and password "setup"..
 
-![Aged care app](../doc_src_img/chapter6/11.jpg "Aged care app")
+![Aged Care app](../doc_src_img/chapter6/11.jpg "Aged Care app")
 
 ### 3.8. List Views
 
@@ -306,7 +306,7 @@ For example, the list of Residents may include columns for the Facility and Staf
 
 #### Resident List
 
-The Resident list shows the details of each resident, according to the attributes we defined when creating the Aged care application.
+The Resident list shows the details of each resident, according to the attributes we defined when creating the Aged Care application.
 
 So that we can control exactly what is shown in the list, we will define a query and specify what columns are shown and in which order. To do this we add a query definition to the agedCare module (as shown below).
 
@@ -1139,17 +1139,18 @@ Let's re-deploy the application to see the changes we made in this step.
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin module.
 
-For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete). The underscore character (_) means no permission is granted.
+For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete). The underscore character (`_`) means no permission is granted.
 For example, if a role has `CRU_` privileges, this means a user with this role could Create, Read and Update documents but not Delete them.
 
 Skyve also introduces a new concept called Scope. The document scope access level can either be G (Global), C (Customer), D (Data Group) or U (User).
 
 For example, if a role has `CRUDU` privilege, this would mean that a user with this role could Create, Read, Update and Delete documents, but only within the User scope - this means they can only change their own documents - documents they have created - and not documents created by any other user.
-If the role specified the privilege `CRUDC` this would mean that a user with this role could Create, Read, Update and Delete documents, for all records within the Customer scope. If you were to offer the Aged care application as Software as a Service, to many different customers, users with this role could only change data for their own Customer tenancy.
 
-For more information about Document Scope, read https://skyvers.github.io/skyve-dev-guide/concepts/#document-scoping
+If the role specified the privilege `CRUDC` this would mean that a user with this role could Create, Read, Update and Delete documents, for all records within the Customer scope. If you were to offer the Aged Care application as Software as a Service, to many different customers, users with this role could only change data for their own Customer tenancy.
 
-In our Aged care App, we will define below roles:
+For more information about Document scopes, see [the Devloper Guide section on Scoping](https://skyvers.github.io/skyve-dev-guide/concepts/#document-scoping).
+
+In our Aged Care App, we will define the following roles:
 
 1. Nurse: Nurse can have all permissions in the resident and assessment documents. But, in the facility document nurses can only have update and scope permission.
 
@@ -1164,7 +1165,7 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://www.skyve.org/xml/module"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged care"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged Care"
 	prototype="true" name="agedCare"
 	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
 	<homeRef>list</homeRef>
@@ -1179,7 +1180,7 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 	</documents>
 	<roles>
 		<role name="Viewer">
-			<description><![CDATA[Enough privileges to view Aged care documents.]]></description>
+			<description><![CDATA[Enough privileges to view Aged Care documents.]]></description>
 			<privileges>
 				<document name="Resident" permission="_R__C" />
 				<document name="Facility" permission="_R__C" />
@@ -1187,7 +1188,7 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 			</privileges>
 		</role>
 		<role name="Maintainer">
-			<description><![CDATA[Enough privileges to create and edit Aged care documents.]]></description>
+			<description><![CDATA[Enough privileges to create and edit Aged Care documents.]]></description>
 			<privileges>
 				<document name="Resident" permission="CRUDC" />
 				<document name="Facility" permission="CRUDC" />
