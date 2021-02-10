@@ -1,0 +1,80 @@
+remote_theme: "mmistakes/minimal-mistakes"
+
+# Site Settings
+locale                   : "en-AU"
+title                    : Skyve Aged Care Tutorial
+description              : A tutorial for new users to Skyve, introducing the concepts by building an Aged Care application.
+url                      : https://skyvers.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+baseurl                  : "/Aged-care/"
+
+search                   : false # true, false (default)
+search_full_content      : false # true, false (default)
+search_provider          : algolia # lunr (default), algolia
+#algolia:
+  #application_id         :  # YOUR_APPLICATION_ID
+  #index_name             :  # YOUR_INDEX_NAME
+  #search_only_api_key    :  # YOUR_SEARCH_ONLY_API_KEY
+  #powered_by             : true # true (default), false
+  #files_to_exclude:
+  #  - _posts/2017-11-28-post-exclude-search.md
+
+# Social Sharing
+twitter:
+  username               : &twitter "skyveframework"
+social:
+  type                   : Organization # Person or Organization (defaults to Person)
+  name                   : Skyve Central # If the user or organization name differs from the site's name
+  links: # An array of links to social media profiles
+    - "https://twitter.com/skyveframework"
+
+# Analytics
+analytics:
+  provider: "google-gtag"
+  google:
+    tracking_id: "G-80J00KFZJE"
+    anonymize_ip: true
+
+# Site Footer
+footer:
+  links:
+    - label: "Twitter"
+      icon: "fab fa-fw fa-twitter-square"
+      url: "https://twitter.com/skyveframework"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/skyvers/Aged-care"
+
+# Plugins
+plugins:
+  - jekyll-include-cache
+
+# Reading Files
+include:
+  - .htaccess
+  - _pages
+keep_files:
+  - .git
+encoding: "utf-8"
+
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:path/
+
+# Defaults
+defaults:
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+  # _docs
+  - scope:
+      path: ""
+      type: docs
+    values:
+      layout: single
+      sidebar:
+        nav: "docs"
