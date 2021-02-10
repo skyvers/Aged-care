@@ -6,10 +6,11 @@ title                    : Skyve Aged Care Tutorial
 description              : A tutorial for new users to Skyve, introducing the concepts by building an Aged Care application.
 url                      : https://skyvers.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "/Aged-care/"
+logo                     : "/assets/images/skyve-logo.png"
 
 search                   : false # true, false (default)
 search_full_content      : false # true, false (default)
-search_provider          : algolia # lunr (default), algolia
+#search_provider          : algolia # lunr (default), algolia
 #algolia:
   #application_id         :  # YOUR_APPLICATION_ID
   #index_name             :  # YOUR_INDEX_NAME

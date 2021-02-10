@@ -15,3 +15,9 @@ docs:
     children:
       - title: "Java Extensions"
         url: /chapter4/
+      - title: "Conditions"
+        url: /ch4-conditions/
+      - title: "Bizlets"
+        url: /ch4-bizlets/
+      - title: "Actions"
+        url: /ch4-actions/

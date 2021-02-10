@@ -1,5 +1,5 @@
 ---
-title: "Aged Care Application Skyve Tutorial"
+title: "Skyve Aged Care Application Tutorial"
 permalink: /
 excerpt: "A tutorial for new users to Skyve, introducing the concepts by building an Aged Care application"
 toc: true
