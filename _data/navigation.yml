@@ -1,20 +1,17 @@
 docs:
   - title: Tutorial Overview
     children:
-    - title: "Tutorial Overview"
-      url: /
-    - title: "Is this tutorial right for me?"
-      url: /
-    - title: "Aged Care Management"
-      url: /     
-    - title: "No-code Development"
-      url: /      
-    - title: "Low-code Extensions"
-      url: /     
-    - title: "Java Extensions"
-      url: /          
-    - title: "Primer: Skyve & Foundry"
-      url: /
+      - title: "Tutorial Overview"
+        url: /
   - title: No-code Development
+    children:
+      - title: "No-code Development"
+        url: /chapter2/
   - title: Low-code Extensions
+    children:
+      - title: "Low-code Extensions"
+        url: /chapter3/
   - title: Java Extensions
+    children:
+      - title: "Java Extensions"
+        url: /chapter4/

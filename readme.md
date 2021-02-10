@@ -8,21 +8,21 @@ sidebar:
   nav: docs
 ---
 
-# 1. Tutorial Overview
+## 1. Tutorial Overview
 
 ![App](doc_src_img/chapter1/12.jpg "App")
 
-## 1.1. Is this Tutorial right for me ?
+### 1.1. Is this Tutorial right for me ?
 
 Before we start the tutorial, it is important to know about the answers to a few questions as below:
 
-### Will I benefit from it ?
+#### Will I benefit from it ?
 
 If a custom app is what you need, the potential benefits of the Skyve system are significant.
 You can develop your own powerful app, quickly and cheaply, with a dramatically reduced learning curve.
 This tutorial will help you work out what can be achieved. You’ll also find out whether you’re personally up to the challenge (tip: you probably are).
 
-### Do I have enough skills ?
+#### Do I have enough skills ?
 
 This tutorial has been designed to cater to people with a wide variety of skill levels.
 
@@ -40,9 +40,7 @@ In this tutorial, we will show you how easy it is to build a powerful applicatio
 
 To familiarise you with Skyve application development, we will build a simple application together to manage aged care facilities, their residents, and care assessments.
 
-**[⬆ back to top](#contents)**
-
-## 1.2. Aged Care Management
+### 1.2. Aged Care Management
 
 A typical aged care provider might manage multiple facilities, each housing many residents. Residents are regularly assessed to ensure that they are well and safe, and that their care matches their needs.
 
@@ -50,9 +48,7 @@ Care providers must record the personal details of each resident and where they 
 
 Our app will meet these record storage and retrieval needs for an (imaginary!) aged care provider.
 
-**[⬆ back to top](#contents)**
-
-## 1.3. No-code Development
+### 1.3. No-code Development
 
 In the first main section of our tutorial, we will lead you through the no-code development of our Aged Care app.
 
@@ -70,9 +66,7 @@ At the end of this section of the tutorial, you’ll have a functioning, usable 
 
 Or, if you have some basic coding skills or you’re willing to acquire them, we’d encourage you to move on to the ‘Low-code Extensions’ section which will show you how to enhance your app in ways that are beyond the scope of [Foundry](https://foundry.skyve.org/foundry/).
 
-**[⬆ back to top](#contents)**
-
-## 1.4. Low-code Extensions
+### 1.4. Low-code Extensions
 
 In the second main section of the tutorial, we will lead you through the addition of some low-code enhancements to the same Aged Care app that we just developed using [Foundry](https://foundry.skyve.org/foundry/) in the previous section.
 
@@ -80,7 +74,7 @@ When you create a no-code app using the [Foundry](https://foundry.skyve.org/foun
 
 In this section of the tutorial, you will export your Aged Care app out of [Foundry](https://foundry.skyve.org/foundry/) and access it using an IDE (Integrated Development Environment – a developer’s coding toolkit) located on your own computer. This will allow you to manipulate the Skyve XML code directly, opening up an even broader range of functionality options to you.
 
-Why do we call this ‘low-code’ ?
+Why do we call this ‘low-code’?
 
 Web-based applications are typically written in Java or a similarly complex and powerful programming language. Indeed, Skyve itself uses Java - Skyve apps are automatically converted from Skyve XML into Java during the build process so that they can be deployed to a web server and run.
 
@@ -92,9 +86,7 @@ In this section of the tutorial,we will focus on building in some user interface
 
 At the end of this section of the tutorial, you’ll have a significantly enhanced Aged Care app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
 
-**[⬆ back to top](#contents)**
-
-## 1.5. Java Extensions
+### 1.5. Java Extensions
 
 While Skyve XML is already very powerful (and constantly growing) and covers a huge range of common functionality needs, there remain some bespoke requirements that cannot be met through Skyve XML alone. For those situations, Java extensions are the answer.
 
@@ -108,9 +100,7 @@ Specifically, we will add some Java-code conditions and actions into our app to 
 
 At the end of this section of the tutorial, you’ll have a further-enhanced Aged Care app up and running. More significantly, though, you’ll be able to combine your powerful new Skyve app development capabilities with your existing Java skills to create no-limits applications far faster than you could ever do with Java alone.
 
-**[⬆ back to top](#contents)**
-
-## 1.6. Primer: Skyve & Foundry
+### 1.6. Primer: Skyve & Foundry
 
 In the next section, we’ll start using the Skyve Foundry.
 If you’ve already explored the Skyve website, you’ve probably already gained some insight into Skyve in general, including the Foundry.
@@ -123,8 +113,4 @@ If not, we invite you to orient yourself now by briefly exploring these webpages
 
 - [Skyve Foundry](https://Foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve [Foundry](https://foundry.skyve.org/foundry/).
 
-Now, lets move to the next step how to create application with [Skyve Foundry](https://Foundry.skyve.org/)
-
-**[⬆ back to top](#contents)**
-
-**[:arrow_right: go to 2: No-code Development](tutorial/chapter2.md/#-no-code-development)**
+Now lets move to the next step, how to create an application with [Skyve Foundry](https://Foundry.skyve.org/).
