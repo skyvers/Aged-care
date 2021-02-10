@@ -8,13 +8,11 @@ sidebar:
   nav: docs
 ---
 
-## 3. Low Code Extensions
-
 In this section, we will work on collaboration and configuration of the local environment. After that, we will do some editing in the XML files, which will change the lists, views, and layout of our application. So, this step will enable us to test and deploy our application locally on our own (or another machine).
 
 For more detail visit our [Dev Guide](https://skyvers.github.io/skyve-dev-guide/) - which will help you learn and understand about our development. It also covers most [Skyve Framework](https://skyve.org) elements and concepts. There are many real examples for you to refer to also.
 
-### 3.1. Collaboration
+## 3.1. Collaboration
 
 Next, we need to Collaborate our application with Github.
 
@@ -26,7 +24,7 @@ To find more details on how to collaborate, go to the [Help button](https://Foun
 
 ![Collaboration](../doc_src_img/Chapter2/1.jpg "Collaboration")
 
-#### Setup to Github
+### Setup to Github
 
 To enable the collaboration, first of all Sign up or log into [Github](https://github.com/) account.
 To create a new repository follow the steps below:
@@ -64,15 +62,15 @@ To create a new repository follow the steps below:
 
 You have now successfully created your application and configured it for collaboration!
 
-### 3.2. Configure your local environment
+## 3.2. Configure your local environment
 
 For this section, we have chosen to show how to use Eclipse as the development environment, however if you prefer you can use other development environment tools such as IntelliJ, NetBeans, Visual Studio Code etc. However, if you're not completely familiar with these, use Eclipse so that you can follow the steps below.
 
 Before you can import the project into Eclipse, you need to download and install Eclipse in your system.
 
-#### Download and Install Eclipse and JDK
+### Download and Install Eclipse and JDK
 
-##### Download and Install Eclipse
+#### Download and Install Eclipse
 
   - Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
   - Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
@@ -82,16 +80,16 @@ Before you can import the project into Eclipse, you need to download and install
   - Click on download
   - Then, Install Eclipse in your system
 
-##### Download and Install JDK
+#### Download and Install JDK
 
   - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
   - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
 
-### 3.3. Install and Configure Wildfly Server
+## 3.3. Install and Configure Wildfly Server
 
 We need an application server to be able to access the application through our browser, for this we will demonstrate using Red Hat's Wildfly application server plugin. Skyve apps can be deployed on recent versions of Wildfly (10-20).
 
-#### Install Wildfly Server
+### Install Wildfly Server
 
 You can skip this step if WildFly Server is already installed on your system.
 
@@ -159,7 +157,7 @@ Select the latest version of WildFly, then click Next
 
     ![Downloading](../doc_src_img/chapter3/14.JPG "Downloading")
 
-### 3.4. Add Repository in Eclipse
+## 3.4. Add Repository in Eclipse
 
 After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
 
@@ -194,7 +192,7 @@ After downloading and installation of eclipse and server, the next step is add o
 
 In Git Repositories, we can see our repository is added now!
 
-### 3.5. Import Project
+## 3.5. Import Project
 
 As we already created a project in Skyve [Foundry](https://foundry.skyve.org/foundry/), now it is time to import that project in Eclipse to do changes in the Aged Care app. To import project in Eclipse follow the steps below:
 
@@ -212,7 +210,7 @@ As we already created a project in Skyve [Foundry](https://foundry.skyve.org/fou
 
 You can see your project in Project Explorer area in Eclipse.
 
-### 3.6. Set the server
+## 3.6. Set the server
 
 To run our project in server we need to set Server in Eclipse first.
 
@@ -224,9 +222,9 @@ To run our project in server we need to set Server in Eclipse first.
 
    ![Server set](../doc_src_img/chapter5/12.jpg "Server set")
 
-### 3.7 Configure and Deploy the Skyve Project
+## 3.7 Configure and Deploy the Skyve Project
 
-#### Deploy your Skyve project
+### Deploy your Skyve project
 
 Once the Wildfly Server is configured, it's easy to deploy your Skyve project to your WildFly Server.
 
@@ -271,7 +269,7 @@ Lastly, save and close the file.
 
    ![agedCare-ds](../doc_src_img/chapter6/8.jpg "agedCare-ds")
 
-#### Run your Aged Care application
+### Run your Aged Care application
 
 Part of Skyve's low-code approach is to generate Java code for you (in the background) so that you don't have to write large amounts of Java code. We call this step `Generate Domain` because Java classes will be created representing the `domain` (the `problem domain` or `area of knowledge`) of your project. The domain classes are Java classes that do the work of managing data access and storage for your application.
 
@@ -293,7 +291,7 @@ Access the Aged Care app from your Web Browser at http://localhost:8080/agedCare
 
 ![Aged Care app](../doc_src_img/chapter6/11.jpg "Aged Care app")
 
-### 3.8. List Views
+## 3.8. List Views
 
 Skyve provides two main ways of accessing data - either via list or detail views. The `list` view allows you to search and find the data you wish to change and is normally what you see when you choose a menu item. Once you select a record you will see the `detail` view - which allows you to enter, change or delete data.
 
@@ -304,7 +302,7 @@ List views provide for searching and review of data - they show data in the cont
 Each row of the list corresponds to an instance of the document (a record) but may include columns from associated documents within the document's object hierarchy.
 For example, the list of Residents may include columns for the Facility and Staff - because these documents are associated to the Resident records.
 
-#### Resident List
+### Resident List
 
 The Resident list shows the details of each resident, according to the attributes we defined when creating the Aged Care application.
 
@@ -359,7 +357,7 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 ![Resident attributes](../doc_src_img/chapter7/8.JPG "Resident attributes")
 
-#### Facility List
+### Facility List
 
 Next, let's see our Facility list: it now shows a column for each of the attributes we defined in the document.
 
@@ -403,7 +401,7 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 ![Facility list](../doc_src_img/chapter7/1.jpg "Facility list")
 
-#### Assessments List
+### Assessments List
 
 As in the `Assessment` document, you can see different assessments related to each resident.
 
@@ -461,17 +459,17 @@ Again, to apply the change, stop the WildFly server and run the Generate Domain 
 
 ![Assessment list](../doc_src_img/chapter7/2.jpg "Assessment list")
 
-### 3.9. Edit Views, Layout, and Components
+## 3.9. Edit Views, Layout, and Components
 
 In this section we will override the default detail view which is generated by Skyve.
 
-#### Resident Edit view
+### Resident Edit view
 
 Skyve provides us with a very useful function to create default `edit view` based on our document attributes and attributes type, the default widget will be applied for each attribute type.
 
 So to create our Resident `edit view`, we will go through the following steps:
 
-#### Create edit view
+### Create edit view
 
 1. Click on `Generate edit view` in the right side of the eclipse window and write the module and document name in the Console window.
 
@@ -481,7 +479,7 @@ So to create our Resident `edit view`, we will go through the following steps:
 
    ![Edit.xml](../doc_src_img/chapter7/9.jpg "edit.xml")
 
-#### Enhance the edit view
+### Enhance the edit view
 
 In the previous step we generated an edit view by using the Generate Edit View function. Now we will enhance our edit view to make it more visually appealing.
 
@@ -704,7 +702,7 @@ To demonstrate how to re-use components, we will split our view into three compo
 
 The view component must be declared according to the convention, with the file name matching the declared name.
 
-##### Resident Info component
+#### Resident Info component
 
 In the Resident > views package, create new `_residentInfo.xml` file with below content:
 
@@ -736,7 +734,7 @@ In the Resident > views package, create new `_residentInfo.xml` file with below 
 </view>
 ```
 
-##### Facility Info component
+#### Facility Info component
 
 In the Resident > views package, create new `_facilityInfo.xml` file with below content:
 
@@ -768,7 +766,7 @@ In the Resident > views package, create new `_facilityInfo.xml` file with below 
 </view>
 ```
 
-##### Photo and Bio component
+#### Photo and Bio component
 
 In the Resident > views package, create new `_photoBio.xml` file with below content:
 
@@ -798,7 +796,7 @@ In the Resident > views package, create new `_photoBio.xml` file with below cont
 </view>
 ```
 
-##### Combine together
+#### Combine together
 
 After done with component creation, we will go to use it on our `edit view`.
 Change `edit.xml` view like below:
@@ -850,7 +848,7 @@ Now re-deploy the application to check that the view appears as it did before:
 
 ![Resident seprate form](../doc_src_img/chapter7/14.jpg "Resident edit form")
 
-#### Facility Edit view
+### Facility Edit view
 
 In the previous section we explore and practice how to create an edit view and customize it to meet our requirements. It's now easy for us to create an edit view for the Facility document.
 
@@ -868,7 +866,7 @@ Let's start with Facility Info component.
 
 2. Add the facility component the same way we have done for the resident component
 
-##### Facility Info component
+#### Facility Info component
 
 In the Facility > views package, create new `_facilityInfo.xml`
 as below content:
@@ -896,7 +894,7 @@ as below content:
 </view>
 ```
 
-##### Facility address component
+#### Facility address component
 
 In the Facility > views package, create new `_facilityAddress.xml` as below content:
 
@@ -934,7 +932,7 @@ In the Facility > views package, create new `_facilityAddress.xml` as below cont
 </view>
 ```
 
-##### Facility location Component
+#### Facility location Component
 
 In the Facility > views package, create new `_facilityLocation.xml` as below content:
 
@@ -957,7 +955,7 @@ In the Facility > views package, create new `_facilityLocation.xml` as below con
 </view>
 ```
 
-##### Combine together
+#### Combine together
 
 After creating the components, add then to the edit.xml view as shown:
 
@@ -989,7 +987,7 @@ Again re-deploy the application to see the changes in your Facility document.
 
 ![Facility document](../doc_src_img/chapter7/5.jpg "Facilty document editview")
 
-#### Assessment Edit view
+### Assessment Edit view
 
 This completes the edit views for Resident and Facility documents. Next we will create an edit view for our Assessment document. The Assessment document will show the following sections:
 
@@ -1003,7 +1001,7 @@ Generate edit view for the assessment document first.
 
 ![Edit assessment](../doc_src_img/chapter7/6.jpg "Edit assessment")
 
-##### Resident info component
+#### Resident info component
 
 In the Assessment > views package, create new `_residentInfo.xml` as below content:
 
@@ -1034,7 +1032,7 @@ In the Assessment > views package, create new `_residentInfo.xml` as below conte
 </view>
 ```
 
-##### Assessment Detail component
+#### Assessment Detail component
 
 In the Assessment > views package, create new `_assessmentDetail.xml` as below content:
 
@@ -1076,7 +1074,7 @@ In the Assessment > views package, create new `_assessmentDetail.xml` as below c
 </view>
 ```
 
-##### Review Detail component
+#### Review Detail component
 
 In the Assessment > views package, create new `_reviewDetail.xml` as below content:
 
@@ -1103,7 +1101,7 @@ In the Assessment > views package, create new `_reviewDetail.xml` as below conte
 </view>
 ```
 
-##### Combine together:
+#### Combine together:
 
 After creating the components, add then to the edit.xml view as shown:
 
@@ -1135,7 +1133,7 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ![Assessment editview](../doc_src_img/chapter7/7.jpg "Assessment editview")
 
-### 3.10. Roles
+## 3.10. Roles
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin module.
 
@@ -1239,3 +1237,5 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 ```
 
 In the next section, we will use these permissions by applying some conditions in our documents.
+
+Continue to [Java Extensions]({{ site.url }}{{ site.baseurl }}/chapter4/)

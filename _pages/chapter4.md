@@ -1,5 +1,5 @@
 ---
-title: "4. Java Extensions"
+title: "Java Extensions"
 permalink: /chapter4/
 excerpt: "Extending your tutorial application with business logic"
 toc: false

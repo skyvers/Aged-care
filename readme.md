@@ -114,3 +114,5 @@ If not, we invite you to orient yourself now by briefly exploring these webpages
 - [Skyve Foundry](https://Foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve [Foundry](https://foundry.skyve.org/foundry/).
 
 Now lets move to the next step, how to create an application with [Skyve Foundry](https://Foundry.skyve.org/).
+
+Continue to [No-Code Development]({{ site.url }}{{ site.baseurl }}/chapter2/)
