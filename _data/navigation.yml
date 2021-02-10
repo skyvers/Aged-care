@@ -11,6 +11,12 @@ docs:
     children:
       - title: "Low-code Extensions"
         url: /chapter3/
+      - title: "List Views"
+        url: /ch3-list-views/
+      - title: "Edit Views, Layout & Components"
+        url: /ch3-edit-views/
+      - title: "Roles"
+        url: /ch3-roles/
   - title: Java Extensions
     children:
       - title: "Java Extensions"
