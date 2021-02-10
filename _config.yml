@@ -8,14 +8,14 @@ url                      : https://skyvers.github.io # the base hostname & proto
 baseurl                  : "/Aged-care/"
 logo                     : "/assets/images/skyve-logo.png"
 
-search                   : false # true, false (default)
-search_full_content      : false # true, false (default)
-#search_provider          : algolia # lunr (default), algolia
-#algolia:
-  #application_id         :  # YOUR_APPLICATION_ID
-  #index_name             :  # YOUR_INDEX_NAME
-  #search_only_api_key    :  # YOUR_SEARCH_ONLY_API_KEY
-  #powered_by             : true # true (default), false
+search                   : true # true, false (default)
+search_full_content      : true # true, false (default)
+search_provider          : algolia # lunr (default), algolia
+algolia:
+  application_id         : 0499SLQLQO # YOUR_APPLICATION_ID
+  index_name             : aged-care-tutorial # YOUR_INDEX_NAME
+  search_only_api_key    : 193a08a8085fbec96b3cf4ce54156f18 # YOUR_SEARCH_ONLY_API_KEY
+  powered_by             : true # true (default), false
   #files_to_exclude:
   #  - _posts/2017-11-28-post-exclude-search.md
 
