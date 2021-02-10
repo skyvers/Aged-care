@@ -35,77 +35,77 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<module xmlns="http://www.skyve.org/xml/module"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged Care"
-	prototype="true" name="agedCare"
-	xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
-	<homeRef>list</homeRef>
-	<homeDocument>Resident</homeDocument>
-	<documents>
-		<document ref="Resident" defaultQueryName="qResident" />
-		<document ref="Facility" defaultQueryName="qFacility" />
-		<document ref="Assessment" defaultQueryName="qAssessment" />
-		<document ref="Contact" moduleRef="admin" />
-		<document ref="DataGroup" moduleRef="admin" />
-		<document ref="User" moduleRef="admin" />
-	</documents>
-	<roles>
-		<role name="Viewer">
-			<description><![CDATA[Enough privileges to view Aged Care documents.]]></description>
-			<privileges>
-				<document name="Resident" permission="_R__C" />
-				<document name="Facility" permission="_R__C" />
-				<document name="Assessment" permission="_R__C" />
-			</privileges>
-		</role>
-		<role name="Maintainer">
-			<description><![CDATA[Enough privileges to create and edit Aged Care documents.]]></description>
-			<privileges>
-				<document name="Resident" permission="CRUDC" />
-				<document name="Facility" permission="CRUDC" />
-				<document name="Assessment" permission="CRUDC" />
-			</privileges>
-		</role>
-		<role name="Nurses">
-			<description>Permission to see all Assessments</description>
-			<privileges>
-				<document name="Resident" permission="CRUDC" />
-				<document name="Facility" permission="_R__C" />
-				<document name="Assessment" permission="CRUDC" />
-			</privileges>
-		</role>
-		<role name="Carers">
-			<description>Permission to see only Carer Assessments</description>
-			<privileges>
-				<document name="Resident" permission="_RU_C"></document>
-				<document name="Facility" permission="_R__C" />
-				<document name="Assessment" permission="CRU_C" />
-			</privileges>
-		</role>
-		<role name="Manager">
-			<description>Permission to manage Facility, Staff, and Assessments</description>
-			<privileges>
-				<document name="Resident" permission="CRUDC" />
-				<document name="Facility" permission="CRUDC" />
-				<document name="Assessment" permission="CRUDC" />
-			</privileges>
-		</role>
-	</roles>
-	<menu>
-		<list document="Resident" name="Residents">
-			<role name="Nurses" />
-			<role name="Manager" />
-			<role name="Carers" />
-		</list>
-		<list document="Facility" name="Facilities">
-			<role name="Manager" />
-		</list>
-		<list document="Assessment" name="Assessments">
-			<role name="Nurses" />
-			<role name="Carers" />
-			<role name="Manager" />
-		</list>
-	</menu>
+  <module xmlns="http://www.skyve.org/xml/module"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" title="Aged Care"
+  prototype="true" name="agedCare"
+  xsi:schemaLocation="http://www.skyve.org/xml/module ../../schemas/module.xsd">
+  <homeRef>list</homeRef>
+  <homeDocument>Resident</homeDocument>
+  <documents>
+    <document ref="Resident" defaultQueryName="qResident" />
+    <document ref="Facility" defaultQueryName="qFacility" />
+    <document ref="Assessment" defaultQueryName="qAssessment" />
+    <document ref="Contact" moduleRef="admin" />
+    <document ref="DataGroup" moduleRef="admin" />
+    <document ref="User" moduleRef="admin" />
+  </documents>
+  <roles>
+    <role name="Viewer">
+      <description><![CDATA[Enough privileges to view Aged Care documents.]]></description>
+      <privileges>
+        <document name="Resident" permission="_R__C" />
+        <document name="Facility" permission="_R__C" />
+        <document name="Assessment" permission="_R__C" />
+      </privileges>
+    </role>
+    <role name="Maintainer">
+      <description><![CDATA[Enough privileges to create and edit Aged Care documents.]]></description>
+      <privileges>
+        <document name="Resident" permission="CRUDC" />
+        <document name="Facility" permission="CRUDC" />
+        <document name="Assessment" permission="CRUDC" />
+      </privileges>
+    </role>
+    <role name="Nurses">
+      <description>Permission to see all Assessments</description>
+      <privileges>
+        <document name="Resident" permission="CRUDC" />
+        <document name="Facility" permission="_R__C" />
+        <document name="Assessment" permission="CRUDC" />
+      </privileges>
+    </role>
+    <role name="Carers">
+      <description>Permission to see only Carer Assessments</description>
+      <privileges>
+        <document name="Resident" permission="_RU_C"></document>
+        <document name="Facility" permission="_R__C" />
+        <document name="Assessment" permission="CRU_C" />
+      </privileges>
+    </role>
+    <role name="Manager">
+      <description>Permission to manage Facility, Staff, and Assessments</description>
+      <privileges>
+        <document name="Resident" permission="CRUDC" />
+        <document name="Facility" permission="CRUDC" />
+        <document name="Assessment" permission="CRUDC" />
+      </privileges>
+    </role>
+  </roles>
+  <menu>
+    <list document="Resident" name="Residents">
+      <role name="Nurses" />
+      <role name="Manager" />
+      <role name="Carers" />
+    </list>
+    <list document="Facility" name="Facilities">
+      <role name="Manager" />
+    </list>
+    <list document="Assessment" name="Assessments">
+      <role name="Nurses" />
+      <role name="Carers" />
+      <role name="Manager" />
+    </list>
+  </menu>
 <module>
 ```
 

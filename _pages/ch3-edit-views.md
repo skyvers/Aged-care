@@ -648,7 +648,7 @@ In the Assessment > views package, create new `_reviewDetail.xml` as below conte
 </view>
 ```
 
-#### Combine together:
+#### Combine together
 
 After creating the components, add then to the edit.xml view as shown:
 
