@@ -8,7 +8,6 @@ sidebar:
   nav: docs
 ---
 
-
 ## 2. No-code Development
 
 In this section, we will go through the development of the Aged care application and will cover information about the Skyve platform and Skyve [Foundry](https://foundry.skyve.org/foundry/) in detail.

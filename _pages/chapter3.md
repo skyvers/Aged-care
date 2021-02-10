@@ -1,21 +1,14 @@
-# Contents
+---
+title: "Low Code Extensions"
+permalink: /chapter3/
+excerpt: "Low code development using the Skyve metadata"
+toc: true
+sidebar:
+  title: "Index"
+  nav: docs
+---
 
-- [1. Tutorial Overview ](../readme.md/#1-tutorial-overview)
-- [2. No-code Development](../tutorial/chapter2.md/#2-no-code-development)
-- [3. Low Code Extensions](#3-low-code-extension)
-  - [3.1. Collaboration](#31-collaboration)
-  - [3.2. Configure your local environment](#32-configure-your-local-environment)
-  - [3.3. Install and Configue Wildfly Server](#33-install-and-configure-wildfly-server)
-  - [3.4. Add Repository in Eclipse](#34-add-repository-in-eclipse)
-  - [3.5. Import Project](#35-import-project)
-  - [3.6. Set the server](#36-set-the-server)
-  - [3.7. Configure and Deploy the Skyve project](#37-configure-and-deploy-the-skyve-project)
-  - [3.8 List Views](#38-list-views)
-  - [3.9. Edit Views, Layout, and Components](#39-edit-views-layout-and-components)
-  - [3.10. Roles](#310-roles)
-- [4. Java Extensions](../tutorial/chapter4.md/#4-java-extension)
-
-# 3. Low Code Extension
+## 3. Low Code Extensions
 
 In this section, we will work on collaboration and configuration of the local environment. After that, we will do some editing in the XML files, which will change the lists, views, and layout of our application. So, this step will enable us to test and deploy our application locally on our own (or another machine).
 
@@ -29,7 +22,7 @@ Why we need collaboration?
 
 Collaboration will allow another user of your team to do editing in your application or between [Foundry](https://foundry.skyve.org/foundry/) users and developer. So, to do collaboration we need to provide our application with a remote endpoint of new Git repository.
 
-To find the more detail how to collaborate Go to [Help button](https://Foundry.skyve.org/Foundry/loggedIn.jsp?a=e&m=Foundry&d=Help) top right of the screen [Foundry](https://foundry.skyve.org/foundry/) Help, and follow the steps for collaboration.
+To find more details on how to collaborate, go to the [Help button](https://Foundry.skyve.org/Foundry/loggedIn.jsp?a=e&m=Foundry&d=Help) in the top right of the Foundry page, and follow the steps for collaboration.
 
 ![Collaboration](../doc_src_img/Chapter2/1.jpg "Collaboration")
 
@@ -71,8 +64,6 @@ To create a new repository follow the steps below:
 
 You have now successfully created your application and configured it for collaboration!
 
-**[⬆ back to top](#contents)**
-
 ### 3.2. Configure your local environment
 
 For this section, we have chosen to show how to use Eclipse as the development environment, however if you prefer you can use other development environment tools such as IntelliJ, NetBeans, Visual Studio Code etc. However, if you're not completely familiar with these, use Eclipse so that you can follow the steps below.
@@ -81,7 +72,7 @@ Before you can import the project into Eclipse, you need to download and install
 
 #### Download and Install Eclipse and JDK
 
-- ##### Download and Install Eclipse
+##### Download and Install Eclipse
 
   - Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
   - Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
@@ -91,18 +82,18 @@ Before you can import the project into Eclipse, you need to download and install
   - Click on download
   - Then, Install Eclipse in your system
 
-- ##### Download and Install JDK
+##### Download and Install JDK
+
   - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
   - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
-
-**[⬆ back to top](#contents)**
 
 ### 3.3. Install and Configure Wildfly Server
 
 We need an application server to be able to access the application through our browser, for this we will demonstrate using Red Hat's Wildfly application server plugin. Skyve apps can be deployed on recent versions of Wildfly (10-20).
 
-- #### Install Wildfly Server
-  You can skip this step if WildFly Server is already installed on your system.
+#### Install Wildfly Server
+
+You can skip this step if WildFly Server is already installed on your system.
 
 Before installing WildFly Server, make sure JBoss Tools is installed on your system.
 
@@ -168,8 +159,6 @@ Select the latest version of WildFly, then click Next
 
     ![Downloading](../doc_src_img/chapter3/14.JPG "Downloading")
 
-**[⬆ back to top](#contents)**
-
 ### 3.4. Add Repository in Eclipse
 
 After downloading and installation of eclipse and server, the next step is add our repository in the eclipse.
@@ -205,8 +194,6 @@ After downloading and installation of eclipse and server, the next step is add o
 
 In Git Repositories, we can see our repository is added now!
 
-**[⬆ back to top](#contents)**
-
 ### 3.5. Import Project
 
 As we already created a project in Skyve [Foundry](https://foundry.skyve.org/foundry/), now it is time to import that project in Eclipse to do changes in the Aged care app. To import project in Eclipse follow the steps below:
@@ -225,8 +212,6 @@ As we already created a project in Skyve [Foundry](https://foundry.skyve.org/fou
 
 You can see your project in Project Explorer area in Eclipse.
 
-**[⬆ back to top](#contents)**
-
 ### 3.6. Set the server
 
 To run our project in server we need to set Server in Eclipse first.
@@ -239,11 +224,9 @@ To run our project in server we need to set Server in Eclipse first.
 
    ![Server set](../doc_src_img/chapter5/12.jpg "Server set")
 
-**[⬆ back to top](#contents)**
+### 3.7 Configure and Deploy the Skyve Project
 
-## 3.7 Configure and Deploy the Skyve Project
-
-##### Deploy your Skyve project
+#### Deploy your Skyve project
 
 Once the Wildfly Server is configured, it's easy to deploy your Skyve project to your WildFly Server.
 
@@ -288,7 +271,7 @@ Lastly, save and close the file.
 
    ![agedCare-ds](../doc_src_img/chapter6/8.jpg "agedCare-ds")
 
-##### Run your Aged care application
+#### Run your Aged care application
 
 Part of Skyve's low-code approach is to generate Java code for you (in the background) so that you don't have to write large amounts of Java code. We call this step `Generate Domain` because Java classes will be created representing the `domain` (the `problem domain` or `area of knowledge`) of your project. The domain classes are Java classes that do the work of managing data access and storage for your application.
 
@@ -310,8 +293,6 @@ Access the Aged care app from your Web Browser at http://localhost:8080/agedCare
 
 ![Aged care app](../doc_src_img/chapter6/11.jpg "Aged care app")
 
-**[⬆ back to top](#contents)**
-
 ### 3.8. List Views
 
 Skyve provides two main ways of accessing data - either via list or detail views. The `list` view allows you to search and find the data you wish to change and is normally what you see when you choose a menu item. Once you select a record you will see the `detail` view - which allows you to enter, change or delete data.
@@ -323,7 +304,7 @@ List views provide for searching and review of data - they show data in the cont
 Each row of the list corresponds to an instance of the document (a record) but may include columns from associated documents within the document's object hierarchy.
 For example, the list of Residents may include columns for the Facility and Staff - because these documents are associated to the Resident records.
 
-- #### Resident List
+#### Resident List
 
 The Resident list shows the details of each resident, according to the attributes we defined when creating the Aged care application.
 
@@ -355,7 +336,6 @@ Right after the Menu declaration in agedCare.xml, we will declare Queries like b
     </columns>
     </query>
 </queries>
-
 ```
 
 Here the `content query column` provides a `content` column type for content items like image and file attachments.
@@ -373,15 +353,13 @@ To do this, set defaultQueryName for the Resident document to be the name of our
         <document ref="DataGroup" moduleRef="admin"/>
         <document ref="User" moduleRef="admin"/>
 </documents>
-
-
 ```
 
 To apply the change, stop the `WildFly` server and run the `Generate Domain` command, then start the `WildFly` Server again.
 
 ![Resident attributes](../doc_src_img/chapter7/8.JPG "Resident attributes")
 
-- #### Facility List
+#### Facility List
 
 Next, let's see our Facility list: it now shows a column for each of the attributes we defined in the document.
 
@@ -425,7 +403,7 @@ To apply the change, stop the `WildFly` server and run the `Generate Domain` com
 
 ![Facility list](../doc_src_img/chapter7/1.jpg "Facility list")
 
-- #### Assessments List
+#### Assessments List
 
 As in the `Assessment` document, you can see different assessments related to each resident.
 
@@ -483,13 +461,11 @@ Again, to apply the change, stop the WildFly server and run the Generate Domain 
 
 ![Assessment list](../doc_src_img/chapter7/2.jpg "Assessment list")
 
-**[⬆ back to top](#contents)**
-
 ### 3.9. Edit Views, Layout, and Components
 
 In this section we will override the default detail view which is generated by Skyve.
 
-- #### Resident Edit view
+#### Resident Edit view
 
 Skyve provides us with a very useful function to create default `edit view` based on our document attributes and attributes type, the default widget will be applied for each attribute type.
 
@@ -874,9 +850,7 @@ Now re-deploy the application to check that the view appears as it did before:
 
 ![Resident seprate form](../doc_src_img/chapter7/14.jpg "Resident edit form")
 
-**[⬆ back to top](#contents)**
-
-- #### Facility Edit view
+#### Facility Edit view
 
 In the previous section we explore and practice how to create an edit view and customize it to meet our requirements. It's now easy for us to create an edit view for the Facility document.
 
@@ -920,7 +894,6 @@ as below content:
 		</row>
 	</form>
 </view>
-
 ```
 
 ##### Facility address component
@@ -989,7 +962,6 @@ In the Facility > views package, create new `_facilityLocation.xml` as below con
 After creating the components, add then to the edit.xml view as shown:
 
 ```xml
-
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit"
@@ -1011,16 +983,13 @@ After creating the components, add then to the edit.xml view as shown:
 	</actions>
 	<newParameters />
 </view>
-
 ```
 
 Again re-deploy the application to see the changes in your Facility document.
 
 ![Facility document](../doc_src_img/chapter7/5.jpg "Facilty document editview")
 
-**[⬆ back to top](#contents)**
-
-- #### Assessment Edit view
+#### Assessment Edit view
 
 This completes the edit views for Resident and Facility documents. Next we will create an edit view for our Assessment document. The Assessment document will show the following sections:
 
@@ -1166,8 +1135,6 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ![Assessment editview](../doc_src_img/chapter7/7.jpg "Assessment editview")
 
-**[⬆ back to top](#contents)**
-
 ### 3.10. Roles
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin module.
@@ -1271,7 +1238,3 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 ```
 
 In the next section, we will use these permissions by applying some conditions in our documents.
-
-**[⬆ back to top](#contents)**
-
-**[:arrow_right: go to 4: Java Extensions](../tutorial/chapter4.md/#4-java-extension)**
