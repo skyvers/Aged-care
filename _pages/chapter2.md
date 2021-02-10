@@ -252,11 +252,11 @@ After switching
 
 The [Foundry](https://foundry.skyve.org/foundry) free trial server will automatically undeploy your project after one hour - but you can redeploy your application as many times as you need during your testing and your data is saved while the project is offline.
 
-## 2.9. Foundry & App FAQs
+<!-- ## 2.9. Foundry & App FAQs
 
 - Can I make changes to my app after I’ve deployed it?
 - I deployed my app – why did it stop working ?
 - How do I re-deploy my app ?
-- I’ve got what I came for. Can I build my own app now ?
+- I’ve got what I came for. Can I build my own app now ? -->
 
 Continue to [Low Code Extensions]({{ site.url }}{{ site.baseurl }}/chapter3/)
