@@ -1,5 +1,5 @@
 ---
-title: "Java Extensions"
+title: "4. Java Extensions"
 permalink: /chapter4/
 excerpt: "Extending your tutorial application with business logic"
 toc: true
@@ -7,8 +7,6 @@ sidebar:
   title: "Index"
   nav: docs
 ---
-
-## 4. Java Extensions
 
 It's now time to create Groups and Users in the application.
 
@@ -72,4 +70,4 @@ The Carer sign in page is shown below:
 
 You should also check Nurse and Manager can access what they need correctly by signing in as those users.
 
-Continue to [Bizlets]({{ site.url }}{{ site.baseurl }}/ch4-bizlets/)
+Continue to [Conditions]({{ site.url }}{{ site.baseurl }}/ch4-conditions/)

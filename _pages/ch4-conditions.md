@@ -35,3 +35,5 @@ Login as a Carer
 Open an Assessment, and check that Pain and Behaviour assessments are not available when signed in as a Carer.
 
 ![Carer assessments](../doc_src_img/chapter8/10.jpg "Carer assessments")
+
+Continue to [Bizlets]({{ site.url }}{{ site.baseurl }}/ch4-bizlets/)

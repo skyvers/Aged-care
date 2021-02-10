@@ -270,3 +270,5 @@ Next, open `_residentInfo.xml` and add row
 Generate domain, deploy app again. You can see the new field in Assessment `Resident Status`.
 
 ![Status](../doc_src_img/chapter10/5.jpg "Status")
+
+Continue to [Actions]({{ site.url }}{{ site.baseurl }}/ch4-actions/)
