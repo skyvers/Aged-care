@@ -271,4 +271,4 @@ Generate domain, deploy app again. You can see the new field in Assessment `Resi
 
 ![Status](../doc_src_img/chapter10/5.jpg "Status")
 
-Continue to [Actions]({{ site.url }}{{ site.baseurl }}/ch4-actions/)
+Continue to [Actions]({{ site.url }}{{ site.baseurl }}ch4-actions/)

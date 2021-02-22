@@ -174,4 +174,4 @@ Again, to apply the change, stop the WildFly server and run the Generate Domain 
 
 ![Assessment list](../doc_src_img/chapter7/2.jpg "Assessment list")
 
-Continue to [3.9. Edit Views, Layout and Components]({{ site.url }}{{ site.baseurl }}/ch3-edit-views/)
+Continue to [3.9. Edit Views, Layout and Components]({{ site.url }}{{ site.baseurl }}ch3-edit-views/)

@@ -70,4 +70,4 @@ The Carer sign in page is shown below:
 
 You should also check Nurse and Manager can access what they need correctly by signing in as those users.
 
-Continue to [Conditions]({{ site.url }}{{ site.baseurl }}/ch4-conditions/)
+Continue to [Conditions]({{ site.url }}{{ site.baseurl }}ch4-conditions/)

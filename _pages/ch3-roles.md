@@ -111,4 +111,4 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
 
 In the next section, we will use these permissions by applying some conditions to our documents.
 
-Continue to [Java Extensions]({{ site.url }}{{ site.baseurl }}/chapter4/)
+Continue to [Java Extensions]({{ site.url }}{{ site.baseurl }}chapter4/)

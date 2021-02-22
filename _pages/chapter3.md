@@ -291,4 +291,4 @@ Access the Aged Care app from your Web Browser at http://localhost:8080/agedCare
 
 ![Aged Care app](../doc_src_img/chapter6/11.jpg "Aged Care app")
 
-Continue to [3.8 List Views]({{ site.url }}{{ site.baseurl }}/ch3-list-views/)
+Continue to [3.8 List Views]({{ site.url }}{{ site.baseurl }}ch3-list-views/)

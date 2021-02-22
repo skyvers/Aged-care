@@ -680,4 +680,4 @@ Let's re-deploy the application to see the changes we made in this step.
 
 ![Assessment editview](../doc_src_img/chapter7/7.jpg "Assessment editview")
 
-Continue to [3.10 Roles]({{ site.url }}{{ site.baseurl }}/ch3-roles/)
+Continue to [3.10 Roles]({{ site.url }}{{ site.baseurl }}ch3-roles/)

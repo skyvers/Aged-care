@@ -115,4 +115,4 @@ If not, we invite you to orient yourself now by briefly exploring these webpages
 
 Now lets move to the next step, how to create an application with [Skyve Foundry](https://Foundry.skyve.org/).
 
-Continue to [No-Code Development]({{ site.url }}{{ site.baseurl }}/chapter2/)
+Continue to [No-Code Development]({{ site.url }}{{ site.baseurl }}chapter2/)

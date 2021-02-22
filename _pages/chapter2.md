@@ -259,4 +259,4 @@ The [Foundry](https://foundry.skyve.org/foundry) free trial server will automati
 - How do I re-deploy my app ?
 - I’ve got what I came for. Can I build my own app now ? -->
 
-Continue to [Low Code Extensions]({{ site.url }}{{ site.baseurl }}/chapter3/)
+Continue to [Low Code Extensions]({{ site.url }}{{ site.baseurl }}chapter3/)
