@@ -92,8 +92,8 @@ Before you can import the project into Eclipse, you need to download and install
   - Then, Install Eclipse in your system
 
 - ##### Download and Install JDK
-  - Click here to [download and install JDK 8](https://adoptopenjdk.net/installation.html)
-  - Install an OpenJDK 8 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html?variant=openjdk8&jvmVariant=hotspot#x86-32_win-jdk) (or an alternative open JDK of your choice)
+  - Click here to [download and install JDK 11](https://adoptopenjdk.net/installation.html)
+  - Install an OpenJDK 11 version from [AdoptOpenJDK](https://adoptopenjdk.net/installation.html) 
 
 **[⬆ back to top](#contents)**
 
