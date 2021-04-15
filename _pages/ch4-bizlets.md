@@ -10,7 +10,7 @@ sidebar:
 
 Adding business logic to the record lifecycle using a Bizlet class.
 
-In Skyve you can add business logic using a special class called a Bizlet class. For each document you can create a Bizlet class to extend lifecycle stages like `newInstance` (when a record is created) `preSave` (just before a record is saved) etc.
+In Skyve you can add business logic using a special class called a Bizlet class. For each document, you can create a Bizlet class to extend lifecycle stages like `newInstance` (when a record is created), `preSave` (just before a record is saved), etc.
 
 Each document package can include declarations of actions, reports, views and the associated Bizlet file. The Bizlet file contains document-specific behaviours including overrides of default action behaviours and document bean lifecycle events.
 
@@ -20,21 +20,21 @@ You can read more about Bizlet and Extension classes here - https://skyvers.gith
 
 First of all, let's show you how to create `ResidentBizlet` to customize the document as we want.
 
-Right-click to the `Resident` package and select `New`, then select `Class` in the sub-menu.
+Right-click the `Resident` package and select `New`, then select `Class` in the sub-menu.
 
-The new Class window will appear as shown below:
+The New Class window will appear as shown below:
 
-![Class defination](../doc_src_img/chapter9/1.jpg "Class defination")
+![Class definition](../doc_src_img/chapter9/1.jpg "Class definition")
 
-To complete the creation of the ResidentBizlet class, use "Eclipse Quick Fix suggestions" as shown below:
+To complete the creation of the ResidentBizlet class, use the "Eclipse Quick Fix suggestions" as shown below:
 
 ![Quickfix resident](../doc_src_img/chapter9/2.jpg "Quickfix resident")
 
 ![Quickfix ResidentBizlet](../doc_src_img/chapter9/3.jpg "Quickfix ResidentBizlet")
 
-Now it is time to override the `newInstance` method to set the `Resident ID` number when a new instance of a Resident record is created.
+Now, it is time to override the `newInstance` method to set the `Resident ID` number when a new instance of a Resident record is created.
 
-By overriding, we mean that we want our application to do all the usual things Skyve needs to do to create a record as well as some things we want specifically - in this case assign a new ID number. Skyve provides a way to generate unique ID numbers, either numeric only, or alpha-numeric - so we can use this to generate numbers like:
+By overriding, we mean that we want our application to do all the usual things Skyve needs to do to create a record as well as some things we want specifically - in this case, assign a new ID number. Because Skyve provides a way to generate unique ID numbers, either numeric only, or alpha-numeric, we can use this to generate numbers like:
 R001
 R002
 ...
@@ -69,20 +69,19 @@ The method `ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Residen
 
 Because this code is called in the newInstance() method, the ResidentID number will be assigned as soon as a new record is created.
 
-To test, redeploy the application and click on a new record in the Resident document. We will see the `ResidentID` is already generated.
+To test, redeploy the application and click on a new record in the Resident document. We will see that the `ResidentID` is already generated.
 
 ### preSave() method of the Bizlet
 
 In next few steps, we will see how we can use the `preSave()` Bizlet method.
 
-In previous step we created a `newInstance` method. Now,
-I want you to change the Bizlet and use the preSave() method instead of newInstance() as follows:
+In the previous step, we created a `newInstance` method. Now, I want you to change the Bizlet and use the preSave() method instead of newInstance() as follows:
 
-- When we Save the resident record, check if the residentId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for new instance)
-- Add a condition to the Resident.xml called `hasID` which checks if `bean.getResidentId()!=null`
-- Only show the `residentID` field in the Resident view, if the `hasID` condition is true
+- When we save the resident record, check if the residentId is null - if it is null, assign a new DocumentNumber using `modulesUtil.getNextDocumentNumber` (similar to what you did for newInstance)
+- Add a condition to the Resident.xml file called `hasID` which checks if `bean.getResidentId()!=null`
+- Only show the `residentID` field in the Resident view if the `hasID` condition is true
 
-1. Modify the `ResidentBizlet.java` file and override the `preSave()` (edit the ResidentBizlet.java file, go to source > override and implement method and select preSave() from list and click on Ok).
+1. Modify the `ResidentBizlet.java` file and override `preSave()` (edit the ResidentBizlet.java file, go to source > override and implement method and select preSave() from list and click on OK).
 
    ![preSave](../doc_src_img/chapter9/7.jpg "preSave")
 
@@ -119,10 +118,10 @@ public class ResidentBizlet extends Bizlet<Resident> {
 }
 ```
 
-![code presave](../doc_src_img/chapter9/8.jpg "code presave")
+![presave code](../doc_src_img/chapter9/8.jpg "presave code")
 
-3. Next, add a condition to the `Resident.xml` called `hasID` which checks if bean.getResident()!=null
-4. Open `Resident.xml`, and add condition after `attributes` as below
+3. Next, add a condition to the `Resident.xml` file called `hasID` which checks if `bean.getResident()!=null`
+4. Open `Resident.xml`, and add a condition after `attributes` as shown below:
 
 ```xml
 
@@ -133,9 +132,9 @@ public class ResidentBizlet extends Bizlet<Resident> {
 </conditions>
 ```
 
-5. To show the `residentID` field in the Resident view, if the `hasID` condition is true, open `_residentInfo.xml`
+5. To show the `residentID` field in the Resident view if the `hasID` condition is true, open `_residentInfo.xml`
 
-6. Then, change ResidentID field as below:
+6. Then, change ResidentID field as shown below:
 
 ```xml
 <row>
@@ -150,7 +149,7 @@ To see the changes, generate domain and deploy the application. Sign in as a man
 
 ![resident document](../doc_src_img/chapter9/9.jpg "resident document")
 
-After completing the details for the Resident record, press the save button and check that the Resident ID number is generated.
+After completing the details for the Resident record, press the save button and check that the Resident ID number has been generated.
 
 ![resident document Id](../doc_src_img/chapter9/10.jpg "resident document Id")
 
@@ -159,12 +158,12 @@ After completing the details for the Resident record, press the save button and 
 In this section, we will add more functionality to the Assessment document, to automatically record the date and time that the Assessment record is created.
 To do this we will:
 
-- Add a new `dateTime` attribute to the Assessment doucument called `assesmentCreatedTime`
+- Add a new `dateTime` attribute to the Assessment document called `assesmentCreatedTime`
 - Add a `Bizlet` for `Assessment` to set the `assesmentCreatedTime` when a new assessment is created and record the user who created the assessment
 - In the `Facility` view, show a `listGrid` of `Residents` at that facility
 - Add a `status` enumeration for Resident with appropriate values (current, discharged, deceased), where the default value is current
 
-1. Add a new `dateTime` attribute to the Assessment document called `assesmentCreatedTime` - to do this, in the `Assessment.xml` file and add a new attribute as below:
+1. Add a new `dateTime` attribute to the Assessment document called `assesmentCreatedTime` - to do this, in the `Assessment.xml` file, add a new attribute as below:
 
 ```xml
 <dateTime name="assessmentCreatedTime">
@@ -172,7 +171,7 @@ To do this we will:
 </dateTime>
 ```
 
-Next, modify the `_reviewDetail` view component - open the `_reviewDetail.xml` file to add that attribute in new row.
+Next, modify the `_reviewDetail` view component - open the `_reviewDetail.xml` file to add that attribute in a new row.
 
 ```xml
 <row>
@@ -186,12 +185,12 @@ Generate domain, and deploy your app to check that you can see the new field in 
 
 ![Assessment created date](../doc_src_img/chapter10/1.jpg "Assessment created date")
 
-2. Add a Bizlet for the Assessment document to automatically set the `assesmentCreatedTime` when a new assessment is created - and to record the user who created the assessment. First create the `AssessmentBizlet.java` file as we did above:
+2. Add a Bizlet for the Assessment document to automatically set the `assesmentCreatedTime` when a new assessment is created and to record the user who created the assessment. Firstly, create the `AssessmentBizlet.java` file as we did above:
 
 - Right-click to the `Assessment` package and select New, then select Class in the sub-menu.
 - Follow the Quick Fix suggestions to resolve errors in `AssessmentBizlet.java` file and import all the packages.
-- Override the `newInstance` method. (Click on source > override and implement method. Choose newInstance form the list - Eclipse will generate newInstance method and override notation for us.)
-  Then update the method as shown below:
+- Override the `newInstance` method. (Click on source > override and implement method. Choose newInstance from the list and Eclipse will generate the newInstance method and override notation for us.)
+  Then, update the method as shown below:
 
 ```java
 package modules.agedCare.Assessment;
@@ -225,7 +224,7 @@ So, now we have the `Assessment Created Time` and `Assessment Created By` in the
 
 In Skyve, we can use a listGrid as follows: (you can read more about the listGrid widget here - https://skyvers.github.io/skyve-dev-guide/views/#listgrid-example)
 
-Go to the `Facility` package and open the `edit.xml` to add listGrid as below
+Go to the `Facility` package and open the `edit.xml` to add a listGrid as below
 
 ```xml
 <listGrid continueConversation="true" query="qResident">
@@ -235,7 +234,7 @@ Go to the `Facility` package and open the `edit.xml` to add listGrid as below
 
 ![listGrid](../doc_src_img/chapter10/3.jpg "listGrid")
 
-Generate domain to check result.
+Generate domain to check the result.
 
 ![listGrid of resident](../doc_src_img/chapter10/4.jpg "listGrid of resident")
 
@@ -257,7 +256,7 @@ Open the `Resident.xml` and add this code in `<attributes>`
 </enum>
 ```
 
-Next, open `_residentInfo.xml` and add row
+Next, open `_residentInfo.xml` and add a row:
 
 ```xml
 <row>
@@ -267,7 +266,7 @@ Next, open `_residentInfo.xml` and add row
 </row>
 ```
 
-Generate domain, deploy app again. You can see the new field in Assessment `Resident Status`.
+Generate domain, and deploy the app again. You can see the new field in Assessment, `Resident Status`.
 
 ![Status](../doc_src_img/chapter10/5.jpg "Status")
 
