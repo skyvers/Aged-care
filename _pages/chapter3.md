@@ -20,6 +20,8 @@ Why do we need collaboration?
 
 Collaboration will allow another user of your team to edit your application or between [Foundry](https://foundry.skyve.org/foundry/) users and developer. So, to enable collaboration, we need to provide our application with a remote endpoint of a new Git repository.
 
+![Collaboration with Skyve Foundry](../assets/images/skyve-foundry-create-diagram.png "Collaboration with Skyve Foundry")
+
 To find out more details on collaboration, go to the [Help button](https://Foundry.skyve.org/Foundry/loggedIn.jsp?a=e&m=Foundry&d=Help) in the top right of the Foundry page, and follow the steps for collaboration.
 
 ![Collaboration](../doc_src_img/Chapter2/1.jpg "Collaboration")
@@ -229,46 +231,65 @@ To run our project on the server, we need to set Server in Eclipse first.
 
 Once the Wildfly Server is configured, it's easy to deploy your Skyve project to your WildFly Server.
 
-1. Open the WildFly deployments folder by right-clicking on the server and clicking on Show In, then clicking on File Browser
+Firstly, do a maven install to resolve and download dependencies and addins.
+
+1. From Eclipse, choose Run As->maven install
+   ![Maven install](../assets/images/maven-install.png "Maven install")
+   
+Skyve applications can store images and other types of rich content. To do this, Skyve needs to have full access to a folder to store and manage content.
+You need to create a dedicated folder for Skyve to do this. The content folder can be located anywhere and named whatever you like, however it is easiest to place it inside your eclipse workspace folder (but outside of your project) and name it something simple like `content`.
+   
+2. Create a folder named `content` inside your eclipse workspace folder
+
+   ![Content folder](../assets/images/content-folder.png "Content")
+
+3. Open the File window and browse to the content folder (which is in your root folder) and create new folder named `agedCare`.
+
+   ![Content folder agedCare](../assets/images/content-aged-care.PNG "Content folder with agedCare")
+
+Skyve provides a content management addin to manage your files and content. Place this addin somewhere on your file system - for example, within a folder called `addins` in your `content` folder.
+
+4. Create the `addins` folder inside your `content` folder
+
+5. In eclipse, expand the target folder and copy the `skyve-content.zip` addins file into the `addins` folder 
+
+   ![Content addin](../assets/images/skyve-content-zip-target-folder.PNG "Content addin")
+
+   ![Content addin in place](../assets/images/skyve-content-zip-in-place.PNG "Content addin in place")
+   
+6. Open the WildFly deployments folder by right-clicking on the server and clicking on Show In, then clicking on File Browser
 
    ![Deploy](../doc_src_img/chapter6/1.jpg "Deploy")
 
-2. Copy the agedCare.json and agedCare-ds.xml and paste in the WildFly deployments folder that you opened in the previous step.
+7. Copy the agedCare.json and agedCare-ds.xml and paste in the WildFly deployments folder that you opened in the previous step.
 
    ![Copy files](../doc_src_img/chapter6/2.jpg "Copy files")
 
-Skyve applications can store images and other types of rich content. To do this, Skyve needs to have full access to a folder to store and manage content.
-You need to create a dedicated folder for Skyve to do this. The content folder can be located anywhere and named whatever you like, however it is easiest to place it inside your eclipse folder and name it something simple like `content`.
-
-3. Create a folder named `content` inside your eclipse folder
-
-4. Open the File window and browse to the content folder (which is in your root folder) and create new folder named `agedCare`.
-
-   ![Content](../doc_src_img/chapter6/3.jpg "Content")
-
-5. Open the agedCare.json file in your preferred text editor.
+8. Open the agedCare.json file in your preferred text editor.
 
 Go to the `content` section and modify the `directory` setting to tell Skyve where the content folder is located.
 Note that you must not use backslashes even if you are running on Windows - and the folder path must be terminated with a slash
 e.g. `directory: "C:/eclipse/content/",`
 
-![json1](../doc_src_img/chapter6/4.jpg "json1")
+Also update the `addins` section and for the location you created above
+
+![json content](../assets/images/json-content.PNG "json content")
 
 Go to the bottom of the file to change the identifier.
 
-![json2](../doc_src_img/chapter6/5.jpg "json2")
+![json environment and bootstrap](../assets/images/json-environment-and-bootstrap.PNG "json environment and bootstrap")
 
-If you want to change the username and password, you can change in the bootstrap section. However, in this app it is not changed.
+If you want to change the username and password, you can change in the bootstrap section.
 
 Lastly, save and close the file.
 
-5. Open agedCare-ds.xml file in the text editor
+5. Open agedCare-ds.xml file in the text editor, 
+    1. go to the connection-url and replace `/content/agedCare` with the content folder address, 
+    2. and add a new file name for your database 
+    3. set a username and password and 
+    4. save the file.
 
-   ![agedCare-ds](../doc_src_img/chapter6/7_1.jpg "agedCare-ds")
-
-   Go to connection-url and replace `/content/agedCare` with the content folder address, and save the file.
-
-   ![agedCare-ds](../doc_src_img/chapter6/8_1.jpg "agedCare-ds")
+   ![agedCare-ds](../assets/images/aged-care-ds.PNG "agedCare-ds")
 
 ### Run your Aged Care application
 
