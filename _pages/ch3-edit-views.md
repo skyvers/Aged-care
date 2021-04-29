@@ -18,11 +18,11 @@ To create our Resident `edit view`, we will progress through the following steps
 
 ### Create the Edit View
 
-1. Click on `Generate edit view` on the right side of the eclipse window and type the module and document name in the Console window.
+1. Click on `Generate edit view` on the right side of the Eclipse window and type the module and document name in the Console window.
 
    ![Edit resident](../doc_src_img/chapter7/3.jpg "edit resident")
 
-2. Open the Resident module by going to the agedCare module on the left side of the eclipse window. You can see a view module, and in this view module, there is a document called `generatededit.xml`. Rename the document to `edit.xml`
+2. Open the Resident module by going to the agedCare module on the left side of the Eclipse window. You can see a view module, and in this view module, there is a document called `generatededit.xml`. Rename the document to `edit.xml`
 
    ![Edit.xml](../doc_src_img/chapter7/9.jpg "edit.xml")
 

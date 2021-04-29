@@ -70,9 +70,13 @@ For this section, we have chosen to show how to use Eclipse as the development e
 
 Before you can import the project into Eclipse, you need to download and install Eclipse in your system.
 
+NOTE: do not use the Eclipse EE9 preview, you will need the Jakarta EE Full & Web Distribution
+
 ### Download and Install Eclipse and JDK
 
 #### Download and Install Eclipse
+
+NOTE: do not use the Eclipse EE9 preview, you will need the Jakarta EE Full & Web Distribution
 
   - Click here to [Download Eclipse](https://www.eclipse.org/downloads/packages/)
   - Next, Click on [Eclipse IDE for Enterprise Java Developers](https://www.eclipse.org/downloads/packages/release/2020-09/r/eclipse-ide-enterprise-java-developers)
@@ -88,7 +92,7 @@ Before you can import the project into Eclipse, you need to download and install
 
 ## 3.3. Install and Configure Wildfly Server
 
-We need an application server to be able to access the application through our browser. For this we will demonstrate using Red Hat's Wildfly application server plugin. Skyve apps can be deployed on recent versions of Wildfly (10-20).
+We need an application server to be able to access the application through our browser. For this we will demonstrate using Red Hat's Wildfly application server plugin. Skyve apps can be deployed on recent versions of Wildfly (20+).
 
 ### Install Wildfly Server
 
@@ -132,33 +136,31 @@ After JBoss Tools is installed properly, follow these steps to install WildFly S
 
 2. Select the WildFly version you wish to work with and click Next
 
-   ![select server](../doc_src_img/chapter3/7.JPG "select server")
+   ![select server](../assets/images/define-a-new-server-wildfly21.png "select server")
 
 3. Click Next again
 
-   ![select Next](../doc_src_img/chapter3/8.JPG "select Next")
+   ![select Next](../assets/images/define-a-new-server-wildfly21_2.png "select Next")
 
 4. Click on the Download and install runtime link
 
-   ![install runtime](../doc_src_img/chapter3/9.JPG "install runtime")
+   ![install runtime](../assets/images/define-a-new-server-wildfly21_3.png "install runtime")
 
 5. Select the latest version of WildFly, then click Next
 
-   ![select runtime](../doc_src_img/chapter3/10.JPG "select runtime")
+   ![select runtime](../assets/images/define-a-new-server-wildfly21_4.png "select runtime")
 
 6. Once you have read the terms of the licence agreement, check the box to accept the terms, and click Next
 
-   ![accept agreement](../doc_src_img/chapter3/11.JPG "accept agreement")
+   ![accept agreement](../assets/images/define-a-new-server-wildfly21_5.png "accept agreement")
 
 7.  Finally, select the path for where you wish your download and install locations to be found, then click Finish to complete the installation
 
-    ![select path](../doc_src_img/chapter3/12.JPG "select path")
+    ![select path](../assets/images/define-a-new-server-wildfly21_6.png "select path")
 
-    ![path](../doc_src_img/chapter3/13.JPG "path")
+    ![path](../assets/images/define-a-new-server-wildfly21_7.png "path")
 
 8.  Wait for Eclipse to complete the download and installation process before moving on to the next step
-
-    ![Downloading](../doc_src_img/chapter3/14.JPG "Downloading")
 
 ## 3.4. Add Repository in Eclipse
 
@@ -223,7 +225,7 @@ To run our project on the server, we need to set Server in Eclipse first.
 
 2. Click on Add and Remove and then Finish
 
-   ![Server set](../doc_src_img/chapter5/12.jpg "Server set")
+   ![Server set](../assets/images/define-a-new-server-wildfly21_8.png "Server set")
 
 ## 3.7 Configure and Deploy the Skyve Project
 
