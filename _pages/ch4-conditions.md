@@ -8,9 +8,9 @@ sidebar:
   nav: docs
 ---
 
-In the Assessment document, Carers should not have access to see Pain or Behaviour assessments and so these should not be available to users in the Carer security group.
+In the Assessment document, Carers should not have access to see Pain or Behaviour assessments, so these should not be available to users in the Carer security group.
 
-This can be achieved in Skyve by declaring a condition. In particular, we can have a condition to determine the visibility of some specified attributes on the screen. To begin with, we define the condition in the `Assessment.xml`. We will define this condition as follows:
+This can be achieved in Skyve by declaring a condition. In particular, we can have a condition to determine the visibility of some specified attributes on the screen. To begin with, we define the condition in the `Assessment.xml` file. We will define this condition as follows:
 
 ```xml
 <conditions>
@@ -24,7 +24,7 @@ Once the condition is defined, we can control the visibility of the assessments 
 
 Open the `assessmentDetail.xml` and change the visibility of `Pain assessment` and `Behaviour assessment`
 
-![Carer visibity](../doc_src_img/chapter8/9.jpg "Carer visibility")
+![Carer visibility](../doc_src_img/chapter8/9.jpg "Carer visibility")
 
 To test the changes, generate domain and re-deploy the server.
 

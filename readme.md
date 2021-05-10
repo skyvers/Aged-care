@@ -44,7 +44,7 @@ To familiarise you with Skyve application development, we will build a simple ap
 
 A typical aged care provider might manage multiple facilities, each housing many residents. Residents are regularly assessed to ensure that they are well and safe, and that their care matches their needs.
 
-Care providers must record the personal details of each resident and where they are located. They must also retain records care assessments for each resident both to facilitate regular activities and to satisfy audit requirements.
+Care providers must record the personal details of each resident and where they are located. They must also retain care assessment records for each resident both to facilitate regular activities and to satisfy audit requirements.
 
 Our app will meet these record storage and retrieval needs for an (imaginary!) aged care provider.
 
@@ -56,7 +56,7 @@ No-code application development means developing an app using only a point-and-c
 
 In [Foundry](https://foundry.skyve.org/foundry/), you will use a point-and-click interface to define:
 
-- ‘documents’ representing Facilities, Fesidents, and Assessments
+- ‘documents’ representing Facilities, Residents, and Assessments
 - data ‘attributes’ that need to be recorded for each different document type
 - relationships between different types of documents (e.g. each resident belongs to one facility; each resident has many assessments)
 
@@ -82,7 +82,7 @@ By contrast, the Skyve XML language is a dramatically simpler language – it al
 
 So, using Skyve XML is still coding. But in contrast to coding in Java or a similar web-based language, it’s a great deal simpler, easier, faster and far more succinct. Hence, ‘low-code’. Furthermore, even when you do need to add code to extend a Skyve app, Skyve provides high level APIs to common Java frameworks, meaning that your code will be simpler and more succinct than usual.
 
-In this section of the tutorial,we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the [Foundry](https://foundry.skyve.org/foundry/) point-and-click interface. We will edit and change the layouts of the Residents, Assessments, and Facilities documents.
+In this section of the tutorial, we will focus on building in some user interface enhancements to our Aged Care app that are not possible (yet!) using the [Foundry](https://foundry.skyve.org/foundry/) point-and-click interface. We will edit and change the layouts of the Residents, Assessments, and Facilities documents.
 
 At the end of this section of the tutorial, you’ll have a significantly enhanced Aged Care app up and running, as well as a very broad palette of rapid application development capabilities at your fingertips with Skyve XML.
 
@@ -111,7 +111,7 @@ If not, we invite you to orient yourself now by briefly exploring these webpages
 
 - [Getting Started](https://skyve.org/getting-started) - Will help give you some ideas on how to start with our [Skyve](https://skyve.org) Framework.
 
-- [Skyve Foundry](https://Foundry.skyve.org/)-Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve [Foundry](https://foundry.skyve.org/foundry/).
+- [Skyve Foundry](https://Foundry.skyve.org/) - Will help you to start developing your application and also give [Demo](https://youtu.be/7oynha0tFmw) about how to use skyve [Foundry](https://foundry.skyve.org/foundry/).
 
 Now lets move to the next step, how to create an application with [Skyve Foundry](https://Foundry.skyve.org/).
 

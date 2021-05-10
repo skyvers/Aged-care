@@ -8,30 +8,30 @@ toc: false
 #  nav: docs
 ---
 
-Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin module.
+A role specifies the privilege levels and associated actions for documents that will be accessed by the role. The role name is the name displayed when assigning roles to user security groups in the admin module.
 
-For each document, the privilege level is specified in terms of C (Create) R (Read) U (Update) D (Delete). The underscore character (`_`) means no permission is granted.
+For each document, a privilege level is specified in terms of C (Create), R (Read), U (Update), and D (Delete). The underscore character (`_`) means no permission is granted.
 For example, if a role has `CRU_` privileges, this means a user with this role could Create, Read and Update documents but not Delete them.
 
 Skyve also introduces a new concept called Scope. The document scope access level can either be G (Global), C (Customer), D (Data Group) or U (User).
 
-For example, if a role has `CRUDU` privilege, this would mean that a user with this role could Create, Read, Update and Delete documents, but only within the User scope - this means they can only change their own documents - documents they have created - and not documents created by any other user.
+For example, if a role has a `CRUDU` privilege, this would mean that a user with this role could Create, Read, Update and Delete documents, but only within the User scope. This means that they can only change their own documents - documents they have created - and not documents created by any other user.
 
-If the role specified the privilege `CRUDC` this would mean that a user with this role could Create, Read, Update and Delete documents, for all records within the Customer scope. If you were to offer the Aged Care application as Software as a Service, to many different customers, users with this role could only change data for their own Customer tenancy.
+If the role specified the privilege `CRUDC` this would mean that a user with this role could Create, Read, Update and Delete documents for all records within the Customer scope. If you were to offer the Aged Care application as Software as a Service to many different customers, users with this role could only change data for their own Customer tenancy.
 
-For more information about Document scopes, see [the Devloper Guide section on Scoping](https://skyvers.github.io/skyve-dev-guide/concepts/#document-scoping).
+For more information about Document scopes, see [the Developer Guide section on Scoping](https://skyvers.github.io/skyve-dev-guide/concepts/#document-scoping).
 
-In our Aged Care App, we will define the following roles:
+In our Aged Care app, we will define the following roles:
 
-1. Nurse: Nurse can have all permissions in the resident and assessment documents. But, in the facility document nurses can only have update and scope permission.
+1. Nurse: A Nurse has all permissions in the Resident and Assessment documents. But in the facility document, nurses can only have update and scope permission.
 
-2. Carer: Carer can have _RU_C permissions in Resident document, \_R_ \_C permissions in the facility document, and in Assessment carer can CRU_C permissions.
+2. Carer: A Carer has \_RU_C permissions in the Resident document, \_R_ \_C permissions in the Facility document, and CRU_C permissions in the Assessment document.
 
-3. Manager: Manager have all the permissions in all three documents.
+3. Manager: A Manager has all permissions in all three documents.
 
-Note: Before creating a new role just careful about the roles which is already created by the [Foundry](https://foundry.skyve.org/foundry/): Viewer and Maintainer. if you want to delete any of this role please, we careful that these roles are not assigned to any user before. Otherwise it will not work. For this tutorial, we are not doing anything with Viewer and Maintainer role.
+Note: Before creating a new role, be careful about the roles which have been already created by [Foundry](https://foundry.skyve.org/foundry/): Viewer and Maintainer. If you want to delete any of these roles, please ensure that these roles have not already been assigned to any user. Otherwise, the app will not work. For this tutorial, we are not doing anything with the Viewer and Maintainer roles.
 
-Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<menu>` tag.
+Open `agedCare.xml` to create new roles under the last entry in the `<roles>` tag and change the menu in the`<menu>` tag.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -66,7 +66,7 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
         <document name="Assessment" permission="CRUDC" />
       </privileges>
     </role>
-    <role name="Nurses">
+    <role name="Nurse">
       <description>Permission to see all Assessments</description>
       <privileges>
         <document name="Resident" permission="CRUDC" />
@@ -74,7 +74,7 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
         <document name="Assessment" permission="CRUDC" />
       </privileges>
     </role>
-    <role name="Carers">
+    <role name="Carer">
       <description>Permission to see only Carer Assessments</description>
       <privileges>
         <document name="Resident" permission="_RU_C"></document>
@@ -93,22 +93,22 @@ Open `agedCare.xml` to create new roles under `<roles>` and change menu in `<men
   </roles>
   <menu>
     <list document="Resident" name="Residents">
-      <role name="Nurses" />
+      <role name="Nurse" />
       <role name="Manager" />
-      <role name="Carers" />
+      <role name="Carer" />
     </list>
     <list document="Facility" name="Facilities">
       <role name="Manager" />
     </list>
     <list document="Assessment" name="Assessments">
-      <role name="Nurses" />
-      <role name="Carers" />
+      <role name="Nurse" />
+      <role name="Carer" />
       <role name="Manager" />
     </list>
   </menu>
 <module>
 ```
 
-In the next section, we will use these permissions by applying some conditions to our documents.
+In the next section, we will use these permissions by applying conditions to our documents.
 
 Continue to [Java Extensions]({{ site.url }}{{ site.baseurl }}chapter4/)
