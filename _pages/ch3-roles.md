@@ -3,9 +3,9 @@ title: "3.10. Roles"
 permalink: /ch3-roles/
 excerpt: "Defining privileges within your Skyve applications"
 toc: false
-sidebar:
-  title: "Index"
-  nav: docs
+# sidebar:
+#  title: "Index"
+#  nav: docs
 ---
 
 Each role specifies the privilege levels for documents that the role will access (and associated actions). The role name is the name displayed when assigning roles to user security groups in the admin module.
