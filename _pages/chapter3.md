@@ -128,7 +128,7 @@ After JBoss Tools is installed properly, follow these steps to install WildFly S
 
 1. Once Eclipse is opened, right-click under the Project Explorer tab and highlight New, then from the pop-out, click on Other
 
-   ![new-other](../doc_src_img/chapter3/6_1.JPG "new-other")
+   ![new-other](../assets/images/project-new-other.PNG "new-other")
    
 2. Enter text `server` in the `type filter text` field, select `Server` and click the Next button.
 
