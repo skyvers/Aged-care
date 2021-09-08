@@ -1,5 +1,5 @@
 ---
-title: "`. List Views"
+title: "List Views"
 permalink: /ch3-list-views/
 excerpt: "Manipulating list views in Skyve"
 toc: true
