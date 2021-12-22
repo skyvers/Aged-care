@@ -61,29 +61,22 @@ Now, I will take you step by step through the creation of the application:
 
 Data driven design refers to how organisations use data to make their content more appealing to users by analysing their behaviour. In Skyve Foundry, we used different data designs such as modules, documents, and attributes to design an application.
 
-_*Modules:*_ In Skyve, modules define self-contained areas of functionality and have their own menu group. By default, Foundry apps start with a single module called the Admin module. In the Design tab of your application, you can add or remove a module using the Add button.
+**Modules:** In Skyve, modules define self-contained areas of functionality and have their own menu group. By default, Foundry apps start with a single module called the Admin module. In the Design tab of your application, you can add or remove a module using the Add button.
 
-_*Documents:*_ In data design, documents are related to the real business entities (e.g. Residents, Facilities, Assessments). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
+**Documents:** In data design, documents are related to the real business entities (e.g. Residents, Facilities, Assessments). For more details about documents click on this link https://skyvers.github.io/skyve-dev-guide/concepts/
 
-_*Attributes:*_ Attributes contain information about each document (e.g. Resident's document attributes: name, id, photo, bio etc.). Attributes can have different data types and different views.
+**Attributes:** Attributes contain information about each document (e.g. Resident's document attributes: name, id, photo, bio etc.). Attributes can have different data types and different views.
 
-_*Data types:*_ Data types specify which type of value an attribute name can hold. They include:
+**Data types:** Data types specify which type of value an attribute name can hold. They include:
 
-- Text or String: Used for a combination of any characters that appear on a keyboard, such as letters, numbers and symbols.
-
-- Memo: Used to store a large amount of text. It is also called "Long Text".
-
-- Date: Includes the time, year, name of the day of the week, and time zone.
-
-- Image: Used when we want to upload an image into our document.
-
-- Integer: Used to store the numeric values.
-
+* Text or String: Used for a combination of any characters that appear on a keyboard, such as letters, numbers and symbols.
+* Memo: Used to store a large amount of text. It is also called "Long Text".
+* Date: Includes the time, year, name of the day of the week, and time zone.
+* Image: Used when we want to upload an image into our document.
+* Integer: Used to store the numeric values.
 * Geometry: Used to map a three-dimensional object, such as a building.
-
 * Date/Time: Used for values that contain both date and time parts.
-
-- Association: Used where there is a relationship between two entity objects based on common attributes. An entity object only needs an association to access the data of another entity object.
+* Association: Used where there is a relationship between two entity objects based on common attributes. An entity object only needs an association to access the data of another entity object.
 
 ## 2.4. Create your Resident document
 
