@@ -8,7 +8,7 @@ sidebar:
   nav: docs
 ---
 
-Actions represent behaviours that impact our application data. Actions can be in the form of buttons, hyperlinks or API calls. For more detail, visit the link https://skyvers.github.io/skyve-dev-guide/actions/.
+Actions represent behaviours that impact our application data. Actions can be in the form of buttons, hyperlinks or API calls. For more detail, see the developer guide [chapter on actions](https://skyvers.github.io/skyve-dev-guide/actions/).
 
 Next, we will add an action that only a nurse can click, which sets the status of the assessment to `reviewed=true` and sets the `assessmentReviewDate`.
 
@@ -58,13 +58,12 @@ public class Reviewed implements ServerSideAction<Assessment> {
 
 6. For the action to be available in the view, we need to declare the action in the view, as follows:
 
-Open `edit.xml` in the `Assessment` package to add the action as shown below
+Open `edit.xml` in the `Assessment` package to add the action as shown below:
 
 ```xml
 <actions>
-		<defaults />
-		<action className="Reviewed" displayName="Reviewed" inActionPanel="true">
-		</action>
+	<defaults />
+	<action className="Reviewed" displayName="Reviewed" inActionPanel="true"/>
 </actions>
 ```
 
@@ -72,9 +71,9 @@ Open `edit.xml` in the `Assessment` package to add the action as shown below
 
 7. Next, we need to assign privileges so that only Nurses can use the action
 
-To do this, modify the role definitions in the module (the agedCare.xml file).
+To do this, modify the role definitions in the module (the `agedCare.xml` file).
 
-In our document, only Nurses can review the assessments, So we can add the `action` in nurse role under `privileges` as below
+In our document, only Nurses can review the assessments, so we can add the `action` in nurse role under `privileges` as below
 
 ![Action in nurse role](../doc_src_img/chapter11/6.jpg "Add action in nurse role")
 
@@ -104,7 +103,7 @@ When you click on the Reviewed button, it sets the Assessment Review field with 
 
 ![Reviewed](../doc_src_img/chapter11/8.jpg "Reviewed")
 
-Congratulations, you have completed the Aged Care tutorial.
+Congratulations, you have completed the Aged Care tutorial!
 
 In this tutorial, you learned how to:
 
@@ -115,6 +114,6 @@ In this tutorial, you learned how to:
 - modify the XML metadata that defines the data, menus and roles within your application
 - add custom Java code to control visibility, set values and perform action behaviours within the application.
 
-From here, it is time for you to explore Skyve some more and try your own applications and changes. Remember you can ask questions on the Skyve slack channel, or purchase direct assistance from Skyve specialist developers through Skyve Foundry. Check the skyve.org homepage for self-help training videos and don't forget the [Developer Guide](https://skyvers.github.io/skyve-dev-guide/).
+From here, it is time for you to explore Skyve some more and try your own applications and changes. Remember you can ask questions on the [Skyve slack channel](https://join.slack.com/t/skyveframework/shared_invite/enQtNDMwNTcyNzE0NzI2LTRkMWUxZDBlZmFlMmJkMjQzYWMzYWQxMmQzYWQ1ZTdlODNkNjRlYzVhYjFmMmQ4NTlhYWY4MjNhMGVkZGNlMjY), or purchase direct assistance from Skyve specialist developers through Skyve Foundry. Check the [skyve.org](https://skyve.org/) homepage for self-help training videos and don't forget the [Developer Guide](https://skyvers.github.io/skyve-dev-guide/).
 
 We hope that you have enjoyed this tutorial!

@@ -319,7 +319,7 @@ When your Console Window shows text similar to that shown below, your agedCare a
 
 If not, you may try to debug by yourself to find the source of the problem, or [Join Us On Slack](https://join.slack.com/t/skyveframework/shared_invite/enQtNDMwNTcyNzE0NzI2LWNjMTBlMTMzNTA4YzBlMzFhYzE0ZmRhOWIzMWViODY4ZTE1N2QzYWM1MTdlMTliNDIyYTBkOWZhZDAxOGQyYjQ) and ask any questions there. You will receive support from the [Skyve](https://skyve.org) team or a community team member.
 
-Access the Aged Care app from your Web Browser at http://localhost:8080/agedCare. Sign in using the default username "setup" and password "setup".
+Access the Aged Care app from your Web Browser at [http://localhost:8080/agedCare](http://localhost:8080/agedCare). Sign in using the default username "setup" and password "setup".
 
 ![Aged Care app](../doc_src_img/chapter6/11.jpg "Aged Care app")
 

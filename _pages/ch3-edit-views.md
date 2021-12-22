@@ -34,9 +34,9 @@ Currently, the Resident attributes are shown one by one, from top to bottom.
 
 We will enhance the view by showing all personal information on the left-hand side of the screen and the photo and BIO on the right-hand side.
 
-To do that, we need to understand Skyve View Containers. To do this, see thhis link: https://skyvers.github.io/skyve-dev-guide/views/#containers
+To do that, we need to understand Skyve View Containers. There is an explanation on working with view containers in the [views chapter](https://skyvers.github.io/skyve-dev-guide/views/#containers) of the developer guide.
 
-After reading through the chapter on Skyve Containers, you may have already guessed how to split the view into 2 parts.
+After reading through the chapter on Skyve containers, you may have already guessed how to split the view into 2 parts.
 
 The `hbox` container lays out items horizontally.
 
@@ -251,7 +251,7 @@ The view component must be declared according to convention - the file name must
 
 #### Resident Info Component
 
-In the Resident > views package, create a new file called `_residentInfo.xml` with its content as below:
+In the Resident -> views package, create a new file called `_residentInfo.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -283,7 +283,7 @@ In the Resident > views package, create a new file called `_residentInfo.xml` wi
 
 #### Facility Info Component
 
-In the Resident > views package, create a new file called `_facilityInfo.xml` with its content as below:
+In the Resident -> views package, create a new file called `_facilityInfo.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -315,7 +315,7 @@ In the Resident > views package, create a new file called `_facilityInfo.xml` wi
 
 #### Photo and Bio Component
 
-In the Resident > views package, create a new file called `_photoBio.xml` with its content as below:
+In the Resident -> views package, create a new file called `_photoBio.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -416,7 +416,7 @@ Let's start with the Facility Info component.
 
 #### Facility Info Component
 
-In the Facility > views package, create a new file called `_facilityInfo.xml` with its content as below:
+In the Facility -> views package, create a new file called `_facilityInfo.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -443,7 +443,7 @@ In the Facility > views package, create a new file called `_facilityInfo.xml` wi
 
 #### Facility Address Component
 
-In the Facility > views package, create a new file called `_facilityAddress.xml` with its content as below:
+In the Facility -> views package, create a new file called `_facilityAddress.xml` with its content as below:
 
 ```xml
 
@@ -481,7 +481,7 @@ In the Facility > views package, create a new file called `_facilityAddress.xml`
 
 #### Facility Location Component
 
-In the Facility > views package, create a new file called `_facilityLocation.xml` with its content as below:
+In the Facility -> views package, create a new file called `_facilityLocation.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -550,7 +550,7 @@ Generate an edit view for the Assessment document first.
 
 #### Resident Info Component
 
-In the Assessment > views package, create a new file called `_residentInfo.xml` with its content as below:
+In the Assessment -> views package, create a new file called `_residentInfo.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -581,7 +581,7 @@ In the Assessment > views package, create a new file called `_residentInfo.xml` 
 
 #### Assessment Detail Component
 
-In the Assessment > views package, create a new file called `_assessmentDetail.xml` with ots content as below:
+In the Assessment -> views package, create a new file called `_assessmentDetail.xml` with ots content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -623,7 +623,7 @@ In the Assessment > views package, create a new file called `_assessmentDetail.x
 
 #### Review Detail Component
 
-In the Assessment > views package, create a new file called`_reviewDetail.xml` with its content as below:
+In the Assessment -> views package, create a new file called`_reviewDetail.xml` with its content as below:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>

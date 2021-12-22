@@ -14,11 +14,11 @@ In Skyve you can add business logic using a special class called a Bizlet class.
 
 Each document package can include declarations of actions, reports, views and the associated Bizlet file. The Bizlet file contains document-specific behaviours including overrides of default action behaviours and document bean lifecycle events.
 
-You can read more about Bizlet and Extension classes here - https://skyvers.github.io/skyve-dev-guide/bizlets/#bizlets
+You can read more about Bizlet and Extension classes in the [bizlet chapter](https://skyvers.github.io/skyve-dev-guide/bizlets/#bizlets) of the developer guide.
 
 ### Bizlet ResidentID
 
-First of all, let's show you how to create `ResidentBizlet` to customize the document as we want.
+First of all, let's show you how to create a Bizlet for the Resident document to customize the document behaviour. Skyve uses a naming convention to locate the Bizlet for a document, where it expects the bizlet to be named `<DocumentName>Bizlet`. So for our Resident document, we will be creating a `ResidentBizlet`.
 
 Right-click the `Resident` package and select `New`, then select `Class` in the sub-menu.
 
@@ -97,9 +97,6 @@ import modules.agedCare.domain.Resident;
 
 public class ResidentBizlet extends Bizlet<Resident> {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1455780144763235289L;
 
 	public Resident newInstance(Resident bean) throws Exception {
@@ -228,7 +225,7 @@ Go to the `Facility` package and open the `edit.xml` to add a listGrid as below
 
 ```xml
 <listGrid continueConversation="true" query="qResident">
-		<filterParameter filterBinding="facility" operator="equal"valueBinding="bizId" />
+	<filterParameter filterBinding="facility" operator="equal"valueBinding="bizId" />
 </listGrid>
 ```
 
