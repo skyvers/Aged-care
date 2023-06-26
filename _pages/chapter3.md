@@ -134,7 +134,7 @@ After JBoss Tools is installed properly, follow these steps to install WildFly S
 
    ![server](../doc_src_img/chapter3/6_2.jpg "server")
 
-2. Select the WildFly version you wish to work with and click Next
+2. Select the WildFly version you wish to work with and click Next (Skyve currently supports versions up to 26)
 
    ![select server](../assets/images/define-a-new-server-wildfly21.png "select server")
 
