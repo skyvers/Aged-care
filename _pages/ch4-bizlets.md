@@ -54,18 +54,15 @@ Add the below code in the method
 
 ```java
 {
-	String residentId;
-
-	residentId = ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Resident.				DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
-	bean.setResidentID(residentId);
+	String residentId = CORE.getNumberGenerator().next("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
 
 	return super.newInstance(bean);
 }
 ```
 
-The method `ModulesUtil.getNextDocumentNumber("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4)`; will create a new unique number with a prefix of "R" , for Resident type records, for the Resident ID attribute, with a length of 4 characters.
+The method `CORE.getNumberGenerator().next("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);` will create a new unique number with a prefix of "R", for Resident type records, for the Resident ID attribute, with a length of 4 characters.
 
-Because this code is called in the newInstance() method, the ResidentID number will be assigned as soon as a new record is created.
+Because this code is called in the `newInstance()` method, the ResidentID number will be assigned as soon as a new record is created.
 
 To test, redeploy the application and click on a new record in the Resident document. We will see that the `ResidentID` is already generated.
 
@@ -90,7 +87,7 @@ package modules.agedCare.Resident;
 
 import org.skyve.metadata.model.document.Bizlet;
 
-import modules.admin.ModulesUtil;
+import org.skyve.CORE;
 import modules.agedCare.domain.Resident;
 
 public class ResidentBizlet extends Bizlet<Resident> {
@@ -103,7 +100,7 @@ public class ResidentBizlet extends Bizlet<Resident> {
 	@Override
 	public void preSave(Resident bean) throws Exception {
 	    if (bean.getResidentID() == null) {
-			String residentId = ModulesUtil.getNextDocumentNumber("P", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
+			String residentId = CORE.getNumberGenerator().next("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
 
 			bean.setResidentID(residentId);
 			return;
