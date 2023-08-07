@@ -30,8 +30,6 @@ To complete the creation of the ResidentBizlet class, use the "Eclipse Quick Fix
 
 ![Quickfix resident](../doc_src_img/chapter9/2.jpg "Quickfix resident")
 
-![Quickfix ResidentBizlet](../doc_src_img/chapter9/3.jpg "Quickfix ResidentBizlet")
-
 Now, it is time to override the `newInstance` method to set the `Resident ID` number when a new instance of a Resident record is created.
 
 By overriding, we mean that we want our application to do all the usual things Skyve needs to do to create a record as well as some things we want specifically - in this case, assign a new ID number. Because Skyve provides a way to generate unique ID numbers, either numeric only, or alpha-numeric, we can use this to generate numbers like:
