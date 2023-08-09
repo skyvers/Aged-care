@@ -16,9 +16,9 @@ Firstly, we will create an action class in the actions package (within the docum
 
 1. To create an action, go to the Assessment package and create a new package called `actions`.
 
-2. Then, under actions package, create a action class `Reviewed.java`. On the class creation form, use the Add button to choose `org.skyve.metadata.controller.ServerSideAction`
+2. Then, under actions package, create a action class `Reviewed.java`. On the class creation form, use the Add button to choose `org.skyve.metadata.controller.ServerSideAction` as the interface class.
 
-   ![Reviewed class](../doc_src_img/chapter11/1.jpg "reviewed class")
+   ![Reviewed class](../doc_src_img/chapter11/1.png "reviewed class")
 
 3. Adjust the imports at the top of the file for the Assessment document to `import modules.agedCare.domain.Assessment;`
 
