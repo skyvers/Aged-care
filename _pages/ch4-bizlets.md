@@ -55,7 +55,7 @@ Add the below code in the method
 ```java
 {
 	String residentId = CORE.getNumberGenerator().next("R", Resident.MODULE_NAME, Resident.DOCUMENT_NAME, Resident.residentIDPropertyName, 4);
-
+	bean.setResidentID(residentId);
 	return super.newInstance(bean);
 }
 ```
