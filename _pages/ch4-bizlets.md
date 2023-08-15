@@ -214,7 +214,7 @@ So, now we have the `Assessment Created Time` and `Assessment Created By` in the
 
 3. Next we want to change the Facility view to show a list of all the Residents associated with the Facility.
 
-In Skyve, we can use a listGrid as follows: (you can read more about the listGrid widget here - https://skyvers.github.io/skyve-dev-guide/views/#listgrid-example)
+In Skyve, we can use a listGrid as follows: (you can read more about the listGrid widget here - [List Grid](https://skyvers.github.io/skyve-dev-guide/views/#listgrid))
 
 Go to the `Facility` package and open the `edit.xml` to add a listGrid as below
 
