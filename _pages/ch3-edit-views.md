@@ -130,7 +130,7 @@ Open the resident `edit.xml` file and add the code given below.
 </view>
 ```
 
-To see the changes, generate domain and re-deploy the application as you ydid before (stop the WildFly server, run Generate Domain, then restart WildFly).
+To see the changes, generate domain and re-deploy the application as you did before (stop the WildFly server, run Generate Domain, then restart WildFly).
 
 ![Resident edit view](../doc_src_img/chapter7/10.jpg "Resident edit view")
 

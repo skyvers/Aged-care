@@ -124,7 +124,7 @@ Let's hide `painAssessement` `behaviourAssessment` and `assessmentReviewTime` fr
 
 To add the resident name and photo in the `Assessment` document, we need to define the collection in the Resident document first.
 
-So, go to [Foundry]() and open the Resident document in the App.
+Firstly, commit and push your changes from your local repository to GitHub. Then, go to [Foundry](https://foundry.skyve.org/foundry/) and in the collaborate tab, pull changes from your team. Afterwards open the Resident document in the App.
 
 Add a new attribute called `Assessments` of the type collection and the related document is `Assessment` as shown below.
 
