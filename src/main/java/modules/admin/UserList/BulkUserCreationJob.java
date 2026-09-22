@@ -17,9 +17,9 @@ import org.skyve.metadata.module.JobMetaData;
 import org.skyve.metadata.module.Module;
 import org.skyve.persistence.DocumentQuery;
 import org.skyve.persistence.Persistence;
+import org.skyve.util.CommunicationUtil;
 import org.skyve.web.WebContext;
 
-import modules.admin.Communication.CommunicationUtil;
 import modules.admin.Group.GroupExtension;
 import modules.admin.domain.Contact;
 import modules.admin.domain.Contact.ContactType;
@@ -28,8 +28,6 @@ import modules.admin.domain.User;
 import modules.admin.domain.UserList;
 
 public class BulkUserCreationJob extends Job {
-	private static final long serialVersionUID = 6282346785863992703L;
-
 	private static final String SPACE_COMMA_OR_SEMICOLON = "[\\s,;]+";
 
 	@Override
@@ -100,7 +98,7 @@ public class BulkUserCreationJob extends Job {
 		Module module = customer.getModule(UserList.MODULE_NAME);
 		JobMetaData job = module.getJob("jBulkUserCreation");
 
-		EXT.runOneShotJob(job, bean, user);
+		EXT.getJobScheduler().runOneShotJob(job, bean, user);
 
 		webContext.growl(MessageSeverity.info, "The creation job has started - check job log for detailed results");
 	}
@@ -178,11 +176,17 @@ public class BulkUserCreationJob extends Job {
 			newUser.setPasswordResetToken(token);
 			newUser.setContact(contact);
 
+			// set default module
+			String defaultModuleName = bean.getDefaultModuleName();
+			if (defaultModuleName != null) {
+				newUser.setHomeModule(defaultModuleName);
+			}
+
 			// assign groups as selected
 			List<GroupExtension> groups = bean.getUserInvitationGroups();
 			for (GroupExtension group : groups) {
 				// this job is in its own thread, own persistence, own transaction
-				// and UserList bean is from another persistence that haven�t been fully populagted
+				// and UserList bean is from another persistence that haven't been fully populated
 				// so we need to re-retrieve each group
 				String id = group.getBizId();
 				CORE.getPersistence().evictCached(group);

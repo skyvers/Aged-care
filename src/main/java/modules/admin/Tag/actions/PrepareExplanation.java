@@ -4,25 +4,19 @@ import org.skyve.metadata.controller.ServerSideAction;
 import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.web.WebContext;
 
-import modules.admin.Tag.TagBizlet;
-import modules.admin.domain.Tag;
+import modules.admin.Tag.TagExtension;
 
-public class PrepareExplanation implements ServerSideAction<Tag> {
+public class PrepareExplanation implements ServerSideAction<TagExtension> {
 	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 2886341074753936987L;
-
-	/**
-	 * Update the payment batch details.
+	 * Describe the set operation currently configured.
 	 */
 	@Override
-	public ServerSideActionResult<Tag> execute(Tag bean, WebContext webContext) throws Exception {
+	public ServerSideActionResult<TagExtension> execute(TagExtension bean, WebContext webContext) throws Exception {
 
 		StringBuilder ex = new StringBuilder(128);
 
 		if (bean.getOperandTag() != null) {
-			bean.setOperandTagCount(TagBizlet.getCount(bean.getOperandTag()));
+			bean.setOperandTagCount(Long.valueOf(bean.getOperandTag().count()));
 
 			if (bean.getCombinationsOperator() != null) {
 				switch (bean.getCombinationsOperator()) {

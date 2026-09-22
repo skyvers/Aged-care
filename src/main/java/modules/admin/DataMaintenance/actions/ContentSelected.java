@@ -1,7 +1,5 @@
 package modules.admin.DataMaintenance.actions;
 
-import modules.admin.domain.DataMaintenance;
-
 import org.skyve.EXT;
 import org.skyve.content.AttachmentContent;
 import org.skyve.content.ContentManager;
@@ -10,9 +8,9 @@ import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.util.Util;
 import org.skyve.web.WebContext;
 
-public class ContentSelected implements ServerSideAction<DataMaintenance> {
-	private static final long serialVersionUID = 8136709192590507528L;
+import modules.admin.domain.DataMaintenance;
 
+public class ContentSelected implements ServerSideAction<DataMaintenance> {
 	@Override
 	public ServerSideActionResult<DataMaintenance> execute(DataMaintenance bean, WebContext webContext)
 	throws Exception {
@@ -24,7 +22,7 @@ public class ContentSelected implements ServerSideAction<DataMaintenance> {
 		}
 		else {
 			try (ContentManager cm = EXT.newContentManager()) {
-				AttachmentContent ac = cm.get(selectedContentId);
+				AttachmentContent ac = cm.getAttachment(selectedContentId);
 				if (ac == null) { // bean content, not attachment content
 					bean.setContentLink(null);
 				}

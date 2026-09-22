@@ -1,6 +1,7 @@
 package modules.admin.ReportDesign;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,8 @@ import org.skyve.metadata.module.query.QueryDefinition;
 import org.skyve.persistence.Persistence;
 import org.skyve.util.Util;
 import org.skyve.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import modules.admin.domain.ReportDesign;
 import modules.admin.domain.ReportDesign.CollectionType;
@@ -34,7 +37,8 @@ import modules.admin.domain.ReportDesign.Orientation;
 import modules.admin.domain.ReportDesign.ReportType;
 
 public class ReportDesignBizlet extends Bizlet<ReportDesign> {
-	private static final long serialVersionUID = -6842667143963576852L;
+
+    private static final Logger STATIC_LOGGER = LoggerFactory.getLogger(ReportDesignBizlet.class);
 
 	@Override
 	public ReportDesign newInstance(ReportDesign bean) throws Exception {
@@ -65,7 +69,7 @@ public class ReportDesignBizlet extends Bizlet<ReportDesign> {
 		}
 		if (spec.getReportType() != null) {
 			result.setReportType(ReportType.valueOf(spec.getReportType().name()));
-			Util.LOGGER.info("RESULT REPORT TYPE IS " + result.getReportType().toDescription());
+			STATIC_LOGGER.info("RESULT REPORT TYPE IS " + result.getReportType().toLocalisedDescription());
 		}
 		result.setModuleName(spec.getModuleName());
 		result.setDocumentName(spec.getDocumentName());
@@ -150,7 +154,7 @@ public class ReportDesignBizlet extends Bizlet<ReportDesign> {
 		}
 		if (spec.getReportType() != null) {
 			result.setReportType(org.skyve.impl.generate.jasperreports.DesignSpecification.ReportType.valueOf(spec.getReportType().name()));
-			Util.LOGGER.info("SPEC REPORT TYPE IS " + result.getReportType().toString());
+			STATIC_LOGGER.info("SPEC REPORT TYPE IS " + result.getReportType().toString());
 		}
 		result.setModuleName(spec.getModuleName());
 		result.setDocumentName(spec.getDocumentName());
@@ -233,7 +237,7 @@ public class ReportDesignBizlet extends Bizlet<ReportDesign> {
 		Customer customer = pers.getUser().getCustomer();
 		if (ReportDesign.moduleNamePropertyName.equals(attributeName)) {
 			for (Module module : customer.getModules()) {
-				result.add(new DomainValue(module.getName(), module.getTitle()));
+				result.add(new DomainValue(module.getName(), module.getLocalisedTitle()));
 			}
 		}
 
@@ -252,8 +256,9 @@ public class ReportDesignBizlet extends Bizlet<ReportDesign> {
 			Module module = customer.getModule(bean.getModuleName());
 			for (String documentName : module.getDocumentRefs().keySet()) {
 				Document document = module.getDocument(customer, documentName);
-				result.add(new DomainValue(document.getName(), document.getDescription()));
+				result.add(new DomainValue(document.getName(), document.getLocalisedDescription()));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (ReportDesign.queryNamePropertyName.equals(attributeName) && bean.getModuleName() != null) {
@@ -265,8 +270,9 @@ public class ReportDesignBizlet extends Bizlet<ReportDesign> {
 					.map(q -> (MetaDataQueryDefinition) q)
 					.collect(Collectors.toList());
 			for (QueryDefinition queryDefinition : documentQueries) {
-				result.add(new DomainValue(queryDefinition.getName(), queryDefinition.getDescription()));
+				result.add(new DomainValue(queryDefinition.getName(), queryDefinition.getLocalisedDescription()));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (ReportDesign.menuItemPropertyName.equals(attributeName) && bean.getModuleName() != null) {
@@ -346,27 +352,25 @@ public class ReportDesignBizlet extends Bizlet<ReportDesign> {
 			}
 		}
 
-		bean = resetDesign(bean);
+		resetDesign(bean);
 
 		super.preRerender(source, bean, webContext);
 	}
 
 	@SuppressWarnings("boxing")
-	public static ReportDesign resetDesign(ReportDesign design) throws Exception {
-		ReportDesign result = design;
-		if (Orientation.portrait.equals(result.getOrientation())) {
-			result.setWidth(595);
-			result.setColumnWidth(595 - result.getLeftMargin() - result.getRightMargin());
-			result.setHeight(842);
+	private static void resetDesign(ReportDesign design) throws Exception {
+		if (Orientation.portrait.equals(design.getOrientation())) {
+			design.setWidth(595);
+			design.setColumnWidth(595 - design.getLeftMargin() - design.getRightMargin());
+			design.setHeight(842);
 		} else {
-			result.setWidth(842);
-			result.setColumnWidth(842 - result.getLeftMargin() - result.getRightMargin());
-			result.setHeight(595);
+			design.setWidth(842);
+			design.setColumnWidth(842 - design.getLeftMargin() - design.getRightMargin());
+			design.setHeight(595);
 		}
-		return result;
 	}
 
-	public static List<DomainValue> defaultBindingDomainValues(Document document, ReportDesign bean) throws Exception {
+	public static List<DomainValue> defaultBindingDomainValues(Document document) throws Exception {
 
 		List<DomainValue> result = new ArrayList<>();
 

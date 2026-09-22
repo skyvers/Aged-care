@@ -1,10 +1,11 @@
 package modules.admin.domain;
 
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import modules.admin.User.UserExtension;
 import modules.admin.UserDashboard.UserDashboardExtension;
 import org.skyve.CORE;
@@ -21,6 +22,7 @@ import org.skyve.impl.domain.ChangeTrackingArrayList;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class UserDashboard extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -30,11 +32,13 @@ public abstract class UserDashboard extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "UserDashboard";
 
 	/** @hidden */
 	public static final String currentUserPropertyName = "currentUser";
+
 	/** @hidden */
 	public static final String favouritesPropertyName = "favourites";
 
@@ -42,6 +46,7 @@ public abstract class UserDashboard extends AbstractTransientBean {
 	 * Current User
 	 **/
 	private UserExtension currentUser = null;
+
 	/**
 	 * Favourites
 	 **/
@@ -80,12 +85,6 @@ public abstract class UserDashboard extends AbstractTransientBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof UserDashboard) && 
-					this.getBizId().equals(((UserDashboard) o).getBizId()));
 	}
 
 	/**
@@ -166,5 +165,24 @@ public abstract class UserDashboard extends AbstractTransientBean {
 	 **/
 	public Generic removeFavouritesElement(int index) {
 		return favourites.remove(index);
+	}
+
+	/**
+	 * True if the logged in user has permission to read jobs
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isCanReadJobs() {
+		return (((UserDashboardExtension)this).canReadJobs());
+	}
+
+	/**
+	 * {@link #isCanReadJobs} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotCanReadJobs() {
+		return (! isCanReadJobs());
 	}
 }

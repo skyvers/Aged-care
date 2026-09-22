@@ -6,9 +6,10 @@ import javax.cache.management.CacheStatisticsMXBean;
 
 import org.ehcache.core.statistics.CacheStatistics;
 import org.ehcache.core.statistics.TierStatistics;
+import org.skyve.EXT;
 import org.skyve.cache.CacheConfig;
 import org.skyve.cache.CacheTier;
-import org.skyve.cache.CacheUtil;
+import org.skyve.cache.Caching;
 import org.skyve.cache.EHCacheConfig;
 import org.skyve.cache.HibernateCacheConfig;
 import org.skyve.cache.JCacheConfig;
@@ -20,26 +21,32 @@ import org.skyve.web.WebContext;
 import modules.admin.ControlPanel.ControlPanelExtension;
 
 public class CacheStats implements ServerSideAction<ControlPanelExtension> {
-	private static final long serialVersionUID = -7040725375654325351L;
-
 	@Override
 	public ServerSideActionResult<ControlPanelExtension> execute(ControlPanelExtension bean, WebContext webContext) throws Exception {
+		final Caching caching = EXT.getCaching();
+		
 		StringBuilder result = new StringBuilder(512);
 		result.append("<table>");
 
 		String cacheName = UtilImpl.CONVERSATION_CACHE.getName();
-		addEHCacheStats(cacheName, CacheUtil.getEHCacheStatistics(cacheName), result);
+		addEHCacheStats(cacheName, caching.getEHCacheStatistics(cacheName), result);
+		cacheName = UtilImpl.CSRF_TOKEN_CACHE.getName();
+		addEHCacheStats(cacheName, caching.getEHCacheStatistics(cacheName), result);
+		cacheName = UtilImpl.SESSION_CACHE.getName();
+		addEHCacheStats(cacheName, caching.getEHCacheStatistics(cacheName), result);
+		cacheName = UtilImpl.GEO_IP_CACHE.getName();
+		addEHCacheStats(cacheName, caching.getEHCacheStatistics(cacheName), result);
 		for (HibernateCacheConfig c : UtilImpl.HIBERNATE_CACHES) {
 			cacheName = c.getName();
-			addJCacheStats(cacheName, CacheUtil.getJCacheStatisticsMXBean(cacheName), result);
+			addJCacheStats(cacheName, caching.getJCacheStatisticsMXBean(cacheName), result);
 		}
 		for (CacheConfig<? extends Serializable, ? extends Serializable> c : UtilImpl.APP_CACHES) {
 			cacheName = c.getName();
 			if (c instanceof EHCacheConfig<?, ?>) {
-				addEHCacheStats(cacheName, CacheUtil.getEHCacheStatistics(cacheName), result);
+				addEHCacheStats(cacheName, caching.getEHCacheStatistics(cacheName), result);
 			}
 			else if (c instanceof JCacheConfig<?, ?>) {
-				addJCacheStats(cacheName, CacheUtil.getJCacheStatisticsMXBean(cacheName), result);
+				addJCacheStats(cacheName, caching.getJCacheStatisticsMXBean(cacheName), result);
 			}
 		}
 		result.append("</table>");
@@ -50,12 +57,14 @@ public class CacheStats implements ServerSideAction<ControlPanelExtension> {
 	}
 	
 	public static void addEHCacheStats(String cacheName, CacheStatistics stats, StringBuilder sb) {
+		final Caching caching = EXT.getCaching();
+
 		sb.append("<tr><td style=\"padding:20px\">");
 		sb.append("<h1>").append(cacheName).append("</h1>");
 		addStats(stats, sb);
 		sb.append("</td>");
 		
-		TierStatistics ts = CacheUtil.getEHTierStatistics(stats, CacheTier.OnHeap);
+		TierStatistics ts = caching.getEHTierStatistics(stats, CacheTier.OnHeap);
 		if (ts != null) {
 			sb.append("<td style=\"padding:20px\">");
 			sb.append("<h2>").append("Heap").append("</h2>");
@@ -63,7 +72,7 @@ public class CacheStats implements ServerSideAction<ControlPanelExtension> {
 			sb.append("</td>");
 		}
 		
-		ts = CacheUtil.getEHTierStatistics(stats, CacheTier.OffHeap);
+		ts = caching.getEHTierStatistics(stats, CacheTier.OffHeap);
 		if (ts != null) {
 			sb.append("<td style=\"padding:20px\">");
 			sb.append("<h2>").append("Off-Heap").append("</h2>");
@@ -71,7 +80,7 @@ public class CacheStats implements ServerSideAction<ControlPanelExtension> {
 			sb.append("</td>");
 		}
 
-		ts = CacheUtil.getEHTierStatistics(stats, CacheTier.Disk);
+		ts = caching.getEHTierStatistics(stats, CacheTier.Disk);
 		if (ts != null) {
 			sb.append("<td style=\"padding:20px\">");
 			sb.append("<h2>").append("Disk").append("</h2>");

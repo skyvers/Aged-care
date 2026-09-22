@@ -1,14 +1,17 @@
 package modules.admin.domain;
 
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.Group.GroupExtension;
 import modules.admin.User.UserExtension;
 import org.skyve.CORE;
@@ -21,6 +24,7 @@ import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
 import org.skyve.impl.domain.types.jaxb.TimestampMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * User
@@ -38,7 +42,8 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
-public abstract class User extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public abstract class User extends AbstractPersistentBean implements org.skyve.domain.app.admin.User {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -47,71 +52,126 @@ public abstract class User extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "User";
 
 	/** @hidden */
 	public static final String userNamePropertyName = "userName";
+
 	/** @hidden */
 	public static final String passwordPropertyName = "password";
+
 	/** @hidden */
 	public static final String generatedPasswordPropertyName = "generatedPassword";
+
 	/** @hidden */
 	public static final String createdDateTimePropertyName = "createdDateTime";
+
 	/** @hidden */
 	public static final String homeModulePropertyName = "homeModule";
+
 	/** @hidden */
 	public static final String newPasswordPropertyName = "newPassword";
+
 	/** @hidden */
 	public static final String confirmPasswordPropertyName = "confirmPassword";
+
 	/** @hidden */
 	public static final String legacyIdPropertyName = "legacyId";
+
 	/** @hidden */
 	public static final String passwordExpiredPropertyName = "passwordExpired";
+
 	/** @hidden */
 	public static final String passwordLastChangedPropertyName = "passwordLastChanged";
+
+	/** @hidden */
+	public static final String passwordLastChangedIPPropertyName = "passwordLastChangedIP";
+
+	/** @hidden */
+	public static final String passwordLastChangedCountryCodePropertyName = "passwordLastChangedCountryCode";
+
+	/** @hidden */
+	public static final String passwordLastChangedCountryNamePropertyName = "passwordLastChangedCountryName";
+
 	/** @hidden */
 	public static final String passwordResetTokenPropertyName = "passwordResetToken";
+
+	/** @hidden */
+	public static final String passwordResetTokenCreationTimestampPropertyName = "passwordResetTokenCreationTimestamp";
+
 	/** @hidden */
 	public static final String passwordHistoryPropertyName = "passwordHistory";
+
 	/** @hidden */
 	public static final String authenticationFailuresPropertyName = "authenticationFailures";
+
 	/** @hidden */
 	public static final String lastAuthenticationFailurePropertyName = "lastAuthenticationFailure";
+
 	/** @hidden */
 	public static final String contactPropertyName = "contact";
+
 	/** @hidden */
 	public static final String dataGroupPropertyName = "dataGroup";
+
 	/** @hidden */
 	public static final String groupsPropertyName = "groups";
+
 	/** @hidden */
 	public static final String rolesPropertyName = "roles";
+
 	/** @hidden */
 	public static final String wizardStatePropertyName = "wizardState";
+
 	/** @hidden */
 	public static final String searchContactNamePropertyName = "searchContactName";
+
 	/** @hidden */
 	public static final String searchEmailPropertyName = "searchEmail";
+
 	/** @hidden */
 	public static final String candidateContactsPropertyName = "candidateContacts";
+
 	/** @hidden */
 	public static final String contactSelectedPropertyName = "contactSelected";
+
 	/** @hidden */
 	public static final String inactivePropertyName = "inactive";
+
 	/** @hidden */
 	public static final String groupSelectionPropertyName = "groupSelection";
+
 	/** @hidden */
 	public static final String groupsExistPropertyName = "groupsExist";
+
 	/** @hidden */
 	public static final String newGroupPropertyName = "newGroup";
+
 	/** @hidden */
 	public static final String assignedRolesPropertyName = "assignedRoles";
+
 	/** @hidden */
 	public static final String activatedPropertyName = "activated";
+
 	/** @hidden */
 	public static final String activationCodePropertyName = "activationCode";
+
 	/** @hidden */
 	public static final String activationCodeCreationDateTimePropertyName = "activationCodeCreationDateTime";
+
+	/** @hidden */
+	public static final String activateUrlPropertyName = "activateUrl";
+
+	/** @hidden */
+	public static final String twoFactorCodePropertyName = "twoFactorCode";
+
+	/** @hidden */
+	public static final String twoFactorCodeGeneratedTimestampPropertyName = "twoFactorCodeGeneratedTimestamp";
+
+	/** @hidden */
+	public static final String twoFactorTokenPropertyName = "twoFactorToken";
 
 	/**
 	 * Wizard State
@@ -124,6 +184,7 @@ public abstract class User extends AbstractPersistentBean {
 			to confirm the new user name and password and membership of groups.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum WizardState implements Enumeration {
 		confirmContact("confirmContact", "confirmContact"),
 		createContact("createContact", "createContact"),
@@ -137,7 +198,7 @@ public abstract class User extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(WizardState::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private WizardState(String code, String description) {
 			this.code = code;
@@ -151,8 +212,8 @@ public abstract class User extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -173,11 +234,11 @@ public abstract class User extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static WizardState fromDescription(String description) {
+		public static WizardState fromLocalisedDescription(String description) {
 			WizardState result = null;
 
 			for (WizardState value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -187,22 +248,15 @@ public abstract class User extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				WizardState[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (WizardState value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.user.groupSelection.displayName
+	 * Groups
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum GroupSelection implements Enumeration {
 		existingGroups("existingGroups", "Existing groups"),
 		newGroup("newGroup", "New group");
@@ -214,7 +268,7 @@ public abstract class User extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(GroupSelection::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private GroupSelection(String code, String description) {
 			this.code = code;
@@ -228,8 +282,8 @@ public abstract class User extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -250,11 +304,11 @@ public abstract class User extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static GroupSelection fromDescription(String description) {
+		public static GroupSelection fromLocalisedDescription(String description) {
 			GroupSelection result = null;
 
 			for (GroupSelection value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -264,130 +318,183 @@ public abstract class User extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				GroupSelection[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (GroupSelection value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.user.userName.displayName
+	 * User Name
 	 * <br/>
 	 * Length is derived from the maximum email address length from RFC 5321
 	 **/
 	private String userName;
+
 	/**
-	 * admin.user.password.displayName
+	 * Password
 	 * <br/>
-	 * admin.user.password.description
+	 * Check Password Complexity settings for minimum required strength.
 	 **/
 	private String password;
+
 	/**
-	 * admin.user.generatedPassword.displayName
+	 * Generated Password
 	 * <br/>
-	 * admin.user.generatedPassword.description
+	 * Used to temporarily hold generated passwords for further processing.
 	 **/
 	private String generatedPassword;
+
 	/**
-	 * admin.user.createdDateTime.displayName
+	 * Created
 	 * <br/>
-	 * admin.user.createdDateTime.description
+	 * The time and date when this user account was created.
 	 **/
 	private DateTime createdDateTime;
+
 	/**
-	 * admin.user.homeModule.displayName
+	 * Home Module
 	 * <br/>
-	 * admin.user.homeModule.description
+	 * The module displayed when the user first signs in.
 	 **/
 	private String homeModule;
+
 	/**
-	 * admin.user.newPassword.displayName
+	 * New Password
 	 * <br/>
-	 * admin.user.newPassword.description
+	 * Check Password Complexity settings for minimum required strength.
 	 **/
 	private String newPassword;
+
 	/**
-	 * admin.user.confirmPassword.displayName
+	 * Confirm Password
 	 * <br/>
-	 * admin.user.confirmPassword.description
+	 * Check Password Complexity settings for minimum required strength.
 	 **/
 	private String confirmPassword;
+
 	/**
-	 * admin.user.legacyId.displayName
+	 * Legacy Id
 	 * <br/>
-	 * admin.user.legacyId.description
+	 * Legacy ID value when imported from legacy System using the conversion tool.
 	 **/
 	private String legacyId;
+
 	/**
-	 * admin.user.passwordExpired.displayName
+	 * Must change password
 	 * <br/>
-	 * admin.user.passwordExpired.description
+	 * Whether the password must be changed
 	 **/
 	private Boolean passwordExpired;
+
 	/**
-	 * admin.user.passwordLastChanged.displayName
+	 * Last changed
 	 * <br/>
-	 * admin.user.passwordLastChanged.description
+	 * Date and Time the users password was last changed
+	 * <br/>
+	 * When password was last changed. Referenced in password change notification email contents.
 	 **/
 	private DateTime passwordLastChanged;
+
 	/**
-	 * admin.user.passwordResetToken.displayName
+	 * Password Last Changed IP
 	 * <br/>
-	 * admin.user.passwordResetToken.description
+	 * Source IP when password was last changed
+	 * <br/>
+	 * IP when password was last changed. Referenced in password change notification email contents.
+	 **/
+	private String passwordLastChangedIP;
+
+	/**
+	 * Password Last Changed Country Code
+	 * <br/>
+	 * Country Code where password was last changed
+	 * <br/>
+	 * 2-letter country-code where password was last changed. Referenced in password change notification email contents.
+	 **/
+	private String passwordLastChangedCountryCode;
+
+	/**
+	 * Password Last Changed Country
+	 * <br/>
+	 * Country where password was last changed
+	 * <br/>
+	 * User Locale Country Name where password was last changed.
+					Referenced in password change notification email contents.
+					The getter is overridden in the extension class.
+	 **/
+	private String passwordLastChangedCountryName;
+
+	/**
+	 * Password Reset Token
+	 * <br/>
+	 * The password reset token emailed to the user on pass reset request.
 	 * <br/>
 	 * This contains a token (UUID + time in millis) which when submitted by the user will enable them to reset their password.
 	 **/
 	private String passwordResetToken;
+
 	/**
-	 * admin.user.passwordHistory.displayName
+	 * Password Reset Token Creation Timestamp
+	 * <br/>
+	 * When the password reset token was created
+	 * <br/>
+	 * Used in WebUtil.resetPassword to evaluate token expiry.
+	 **/
+	private Timestamp passwordResetTokenCreationTimestamp;
+
+	/**
+	 * Password History
 	 * <br/>
 	 * A tab separated list of previous password hashes used
 	 **/
 	private String passwordHistory;
+
 	/**
-	 * admin.user.authenticationFailures.displayName
+	 * Authentication Failures
 	 * <br/>
-	 * admin.user.authenticationFailures.description
+	 * The number of authentication failures since the last successful authentication
 	 * <br/>
 	 * This value is zeroed on successful authentication.
 	 **/
 	private Integer authenticationFailures;
+
 	/**
-	 * admin.user.lastAuthenticationFailure.displayName
+	 * Last Authentication Failure
 	 * <br/>
-	 * admin.user.lastAuthenticationFailure.description
+	 * Time that last authentication failure occurred
 	 **/
 	private Timestamp lastAuthenticationFailure;
+
 	/**
-	 * admin.user.association.contact.displayName
+	 * Contact
 	 * <br/>
-	 * admin.user.association.contact.description
+	 * The contact details for the user.
 	 **/
 	private Contact contact = null;
+
 	/**
-	 * admin.user.association.dataGroup.displayName
+	 * Data Group
 	 * <br/>
-	 * admin.user.association.dataGroup.description
+	 * The group that constrains what information this user can see.
 	 **/
 	private DataGroup dataGroup = null;
+
 	/**
-	 * admin.user.collection.groups.displayName
+	 * Security Groups
 	 * <br/>
-	 * admin.user.collection.groups.description
+	 * The collection of security groups that this user belongs to.
 	 **/
 	private List<GroupExtension> groups = new ChangeTrackingArrayList<>("groups", this);
+
 	/**
-	 * admin.user.collection.roles.displayName
+	 * Roles
 	 * <br/>
-	 * admin.user.collection.roles.description
+	 * Typically users are assigned membership of groups, which define sets of roles, corresponding to business roles within an organisation. 
+
+However user may also have specific roles assigned in addition to the roles
+which are implied from the groups to which they belong.
 	 **/
 	private List<UserRole> roles = new ChangeTrackingArrayList<>("roles", this);
+
 	/**
 	 * Wizard State
 	 * <br/>
@@ -399,75 +506,113 @@ public abstract class User extends AbstractPersistentBean {
 			to confirm the new user name and password and membership of groups.
 	 **/
 	private WizardState wizardState;
+
 	/**
-	 * admin.user.searchContactName.displayName
+	 * Full name
 	 * <br/>
-	 * admin.user.searchContactName.description
+	 * This is used to determine if you are on the system already
 	 **/
 	private String searchContactName;
+
 	/**
-	 * admin.user.searchEmail.displayName
+	 * Email
 	 * <br/>
-	 * admin.user.searchEmail.description
+	 * The email address to use to search existing contacts.
 	 **/
 	private String searchEmail;
+
 	/**
-	 * admin.user.collection.candidateContacts.displayName
+	 * Candidate Contacts
 	 * <br/>
-	 * admin.user.collection.candidateContacts.description
+	 * The contacts who possibly match the search criteria.
 	 **/
 	private List<UserCandidateContact> candidateContacts = new ChangeTrackingArrayList<>("candidateContacts", this);
+
 	/**
-	 * admin.user.contactSelected.displayName
+	 * The contact selected for this user.
 	 **/
-	private Boolean contactSelected = new Boolean(false);
+	private Boolean contactSelected = Boolean.valueOf(false);
+
 	/**
-	 * admin.user.inactive.displayName
+	 * Inactive
 	 * <br/>
-	 * admin.user.inactive.description
+	 * Indicates that this account has been marked as inactive and no longer in use.
 	 **/
 	private Boolean inactive;
+
 	/**
-	 * admin.user.groupSelection.displayName
+	 * Groups
 	 **/
 	private GroupSelection groupSelection;
+
 	/**
-	 * admin.user.groupsExist.displayName
+	 * Groups Exist
 	 **/
 	private Boolean groupsExist;
+
 	/**
-	 * admin.user.association.newGroup.displayName
+	 * New Group
 	 **/
 	private GroupExtension newGroup = null;
+
 	/**
-	 * admin.user.collection.assignedRoles.displayName
+	 * Roles
 	 * <br/>
-	 * admin.user.collection.assignedRoles.description
+	 * The assigned roles through the groups, customer roles and module roles assigned.
 	 **/
 	private List<UserRole> assignedRoles = new ArrayList<>();
+
 	/**
-	 * admin.user.activated.displayName
+	 * Account Activated
 	 * <br/>
-	 * admin.user.activated.description
+	 * Whether this account has been activated or not. An account not activated means the user has not finished the activation process by clicking the link from their registration email.
 	 * <br/>
 	 * By default the account will be activated.
 			For public users, we want them to activate the account manually so this will be set to false and the activationCode field will be populated.
 	 **/
-	private Boolean activated = new Boolean(true);
+	private Boolean activated = Boolean.valueOf(true);
+
 	/**
-	 * admin.user.activationCode.displayName
+	 * Activation Code
 	 * <br/>
-	 * admin.user.activationCode.description
+	 * The activation code for this user account.
 	 * <br/>
 	 * This contains a code which when submitted by the user will activate their account.
 	 **/
 	private String activationCode;
+
 	/**
-	 * admin.user.activationCodeCreationDateTime.displayName
+	 * The date and time the activation code was created
 	 * <br/>
-	 * admin.user.activationCodeCreationDateTime.description
+	 * This setting is used to control expiry of activation codes.
 	 **/
 	private DateTime activationCodeCreationDateTime;
+
+	/**
+	 * Activation Url
+	 **/
+	private String activateUrl;
+
+	/**
+	 * Two Factor Code
+	 * <br/>
+	 * this is hashed
+	 **/
+	private String twoFactorCode;
+
+	/**
+	 * 2FA Code DateTime
+	 * <br/>
+	 * used to invalidate the 2fa code when X amount of time has passed. Not displayed to the user
+	 **/
+	private Timestamp twoFactorCodeGeneratedTimestamp;
+
+	/**
+	 * Two Factor Token
+	 * <br/>
+	 * Used to identify the user is in the same session for 2FA code entry, this is for the system
+	 **/
+	private String twoFactorToken;
 
 	@Override
 	@XmlTransient
@@ -497,12 +642,6 @@ public abstract class User extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 return modules.admin.User.UserBizlet.bizKey(this);
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof User) && 
-					this.getBizId().equals(((User) o).getBizId()));
 	}
 
 	/**
@@ -570,9 +709,9 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 * {@link #createdDateTime} mutator.
 	 * @param createdDateTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setCreatedDateTime(DateTime createdDateTime) {
 		preset(createdDateTimePropertyName, createdDateTime);
 		this.createdDateTime = createdDateTime;
@@ -680,12 +819,65 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 * {@link #passwordLastChanged} mutator.
 	 * @param passwordLastChanged	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setPasswordLastChanged(DateTime passwordLastChanged) {
 		preset(passwordLastChangedPropertyName, passwordLastChanged);
 		this.passwordLastChanged = passwordLastChanged;
+	}
+
+	/**
+	 * {@link #passwordLastChangedIP} accessor.
+	 * @return	The value.
+	 **/
+	public String getPasswordLastChangedIP() {
+		return passwordLastChangedIP;
+	}
+
+	/**
+	 * {@link #passwordLastChangedIP} mutator.
+	 * @param passwordLastChangedIP	The new value.
+	 **/
+	@XmlElement
+	public void setPasswordLastChangedIP(String passwordLastChangedIP) {
+		preset(passwordLastChangedIPPropertyName, passwordLastChangedIP);
+		this.passwordLastChangedIP = passwordLastChangedIP;
+	}
+
+	/**
+	 * {@link #passwordLastChangedCountryCode} accessor.
+	 * @return	The value.
+	 **/
+	public String getPasswordLastChangedCountryCode() {
+		return passwordLastChangedCountryCode;
+	}
+
+	/**
+	 * {@link #passwordLastChangedCountryCode} mutator.
+	 * @param passwordLastChangedCountryCode	The new value.
+	 **/
+	@XmlElement
+	public void setPasswordLastChangedCountryCode(String passwordLastChangedCountryCode) {
+		preset(passwordLastChangedCountryCodePropertyName, passwordLastChangedCountryCode);
+		this.passwordLastChangedCountryCode = passwordLastChangedCountryCode;
+	}
+
+	/**
+	 * {@link #passwordLastChangedCountryName} accessor.
+	 * @return	The value.
+	 **/
+	public String getPasswordLastChangedCountryName() {
+		return passwordLastChangedCountryName;
+	}
+
+	/**
+	 * {@link #passwordLastChangedCountryName} mutator.
+	 * @param passwordLastChangedCountryName	The new value.
+	 **/
+	@XmlElement
+	public void setPasswordLastChangedCountryName(String passwordLastChangedCountryName) {
+		this.passwordLastChangedCountryName = passwordLastChangedCountryName;
 	}
 
 	/**
@@ -704,6 +896,26 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	public void setPasswordResetToken(String passwordResetToken) {
 		preset(passwordResetTokenPropertyName, passwordResetToken);
 		this.passwordResetToken = passwordResetToken;
+	}
+
+	/**
+	 * {@link #passwordResetTokenCreationTimestamp} accessor.
+	 * @return	The value.
+	 **/
+	public Timestamp getPasswordResetTokenCreationTimestamp() {
+		return passwordResetTokenCreationTimestamp;
+	}
+
+	/**
+	 * {@link #passwordResetTokenCreationTimestamp} mutator.
+	 * @param passwordResetTokenCreationTimestamp	The new value.
+	 **/
+	@XmlElement
+	@XmlSchemaType(name = "dateTime")
+	@XmlJavaTypeAdapter(TimestampMapper.class)
+	public void setPasswordResetTokenCreationTimestamp(Timestamp passwordResetTokenCreationTimestamp) {
+		preset(passwordResetTokenCreationTimestampPropertyName, passwordResetTokenCreationTimestamp);
+		this.passwordResetTokenCreationTimestamp = passwordResetTokenCreationTimestamp;
 	}
 
 	/**
@@ -753,9 +965,9 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 * {@link #lastAuthenticationFailure} mutator.
 	 * @param lastAuthenticationFailure	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(TimestampMapper.class)
-	@XmlElement
 	public void setLastAuthenticationFailure(Timestamp lastAuthenticationFailure) {
 		preset(lastAuthenticationFailurePropertyName, lastAuthenticationFailure);
 		this.lastAuthenticationFailure = lastAuthenticationFailure;
@@ -894,7 +1106,9 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 **/
 	public boolean addRolesElement(UserRole element) {
 		boolean result = roles.add(element);
-		element.setParent((UserExtension) this);
+		if (result) {
+			element.setParent((UserExtension) this);
+		}
 		return result;
 	}
 
@@ -914,7 +1128,9 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 **/
 	public boolean removeRolesElement(UserRole element) {
 		boolean result = roles.remove(element);
-		element.setParent(null);
+		if (result) {
+			element.setParent(null);
+		}
 		return result;
 	}
 
@@ -1015,7 +1231,9 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 **/
 	public boolean addCandidateContactsElement(UserCandidateContact element) {
 		boolean result = candidateContacts.add(element);
-		element.setParent((UserExtension) this);
+		if (result) {
+			element.setParent((UserExtension) this);
+		}
 		return result;
 	}
 
@@ -1035,7 +1253,9 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 **/
 	public boolean removeCandidateContactsElement(UserCandidateContact element) {
 		boolean result = candidateContacts.remove(element);
-		element.setParent(null);
+		if (result) {
+			element.setParent(null);
+		}
 		return result;
 	}
 
@@ -1063,7 +1283,6 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 **/
 	@XmlElement
 	public void setContactSelected(Boolean contactSelected) {
-		preset(contactSelectedPropertyName, contactSelected);
 		this.contactSelected = contactSelected;
 	}
 
@@ -1246,12 +1465,104 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 * {@link #activationCodeCreationDateTime} mutator.
 	 * @param activationCodeCreationDateTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setActivationCodeCreationDateTime(DateTime activationCodeCreationDateTime) {
 		preset(activationCodeCreationDateTimePropertyName, activationCodeCreationDateTime);
 		this.activationCodeCreationDateTime = activationCodeCreationDateTime;
+	}
+
+	/**
+	 * {@link #activateUrl} accessor.
+	 * @return	The value.
+	 **/
+	public String getActivateUrl() {
+		return activateUrl;
+	}
+
+	/**
+	 * {@link #activateUrl} mutator.
+	 * @param activateUrl	The new value.
+	 **/
+	@XmlElement
+	public void setActivateUrl(String activateUrl) {
+		this.activateUrl = activateUrl;
+	}
+
+	/**
+	 * {@link #twoFactorCode} accessor.
+	 * @return	The value.
+	 **/
+	public String getTwoFactorCode() {
+		return twoFactorCode;
+	}
+
+	/**
+	 * {@link #twoFactorCode} mutator.
+	 * @param twoFactorCode	The new value.
+	 **/
+	@XmlElement
+	public void setTwoFactorCode(String twoFactorCode) {
+		preset(twoFactorCodePropertyName, twoFactorCode);
+		this.twoFactorCode = twoFactorCode;
+	}
+
+	/**
+	 * {@link #twoFactorCodeGeneratedTimestamp} accessor.
+	 * @return	The value.
+	 **/
+	public Timestamp getTwoFactorCodeGeneratedTimestamp() {
+		return twoFactorCodeGeneratedTimestamp;
+	}
+
+	/**
+	 * {@link #twoFactorCodeGeneratedTimestamp} mutator.
+	 * @param twoFactorCodeGeneratedTimestamp	The new value.
+	 **/
+	@XmlElement
+	@XmlSchemaType(name = "dateTime")
+	@XmlJavaTypeAdapter(TimestampMapper.class)
+	public void setTwoFactorCodeGeneratedTimestamp(Timestamp twoFactorCodeGeneratedTimestamp) {
+		preset(twoFactorCodeGeneratedTimestampPropertyName, twoFactorCodeGeneratedTimestamp);
+		this.twoFactorCodeGeneratedTimestamp = twoFactorCodeGeneratedTimestamp;
+	}
+
+	/**
+	 * {@link #twoFactorToken} accessor.
+	 * @return	The value.
+	 **/
+	public String getTwoFactorToken() {
+		return twoFactorToken;
+	}
+
+	/**
+	 * {@link #twoFactorToken} mutator.
+	 * @param twoFactorToken	The new value.
+	 **/
+	@XmlElement
+	public void setTwoFactorToken(String twoFactorToken) {
+		preset(twoFactorTokenPropertyName, twoFactorToken);
+		this.twoFactorToken = twoFactorToken;
+	}
+
+	/**
+	 * Whether the current user is allowed to manage this user's details
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isAccessDenied() {
+		return (!isOwningUser() && !isSecurityAdministrator());
+	}
+
+	/**
+	 * {@link #isAccessDenied} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotAccessDenied() {
+		return (! isAccessDenied());
 	}
 
 	/**
@@ -1428,6 +1739,25 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	}
 
 	/**
+	 * Whether the current user is this user
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isOwningUser() {
+		return (((UserExtension) this).owningUser());
+	}
+
+	/**
+	 * {@link #isOwningUser} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotOwningUser() {
+		return (! isOwningUser());
+	}
+
+	/**
 	 * Security Administrator
 	 *
 	 * @return The condition
@@ -1463,6 +1793,25 @@ return modules.admin.User.UserBizlet.bizKey(this);
 	 */
 	public boolean isNotSelfRegistrationEnabled() {
 		return (! isSelfRegistrationEnabled());
+	}
+
+	/**
+	 * True when User Self-Registration is enabled and the User has not been activated.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelfRegistrationEnabledAndUserNotActivated() {
+		return (isSelfRegistrationEnabled() && Boolean.FALSE.equals(getActivated()) && isSecurityAdministrator());
+	}
+
+	/**
+	 * {@link #isSelfRegistrationEnabledAndUserNotActivated} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelfRegistrationEnabledAndUserNotActivated() {
+		return (! isSelfRegistrationEnabledAndUserNotActivated());
 	}
 
 	/**

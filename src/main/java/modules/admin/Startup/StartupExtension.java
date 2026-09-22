@@ -4,23 +4,30 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
+import java.util.concurrent.CopyOnWriteArraySet;
 
-import javax.inject.Inject;
-
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.locationtech.jts.io.WKTWriter;
+import org.skyve.impl.backup.AzureBlobStorageBackup;
+import org.skyve.impl.geoip.GeoIPServiceStaticSingleton;
 import org.skyve.impl.util.UtilImpl;
 import org.skyve.metadata.customer.Customer;
 import org.skyve.util.JSON;
-import org.skyve.util.Util;
 
+import jakarta.inject.Inject;
+import modules.admin.Country.CountryExtension;
 import modules.admin.domain.Startup;
 
 public class StartupExtension extends Startup {
@@ -34,14 +41,24 @@ public class StartupExtension extends Startup {
 	static final String ACCOUNT_ALLOW_SELF_REGISTRATION_KEY = "allowUserSelfRegistration";
 
 	static final String API_STANZA_KEY = "api";
+	static final String API_PASSWORD_BREACH_CHECK = "checkForBreachedPassword";
 	static final String API_GOOGLE_MAPS_V3_KEY = "googleMapsV3Key";
-	static final String API_GOOGLE_RECAPTCHA_KEY = "googleRecaptchaSiteKey";
+	static final String API_GOOGLE_RECAPTCHA_SITE_KEY = "googleRecaptchaSiteKey";
+	static final String API_GOOGLE_RECAPTCHA_SECRET_KEY = "googleRecaptchaSecretKey";
+	static final String API_CLOUDFLARE_TURNSTILE_SITE_KEY = "cloudflareTurnstileSiteKey";
+	static final String API_CLOUDFLARE_TURNSTILE_SECRET_KEY = "cloudflareTurnstileSecretKey";
+	static final String API_GEO_IP_KEY = "geoIPKey";
+	static final String API_GEO_IP_WHITELIST = "geoIPWhitelist";
+	static final String API_GEO_IP_COUNTRY_CODES = "geoIPCountryCodes";
+
+	static final String BACKUP_STANZA_KEY = "backup";
+	static final String BACKUP_EXTERNAL_BACKUP_CLASS_KEY = "externalBackupClass";
+	static final String BACKUP_PROPERTIES_KEY = "properties";
 
 	static final String ENVIRONMENT_STANZA_KEY = "environment";
 	static final String ENVIRONMENT_IDENTIFIER_KEY = "identifier";
 	static final String ENVIRONMENT_SHOW_SETUP_KEY = "showSetup";
 	static final String ENVIRONMENT_SUPPORT_EMAIL_ADDRESS_KEY = "supportEmailAddress";
-
 	static final String MAP_STANZA_KEY = "map";
 	static final String MAP_CENTRE_KEY = "centre";
 	static final String MAP_LAYERS_KEY = "layers";
@@ -57,13 +74,42 @@ public class StartupExtension extends Startup {
 	static final String SMTP_PORT_KEY = "port";
 	static final String SMTP_SERVER_KEY = "server";
 
+	static final String SECURITY_STANZA_KEY = "security";
+	static final String SECURITY_IP_ADDRESS_CHECKS_KEY = "ipAddressChecks";
+	static final String SECURITY_IP_ADDRESS_HISTORY_CHECK_COUNT_KEY = "ipAddressHistoryCheckCount";
+	static final String SECURITY_CONCURRENT_SESSION_WARNINGS_KEY = "concurrentSessionWarnings";
+	static final String SECURITY_NOTIFICATIONS_EMAIL_KEY = "securityNotificationsEmail";
+	static final String SECURITY_GEO_IP_NOTIFICATIONS_KEY = "geoIPBlockNotifications";
+	static final String SECURITY_CONCURRENT_SESSION_NOTIFICATIONS_KEY = "concurrentSessionNotifications";
+	static final String SECURITY_PASSWORD_CHANGE_NOTIFICATIONS_KEY = "passwordChangeNotifications";
+	static final String SECURITY_DIFFERENT_COUNTRY_LOGIN_NOTIFICATIONS_KEY = "differentCountryLoginNotifications";
+	static final String SECURITY_IP_ADDRESS_CHANGE_NOTIFICATIONS_KEY = "ipAddressChangeNotifications";
+	static final String SECURITY_ACCESS_EXCEPTION_NOTIFICATIONS_KEY = "accessExceptionNotifications";
+	static final String SECURITY_SECURITY_EXCEPTION_NOTIFICATIONS_KEY = "securityExceptionNotifications";
+
 	/**
 	 * Populate this bean's attributes from the current configuration properties values
 	 * read from the application json and override json.
 	 */
 	public void loadProperties() {
 		setApiGoogleMapsKey(UtilImpl.GOOGLE_MAPS_V3_API_KEY);
-		setApiGoogleRecaptchaKey(UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY);
+		setApiGoogleRecaptchaSiteKey(UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY);
+		setApiGoogleRecaptchaSecretKey(UtilImpl.GOOGLE_RECAPTCHA_SECRET_KEY);
+		setApiCloudflareTurnstileSiteKey(UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY);
+		setApiCloudflareTurnstileSecretKey(UtilImpl.CLOUDFLARE_TURNSTILE_SECRET_KEY);
+		
+		setCheckForBreachedPassword(Boolean.valueOf(UtilImpl.CHECK_FOR_BREACHED_PASSWORD));
+		
+		boolean googleRecaptchaValuesSet = UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY != null;
+		boolean cloudflareTurnstileValuesSet = UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY != null;
+		
+		if (googleRecaptchaValuesSet) {
+			setCaptchaType(CaptchaType.googleRecaptcha);
+		} else if (cloudflareTurnstileValuesSet) {
+			setCaptchaType(CaptchaType.cloudflareTurnstile);
+		} else {
+			setCaptchaType(null);
+		}
 
 		setEnvironmentIdentifier(UtilImpl.ENVIRONMENT_IDENTIFIER);
 		setEnvironmentSupportEmail(UtilImpl.SUPPORT_EMAIL_ADDRESS);
@@ -82,15 +128,61 @@ public class StartupExtension extends Startup {
 		} else {
 			try {
 				setMapCentre(new WKTReader().read(mapCentre));
-			} catch (ParseException e) {
+			} catch (@SuppressWarnings("unused") ParseException e) {
 				setMapCentre(new GeometryFactory().createPoint(new Coordinate(0, 0)));
 			}
 		}
+
 		setMapLayer(UtilImpl.MAP_LAYERS);
 		setMapType(MapType.fromCode(UtilImpl.MAP_TYPE.name()));
 		setMapZoom(Integer.valueOf(UtilImpl.MAP_ZOOM));
 
 		setAccountAllowUserSelfRegistration(Boolean.valueOf(UtilImpl.ACCOUNT_ALLOW_SELF_REGISTRATION));
+
+		if (UtilImpl.BACKUP_EXTERNAL_BACKUP_CLASS != null) {
+			setBackupType(BackupType.fromCode(UtilImpl.BACKUP_EXTERNAL_BACKUP_CLASS));
+		}
+		else {
+			setBackupType(BackupType.none);
+		}
+		if (UtilImpl.BACKUP_PROPERTIES != null) {
+			Object property = UtilImpl.BACKUP_PROPERTIES.get(AzureBlobStorageBackup.AZURE_CONNECTION_STRING_KEY);
+			if (property != null) {
+				setBackupConnectionString(property.toString());
+			}
+			property = UtilImpl.BACKUP_PROPERTIES.get(AzureBlobStorageBackup.AZURE_CONTAINER_NAME_KEY);
+			if (property != null) {
+				setBackupDirectoryName(property.toString());
+			}
+		}
+
+		// load country list type
+		setGeoIPCountryListType(UtilImpl.GEO_IP_WHITELIST ?
+									GeoIPCountryListType.whitelist :
+									GeoIPCountryListType.blacklist);
+
+		// IP tracking configurations
+		setIpAddressChecks(Boolean.valueOf(UtilImpl.IP_ADDRESS_CHECKS));
+		setIpAddressHistoryCheckCount(Integer.valueOf(UtilImpl.IP_ADDRESS_HISTORY_CHECK_COUNT));
+		setConcurrentSessionWarnings(Boolean.valueOf(UtilImpl.CONCURRENT_SESSION_WARNINGS));
+
+		// convert country codes from csv to list
+		List<CountryExtension> countries = getGeoIPCountries();
+		countries.clear();
+		if (UtilImpl.GEO_IP_COUNTRY_CODES != null) {
+			UtilImpl.GEO_IP_COUNTRY_CODES.forEach(cc -> countries.add(CountryExtension.fromCode(cc)));
+		}
+		setGeoIPKey(UtilImpl.GEO_IP_KEY);
+
+		// Security notification configurations
+		setSecurityNotificationsEmail(UtilImpl.SECURITY_NOTIFICATIONS_EMAIL_ADDRESS);
+		setGeoIPBlockNotifications(Boolean.valueOf(UtilImpl.GEO_IP_BLOCK_NOTIFICATIONS));
+		setConcurrentSessionNotifications(Boolean.valueOf(UtilImpl.CONCURRENT_SESSION_NOTIFICATIONS));
+		setPasswordChangeNotifications(Boolean.valueOf(UtilImpl.PASSWORD_CHANGE_NOTIFICATIONS));
+		setDifferentCountryLoginNotifications(Boolean.valueOf(UtilImpl.DIFFERENT_COUNTRY_LOGIN_NOTIFICATIONS));
+		setIpAddressChangeNotifications(Boolean.valueOf(UtilImpl.IP_ADDRESS_CHANGE_NOTIFICATIONS));
+		setAccessExceptionNotifications(Boolean.valueOf(UtilImpl.ACCESS_EXCEPTION_NOTIFICATIONS));
+		setSecurityExceptionNotifications(Boolean.valueOf(UtilImpl.SECURITY_EXCEPTION_NOTIFICATIONS));
 	}
 
 	/**
@@ -111,6 +203,8 @@ public class StartupExtension extends Startup {
 		putMail(properties);
 		putMap(properties);
 		putAccount(properties);
+		putBackup(properties);
+		putSecurity(properties);
 
 		// write the json out to the content directory
 		String json = marshall(properties);
@@ -193,19 +287,171 @@ public class StartupExtension extends Startup {
 		}
 
 		// add any values to the override configuration if they have changed
+		if (getCheckForBreachedPassword() != null
+				&& UtilImpl.CHECK_FOR_BREACHED_PASSWORD != getCheckForBreachedPassword().booleanValue()) {
+			api.put(API_PASSWORD_BREACH_CHECK, getCheckForBreachedPassword());
+			UtilImpl.CHECK_FOR_BREACHED_PASSWORD = getCheckForBreachedPassword().booleanValue();
+		}
 		if (getApiGoogleMapsKey() != null
 				&& !StringUtils.equals(UtilImpl.GOOGLE_MAPS_V3_API_KEY, getApiGoogleMapsKey())) {
 			api.put(API_GOOGLE_MAPS_V3_KEY, getApiGoogleMapsKey());
 			UtilImpl.GOOGLE_MAPS_V3_API_KEY = getApiGoogleMapsKey();
 		}
+		
+		if (getCaptchaType() == null) {
+			// Clear cloudflare turnstile site key and secret key
+			api.put(API_CLOUDFLARE_TURNSTILE_SITE_KEY, null);
+			UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY = null;
+			api.put(API_CLOUDFLARE_TURNSTILE_SECRET_KEY, null);
+			UtilImpl.CLOUDFLARE_TURNSTILE_SECRET_KEY = null;
 
-		if (getApiGoogleRecaptchaKey() != null
-				&& !StringUtils.equals(UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY, getApiGoogleRecaptchaKey())) {
-			api.put(API_GOOGLE_RECAPTCHA_KEY, getApiGoogleRecaptchaKey());
-			UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY = getApiGoogleRecaptchaKey();
+			// Clear google recaptcha site key and secret key
+			api.put(API_GOOGLE_RECAPTCHA_SITE_KEY, null);
+			UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY = null;
+			api.put(API_GOOGLE_RECAPTCHA_SECRET_KEY, null);
+			UtilImpl.GOOGLE_RECAPTCHA_SECRET_KEY = null;
+		} else {
+			switch (getCaptchaType()) {
+				case googleRecaptcha:
+					// Set google recaptcha keys
+					String googleSiteKey = getApiGoogleRecaptchaSiteKey();
+					if (googleSiteKey != null
+							&& !StringUtils.equals(UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY, googleSiteKey)) {
+						api.put(API_GOOGLE_RECAPTCHA_SITE_KEY, googleSiteKey);
+						UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY = googleSiteKey;
+					}
+
+					String googleSecretKey = getApiGoogleRecaptchaSecretKey();
+					if (googleSecretKey != null
+							&& !StringUtils.equals(UtilImpl.GOOGLE_RECAPTCHA_SECRET_KEY, googleSecretKey)) {
+						api.put(API_GOOGLE_RECAPTCHA_SECRET_KEY, googleSecretKey);
+						UtilImpl.GOOGLE_RECAPTCHA_SECRET_KEY = googleSecretKey;
+					}
+
+					// Clear cloudflare turnstile site key and secret key
+					api.put(API_CLOUDFLARE_TURNSTILE_SITE_KEY, null);
+					UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY = null;
+					api.put(API_CLOUDFLARE_TURNSTILE_SECRET_KEY, null);
+					UtilImpl.CLOUDFLARE_TURNSTILE_SECRET_KEY = null;
+
+					break;
+				case cloudflareTurnstile:
+					// Set turnstile keys
+					String turnstileSiteKey = getApiCloudflareTurnstileSiteKey();
+					if (turnstileSiteKey != null
+							&& !StringUtils.equals(UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY, turnstileSiteKey)) {
+						api.put(API_CLOUDFLARE_TURNSTILE_SITE_KEY, turnstileSiteKey);
+						UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY = turnstileSiteKey;
+					}
+
+					String turnstileSecretKey = getApiCloudflareTurnstileSecretKey();
+					if (turnstileSecretKey != null
+							&& !StringUtils.equals(UtilImpl.CLOUDFLARE_TURNSTILE_SECRET_KEY, turnstileSecretKey)) {
+						api.put(API_CLOUDFLARE_TURNSTILE_SECRET_KEY, turnstileSecretKey);
+						UtilImpl.CLOUDFLARE_TURNSTILE_SECRET_KEY = turnstileSecretKey;
+					}
+
+					// Clear google recaptcha site key and secret key
+					api.put(API_GOOGLE_RECAPTCHA_SITE_KEY, null);
+					UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY = null;
+					api.put(API_GOOGLE_RECAPTCHA_SECRET_KEY, null);
+					UtilImpl.GOOGLE_RECAPTCHA_SECRET_KEY = null;
+
+					break;
+				default:
+					// Clear cloudflare turnstile site key and secret key
+					api.put(API_CLOUDFLARE_TURNSTILE_SITE_KEY, null);
+					UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY = null;
+					api.put(API_CLOUDFLARE_TURNSTILE_SECRET_KEY, null);
+					UtilImpl.CLOUDFLARE_TURNSTILE_SECRET_KEY = null;
+
+					// Clear google recaptcha site key and secret key
+					api.put(API_GOOGLE_RECAPTCHA_SITE_KEY, null);
+					UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY = null;
+					api.put(API_GOOGLE_RECAPTCHA_SECRET_KEY, null);
+					UtilImpl.GOOGLE_RECAPTCHA_SECRET_KEY = null;
+			}
 		}
 
+		String geoIPKey = getGeoIPKey();
+		if (geoIPKey != null
+				&& !StringUtils.equals(UtilImpl.GEO_IP_KEY, geoIPKey)) {
+			api.put(API_GEO_IP_KEY, geoIPKey);
+			UtilImpl.GEO_IP_KEY = geoIPKey;
+			if (UtilImpl.SKYVE_GEOIP_SERVICE_CLASS == null) {
+				GeoIPServiceStaticSingleton.setDefault();
+			}
+		}
+		
+		List<CountryExtension> countries = getGeoIPCountries();
+		if (countries.isEmpty()) {
+			api.put(API_GEO_IP_COUNTRY_CODES, null);
+			UtilImpl.GEO_IP_COUNTRY_CODES = null;
+		}
+		else {
+			// convert the selected countries into a | separated string of the 2-letter country codes
+			int countriesSize = countries.size();
+			StringBuilder selectedCodes = new StringBuilder(countriesSize * 3);
+			List<String> countryCodeList = new ArrayList<>(countriesSize);
+			for (CountryExtension country : countries) {
+				String code = country.getCode();
+				countryCodeList.add(code);
+				selectedCodes.append(code).append('|');
+			}
+			selectedCodes.setLength(selectedCodes.length() - 1); // remove last '|'
+			api.put(API_GEO_IP_COUNTRY_CODES, selectedCodes.toString());
+			UtilImpl.GEO_IP_COUNTRY_CODES = new CopyOnWriteArraySet<>(countryCodeList); // set in 1 fell swoop
+		}
+
+		GeoIPCountryListType countryListType = getGeoIPCountryListType();
+		UtilImpl.GEO_IP_WHITELIST = (GeoIPCountryListType.blacklist != countryListType); // defaults true
+		api.put(API_GEO_IP_WHITELIST, Boolean.valueOf(UtilImpl.GEO_IP_WHITELIST));
+
 		return api;
+	}
+
+	/**
+	 * Compares the current value of the backup configuration against the
+	 * new value from the startup page and if they value has changed, adds it to the
+	 * map to be persisted and updates the running configuration with the new value.
+	 * 
+	 * @param properties The current override configuration property map
+	 * @return The map of backup properties which have been modified
+	 */
+	@SuppressWarnings("unchecked")
+	private Map<String, Object> putBackup(final Map<String, Object> properties) {
+		// initialise or get the existing property map
+		Map<String, Object> backup = (Map<String, Object>) properties.get(BACKUP_STANZA_KEY);
+		Map<String, Object> backupProperties = null;
+		if (backup == null) {
+			backup = new HashMap<>();
+			properties.put(BACKUP_STANZA_KEY, backup);
+		}
+
+		// add any values to the override configuration if they have changed
+		BackupType backupType = getBackupType();
+		if ((backupType == null) || (backupType == BackupType.none)) {
+			UtilImpl.BACKUP_EXTERNAL_BACKUP_CLASS = null;
+		} else {
+			UtilImpl.BACKUP_EXTERNAL_BACKUP_CLASS = backupType.toCode();
+			backupProperties = new TreeMap<>();
+			backup.put(BACKUP_PROPERTIES_KEY, backupProperties);
+		}
+		backup.put(BACKUP_EXTERNAL_BACKUP_CLASS_KEY, UtilImpl.BACKUP_EXTERNAL_BACKUP_CLASS);
+
+		if (backupProperties != null) {
+			String property = getBackupConnectionString();
+			if (property != null) {
+				backupProperties.put(AzureBlobStorageBackup.AZURE_CONNECTION_STRING_KEY, property);
+			}
+			property = getBackupDirectoryName();
+			if (property != null) {
+				backupProperties.put(AzureBlobStorageBackup.AZURE_CONTAINER_NAME_KEY, property);
+			}
+		}
+		UtilImpl.BACKUP_PROPERTIES = backupProperties;
+
+		return backup;
 	}
 
 	/**
@@ -364,15 +610,99 @@ public class StartupExtension extends Startup {
 			}
 
 			if (!properties.isEmpty()) {
-				String json = JSON.marshall(customer, properties);
-				Util.LOGGER.info(String.format("Override json: %s", json));
-
-				return json;
+				return JSON.marshall(customer, properties);
 			}
 		}
 
-		Util.LOGGER.info("No startup properties were modified, nothing to marshall.");
+		LOGGER.info("No startup properties were modified, nothing to marshall.");
 		return null;
+	}
+	
+	/**
+	 * Compares the current value of the security configuration against the
+	 * new value from the startup page and if they value has changed, adds it to the
+	 * map to be persisted and updates the running configuration with the new value.
+	 * 
+	 * @param properties The current override configuration property map
+	 * @return The map of security properties which have been modified
+	 */
+	@SuppressWarnings({ "unchecked", "boxing" })
+	private Map<String, Object> putSecurity(final Map<String, Object> properties) {
+		// initialise or get the existing property map
+		Map<String, Object> map = (Map<String, Object>) properties.get(SECURITY_STANZA_KEY);
+		if (map == null) {
+			map = new HashMap<>();
+			properties.put(SECURITY_STANZA_KEY, map);
+		}
+
+		// add any values to the override configuration if they have changed
+		boolean ipAddressChecks = BooleanUtils.isNotFalse(getIpAddressChecks()); // default to true
+		if (UtilImpl.IP_ADDRESS_CHECKS != ipAddressChecks) {
+			map.put(SECURITY_IP_ADDRESS_CHECKS_KEY, ipAddressChecks);
+			UtilImpl.IP_ADDRESS_CHECKS = ipAddressChecks;
+		}
+
+		int ipAddressHistoryCheckCount = getIpAddressHistoryCheckCount() == null ? 1 : getIpAddressHistoryCheckCount();
+		if (UtilImpl.IP_ADDRESS_HISTORY_CHECK_COUNT != ipAddressHistoryCheckCount) {
+			map.put(SECURITY_IP_ADDRESS_HISTORY_CHECK_COUNT_KEY, ipAddressHistoryCheckCount);
+			UtilImpl.IP_ADDRESS_HISTORY_CHECK_COUNT = ipAddressHistoryCheckCount;
+		}
+
+		boolean concurrentSessionWarnings = BooleanUtils.isNotFalse(getConcurrentSessionWarnings()); // default to true
+		if (UtilImpl.CONCURRENT_SESSION_WARNINGS != concurrentSessionWarnings) {
+			map.put(SECURITY_CONCURRENT_SESSION_WARNINGS_KEY, concurrentSessionWarnings);
+			UtilImpl.CONCURRENT_SESSION_WARNINGS = concurrentSessionWarnings;
+		}
+
+		String securityNotificationsEmail = getSecurityNotificationsEmail();
+		if (!Objects.equals(UtilImpl.SECURITY_NOTIFICATIONS_EMAIL_ADDRESS, securityNotificationsEmail)) {
+			map.put(SECURITY_NOTIFICATIONS_EMAIL_KEY, securityNotificationsEmail);
+			UtilImpl.SECURITY_NOTIFICATIONS_EMAIL_ADDRESS = securityNotificationsEmail;
+		}
+		
+		boolean geoIPBlockNotifications = BooleanUtils.isNotFalse(getGeoIPBlockNotifications()); // default to true
+		if (UtilImpl.GEO_IP_BLOCK_NOTIFICATIONS != geoIPBlockNotifications) {
+			map.put(SECURITY_GEO_IP_NOTIFICATIONS_KEY, geoIPBlockNotifications);
+			UtilImpl.GEO_IP_BLOCK_NOTIFICATIONS = geoIPBlockNotifications;
+		}
+
+		boolean concurrentSessionNotifications = BooleanUtils.isNotFalse(getConcurrentSessionNotifications()); // default to true
+		if (UtilImpl.CONCURRENT_SESSION_NOTIFICATIONS != concurrentSessionNotifications) {
+			map.put(SECURITY_CONCURRENT_SESSION_NOTIFICATIONS_KEY, concurrentSessionNotifications);
+			UtilImpl.CONCURRENT_SESSION_NOTIFICATIONS = concurrentSessionNotifications;
+		}
+
+		boolean passwordChangeNotifications = BooleanUtils.isNotFalse(getPasswordChangeNotifications()); // default to true
+		if (UtilImpl.PASSWORD_CHANGE_NOTIFICATIONS != passwordChangeNotifications) {
+			map.put(SECURITY_PASSWORD_CHANGE_NOTIFICATIONS_KEY, passwordChangeNotifications);
+			UtilImpl.PASSWORD_CHANGE_NOTIFICATIONS = passwordChangeNotifications;
+		}
+		
+		boolean differentCountryLoginNotifications = BooleanUtils.isNotFalse(getDifferentCountryLoginNotifications()); // default to true
+		if (UtilImpl.DIFFERENT_COUNTRY_LOGIN_NOTIFICATIONS != differentCountryLoginNotifications) {
+			map.put(SECURITY_DIFFERENT_COUNTRY_LOGIN_NOTIFICATIONS_KEY, differentCountryLoginNotifications);
+			UtilImpl.DIFFERENT_COUNTRY_LOGIN_NOTIFICATIONS = differentCountryLoginNotifications;
+		}
+
+		boolean ipAddressChangeNotifications = BooleanUtils.isNotFalse(getIpAddressChangeNotifications()); // default to true
+		if (UtilImpl.IP_ADDRESS_CHANGE_NOTIFICATIONS != ipAddressChangeNotifications) {
+			map.put(SECURITY_IP_ADDRESS_CHANGE_NOTIFICATIONS_KEY, ipAddressChangeNotifications);
+			UtilImpl.IP_ADDRESS_CHANGE_NOTIFICATIONS = ipAddressChangeNotifications;
+		}
+		
+		boolean accessExceptionNotifications = BooleanUtils.isNotFalse(getAccessExceptionNotifications()); // default to true
+		if (UtilImpl.ACCESS_EXCEPTION_NOTIFICATIONS != accessExceptionNotifications) {
+			map.put(SECURITY_ACCESS_EXCEPTION_NOTIFICATIONS_KEY, accessExceptionNotifications);
+			UtilImpl.ACCESS_EXCEPTION_NOTIFICATIONS = accessExceptionNotifications;
+		}
+		
+		boolean securityExceptionNotifications = BooleanUtils.isNotFalse(getSecurityExceptionNotifications()); // default to true
+		if (UtilImpl.SECURITY_EXCEPTION_NOTIFICATIONS != securityExceptionNotifications) {
+			map.put(SECURITY_SECURITY_EXCEPTION_NOTIFICATIONS_KEY, securityExceptionNotifications);
+			UtilImpl.SECURITY_EXCEPTION_NOTIFICATIONS = securityExceptionNotifications;
+		}
+
+		return map;
 	}
 
 	/**
@@ -390,6 +720,28 @@ public class StartupExtension extends Startup {
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(overridesFile))) {
 				writer.write(json);
 			}
+		}
+	}
+	
+	/**
+	 * This method is used to clear any api values in the json override file found in the content folder
+	 * @param properties
+	 * @throws IOException
+	 */
+	public void clearApi(Map<String, Object> properties) throws IOException {
+		// initialise or get the existing property map
+		@SuppressWarnings("unchecked")
+		Map<String, Object> api = (Map<String, Object>) properties.get(StartupExtension.API_STANZA_KEY);
+		if (api == null) {
+			api = new HashMap<>();
+			properties.put(API_STANZA_KEY, api);
+		}
+		api.clear();
+		// write the json out to the content directory
+		String json = this.marshall(properties);
+		if (StringUtils.isNotBlank(json)) {
+			this.writeConfiguration(json);
+			LOGGER.info("Wrote updated properties to override json");
 		}
 	}
 }

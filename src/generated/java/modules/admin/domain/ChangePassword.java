@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractTransientBean;
@@ -15,6 +16,7 @@ import org.skyve.impl.domain.AbstractTransientBean;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class ChangePassword extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -24,15 +26,19 @@ public class ChangePassword extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "ChangePassword";
 
 	/** @hidden */
 	public static final String oldPasswordPropertyName = "oldPassword";
+
 	/** @hidden */
 	public static final String newPasswordPropertyName = "newPassword";
+
 	/** @hidden */
 	public static final String confirmPasswordPropertyName = "confirmPassword";
+
 	/** @hidden */
 	public static final String responsePropertyName = "response";
 
@@ -45,18 +51,21 @@ public class ChangePassword extends AbstractTransientBean {
 					self service reset password function cannot demand the user for their old password.
 	 **/
 	private String oldPassword;
+
 	/**
 	 * New Password
 	 * <br/>
-	 * Enter your new password
+	 * New Password
 	 **/
 	private String newPassword;
+
 	/**
 	 * Confirm Password
 	 * <br/>
 	 * Re-enter your new password
 	 **/
 	private String confirmPassword;
+
 	/**
 	 * Response
 	 **/
@@ -89,14 +98,12 @@ public class ChangePassword extends AbstractTransientBean {
 	@Override
 	@XmlTransient
 	public String getBizKey() {
-		return toString();
-
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ChangePassword) && 
-					this.getBizId().equals(((ChangePassword) o).getBizId()));
+		try {
+			return org.skyve.util.Binder.formatMessage("Change Password", this);
+		}
+		catch (@SuppressWarnings("unused") Exception e) {
+			return "Unknown";
+		}
 	}
 
 	/**
@@ -169,5 +176,24 @@ public class ChangePassword extends AbstractTransientBean {
 	public void setResponse(String response) {
 		preset(responsePropertyName, response);
 		this.response = response;
+	}
+
+	/**
+	 * passwordChanged
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isPasswordChanged() {
+		return (response != null);
+	}
+
+	/**
+	 * {@link #isPasswordChanged} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotPasswordChanged() {
+		return (! isPasswordChanged());
 	}
 }

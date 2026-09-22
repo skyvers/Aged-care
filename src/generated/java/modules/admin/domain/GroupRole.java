@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import modules.admin.Group.GroupExtension;
 import org.skyve.CORE;
 import org.skyve.domain.Bean;
@@ -18,6 +19,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class GroupRole extends AbstractPersistentBean implements ChildBean<GroupExtension> {
 	/**
 	 * For Serialization
@@ -27,6 +29,7 @@ public class GroupRole extends AbstractPersistentBean implements ChildBean<Group
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "GroupRole";
 
@@ -37,10 +40,10 @@ public class GroupRole extends AbstractPersistentBean implements ChildBean<Group
 	 * Role Name
 	 **/
 	private String roleName;
+
 	private GroupExtension parent;
 
 	private Integer bizOrdinal;
-
 
 	@Override
 	@XmlTransient
@@ -75,12 +78,6 @@ public class GroupRole extends AbstractPersistentBean implements ChildBean<Group
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof GroupRole) && 
-					this.getBizId().equals(((GroupRole) o).getBizId()));
 	}
 
 	/**

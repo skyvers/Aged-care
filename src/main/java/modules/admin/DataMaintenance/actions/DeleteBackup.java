@@ -9,35 +9,47 @@ import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.util.FileUtil;
 import org.skyve.util.Util;
 import org.skyve.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import modules.admin.domain.DataMaintenance;
 
 public class DeleteBackup implements ServerSideAction<DataMaintenance> {
-	private static final long serialVersionUID = 5306067916641877356L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DeleteBackup.class);
 
 	@Override
 	public ServerSideActionResult<DataMaintenance> execute(DataMaintenance bean, WebContext webContext)
-	throws Exception {
+			throws Exception {
 		String customerName = CORE.getUser().getCustomerName();
-		File backup = new File(String.format("%sbackup_%s%s%s",
-												Util.getContentDirectory(),
-												customerName,
-												File.separator,
-												bean.getSelectedBackupName()));
-		if (backup.exists()) {
-			Util.LOGGER.info("Deleting backup " + backup.getAbsolutePath());
-			if (ExternalBackup.areExternalBackupsEnabled()) {
+
+		// delete external backup if enabled
+		if (ExternalBackup.areExternalBackupsEnabled()) {
+			String backupName = bean.getSelectedBackupName();
+			if (ExternalBackup.getInstance().exists(backupName)) {
+				LOGGER.info("Deleting backup " + backupName);
 				ExternalBackup.getInstance().deleteBackup(bean.getSelectedBackupName());
+				LOGGER.info("Deleted backup " + backupName);
 			} else {
-				FileUtil.delete(backup);
+				LOGGER.info("Backup " + backupName + " no longer exists");
 			}
-			Util.LOGGER.info("Deleted backup " + backup.getAbsolutePath());
 		}
-		else {
-			Util.LOGGER.info("Backup " + backup.getAbsolutePath() + " no longer exists");
+		// delete from local content
+		File backup = new File(String.format("%sbackup_%s%s%s",
+				Util.getBackupDirectory(),
+				customerName,
+				File.separator,
+				bean.getSelectedBackupName()));
+		if (backup.exists()) {
+			LOGGER.info("Deleting backup " + backup.getAbsolutePath());
+			FileUtil.delete(backup);
+			LOGGER.info("Deleted backup " + backup.getAbsolutePath());
+		} else {
+			LOGGER.info("Backup " + backup.getAbsolutePath() + " no longer exists");
 		}
 
-		bean.setSelectedBackupName(null); // deselect the deleted backup
+		// deselect the deleted backup
+		bean.setSelectedBackupName(null);
 		bean.setRefreshBackups(Boolean.TRUE);
 
 		return new ServerSideActionResult<>(bean);

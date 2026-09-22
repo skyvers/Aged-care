@@ -1,11 +1,12 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Timestamp;
@@ -19,6 +20,7 @@ import org.skyve.impl.domain.types.jaxb.TimestampMapper;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class UserToken extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -28,15 +30,19 @@ public class UserToken extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "UserToken";
 
 	/** @hidden */
 	public static final String userNamePropertyName = "userName";
+
 	/** @hidden */
 	public static final String seriesPropertyName = "series";
+
 	/** @hidden */
 	public static final String tokenPropertyName = "token";
+
 	/** @hidden */
 	public static final String lastUsedPropertyName = "lastUsed";
 
@@ -46,14 +52,17 @@ public class UserToken extends AbstractPersistentBean {
 	 * Length is derived User.userName length + bizCustomer length + 1
 	 **/
 	private String userName;
+
 	/**
 	 * Series
 	 **/
 	private String series;
+
 	/**
 	 * Token
 	 **/
 	private String token;
+
 	/**
 	 * Last Used
 	 **/
@@ -92,12 +101,6 @@ public class UserToken extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof UserToken) && 
-					this.getBizId().equals(((UserToken) o).getBizId()));
 	}
 
 	/**
@@ -166,9 +169,9 @@ public class UserToken extends AbstractPersistentBean {
 	 * {@link #lastUsed} mutator.
 	 * @param lastUsed	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(TimestampMapper.class)
-	@XmlElement
 	public void setLastUsed(Timestamp lastUsed) {
 		preset(lastUsedPropertyName, lastUsed);
 		this.lastUsed = lastUsed;

@@ -1,14 +1,16 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
@@ -16,6 +18,7 @@ import org.skyve.domain.types.Timestamp;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.TimestampMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Audit
@@ -28,7 +31,8 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
-public class Audit extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public class Audit extends AbstractPersistentBean implements org.skyve.archive.support.ArchiveableBean {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -37,38 +41,57 @@ public class Audit extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Audit";
 
 	/** @hidden */
 	public static final String auditModuleNamePropertyName = "auditModuleName";
+
 	/** @hidden */
 	public static final String auditDocumentNamePropertyName = "auditDocumentName";
+
 	/** @hidden */
 	public static final String auditBizIdPropertyName = "auditBizId";
+
 	/** @hidden */
 	public static final String auditBizKeyPropertyName = "auditBizKey";
+
 	/** @hidden */
 	public static final String operationPropertyName = "operation";
+
 	/** @hidden */
 	public static final String timestampPropertyName = "timestamp";
+
 	/** @hidden */
 	public static final String millisPropertyName = "millis";
+
 	/** @hidden */
 	public static final String userNamePropertyName = "userName";
+
 	/** @hidden */
 	public static final String auditDetailPropertyName = "auditDetail";
+
 	/** @hidden */
 	public static final String sourceVersionPropertyName = "sourceVersion";
+
 	/** @hidden */
 	public static final String comparisonVersionPropertyName = "comparisonVersion";
+
 	/** @hidden */
 	public static final String mePropertyName = "me";
+
+	/** @hidden */
+	public static final String archiveTimestampPropertyName = "archiveTimestamp";
+
+	/** @hidden */
+	public static final String archiveFilenamePropertyName = "archiveFilename";
 
 	/**
 	 * Operation
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum Operation implements Enumeration {
 		insert("I", "Insert"),
 		update("U", "Update"),
@@ -81,7 +104,7 @@ public class Audit extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(Operation::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private Operation(String code, String description) {
 			this.code = code;
@@ -95,8 +118,8 @@ public class Audit extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -117,11 +140,11 @@ public class Audit extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static Operation fromDescription(String description) {
+		public static Operation fromLocalisedDescription(String description) {
 			Operation result = null;
 
 			for (Operation value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -131,14 +154,6 @@ public class Audit extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				Operation[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (Operation value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -147,50 +162,71 @@ public class Audit extends AbstractPersistentBean {
 	 * Module
 	 **/
 	private String auditModuleName;
+
 	/**
 	 * Document
 	 **/
 	private String auditDocumentName;
+
 	/**
 	 * BizId
 	 **/
 	private String auditBizId;
+
 	/**
 	 * Description
 	 **/
 	private String auditBizKey;
+
 	/**
 	 * Operation
 	 **/
 	private Operation operation;
+
 	/**
 	 * Timestamp
 	 **/
 	private Timestamp timestamp;
+
 	/**
 	 * Millis
 	 **/
 	private Long millis;
+
 	/**
 	 * User
 	 **/
 	private String userName;
+
 	/**
 	 * Audit
 	 **/
 	private String auditDetail;
+
 	/**
 	 * Source Version To Compare
 	 **/
 	private Audit sourceVersion = null;
+
 	/**
 	 * Other Version To Compare
 	 **/
 	private Audit comparisonVersion = null;
+
 	/**
 	 * Me
 	 **/
 	private Audit me = null;
+
+	/**
+	 * Archive Timestamp
+	 **/
+	private Timestamp archiveTimestamp;
+
+	/**
+	 * Archive File
+	 **/
+	private String archiveFilename;
 
 	@Override
 	@XmlTransient
@@ -225,12 +261,6 @@ public class Audit extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Audit) && 
-					this.getBizId().equals(((Audit) o).getBizId()));
 	}
 
 	/**
@@ -335,9 +365,9 @@ public class Audit extends AbstractPersistentBean {
 	 * {@link #timestamp} mutator.
 	 * @param timestamp	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(TimestampMapper.class)
-	@XmlElement
 	public void setTimestamp(Timestamp timestamp) {
 		preset(timestampPropertyName, timestamp);
 		this.timestamp = timestamp;
@@ -455,5 +485,43 @@ public class Audit extends AbstractPersistentBean {
 			preset(mePropertyName, me);
 			this.me = me;
 		}
+	}
+
+	/**
+	 * {@link #archiveTimestamp} accessor.
+	 * @return	The value.
+	 **/
+	public Timestamp getArchiveTimestamp() {
+		return archiveTimestamp;
+	}
+
+	/**
+	 * {@link #archiveTimestamp} mutator.
+	 * @param archiveTimestamp	The new value.
+	 **/
+	@XmlElement
+	@XmlSchemaType(name = "dateTime")
+	@XmlJavaTypeAdapter(TimestampMapper.class)
+	public void setArchiveTimestamp(Timestamp archiveTimestamp) {
+		preset(archiveTimestampPropertyName, archiveTimestamp);
+		this.archiveTimestamp = archiveTimestamp;
+	}
+
+	/**
+	 * {@link #archiveFilename} accessor.
+	 * @return	The value.
+	 **/
+	public String getArchiveFilename() {
+		return archiveFilename;
+	}
+
+	/**
+	 * {@link #archiveFilename} mutator.
+	 * @param archiveFilename	The new value.
+	 **/
+	@XmlElement
+	public void setArchiveFilename(String archiveFilename) {
+		preset(archiveFilenamePropertyName, archiveFilename);
+		this.archiveFilename = archiveFilename;
 	}
 }

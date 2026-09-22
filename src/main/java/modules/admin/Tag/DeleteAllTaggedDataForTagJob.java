@@ -14,13 +14,10 @@ import org.skyve.metadata.customer.Customer;
 import org.skyve.metadata.module.Module;
 import org.skyve.metadata.user.User;
 import org.skyve.persistence.Persistence;
+import org.skyve.tag.TagManager;
 import org.skyve.util.PushMessage;
 
-import modules.admin.domain.Tag;
-
 public class DeleteAllTaggedDataForTagJob extends Job {
-	private static final long serialVersionUID = 6282346785863992703L;
-
 	@Override
 	public String cancel() {
 		return null;
@@ -28,16 +25,16 @@ public class DeleteAllTaggedDataForTagJob extends Job {
 
 	@Override
 	public void execute() throws Exception {
-
 		List<String> log = getLog();
 
-		Tag tag = (Tag) getBean();
+		TagExtension tag = (TagExtension) getBean();
 		log.add("Started Delete All Tagged Data Job at " + new Date());
 
 		// get relevant document to action
 		Persistence pers = CORE.getPersistence();
 		User user = pers.getUser();
 		Customer customer = user.getCustomer();
+		TagManager tm = EXT.getTagManager();
 		for (Module module : customer.getModules()) {
 			for (String documentRef : module.getDocumentRefs().keySet()) {
 
@@ -54,7 +51,7 @@ public class DeleteAllTaggedDataForTagJob extends Job {
 					sb.append(" ").append(pb.getBizKey());
 					try {
 						// remove from tag and delete
-						EXT.untag(tag.getBizId(), pb);
+						tm.untag(tag.getBizId(), pb);
 						pers.delete(pb);
 						pers.commit(false);
 						pers.evictCached(pb);

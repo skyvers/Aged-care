@@ -22,18 +22,19 @@ import org.skyve.metadata.model.document.Document;
 import org.skyve.metadata.module.Module;
 import org.skyve.persistence.Persistence;
 import org.skyve.util.Binder;
-import org.skyve.util.Util;
 import org.skyve.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import modules.admin.ImportExport.ImportExportBizlet;
 import modules.admin.ImportExportColumn.ImportExportColumnBizlet;
 import modules.admin.domain.ImportExport;
-import modules.admin.domain.ImportExport.LoadType;
 import modules.admin.domain.ImportExport.RollbackErrors;
 import modules.admin.domain.ImportExportColumn;
 
 public class RunImport implements ServerSideAction<ImportExport> {
 
-	private static final long serialVersionUID = 7301976416286938546L;
+    private static final Logger LOGGER = LoggerFactory.getLogger(RunImport.class);
 
 	@Override
 	public ServerSideActionResult<ImportExport> execute(ImportExport bean, WebContext webContext)
@@ -56,7 +57,7 @@ public class RunImport implements ServerSideAction<ImportExport> {
 
 				POISheetLoader loader = new POISheetLoader(poiStream, 0, bean.getModuleName(), bean.getDocumentName(), exception);
 				loader.setDebugMode(Boolean.TRUE.equals(bean.getDetailedLogging()));
-				if (LoadType.createAll.equals(bean.getLoadType())) {
+				if (bean.getLoadType() != null && bean.getLoadType().equals(ImportExportBizlet.CREATE_EVERYTHING_EVEN_IF_THERE_MIGHT_BE_DUPLICATES)) {
 					loader.setActivityType(LoaderActivityType.CREATE_ALL);
 				} else {
 					loader.setActivityType(LoaderActivityType.CREATE_FIND);
@@ -76,6 +77,10 @@ public class RunImport implements ServerSideAction<ImportExport> {
 							moreCells = false;
 							break;
 						}
+
+						// strip any line breaks or tabs in the column name
+						columnName = columnName.replace("\n", "").replace("\t", "");
+
 						if (!columnName.equals(bean.getImportExportColumns().get(i).getColumnName())) {
 							StringBuilder sb = new StringBuilder();
 							sb.append("The column title ").append(bean.getImportExportColumns().get(i).getColumnName());
@@ -131,15 +136,15 @@ public class RunImport implements ServerSideAction<ImportExport> {
 						default:
 							break;
 						}
-						sb.append(" using load action ").append(col.getLoadAction().toDescription());
+						sb.append(" using load action ").append(col.getLoadAction().toLocalisedDescription());
 					}
 
 					if (loader.isDebugMode()) {
-						Util.LOGGER.info(sb.toString());
+						LOGGER.info(sb.toString());
 					}
 					loader.addField(f);
 					if (loader.isDebugMode()) {
-						Util.LOGGER.info("Field added at position " + f.getIndex().toString());
+						LOGGER.info("Field added at position " + f.getIndex().toString());
 					}
 				}
 
@@ -149,7 +154,7 @@ public class RunImport implements ServerSideAction<ImportExport> {
 
 					// stop at empty row
 					if (loader.isNoData()) {
-						Util.LOGGER.info("End of import found at " + loader.getWhere());
+						LOGGER.info("End of import found at " + loader.getWhere());
 						break;
 					}
 
@@ -157,9 +162,9 @@ public class RunImport implements ServerSideAction<ImportExport> {
 
 					if (loader.isDebugMode()) {
 						if (b == null) {
-							Util.LOGGER.info("Loaded failed at " + loader.getWhere());
+							LOGGER.info("Loaded failed at " + loader.getWhere());
 						} else {
-							Util.LOGGER.info(b.getBizKey() + " - Loaded successfully");
+							LOGGER.info(b.getBizKey() + " - Loaded successfully");
 						}
 					}
 					try {
@@ -171,7 +176,7 @@ public class RunImport implements ServerSideAction<ImportExport> {
 
 						b = persistence.save(b);
 						if (loader.isDebugMode()) {
-							Util.LOGGER.info(b.getBizKey() + " - Saved successfully");
+							LOGGER.info(b.getBizKey() + " - Saved successfully");
 						}
 						persistence.evictCached(b);
 
@@ -215,7 +220,7 @@ public class RunImport implements ServerSideAction<ImportExport> {
 			StringBuilder sb = new StringBuilder();
 			if (loadedRows > 0) {
 				sb.append("Successfully loaded ").append(loadedRows).append(" rows. ");
-				sb.append(created).append(' ').append(document.getPluralAlias()).append(" created.");
+				sb.append(created).append(' ').append(document.getLocalisedPluralAlias()).append(" created.");
 			} else {
 				sb.append("Import unsuccessful. Try again.");
 			}

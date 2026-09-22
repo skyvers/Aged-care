@@ -1,11 +1,12 @@
 package modules.admin.domain;
 
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import modules.admin.Group.GroupExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
@@ -21,6 +22,7 @@ import org.skyve.impl.domain.ChangeTrackingArrayList;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class Group extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -30,15 +32,19 @@ public abstract class Group extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Group";
 
 	/** @hidden */
 	public static final String namePropertyName = "name";
+
 	/** @hidden */
 	public static final String descriptionPropertyName = "description";
+
 	/** @hidden */
 	public static final String rolesPropertyName = "roles";
+
 	/** @hidden */
 	public static final String candidateRolesPropertyName = "candidateRoles";
 
@@ -46,14 +52,17 @@ public abstract class Group extends AbstractPersistentBean {
 	 * Group Name
 	 **/
 	private String name;
+
 	/**
 	 * Description
 	 **/
 	private String description;
+
 	/**
 	 * Roles
 	 **/
 	private List<GroupRole> roles = new ChangeTrackingArrayList<>("roles", this);
+
 	/**
 	 * Candidate Roles
 	 * <br/>
@@ -94,12 +103,6 @@ public abstract class Group extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Group) && 
-					this.getBizId().equals(((Group) o).getBizId()));
 	}
 
 	/**
@@ -171,7 +174,9 @@ public abstract class Group extends AbstractPersistentBean {
 	 **/
 	public boolean addRolesElement(GroupRole element) {
 		boolean result = roles.add(element);
-		element.setParent((GroupExtension) this);
+		if (result) {
+			element.setParent((GroupExtension) this);
+		}
 		return result;
 	}
 
@@ -191,7 +196,9 @@ public abstract class Group extends AbstractPersistentBean {
 	 **/
 	public boolean removeRolesElement(GroupRole element) {
 		boolean result = roles.remove(element);
-		element.setParent(null);
+		if (result) {
+			element.setParent(null);
+		}
 		return result;
 	}
 
@@ -238,7 +245,9 @@ public abstract class Group extends AbstractPersistentBean {
 	 **/
 	public boolean addCandidateRolesElement(GroupRole element) {
 		boolean result = candidateRoles.add(element);
-		element.setParent((GroupExtension) this);
+		if (result) {
+			element.setParent((GroupExtension) this);
+		}
 		return result;
 	}
 
@@ -258,7 +267,9 @@ public abstract class Group extends AbstractPersistentBean {
 	 **/
 	public boolean removeCandidateRolesElement(GroupRole element) {
 		boolean result = candidateRoles.remove(element);
-		element.setParent(null);
+		if (result) {
+			element.setParent(null);
+		}
 		return result;
 	}
 

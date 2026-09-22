@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page session="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -12,14 +12,18 @@
 <%@page import="org.skyve.impl.web.WebUtil"%>
 <%@page import="org.skyve.metadata.user.User"%>
 <%@page import="org.skyve.util.Util"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
+
+<%! static final Logger logger = LoggerFactory.getLogger("org.skyve.jsp.resendRegistrationEmail"); %>
+
 <%
 	String basePath = Util.getSkyveContextUrl() + "/";
 	String customer = WebUtil.determineCustomerWithoutSession(request);
 	boolean mobile = UserAgent.getType(request).isMobile();
 	Principal p = request.getUserPrincipal();
-	User user = WebUtil.processUserPrincipalForRequest(request, (p == null) ? null : p.getName(), true);
+	User user = WebUtil.processUserPrincipalForRequest(request, (p == null) ? null : p.getName());
 	Locale locale = (user == null) ? request.getLocale() : user.getLocale();
-	String referer = WebUtil.getRefererHeader(request);
 
 	// This is a postback, process it and move on
 	String customerValue = request.getParameter("customer");
@@ -32,9 +36,7 @@
 		}
 		catch (Exception e) {
 			// don't stop - we need to give nothing away
-			UtilImpl.LOGGER.log(Level.SEVERE, 
-									String.format("Send Registration Email failed for customer=%s and userId=%s", customerValue, userIdValue),
-									e);
+			logger.error("Send Registration Email failed for customer={} and userId={}", customerValue, userIdValue, e);
 		}
 	}
 %>
@@ -72,25 +74,29 @@
 		    		<%@include file="fragments/logo.html" %>
 		    	</div>
 		    	
-		        <form class="ui large form">
+		        <div class="ui large form">
 		            <div class="ui segment">
-		            	<% if(postback) { %>
-		            	<div class="ui header">
-		            		<%=Util.i18n("page.resendRegistrationEmail.banner", locale)%>
-		            	</div>
+		            	<% if (postback) { %>
+			            	<div class="ui header">
+			            		<%=Util.i18n("page.resendRegistrationEmail.banner", locale)%>
+			            	</div>
 						<% } else { %>
-						<div class="ui red message">
-		            		<div class="ui header">
-		            			<%=Util.i18n("page.error.banner", locale)%>
-		            		</div>
-		            		<div class="field">
-		            			<%=Util.i18n("page.error.explanation", locale)%>
-		            		</div>
-		            	</div>
+							<div class="ui red message">
+			            		<div class="ui header">
+			            			<%=Util.i18n("page.error.banner", locale)%>
+			            		</div>
+			            		<div class="field">
+			            			<%=Util.i18n("page.error.explanation", locale)%>
+			            		</div>
+			            	</div>
 		            	<% } %>
-		            	<a href="<%=Util.getSkyveContextUrl()%><%=Util.getHomeUri()%><%=(user == null) ? "" : (String.format("home?customer=%s", user.getCustomerName()))%>" class="ui fluid large blue submit button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+	                	<% if (UtilImpl.CUSTOMER == null) { %>
+		            		<a href="<%=Util.getBaseUrl()%><%=(user == null) ? "" : ("?customer=" + user.getCustomerName())%>" class="ui fluid large blue submit button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+		                <% } else { %>
+		            		<a href="<%=Util.getBaseUrl()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+		                <% } %>
 		            </div>
-		        </form>
+		        </div>
 		    </div>
 		</div>
 	</body>

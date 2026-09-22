@@ -46,4 +46,5 @@
 		<route outcome="/external/home.xhtml" />
 	</uxui>
 	<unsecured>/external/public.xhtml</unsecured>
+	<unsecured>/external/selfRegister.xhtml</unsecured>
 </router>

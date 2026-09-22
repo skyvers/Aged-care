@@ -1,12 +1,12 @@
 package modules.admin.Tag;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.skyve.CORE;
 import org.skyve.EXT;
 import org.skyve.domain.Bean;
-import org.skyve.impl.util.TagUtil;
 import org.skyve.metadata.controller.ImplicitActionName;
 import org.skyve.metadata.customer.Customer;
 import org.skyve.metadata.model.Attribute;
@@ -15,29 +15,25 @@ import org.skyve.metadata.model.document.Condition;
 import org.skyve.metadata.model.document.Document;
 import org.skyve.metadata.module.Module;
 import org.skyve.metadata.user.User;
+import org.skyve.persistence.AutoClosingIterable;
 import org.skyve.persistence.DocumentQuery;
-import org.skyve.persistence.DocumentQuery.AggregateFunction;
 import org.skyve.persistence.Persistence;
 import org.skyve.persistence.SQL;
+import org.skyve.tag.TagManager;
 import org.skyve.web.WebContext;
 
 import modules.admin.Jobs.JobsBizlet;
 import modules.admin.domain.Tag;
 import modules.admin.domain.Tag.FilterAction;
 import modules.admin.domain.Tag.FilterOperator;
-import modules.admin.domain.Tagged;
 
-public class TagBizlet extends Bizlet<Tag> {
-
-	private static final long serialVersionUID = -927602139528710862L;
-
+public class TagBizlet extends Bizlet<TagExtension> {
 	public static final String SYSTEM_TAG_ACTION_NOTIFICATION = "SYSTEM Tag Action Notification";
 	public static final String SYSTEM_TAG_ACTION_DEFAULT_SUBJECT = "Perform Document Action for Tag - Complete";
 	public static final String SYSTEM_TAG_ACTION_DEFAULT_BODY = "The action for Tag {name} is complete." + JobsBizlet.SYSTEM_JOB_NOTIFICATION_LINK_TO_JOBS;
 
 	@Override
-	public List<DomainValue> getDynamicDomainValues(String attributeName, Tag bean) throws Exception {
-
+	public List<DomainValue> getDynamicDomainValues(String attributeName, TagExtension bean) throws Exception {
 		Persistence pers = CORE.getPersistence();
 		List<DomainValue> result = new ArrayList<>();
 
@@ -48,8 +44,9 @@ public class TagBizlet extends Bizlet<Tag> {
 			Module module = customer.getModule(bean.getActionModuleName());
 			for (String documentName : module.getDocumentRefs().keySet()) {
 				Document document = module.getDocument(customer, documentName);
-				result.add(new DomainValue(document.getName(), document.getSingularAlias()));
+				result.add(new DomainValue(document.getName(), document.getLocalisedSingularAlias()));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (Tag.uploadDocumentNamePropertyName.equals(attributeName)
@@ -57,17 +54,19 @@ public class TagBizlet extends Bizlet<Tag> {
 			Module module = customer.getModule(bean.getUploadModuleName());
 			for (String documentName : module.getDocumentRefs().keySet()) {
 				Document document = module.getDocument(customer, documentName);
-				result.add(new DomainValue(document.getName(), document.getSingularAlias()));
+				result.add(new DomainValue(document.getName(), document.getLocalisedSingularAlias()));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (Tag.attributeNamePropertyName.equals(attributeName)
 				&& bean.getUploadModuleName() != null && bean.getUploadDocumentName() != null) {
 			Module module = customer.getModule(bean.getUploadModuleName());
 			Document document = module.getDocument(customer, bean.getUploadDocumentName());
-			for (Attribute attribute : document.getAllAttributes()) {
-				result.add(new DomainValue(attribute.getName(), attribute.getDisplayName()));
+			for (Attribute attribute : document.getAllAttributes(customer)) {
+				result.add(new DomainValue(attribute.getName(), attribute.getLocalisedDisplayName()));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (Tag.operandTagPropertyName.equals(attributeName)) {
@@ -80,6 +79,7 @@ public class TagBizlet extends Bizlet<Tag> {
 			for (Tag t : tags) {
 				result.add(new DomainValue(t.getBizId(), t.getName()));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (Tag.documentActionPropertyName.equals(attributeName)
@@ -92,6 +92,7 @@ public class TagBizlet extends Bizlet<Tag> {
 
 			// add default save action
 			result.addAll(TagDefaultAction.toDomainValues());
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		if (Tag.documentConditionPropertyName.equals(attributeName)
@@ -102,14 +103,14 @@ public class TagBizlet extends Bizlet<Tag> {
 				Condition condition = document.getCondition(act);
 				result.add(new DomainValue(act, (condition.getDescription() == null ? act : condition.getDescription())));
 			}
+			result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 		}
 
 		return result;
 	}
 
 	@Override
-	public Tag preExecute(ImplicitActionName actionName, Tag bean, Bean parentBean, WebContext webContext) throws Exception {
-		
+	public TagExtension preExecute(ImplicitActionName actionName, TagExtension bean, Bean parentBean, WebContext webContext) throws Exception {
 		if (ImplicitActionName.Edit.equals(actionName)) {
 			if (bean.getUploadModuleName() == null) {
 				Module homeModule = CORE.getUser().getCustomer().getHomeModule();
@@ -131,20 +132,21 @@ public class TagBizlet extends Bizlet<Tag> {
 				bean.setFilterAction(FilterAction.tagRecordsThatMatch);
 			}
 			if (bean.getFilterColumn() == null) {
-				bean.setFilterColumn(new Integer(1));
+				bean.setFilterColumn(Integer.valueOf(1));
 			}
 			bean.setCopyToUserTagName(bean.getName());
 			
 			//set counters
-			bean.setOperandTagCount(getCount(bean.getOperandTag()));
-			bean.setUploadTagged(getCountOfDocument(bean, bean.getUploadModuleName(), bean.getUploadDocumentName()));
-			bean.setTotalTagged(getCount(bean));
+			TagExtension operandTag = bean.getOperandTag();
+			bean.setOperandTagCount(Long.valueOf((operandTag == null) ? 0L : operandTag.count()));
+			bean.setUploadTagged(Long.valueOf(bean.countDocument(bean.getUploadModuleName(), bean.getUploadDocumentName())));
+			bean.setTotalTagged(Long.valueOf(bean.count()));
 
 			bean.originalValues().clear();
 		}
 
 		if (ImplicitActionName.Delete.equals(actionName)) {
-			TagUtil.clear(bean.getBizId());
+			EXT.getTagManager().clear(bean.getBizId());
 		}
 
 		return bean;
@@ -152,13 +154,12 @@ public class TagBizlet extends Bizlet<Tag> {
 
 	@Override
 	public List<DomainValue> getVariantDomainValues(String attributeName) throws Exception {
-
 		List<DomainValue> result = new ArrayList<>();
 
 		Customer customer = CORE.getUser().getCustomer();
 		if (Tag.uploadModuleNamePropertyName.equals(attributeName) || Tag.actionModuleNamePropertyName.equals(attributeName)) {
 			for (Module module : customer.getModules()) {
-				result.add(new DomainValue(module.getName(), module.getTitle()));
+				result.add(new DomainValue(module.getName(), module.getLocalisedTitle()));
 			}
 		}
 
@@ -172,21 +173,20 @@ public class TagBizlet extends Bizlet<Tag> {
 	 * @param subject
 	 * @param object
 	 */
-	public static void union(Tag subject, Tag object) throws Exception {
-
+	public static void union(TagExtension subject, TagExtension object) throws Exception {
 		if (subject != null && object != null) {
-
-			// no dialect insensitive way to use SQL for creating new UUIDs for
-			// new records
+			// no dialect insensitive way to use SQL for creating new UUIDs for new records
 			// add tagged items from object tag to subject tag
-			// EXT function deals with duplicates
-			for (Bean bean : EXT.iterateTagged(object.getBizId())) {
-				EXT.tag(subject.getBizId(), bean);
+			// TagManager function deals with duplicates
+			TagManager tm = EXT.getTagManager();
+			try (AutoClosingIterable<Bean> i = tm.iterate(object.getBizId())) {
+				for (Bean bean : i) {
+					tm.tag(subject.getBizId(), bean);
+				}
 			}
-			subject.setUploadTagged(getCountOfDocument(subject, subject.getUploadModuleName(), subject.getUploadDocumentName()));
-			subject.setTotalTagged(getCount(subject));
+			subject.setUploadTagged(Long.valueOf(subject.countDocument(subject.getUploadModuleName(), subject.getUploadDocumentName())));
+			subject.setTotalTagged(Long.valueOf(subject.count()));
 		}
-
 	}
 
 	/**
@@ -197,12 +197,11 @@ public class TagBizlet extends Bizlet<Tag> {
 	 * @param object
 	 * @throws Exception
 	 */
-	public static void intersect(Tag subject, Tag object) throws Exception {
-
+	public static void intersect(TagExtension subject, TagExtension object) throws Exception {
 		if (subject != null && object != null) {
 			Persistence pers = CORE.getPersistence();
 
-			// insecure SQL for performance
+			// unsecured SQL for performance
 			StringBuilder intersect = new StringBuilder();
 			intersect.append("delete from ADM_Tagged ");
 			intersect.append(" where taggedBizId not in (");
@@ -220,8 +219,8 @@ public class TagBizlet extends Bizlet<Tag> {
 
 			sql.execute();
 			
-			subject.setUploadTagged(getCountOfDocument(subject, subject.getUploadModuleName(), subject.getUploadDocumentName()));
-			subject.setTotalTagged(getCount(subject));
+			subject.setUploadTagged(Long.valueOf(subject.countDocument(subject.getUploadModuleName(), subject.getUploadDocumentName())));
+			subject.setTotalTagged(Long.valueOf(subject.count()));
 		}
 	}
 
@@ -232,15 +231,17 @@ public class TagBizlet extends Bizlet<Tag> {
 	 * @param object
 	 * @throws Exception
 	 */
-	public static void except(Tag subject, Tag object) throws Exception {
-
+	public static void except(TagExtension subject, TagExtension object) throws Exception {
 		if (subject != null && object != null) {
-			for (Bean bean : EXT.iterateTagged(object.getBizId())) {
-				// EXT method handles if this bean was not tagged
-				EXT.untag(subject.getBizId(), bean);
+			TagManager tm = EXT.getTagManager();
+			try (AutoClosingIterable<Bean> i = tm.iterate(object.getBizId())) {
+				for (Bean bean : i) {
+					// TagManager method handles if this bean was not tagged
+					tm.untag(subject.getBizId(), bean);
+				}
 			}
-			subject.setUploadTagged(getCountOfDocument(subject, subject.getUploadModuleName(), subject.getUploadDocumentName()));
-			subject.setTotalTagged(getCount(subject));
+			subject.setUploadTagged(Long.valueOf(subject.countDocument(subject.getUploadModuleName(), subject.getUploadDocumentName())));
+			subject.setTotalTagged(Long.valueOf(subject.count()));
 		}
 	}
 
@@ -251,7 +252,7 @@ public class TagBizlet extends Bizlet<Tag> {
 	 * @return
 	 * @throws Exception
 	 */
-	public static List<Bean> getTaggedItemsForDocument(Tag tag, String moduleName, String documentName) throws Exception {
+	public static List<Bean> getTaggedItemsForDocument(TagExtension tag, String moduleName, String documentName) throws Exception {
 		
 		List<Bean> beans = new ArrayList<>();
 		if (moduleName != null && documentName != null) {
@@ -262,10 +263,12 @@ public class TagBizlet extends Bizlet<Tag> {
 			Document document = module.getDocument(customer, documentName);
 
 			if (tag != null) {
-				for (Bean bean : EXT.iterateTagged(tag.getBizId())) {
-					if (bean != null && bean.getBizModule().equals(module.getName()) && bean.getBizDocument().equals(document.getName())) {
-						// need to check that this is only done for documents of the selected type
-						beans.add(bean);
+				try (AutoClosingIterable<Bean> i = EXT.getTagManager().iterate(tag.getBizId())) {
+					for (Bean bean : i) {
+						if (bean != null && bean.getBizModule().equals(module.getName()) && bean.getBizDocument().equals(document.getName())) {
+							// need to check that this is only done for documents of the selected type
+							beans.add(bean);
+						}
 					}
 				}
 			}
@@ -274,67 +277,8 @@ public class TagBizlet extends Bizlet<Tag> {
 		return beans;
 	}
 
-	/**
-	 * Return the number of tagged items for this tag
-	 * Optionally filtered for a specific module.document
-	 * 
-	 * @param bean
-	 * @param moduleName
-	 * @param documentName
-	 * @return
-	 * @throws Exception
-	 */
-	private static Long getCount(Tag tag, String moduleName, String documentName) {
-
-		//if refactoring this method for a TagExtension, ensure you re-test basic tagging functions in lists
-		
-		Long result = new Long(0);
-
-		try {
-			DocumentQuery q = CORE.getPersistence().newDocumentQuery(Tagged.MODULE_NAME, Tagged.DOCUMENT_NAME);
-			q.getFilter().addEquals(Tagged.tagPropertyName, tag);
-
-			// optional filter for specified module.document
-			if (moduleName != null && documentName != null) {
-				q.getFilter().addEquals(Tagged.taggedModulePropertyName, moduleName);
-				q.getFilter().addEquals(Tagged.taggedDocumentPropertyName, documentName);
-			}
-			
-			q.addAggregateProjection(AggregateFunction.Count, Bean.DOCUMENT_ID, "CountOfTagged");
-
-			result = Long.valueOf(q.retrieveScalar(Number.class).longValue());
-		} catch (Exception e) {
-			result = null;
-		}
-		return result;
-	}
-
-	/**
-	 * Convenience method for total tag count across all documents
-	 * 
-	 * @return
-	 */
-	public static Long getCount(Tag tag) {
-		return getCount(tag, null, null);
-	}
-
-	/**
-	 * Return the count of tagged document beans 
-	 * 
-	 * @param moduleName - the module of the document to be counted
-	 * @param documentName - the document to be counted
-	 * @return 
-	 */
-	public static Long getCountOfDocument(Tag tag, String moduleName, String documentName) {
-		if(moduleName==null || documentName==null) {
-			//no need to run the query
-			return null;
-		}
-		return getCount(tag, moduleName, documentName);
-	}
-
 	@Override
-	public void preRerender(String source, Tag bean, WebContext webContext) throws Exception {
+	public void preRerender(String source, TagExtension bean, WebContext webContext) throws Exception {
 		
 		switch(source) {
 		case Tag.uploadModuleNamePropertyName:
@@ -343,7 +287,7 @@ public class TagBizlet extends Bizlet<Tag> {
 		case Tag.uploadDocumentNamePropertyName:
 			bean.setAttributeName(null);
 			bean.setDocumentCondition(null);
-			bean.setUploadTagged(TagBizlet.getCountOfDocument(bean, bean.getUploadModuleName(), bean.getUploadDocumentName()));			
+			bean.setUploadTagged(Long.valueOf(bean.countDocument(bean.getUploadModuleName(), bean.getUploadDocumentName())));			
 			break;
 		case Tag.actionModuleNamePropertyName:
 			bean.setActionDocumentName(null);

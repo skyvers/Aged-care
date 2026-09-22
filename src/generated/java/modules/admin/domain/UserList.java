@@ -1,10 +1,11 @@
 package modules.admin.domain;
 
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import modules.admin.Group.GroupExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
@@ -19,6 +20,7 @@ import org.skyve.impl.domain.ChangeTrackingArrayList;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class UserList extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -28,15 +30,21 @@ public class UserList extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "UserList";
 
 	/** @hidden */
 	public static final String userInvitationGroupsPropertyName = "userInvitationGroups";
+
 	/** @hidden */
 	public static final String userInvitiationEmailListPropertyName = "userInvitiationEmailList";
+
 	/** @hidden */
 	public static final String bulkCreateWithEmailPropertyName = "bulkCreateWithEmail";
+
+	/** @hidden */
+	public static final String defaultModuleNamePropertyName = "defaultModuleName";
 
 	/**
 	 * User Invitation Groups
@@ -44,20 +52,27 @@ public class UserList extends AbstractTransientBean {
 	 * The collection of groups that invited users are assigned.
 	 **/
 	private List<GroupExtension> userInvitationGroups = new ChangeTrackingArrayList<>("userInvitationGroups", this);
+
 	/**
 	 * Invitation email addresses
 	 * <br/>
 	 * The list of emails for users to invite. 
-			<br/>
-			Users will be created with the email address as username with the assigned groups.
-			<br/>
-			Provide a list separated by either comma or semicolon.
+<br/>
+Users will be created with the email address as username with the assigned groups.
+<br/>
+Provide a list separated by either comma or semicolon.
 	 **/
 	private String userInvitiationEmailList;
+
 	/**
 	 * Bulk create with email
 	 **/
 	private Boolean bulkCreateWithEmail;
+
+	/**
+	 * Default Module Name
+	 **/
+	private String defaultModuleName;
 
 	@Override
 	@XmlTransient
@@ -86,14 +101,12 @@ public class UserList extends AbstractTransientBean {
 	@Override
 	@XmlTransient
 	public String getBizKey() {
-		return toString();
-
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof UserList) && 
-					this.getBizId().equals(((UserList) o).getBizId()));
+		try {
+			return org.skyve.util.Binder.formatMessage("User List", this);
+		}
+		catch (@SuppressWarnings("unused") Exception e) {
+			return "Unknown";
+		}
 	}
 
 	/**
@@ -190,6 +203,24 @@ public class UserList extends AbstractTransientBean {
 	public void setBulkCreateWithEmail(Boolean bulkCreateWithEmail) {
 		preset(bulkCreateWithEmailPropertyName, bulkCreateWithEmail);
 		this.bulkCreateWithEmail = bulkCreateWithEmail;
+	}
+
+	/**
+	 * {@link #defaultModuleName} accessor.
+	 * @return	The value.
+	 **/
+	public String getDefaultModuleName() {
+		return defaultModuleName;
+	}
+
+	/**
+	 * {@link #defaultModuleName} mutator.
+	 * @param defaultModuleName	The new value.
+	 **/
+	@XmlElement
+	public void setDefaultModuleName(String defaultModuleName) {
+		preset(defaultModuleNamePropertyName, defaultModuleName);
+		this.defaultModuleName = defaultModuleName;
 	}
 
 	/**

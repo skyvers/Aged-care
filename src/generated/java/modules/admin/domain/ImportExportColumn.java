@@ -1,12 +1,14 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.ImportExport.ImportExportExtension;
 import org.skyve.CORE;
 import org.skyve.domain.Bean;
@@ -15,6 +17,7 @@ import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Import Export Column
@@ -24,6 +27,7 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class ImportExportColumn extends AbstractPersistentBean implements ChildBean<ImportExportExtension> {
 	/**
 	 * For Serialization
@@ -33,15 +37,19 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "ImportExportColumn";
 
 	/** @hidden */
 	public static final String columnNamePropertyName = "columnName";
+
 	/** @hidden */
 	public static final String bindingNamePropertyName = "bindingName";
+
 	/** @hidden */
 	public static final String bindingExpressionPropertyName = "bindingExpression";
+
 	/** @hidden */
 	public static final String loadActionPropertyName = "loadAction";
 
@@ -49,12 +57,13 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 	 * Action
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum LoadAction implements Enumeration {
-		setValue("set", "Set value"),
-		lookupEquals("equals", "Find exact match"),
-		lookupLike("like", "Find like match"),
-		lookupContains("contains", "Find matches containing this value"),
-		confirmValue("confirm", "Fail if not found");
+		setValue("set", "admin.importExportColumn.loadAction.set.description"),
+		lookupEquals("equals", "admin.importExportColumn.loadAction.equals.description"),
+		lookupLike("like", "admin.importExportColumn.loadAction.like.description"),
+		lookupContains("contains", "admin.importExportColumn.loadAction.contains.description"),
+		confirmValue("confirm", "admin.importExportColumn.loadAction.confirm.description");
 
 		private String code;
 		private String description;
@@ -63,7 +72,7 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(LoadAction::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private LoadAction(String code, String description) {
 			this.code = code;
@@ -77,8 +86,8 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -99,11 +108,11 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 			return result;
 		}
 
-		public static LoadAction fromDescription(String description) {
+		public static LoadAction fromLocalisedDescription(String description) {
 			LoadAction result = null;
 
 			for (LoadAction value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -113,14 +122,6 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				LoadAction[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (LoadAction value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -129,26 +130,28 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 	 * Column Title
 	 **/
 	private String columnName;
+
 	/**
-	 * Binding
+	 * Binding Name
 	 **/
 	private String bindingName;
+
 	/**
 	 * Expression
 	 * <br/>
 	 * <strong>An expression using bindings relative to the document.</strong>
-			For exports, you can use compound expressions using bindings and literals, for example:
-			<i>{name} ({mobile})</i>
+For exports, you can use compound expressions using bindings and literals, for example: <i>{name} ({mobile})</i>
 	 **/
 	private String bindingExpression;
+
 	/**
 	 * Action
 	 **/
 	private LoadAction loadAction;
+
 	private ImportExportExtension parent;
 
 	private Integer bizOrdinal;
-
 
 	@Override
 	@XmlTransient
@@ -183,12 +186,6 @@ public class ImportExportColumn extends AbstractPersistentBean implements ChildB
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ImportExportColumn) && 
-					this.getBizId().equals(((ImportExportColumn) o).getBizId()));
 	}
 
 	/**

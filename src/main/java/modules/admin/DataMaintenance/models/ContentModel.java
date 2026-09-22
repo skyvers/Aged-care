@@ -15,7 +15,7 @@ import org.skyve.content.ContentIterable.ContentIterator;
 import org.skyve.content.ContentManager;
 import org.skyve.content.SearchResult;
 import org.skyve.domain.Bean;
-import org.skyve.domain.MapBean;
+import org.skyve.domain.DynamicBean;
 import org.skyve.domain.PersistentBean;
 import org.skyve.domain.types.OptimisticLock;
 import org.skyve.domain.types.Timestamp;
@@ -28,21 +28,23 @@ import org.skyve.metadata.view.model.list.Filter;
 import org.skyve.metadata.view.model.list.ListModel;
 import org.skyve.metadata.view.model.list.Page;
 import org.skyve.persistence.AutoClosingIterable;
-import org.skyve.util.Util;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import modules.admin.domain.Content;
 import modules.admin.domain.DataMaintenance;
 
 public class ContentModel extends ListModel<DataMaintenance> {
-	private static final long serialVersionUID = -5285830669475992183L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ContentModel.class);
 
 	private Document drivingDocument = null;
 	private Set<String> projections = new TreeSet<>();
 	private List<MetaDataQueryColumn> columns = new ArrayList<>(1);
 	
-	public ContentModel() throws Exception {
-		Customer c = CORE.getUser().getCustomer();
-		drivingDocument = c.getModule(Content.MODULE_NAME).getDocument(c, Content.DOCUMENT_NAME);
+	@Override
+	public void postConstruct(Customer customer, boolean runtime) {
+		drivingDocument = customer.getModule(Content.MODULE_NAME).getDocument(customer, Content.DOCUMENT_NAME);
 		
 		projections.add(Bean.DOCUMENT_ID);
 		projections.add(PersistentBean.LOCK_NAME);
@@ -113,13 +115,13 @@ public class ContentModel extends ListModel<DataMaintenance> {
 	}
 
 	@Override
-	public Filter getFilter() throws Exception {
+	public Filter getFilter() {
 		// not required
 		return null;
 	}
 
 	@Override
-	public Filter newFilter() throws Exception {
+	public Filter newFilter() {
 		// not required
 		return null;
 	}
@@ -148,30 +150,38 @@ public class ContentModel extends ListModel<DataMaintenance> {
 				String bizDataGroupId = hit.getBizDataGroupId();
 				String bizUserId = hit.getBizUserId();
 				String bizId = hit.getBizId();
-				if (AbstractContentManager.canReadContent(bizCustomer, 
-															bizModule, 
-															bizDocument, 
-															bizDataGroupId, 
-															bizUserId, 
-															bizId)) {
+				String attributeName = hit.getAttributeName();
+				if (AbstractContentManager.canAccessContent(bizCustomer, 
+																bizModule, 
+																bizDocument, 
+																bizDataGroupId, 
+																bizUserId, 
+																bizId,
+																attributeName)) {
 					if (i >= start) {
 						String contentId = hit.getContentId();
-						Date lastModified = hit.getLastModified();
 						Map<String, Object> properties = new TreeMap<>();
-						properties.put(Bean.DOCUMENT_ID, contentId);
-						properties.put(PersistentBean.LOCK_NAME, new OptimisticLock(userName, lastModified));
+						properties.put(Bean.DOCUMENT_ID, (contentId != null) ? contentId : bizId);
+						Date lastModified = hit.getLastModified();
+						if (lastModified != null) {
+							properties.put(PersistentBean.LOCK_NAME, new OptimisticLock(userName, lastModified));
+							properties.put(Content.lastModifiedPropertyName, new Timestamp(lastModified));
+						}
+						else {
+							properties.put(PersistentBean.LOCK_NAME, new OptimisticLock(userName, new Date()));
+							properties.put(Content.lastModifiedPropertyName, null);
+						}
 						properties.put(PersistentBean.TAGGED_NAME, null);
 						properties.put(PersistentBean.FLAG_COMMENT_NAME, null);
-						properties.put(Bean.BIZ_KEY, contentId);
+						properties.put(Bean.BIZ_KEY, "Content");
 						properties.put(Content.attributeNamePropertyName, hit.getAttributeName());
 						properties.put(Content.contentBizIdPropertyName, bizId);
 						properties.put(Content.contentIdPropertyName, contentId);
 						properties.put(Content.customerNamePropertyName, bizCustomer);
 						properties.put(Content.documentNamePropertyName, bizDocument);
-						properties.put(Content.lastModifiedPropertyName, new Timestamp(lastModified));
 						properties.put(Content.moduleNamePropertyName, bizModule);
 						properties.put(Content.contentPropertyName, hit.getExcerpt());
-						rows.add(new MapBean(Content.MODULE_NAME, Content.DOCUMENT_NAME, properties));
+						rows.add(new DynamicBean(Content.MODULE_NAME, Content.DOCUMENT_NAME, properties));
 	
 						if (i >= end) {
 							break;
@@ -183,15 +193,11 @@ public class ContentModel extends ListModel<DataMaintenance> {
 			Page page = new Page();
 			page.setTotalRows(it.getTotalHits());
 			page.setRows(rows);
-			Util.LOGGER.info(String.format("Content Model start = %d : end = %d : size = %d : total rows = %d ",
-											Integer.valueOf(start),
-											Integer.valueOf(end),
-											Integer.valueOf(page.getRows().size()),
-											Long.valueOf(page.getTotalRows())));
+            LOGGER.info("Content Model start = {} : end = {} : size = {} : total rows = {} ", 
+                    start, end, page.getRows().size(), page.getTotalRows());
 
 			Map<String, Object> properties = new TreeMap<>();
-			properties.put(PersistentBean.FLAG_COMMENT_NAME, null);
-			page.setSummary(new MapBean(Content.MODULE_NAME, Content.DOCUMENT_NAME, properties));
+			page.setSummary(new DynamicBean(Content.MODULE_NAME, Content.DOCUMENT_NAME, properties));
 			return page;
 		}
 	}

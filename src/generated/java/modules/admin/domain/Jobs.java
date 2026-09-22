@@ -1,10 +1,12 @@
 package modules.admin.domain;
 
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import modules.admin.Job.JobExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractTransientBean;
@@ -18,6 +20,7 @@ import org.skyve.impl.domain.ChangeTrackingArrayList;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Jobs extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -27,6 +30,7 @@ public class Jobs extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Jobs";
 
@@ -36,7 +40,7 @@ public class Jobs extends AbstractTransientBean {
 	/**
 	 * Running Jobs
 	 **/
-	private List<Job> runningJobs = new ChangeTrackingArrayList<>("runningJobs", this);
+	private List<JobExtension> runningJobs = new ChangeTrackingArrayList<>("runningJobs", this);
 
 	@Override
 	@XmlTransient
@@ -69,18 +73,12 @@ public class Jobs extends AbstractTransientBean {
 
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Jobs) && 
-					this.getBizId().equals(((Jobs) o).getBizId()));
-	}
-
 	/**
 	 * {@link #runningJobs} accessor.
 	 * @return	The value.
 	 **/
 	@XmlElement
-	public List<Job> getRunningJobs() {
+	public List<JobExtension> getRunningJobs() {
 		return runningJobs;
 	}
 
@@ -89,7 +87,7 @@ public class Jobs extends AbstractTransientBean {
 	 * @param bizId	The bizId of the element in the list.
 	 * @return	The value of the element in the list.
 	 **/
-	public Job getRunningJobsElementById(String bizId) {
+	public JobExtension getRunningJobsElementById(String bizId) {
 		return getElementById(runningJobs, bizId);
 	}
 
@@ -98,7 +96,7 @@ public class Jobs extends AbstractTransientBean {
 	 * @param bizId	The bizId of the element in the list.
 	 * @param element	The new value of the element in the list.
 	 **/
-	public void setRunningJobsElementById(String bizId, Job element) {
+	public void setRunningJobsElementById(String bizId, JobExtension element) {
 		setElementById(runningJobs, element);
 	}
 
@@ -106,7 +104,7 @@ public class Jobs extends AbstractTransientBean {
 	 * {@link #runningJobs} add.
 	 * @param element	The element to add.
 	 **/
-	public boolean addRunningJobsElement(Job element) {
+	public boolean addRunningJobsElement(JobExtension element) {
 		return runningJobs.add(element);
 	}
 
@@ -115,7 +113,7 @@ public class Jobs extends AbstractTransientBean {
 	 * @param index	The index in the list to add the element to.
 	 * @param element	The element to add.
 	 **/
-	public void addRunningJobsElement(int index, Job element) {
+	public void addRunningJobsElement(int index, JobExtension element) {
 		runningJobs.add(index, element);
 	}
 
@@ -123,7 +121,7 @@ public class Jobs extends AbstractTransientBean {
 	 * {@link #runningJobs} remove.
 	 * @param element	The element to remove.
 	 **/
-	public boolean removeRunningJobsElement(Job element) {
+	public boolean removeRunningJobsElement(JobExtension element) {
 		return runningJobs.remove(element);
 	}
 
@@ -131,7 +129,7 @@ public class Jobs extends AbstractTransientBean {
 	 * {@link #runningJobs} remove.
 	 * @param index	The index in the list to remove the element from.
 	 **/
-	public Job removeRunningJobsElement(int index) {
+	public JobExtension removeRunningJobsElement(int index) {
 		return runningJobs.remove(index);
 	}
 

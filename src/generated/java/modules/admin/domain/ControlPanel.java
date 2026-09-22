@@ -1,12 +1,14 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.ControlPanel.ControlPanelExtension;
 import modules.admin.UserProxy.UserProxyExtension;
 import org.skyve.CORE;
@@ -15,6 +17,7 @@ import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractTransientBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Control Panel
@@ -22,15 +25,13 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  * @depend - - - SailUserAgentType
  * @depend - - - SailTestStrategy
  * @depend - - - SailExecutor
- * @navhas n newProperty 0..1 Generic
  * @navhas n sailUser 0..1 UserProxy
- * @navhas n originalStartupProperties 0..n Generic
  * @navhas n testDocumentNames 0..n ModuleDocument
- * @navhas n startupProperties 0..n Generic
  * @stereotype "transient"
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class ControlPanel extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -40,88 +41,111 @@ public abstract class ControlPanel extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "ControlPanel";
 
 	/** @hidden */
 	public static final String xmlTracePropertyName = "xmlTrace";
+
 	/** @hidden */
 	public static final String httpTracePropertyName = "httpTrace";
+
 	/** @hidden */
 	public static final String queryTracePropertyName = "queryTrace";
+
 	/** @hidden */
 	public static final String commandTracePropertyName = "commandTrace";
+
 	/** @hidden */
 	public static final String facesTracePropertyName = "facesTrace";
+
 	/** @hidden */
 	public static final String contentTracePropertyName = "contentTrace";
+
 	/** @hidden */
 	public static final String securityTracePropertyName = "securityTrace";
+
 	/** @hidden */
 	public static final String bizletTracePropertyName = "bizletTrace";
+
 	/** @hidden */
 	public static final String dirtyTracePropertyName = "dirtyTrace";
-	/** @hidden */
-	public static final String designModuleDocumentNamePropertyName = "designModuleDocumentName";
+
 	/** @hidden */
 	public static final String queryPropertyName = "query";
+
 	/** @hidden */
 	public static final String customerNameToSwapToPropertyName = "customerNameToSwapTo";
+
 	/** @hidden */
 	public static final String sailUserPropertyName = "sailUser";
+
 	/** @hidden */
 	public static final String sailModuleNamePropertyName = "sailModuleName";
+
 	/** @hidden */
 	public static final String sailUxUiPropertyName = "sailUxUi";
+
 	/** @hidden */
 	public static final String sailUserAgentTypePropertyName = "sailUserAgentType";
+
 	/** @hidden */
 	public static final String sailTestStrategyPropertyName = "sailTestStrategy";
+
 	/** @hidden */
 	public static final String sailExecutorPropertyName = "sailExecutor";
+
 	/** @hidden */
 	public static final String sailComponentBuilderPropertyName = "sailComponentBuilder";
+
 	/** @hidden */
 	public static final String sailLayoutBuilderPropertyName = "sailLayoutBuilder";
+
 	/** @hidden */
 	public static final String sailPropertyName = "sail";
+
 	/** @hidden */
 	public static final String sailLoginCustomerPropertyName = "sailLoginCustomer";
+
 	/** @hidden */
 	public static final String sailLoginPasswordPropertyName = "sailLoginPassword";
+
 	/** @hidden */
 	public static final String sailBaseUrlPropertyName = "sailBaseUrl";
+
 	/** @hidden */
 	public static final String resultsPropertyName = "results";
+
 	/** @hidden */
 	public static final String tabIndexPropertyName = "tabIndex";
-	/** @hidden */
-	public static final String startupPropertiesPropertyName = "startupProperties";
-	/** @hidden */
-	public static final String originalStartupPropertiesPropertyName = "originalStartupProperties";
-	/** @hidden */
-	public static final String newPropertyPropertyName = "newProperty";
-	/** @hidden */
-	public static final String addKeyNotSupportedPropertyName = "addKeyNotSupported";
+
 	/** @hidden */
 	public static final String selectedCachePropertyName = "selectedCache";
+
 	/** @hidden */
 	public static final String sessionCountPropertyName = "sessionCount";
+
 	/** @hidden */
 	public static final String testNumberToGeneratePropertyName = "testNumberToGenerate";
+
 	/** @hidden */
 	public static final String testModuleNamePropertyName = "testModuleName";
+
 	/** @hidden */
 	public static final String testTagNamePropertyName = "testTagName";
+
 	/** @hidden */
 	public static final String testTagGeneratedDataPropertyName = "testTagGeneratedData";
+
 	/** @hidden */
 	public static final String testDocumentNamesPropertyName = "testDocumentNames";
 
 	/**
-	 * admin.controlPanel.sailUserAgentType.displayName
+	 * User Agent Type
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum SailUserAgentType implements Enumeration {
 		desktop("desktop", "Desktop"),
 		tablet("tablet", "Tablet"),
@@ -135,7 +159,7 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(SailUserAgentType::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private SailUserAgentType(String code, String description) {
 			this.code = code;
@@ -149,8 +173,8 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -171,11 +195,11 @@ public abstract class ControlPanel extends AbstractTransientBean {
 			return result;
 		}
 
-		public static SailUserAgentType fromDescription(String description) {
+		public static SailUserAgentType fromLocalisedDescription(String description) {
 			SailUserAgentType result = null;
 
 			for (SailUserAgentType value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -185,24 +209,17 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				SailUserAgentType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (SailUserAgentType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.controlPanel.sailTestStrategy.displayName
+	 * Test Strategy
 	 * <br/>
-	 * admin.controlPanel.sailTestStrategy.description
+	 * Assert (stop if they fail), Verify (test but don't stop), or None (don't conduct the tests at all)
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum SailTestStrategy implements Enumeration {
 		Assert("Assert", "Assert"),
 		Verify("Verify", "Verify"),
@@ -215,7 +232,7 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(SailTestStrategy::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private SailTestStrategy(String code, String description) {
 			this.code = code;
@@ -229,8 +246,8 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -251,11 +268,11 @@ public abstract class ControlPanel extends AbstractTransientBean {
 			return result;
 		}
 
-		public static SailTestStrategy fromDescription(String description) {
+		public static SailTestStrategy fromLocalisedDescription(String description) {
 			SailTestStrategy result = null;
 
 			for (SailTestStrategy value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -265,22 +282,15 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				SailTestStrategy[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (SailTestStrategy value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.controlPanel.sailExecutor.displayName
+	 * Executor
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum SailExecutor implements Enumeration {
 		primeFacesInlineSelenese("org.skyve.impl.sail.execution.PrimeFacesInlineSeleneseExecutor", "PrimeFaces Inline Selenese"),
 		primeFacesInlineWebDriver("org.skyve.impl.sail.execution.PrimeFacesInlineWebDriverExecutor", "PrimeFaces Inline Web Driver");
@@ -292,7 +302,7 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(SailExecutor::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private SailExecutor(String code, String description) {
 			this.code = code;
@@ -306,8 +316,8 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -328,11 +338,11 @@ public abstract class ControlPanel extends AbstractTransientBean {
 			return result;
 		}
 
-		public static SailExecutor fromDescription(String description) {
+		public static SailExecutor fromLocalisedDescription(String description) {
 			SailExecutor result = null;
 
 			for (SailExecutor value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -342,199 +352,196 @@ public abstract class ControlPanel extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				SailExecutor[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (SailExecutor value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.controlPanel.xmlTrace.displayName
+	 * XML
 	 * <br/>
-	 * admin.controlPanel.xmlTrace.description
+	 * Log XML metadata parse operations
 	 **/
 	private Boolean xmlTrace;
+
 	/**
-	 * admin.controlPanel.httpTrace.displayName
+	 * HTTP
 	 * <br/>
-	 * admin.controlPanel.httpTrace.description
+	 * Log request information including headers, parameters, cache state and timings.
 	 **/
 	private Boolean httpTrace;
+
 	/**
-	 * admin.controlPanel.queryTrace.displayName
+	 * Query
 	 * <br/>
-	 * admin.controlPanel.queryTrace.description
+	 * Log BizQL, Document Queries, Metadata Queries generated and executed during processing.
 	 **/
 	private Boolean queryTrace;
+
 	/**
-	 * admin.controlPanel.commandTrace.displayName
+	 * Command
 	 * <br/>
-	 * admin.controlPanel.commandTrace.description
+	 * Log command information such as filter criteria and paging row counts.
 	 **/
 	private Boolean commandTrace;
+
 	/**
-	 * admin.controlPanel.facesTrace.displayName
+	 * Faces
 	 * <br/>
-	 * admin.controlPanel.facesTrace.description
+	 * Log the faces phases and the xhtml generated.
 	 **/
 	private Boolean facesTrace;
+
 	/**
-	 * admin.controlPanel.contentTrace.displayName
+	 * Content
 	 * <br/>
-	 * admin.controlPanel.contentTrace.description
+	 * Log information on content fetched and stored.
 	 **/
 	private Boolean contentTrace;
+
 	/**
-	 * admin.controlPanel.securityTrace.displayName
+	 * Security
 	 * <br/>
-	 * admin.controlPanel.securityTrace.description
+	 * Log information on security denials.
 	 **/
 	private Boolean securityTrace;
+
 	/**
-	 * admin.controlPanel.bizletTrace.displayName
+	 * Bizlet
 	 * <br/>
-	 * admin.controlPanel.bizletTrace.description
+	 * Log every bizlet callback made (verbose).
 	 **/
 	private Boolean bizletTrace;
+
 	/**
-	 * admin.controlPanel.dirtyTrace.displayName
+	 * Dirty
 	 * <br/>
-	 * admin.controlPanel.dirtyTrace.description
+	 * Log the dirty state of domain objects (verbose).
 	 **/
 	private Boolean dirtyTrace;
+
 	/**
-	 * admin.controlPanel.designModuleDocumentName.displayName
-	 **/
-	private String designModuleDocumentName;
-	/**
-	 * admin.controlPanel.query.displayName
+	 * BizQL
 	 **/
 	private String query;
+
 	/**
-	 * admin.controlPanel.customerNameToSwapTo.displayName
+	 * Customer Name To Swap To
 	 **/
 	private String customerNameToSwapTo;
+
 	/**
-	 * admin.controlPanel.association.sailUser.displayName
+	 * User
 	 **/
 	private UserProxyExtension sailUser = null;
+
 	/**
-	 * admin.controlPanel.sailModuleName.displayName
+	 * Module Name
 	 **/
 	private String sailModuleName;
+
 	/**
-	 * admin.controlPanel.sailUxUi.displayName
+	 * UX/UI
 	 **/
 	private String sailUxUi;
+
 	/**
-	 * admin.controlPanel.sailUserAgentType.displayName
+	 * User Agent Type
 	 **/
 	private SailUserAgentType sailUserAgentType;
+
 	/**
-	 * admin.controlPanel.sailTestStrategy.displayName
+	 * Test Strategy
 	 * <br/>
-	 * admin.controlPanel.sailTestStrategy.description
+	 * Assert (stop if they fail), Verify (test but don't stop), or None (don't conduct the tests at all)
 	 **/
 	private SailTestStrategy sailTestStrategy = SailTestStrategy.Assert;
+
 	/**
-	 * admin.controlPanel.sailExecutor.displayName
+	 * Executor
 	 **/
 	private SailExecutor sailExecutor;
+
 	/**
-	 * admin.controlPanel.sailComponentBuilder.displayName
+	 * Component Builder
 	 **/
 	private String sailComponentBuilder = "org.skyve.impl.web.faces.pipeline.component.SkyveComponentBuilderChain";
+
 	/**
-	 * admin.controlPanel.sailLayoutBuilder.displayName
+	 * Layout Builder
 	 **/
 	private String sailLayoutBuilder = "org.skyve.impl.web.faces.pipeline.layout.ResponsiveLayoutBuilder";
+
 	/**
-	 * admin.controlPanel.sail.displayName
+	 * SAIL
 	 **/
 	private String sail;
+
 	/**
-	 * admin.controlPanel.sailLoginCustomer.displayName
+	 * Sign In Customer
 	 **/
 	private String sailLoginCustomer;
+
 	/**
-	 * admin.controlPanel.sailLoginPassword.displayName
+	 * Sign In Password
 	 **/
 	private String sailLoginPassword;
+
 	/**
-	 * admin.controlPanel.sailBaseUrl.displayName
+	 * Base URL
 	 **/
 	private String sailBaseUrl;
+
 	/**
-	 * admin.controlPanel.results.displayName
+	 * Results
 	 **/
 	private String results;
+
 	/**
-	 * admin.controlPanel.tabIndex.displayName
+	 * TabIndex
 	 * <br/>
 	 * The index of the tab in the edit view.
 			 	This is set to the results tab when there is results to display.
 	 **/
 	private Integer tabIndex;
+
 	/**
-	 * admin.controlPanel.collection.startupProperties.displayName
-	 * <br/>
-	 * admin.controlPanel.collection.startupProperties.description
-	 **/
-	private List<Generic> startupProperties = new ChangeTrackingArrayList<>("startupProperties", this);
-	/**
-	 * admin.controlPanel.collection.originalStartupProperties.displayName
-	 * <br/>
-	 * admin.controlPanel.collection.originalStartupProperties.description
-	 **/
-	private List<Generic> originalStartupProperties = new ChangeTrackingArrayList<>("originalStartupProperties", this);
-	/**
-	 * admin.controlPanel.association.newProperty.displayName
-	 **/
-	private Generic newProperty = null;
-	/**
-	 * admin.controlPanel.addKeyNotSupported.displayName
-	 * <br/>
-	 * admin.controlPanel.addkeyNotSupported.description
-	 **/
-	private Boolean addKeyNotSupported;
-	/**
-	 * admin.controlPanel.selectedCache.displayName
+	 * Cache
 	 **/
 	private String selectedCache;
+
 	/**
-	 * admin.controlPanel.sessionCount.displayName
+	 * Session Count
 	 **/
 	private Integer sessionCount;
+
 	/**
-	 * admin.controlPanel.testNumberToGenerate.displayName
+	 * Number To Generate
 	 * <br/>
 	 * admin.controlPanel.testnumberToGenerate.description
 	 **/
-	private Integer testNumberToGenerate = new Integer(1);
+	private Integer testNumberToGenerate = Integer.valueOf(1);
+
 	/**
-	 * admin.controlPanel.testModuleName.displayName
+	 * Module Name
 	 * <br/>
-	 * admin.controlPanel.testModuleName.description
+	 * The target module
 	 **/
 	private String testModuleName;
+
 	/**
-	 * admin.controlPanel.testTagName.displayName
+	 * Tag Name
 	 * <br/>
-	 * admin.controlPanel.testTagName.description
+	 * The name of the tag to be used
 	 **/
 	private String testTagName;
+
 	/**
-	 * admin.controlPanel.testTagGeneratedData.displayName
+	 * Tag Generated Data?
 	 **/
-	private Boolean testTagGeneratedData = new Boolean(false);
+	private Boolean testTagGeneratedData = Boolean.valueOf(false);
+
 	/**
-	 * admin.controlPanel.testDocumentNames.displayName
+	 * Document Names
 	 **/
 	private List<ModuleDocument> testDocumentNames = new ChangeTrackingArrayList<>("testDocumentNames", this);
 
@@ -567,12 +574,6 @@ public abstract class ControlPanel extends AbstractTransientBean {
 	public String getBizKey() {
 		return toString();
 
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ControlPanel) && 
-					this.getBizId().equals(((ControlPanel) o).getBizId()));
 	}
 
 	/**
@@ -735,24 +736,6 @@ public abstract class ControlPanel extends AbstractTransientBean {
 	public void setDirtyTrace(Boolean dirtyTrace) {
 		preset(dirtyTracePropertyName, dirtyTrace);
 		this.dirtyTrace = dirtyTrace;
-	}
-
-	/**
-	 * {@link #designModuleDocumentName} accessor.
-	 * @return	The value.
-	 **/
-	public String getDesignModuleDocumentName() {
-		return designModuleDocumentName;
-	}
-
-	/**
-	 * {@link #designModuleDocumentName} mutator.
-	 * @param designModuleDocumentName	The new value.
-	 **/
-	@XmlElement
-	public void setDesignModuleDocumentName(String designModuleDocumentName) {
-		preset(designModuleDocumentNamePropertyName, designModuleDocumentName);
-		this.designModuleDocumentName = designModuleDocumentName;
 	}
 
 	/**
@@ -1046,164 +1029,6 @@ public abstract class ControlPanel extends AbstractTransientBean {
 	}
 
 	/**
-	 * {@link #startupProperties} accessor.
-	 * @return	The value.
-	 **/
-	@XmlElement
-	public List<Generic> getStartupProperties() {
-		return startupProperties;
-	}
-
-	/**
-	 * {@link #startupProperties} accessor.
-	 * @param bizId	The bizId of the element in the list.
-	 * @return	The value of the element in the list.
-	 **/
-	public Generic getStartupPropertiesElementById(String bizId) {
-		return getElementById(startupProperties, bizId);
-	}
-
-	/**
-	 * {@link #startupProperties} mutator.
-	 * @param bizId	The bizId of the element in the list.
-	 * @param element	The new value of the element in the list.
-	 **/
-	public void setStartupPropertiesElementById(String bizId, Generic element) {
-		setElementById(startupProperties, element);
-	}
-
-	/**
-	 * {@link #startupProperties} add.
-	 * @param element	The element to add.
-	 **/
-	public boolean addStartupPropertiesElement(Generic element) {
-		return startupProperties.add(element);
-	}
-
-	/**
-	 * {@link #startupProperties} add.
-	 * @param index	The index in the list to add the element to.
-	 * @param element	The element to add.
-	 **/
-	public void addStartupPropertiesElement(int index, Generic element) {
-		startupProperties.add(index, element);
-	}
-
-	/**
-	 * {@link #startupProperties} remove.
-	 * @param element	The element to remove.
-	 **/
-	public boolean removeStartupPropertiesElement(Generic element) {
-		return startupProperties.remove(element);
-	}
-
-	/**
-	 * {@link #startupProperties} remove.
-	 * @param index	The index in the list to remove the element from.
-	 **/
-	public Generic removeStartupPropertiesElement(int index) {
-		return startupProperties.remove(index);
-	}
-
-	/**
-	 * {@link #originalStartupProperties} accessor.
-	 * @return	The value.
-	 **/
-	@XmlElement
-	public List<Generic> getOriginalStartupProperties() {
-		return originalStartupProperties;
-	}
-
-	/**
-	 * {@link #originalStartupProperties} accessor.
-	 * @param bizId	The bizId of the element in the list.
-	 * @return	The value of the element in the list.
-	 **/
-	public Generic getOriginalStartupPropertiesElementById(String bizId) {
-		return getElementById(originalStartupProperties, bizId);
-	}
-
-	/**
-	 * {@link #originalStartupProperties} mutator.
-	 * @param bizId	The bizId of the element in the list.
-	 * @param element	The new value of the element in the list.
-	 **/
-	public void setOriginalStartupPropertiesElementById(String bizId, Generic element) {
-		setElementById(originalStartupProperties, element);
-	}
-
-	/**
-	 * {@link #originalStartupProperties} add.
-	 * @param element	The element to add.
-	 **/
-	public boolean addOriginalStartupPropertiesElement(Generic element) {
-		return originalStartupProperties.add(element);
-	}
-
-	/**
-	 * {@link #originalStartupProperties} add.
-	 * @param index	The index in the list to add the element to.
-	 * @param element	The element to add.
-	 **/
-	public void addOriginalStartupPropertiesElement(int index, Generic element) {
-		originalStartupProperties.add(index, element);
-	}
-
-	/**
-	 * {@link #originalStartupProperties} remove.
-	 * @param element	The element to remove.
-	 **/
-	public boolean removeOriginalStartupPropertiesElement(Generic element) {
-		return originalStartupProperties.remove(element);
-	}
-
-	/**
-	 * {@link #originalStartupProperties} remove.
-	 * @param index	The index in the list to remove the element from.
-	 **/
-	public Generic removeOriginalStartupPropertiesElement(int index) {
-		return originalStartupProperties.remove(index);
-	}
-
-	/**
-	 * {@link #newProperty} accessor.
-	 * @return	The value.
-	 **/
-	public Generic getNewProperty() {
-		return newProperty;
-	}
-
-	/**
-	 * {@link #newProperty} mutator.
-	 * @param newProperty	The new value.
-	 **/
-	@XmlElement
-	public void setNewProperty(Generic newProperty) {
-		if (this.newProperty != newProperty) {
-			preset(newPropertyPropertyName, newProperty);
-			this.newProperty = newProperty;
-		}
-	}
-
-	/**
-	 * {@link #addKeyNotSupported} accessor.
-	 * @return	The value.
-	 **/
-	public Boolean getAddKeyNotSupported() {
-		return addKeyNotSupported;
-	}
-
-	/**
-	 * {@link #addKeyNotSupported} mutator.
-	 * @param addKeyNotSupported	The new value.
-	 **/
-	@XmlElement
-	public void setAddKeyNotSupported(Boolean addKeyNotSupported) {
-		preset(addKeyNotSupportedPropertyName, addKeyNotSupported);
-		this.addKeyNotSupported = addKeyNotSupported;
-	}
-
-	/**
 	 * {@link #selectedCache} accessor.
 	 * @return	The value.
 	 **/
@@ -1370,25 +1195,6 @@ public abstract class ControlPanel extends AbstractTransientBean {
 	}
 
 	/**
-	 * allowAddAPIKey
-	 *
-	 * @return The condition
-	 */
-	@XmlTransient
-	public boolean isAllowAddAPIKey() {
-		return (Boolean.TRUE.equals(addKeyNotSupported));
-	}
-
-	/**
-	 * {@link #isAllowAddAPIKey} negation.
-	 *
-	 * @return The negated condition
-	 */
-	public boolean isNotAllowAddAPIKey() {
-		return (! isAllowAddAPIKey());
-	}
-
-	/**
 	 * If this instance is for 1 fixed customer only.
 	 *
 	 * @return The condition
@@ -1424,6 +1230,25 @@ public abstract class ControlPanel extends AbstractTransientBean {
 	 */
 	public boolean isNotProductionInstance() {
 		return (! isProductionInstance());
+	}
+
+	/**
+	 * resultsNotNull
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isResultsNotNull() {
+		return (getResults()!=null);
+	}
+
+	/**
+	 * {@link #isResultsNotNull} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotResultsNotNull() {
+		return (! isResultsNotNull());
 	}
 
 	/**

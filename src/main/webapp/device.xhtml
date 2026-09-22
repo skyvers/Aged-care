@@ -2,12 +2,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 		xmlns:ui="http://java.sun.com/jsf/facelets" 
 		xmlns:h="http://java.sun.com/jsf/html" 
-		xmlns:f="http://java.sun.com/jsf/core"
-		xmlns:p="http://primefaces.org/ui"
-		dir="#{_skyveBizImport.dir}">
-    <f:view encoding="UTF-8">
-		<h:head>
+		xmlns:f="http://java.sun.com/jsf/core">
+    <f:view contentType="text/html" encoding="UTF-8">
+		<!-- Dont use h:head coz it'll bring in themes that can screw up the device layout -->
+		<head>
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<link type="text/css" rel="stylesheet" href="#{device.contextUrl}/fontawesome-6.5.1/css/all.min.css" />
+
+			<script type="text/javascript" src="#{device.contextUrl}/jakarta.faces.resource/jquery/jquery.js.xhtml?ln=primefaces"></script>
+
+			<link href="#{device.contextUrl}/primevue-3.12.6/themes/saga-blue/theme.css" rel="stylesheet" />
+			<link href="#{device.contextUrl}/primevue-3.12.6/primevue.min.css" rel="stylesheet" />
+			<link href="#{device.contextUrl}/primevue-3.12.6/primeflex-3.1.3.min.css" rel="stylesheet" />
+			<link href="#{device.contextUrl}/primevue-3.12.6/primeicons-5.0.0/primeicons.css" rel="stylesheet" />
+
+			<!-- Dependencies -->
+			<script src="#{device.contextUrl}/primevue-3.12.6/vue.global.3.2.33.prod.js"></script>
+			<script src="#{device.contextUrl}/primevue-3.12.6/core.min.js"></script>
+			
+			<!-- App -->
+			<script src="#{device.contextUrl}/primevue-3.12.6/speeddial.min.js"></script>
+			<script src="#{device.contextUrl}/primevue-3.12.6/toast.min.js"></script>
+			<script src="#{device.contextUrl}/primevue-3.12.6/toastservice.min.js"></script>
+
 			<style>
 				html, body {
 					height: 100%;
@@ -21,26 +38,22 @@
 				}
 				
 				/* The device with borders */
-				.smartphone {
-					-webkit-transform-origin: 0 0;
+				.phone {
 					transform-origin: 0 0;
-					-webkit-transform: scale(.8) translate(-50%) rotate(0deg);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
-					transform: scale(.8) translate(-50%) rotate(0deg);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
 					left: 50%;
 					position: absolute;
-					width: 360px;
-					height: 640px;
+					width: 480px;
+					height: 800px;
 					border: 16px black solid;
 					border-top-width: 60px;
 					border-bottom-width: 60px;
 					border-radius: 36px;
 					margin-top: 20px;
+					box-sizing: content-box;
 				}
 				
 				/* The horizontal line on the top of the device */
-				.smartphone:before {
+				.phone:before {
 					content: '';
 					display: block;
 					width: 60px;
@@ -54,7 +67,7 @@
 				}
 				
 				/* The circle on the bottom of the device */
-				.smartphone:after {
+				.phone:after {
 					content: '';
 					display: block;
 					width: 35px;
@@ -68,20 +81,15 @@
 				}
 				
 				/* The screen (or content) of the device */
-				.smartphone .content {
-					width: 360px;
-					height: 640px;
+				.phone .content {
+					width: 480px;
+					height: 800px;
 					background: white;
 				}
 				
 				/* The device with borders */
 				.tablet {
-					-webkit-transform-origin: 0 0;
 					transform-origin: 0 0;
-					-webkit-transform: scale(.6) translate(-50%) rotate(0deg);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
-					transform: scale(.6) translate(-50%) rotate(0deg);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
 					left: 50%;
 					position: absolute;
 					width: 768px;
@@ -91,6 +99,7 @@
 					border-bottom-width: 60px;
 					border-radius: 36px;
 					margin-top: 20px;
+					box-sizing: content-box;
 				}
 				
 				/* The horizontal line on the top of the device */
@@ -131,12 +140,7 @@
 				
 				/* The laptop with borders */
 				.laptop {
-					-webkit-transform-origin: 0 0;
 					transform-origin: 0 0;
-					-webkit-transform: scale(.6) translate(-50%);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
-					transform: scale(.6) translate(-50%);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
 					left: 50%;
 					position: absolute;
 					width: 1366px;
@@ -147,6 +151,7 @@
 					border-width: 24px 24px 80px;
 					background-color: black;
 					margin-top: 20px;
+					box-sizing: content-box;
 				}
 				
 				/* The keyboard of the laptop */
@@ -187,12 +192,7 @@
 				}
 				
 				.desktop {
-					-webkit-transform-origin: 0 0;
 					transform-origin: 0 0;
-					-webkit-transform: scale(1) translate(0%) rotate(0deg);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
-					transform: scale(1) translate(0%) rotate(0deg);
-					/* Scaled down for a better Try-it experience (change to 1 for full scale) */
 					left: 0px;
 					position: relative;
 					width: 100%;
@@ -208,38 +208,141 @@
 					border: none;
 				}
 				
-				.fa-mobile:hover, .fa-tablet:hover, .fa-laptop:hover, .fa-desktop:hover {
-				    font-weight: bold;
+				.p-speeddial-action {
+					width: 64px;
+					height: 64px;
+					text-decoration: none;
 				}
 			</style>
-			<script type="text/javascript">
-				document.cookie='UserAgentType=phone';
-				
-				function clicked(styleClass, userAgentType) {
-					$('#device').attr('class', styleClass);
-					if (userAgentType) {
-						document.cookie='UserAgentType=' + userAgentType;
-					}
-					else {
-						document.cookie='UserAgentType=;expires=-1'
-					}
-					$('#iframe').attr('src', $('#iframe').attr('src'));
-				}
-			</script>
-		</h:head>
-		<h:body>
-			<p:commandLink rendered="false" /> <!-- to bring in jquery lib -->
-			<div id="device" class="smartphone">
+		</head>
+		<body>
+			<div id="device">
 			  <div class="content">
-			    <iframe id="iframe" src="#{skyve.baseHref}" style="width:100%;border:none;height:100%"></iframe>
+			    <iframe id="iframe" style="width:100%;border:none;height:100%"></iframe>
 			  </div>
 			</div>
-			<div style="position:fixed;bottom:0;right:0;width:230px;height:70px;">
-				<i class="fa fa-mobile fa-4x fa-hover" onclick="clicked('smartphone', 'phone')" />
-				<i class="fa fa-tablet fa-4x" onclick="clicked('tablet', 'tablet')" />
-				<i class="fa fa-laptop fa-4x" onclick="clicked('laptop', 'desktop')" />
-				<i class="fa fa-desktop fa-4x" onclick="clicked('desktop', null)" />
+			<div style="position:fixed;bottom:80px;right:70px;">
+				<div id="app" >
+ 					<p-toast position="center" />
+ 					<h:outputText value="&lt;p-speeddial :model=&quot;items&quot; show-icon=&quot;pi pi-bars&quot; hide-icon=&quot;pi pi-times&quot; button-class=&quot;p-button-danger&quot; radius=&quot;150&quot; direction=&quot;up-left&quot; type=&quot;quarter-circle&quot; :tooltip-options=&quot;{position: 'left'}&quot; /&gt;" escape="false" />
+				</div>
 			</div>
-		</h:body>
+
+			<script type="module">
+				const {createApp, ref} = Vue;
+				const {useToast} = primevue.usetoast;
+				const Tooltip = primevue.tooltip;
+
+				const App = {
+					setup() {
+						const toast = useToast();
+
+						const items = ref([
+							{
+								label: 'Phone',
+								icon: 'fa-solid fa-mobile-screen-button fa-2x',
+								command: () => {
+									App.switch('phone');
+									toast.add({severity: 'success', summary: 'Phone', detail: 'Phone selected', closable: false, life: 2000});
+								}
+							},
+							{
+								label: 'Tablet',
+								icon: 'fa-solid fa-tablet-screen-button fa-2x',
+								command: () => {
+									App.switch('tablet');
+									toast.add({severity: 'success', summary: 'Tablet', detail: 'Tablet selected', closable: false, life: 2000});
+								}
+							},
+							{ 
+								label: 'Laptop',
+								icon: 'fa-solid fa-laptop fa-2x',
+								command: () => {
+									App.switch('laptop');
+									toast.add({severity: 'success', summary: 'Laptop', detail: 'Laptop selected', closable: false, life: 2000});
+								}
+							},
+							{
+								label: 'Desktop',
+								icon: 'fa-solid fa-desktop fa-2x',
+								command: () => {
+									App.switch('desktop');
+									toast.add({severity: 'success', summary: 'Desktop', detail: 'Desktop selected', closable: false, life: 2000});
+								}
+							}
+						]);
+
+						// Get device from sessionStorage or default to phone
+						var device = sessionStorage.getItem('preview_device');
+						if (device) {} else {
+							device = 'phone';
+						}
+						App.switch(device);
+
+						$(window).bind('resize', function(e) {
+							App.size();
+						});
+
+						return {items}
+					},
+					components: {
+						"p-speeddial": primevue.speeddial,
+						"p-toast": primevue.toast
+					},
+					switch(device) {
+						var userAgentType = device;
+						if ((device != 'phone') &amp; (device != 'tablet') &amp; (device != 'desktop')) {
+							if (device == 'laptop') {
+								userAgentType = 'desktop';
+							}
+							else {
+								return; // protect from unsanitised values in storage
+							}
+						}
+						sessionStorage.setItem('preview_device', device);
+						$('#device').attr('class', device);
+						App.size(device);
+						$('#iframe').attr('src', "#{device.clickDeviceJspUrl}" + userAgentType);
+					},
+					size(styleClass) {
+						var device = $('#device');
+						var parent = device.parent();
+						if (! styleClass) {
+							styleClass = device.attr('class');
+						}
+						if (styleClass == 'phone') {
+							// height - 2 * margin top (20px) / screen height (800px) + 2 * shim height (60px)
+							var verticalScale = (parent.height() - 40) / 920;
+							// width - 2 * margin sides (20px) / (screen width (480px) + 2 * shim width (16px)
+							var horizontalScale = (parent.width() - 40) / 512;
+							device.css('transform', 'scale(' + Math.min(verticalScale, horizontalScale) + ') translate(-50%) rotate(0deg)');
+						}
+						else if (styleClass == 'tablet') {
+							// height - 2 * margin top (20px) / screen height (1024px) + 2 * shim height (60px)
+							var verticalScale = (parent.height() - 40) / 1144;
+							// width - 2 * margin sides (20px) / (screen width (768px) + 2 * shim width (16px)
+							var horizontalScale = (parent.width() - 40) / 800;
+							device.css('transform', 'scale(' + Math.min(verticalScale, horizontalScale) + ') translate(-50%) rotate(0deg)');
+						}
+						else if (styleClass == 'laptop') {
+							// height - 2 * margin top (20px) / (screen height (800px) + shim top height (24px) + shim bottom height (80px) + keyboard height (60px))
+							var verticalScale = (parent.height() - 40) / 964;
+							// width - 2 * margin sides (20px) / keyboard width (1600px))
+							var horizontalScale = (parent.width() - 40) / 1600;
+							device.css('transform', 'scale(' + Math.min(verticalScale, horizontalScale) + ') translate(-50%) rotate(0deg)');
+						}
+						else if (styleClass == 'desktop') {
+							device.css('transform', 'scale(1) translate(0%) rotate(0deg)');
+						}
+					}
+				};
+
+				createApp(App)
+					.use(primevue.config.default)
+					.use(primevue.toastservice)
+					.directive("tooltip", Tooltip)
+					.mount("#app");
+			</script>
+		</body>
 	</f:view>
 </html>

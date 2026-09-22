@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.skyve.impl.metadata.module.query.MetaDataQueryProjectedColumnImpl;
 import org.skyve.metadata.module.query.MetaDataQueryColumn;
+import org.skyve.metadata.view.TextOutput.Sanitisation;
 import org.skyve.metadata.view.model.list.ReferenceListModel;
 
 import modules.admin.domain.Generic;
@@ -14,8 +15,6 @@ import modules.admin.domain.UserDashboard;
  * Returns a list of "tiles" from the favourites collection on UserDashboard.
  */
 public class FavouritesModel extends ReferenceListModel<Generic> {
-
-	private static final long serialVersionUID = 379921677409122428L;
 
 	private List<MetaDataQueryColumn> columns;
 
@@ -32,6 +31,9 @@ public class FavouritesModel extends ReferenceListModel<Generic> {
 			column.setName(Generic.markup1PropertyName);
 			column.setDisplayName("Markup");
 			column.setBinding(Generic.markup1PropertyName);
+			// NB BizKey is sanitised in the model's collection.
+			column.setEscape(false);
+			column.setSanitise(Sanitisation.none);
 
 			columns.add(column);
 		}

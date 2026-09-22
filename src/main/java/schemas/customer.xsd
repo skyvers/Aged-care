@@ -18,6 +18,27 @@
           <xs:element name="defaultTimestampConverter" type="ns1:converterName" form="qualified"/>
           <xs:element name="modules" type="tns:modules" form="qualified"/>
           <xs:element name="roles" type="tns:roles" form="qualified" minOccurs="0"/>
+          <xs:element name="textSearchRoles" form="qualified" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="role" type="tns:customerFeature" form="qualified" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="flagRoles" form="qualified" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="role" type="tns:customerFeature" form="qualified" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="switchModeRoles" form="qualified" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="role" type="tns:customerFeature" form="qualified" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
           <xs:element name="interceptors" form="qualified" minOccurs="0">
             <xs:complexType>
               <xs:sequence>
@@ -25,8 +46,16 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
+          <xs:element name="observers" form="qualified" minOccurs="0">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="observer" type="tns:observer" form="qualified" maxOccurs="unbounded"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
           <xs:element name="JFreeChartPostProcessorClassName" type="xs:string" form="qualified" minOccurs="0"/>
           <xs:element name="primeFacesChartPostProcessorClassName" type="xs:string" form="qualified" minOccurs="0"/>
+          <xs:element name="properties" type="ns1:propertyMapType" form="qualified" minOccurs="0"/>
         </xs:sequence>
         <xs:attribute name="language" type="xs:string"/>
       </xs:extension>
@@ -47,12 +76,12 @@
     <xs:sequence/>
     <xs:attribute name="loggedOutPage" type="xs:string"/>
     <xs:attribute name="loginPage" type="xs:string"/>
-    <xs:attribute name="smartClientJavascript" type="xs:string"/>
   </xs:complexType>
 
   <xs:complexType name="modules">
     <xs:sequence>
       <xs:element name="module" type="tns:module" form="qualified" maxOccurs="unbounded"/>
+      <xs:element name="properties" type="ns1:propertyMapType" form="qualified" minOccurs="0"/>
     </xs:sequence>
     <xs:attribute name="homeModule" type="xs:string" use="required"/>
   </xs:complexType>
@@ -61,6 +90,7 @@
     <xs:complexContent>
       <xs:extension base="ns1:namedMetaData">
         <xs:sequence/>
+        <xs:attribute name="formLabelLayout" type="ns1:formLabelLayout"/>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -85,6 +115,7 @@
               </xs:sequence>
             </xs:complexType>
           </xs:element>
+          <xs:element name="properties" type="ns1:propertyMapType" form="qualified" minOccurs="0"/>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -99,7 +130,21 @@
     </xs:complexContent>
   </xs:complexType>
 
+  <xs:complexType name="customerFeature">
+    <xs:complexContent>
+      <xs:extension base="ns1:namedMetaData">
+        <xs:sequence/>
+        <xs:attribute name="module" type="xs:string"/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
   <xs:complexType name="interceptor">
+    <xs:sequence/>
+    <xs:attribute name="className" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:complexType name="observer">
     <xs:sequence/>
     <xs:attribute name="className" type="xs:string" use="required"/>
   </xs:complexType>

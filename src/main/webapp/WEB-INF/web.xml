@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1"
-			xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         metadata-complete="false"
+         version="6.0">
+	<!-- List the static URL prefixes of the application (these URL prefixes will not be logged or checked for invalid sessions) -->
+	<context-param>
+		<param-name>staticURLPrefixes</param-name>
+		<param-value>
+			<![CDATA[
+				/jakarta.faces.resource/
+				/omnifaces.push/
+				/resources
+				/app/assets/
+				/app/canvaskit/
+				/app/icons/
+				/pages/css/
+				/ckeditor/
+				/codemirror/
+				/croppie/
+				/fontawesome-4.7.0/
+				/fontawesome-6.5.1/
+				/images/
+				/isomorphic130/
+				/leaflet/
+				/primevue-3.12.6/
+				/semantic24/
+				/skyve/
+				/wicket/
+			]]>
+		</param-value>
+	</context-param>
+
 	<!-- Needs to be first to set up Skyve configuration state for Spring to use -->
 	<listener>
 		<listener-class>org.skyve.impl.web.SkyveContextListener</listener-class>
@@ -18,7 +47,7 @@
 	</context-param>
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>org.skyve.impl.web</param-value>
+		<param-value>org.skyve.impl.web.spring</param-value>
 	</context-param>
 	<filter>                                                                                  
 		<filter-name>springSecurityFilterChain</filter-name>                                  
@@ -33,42 +62,56 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
+	<!-- Force UTF-8 encoding on everything -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.skyve.impl.web.filter.UTF8CharacterEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Ensure logging and stats on everything (the filter determines what not to log) -->
+	<filter>
+		<filter-name>RequestLoggingAndStatisticsFilter</filter-name>
+		<filter-class>org.skyve.impl.web.filter.RequestLoggingAndStatisticsFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>RequestLoggingAndStatisticsFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 	<!-- FACES PARAMS -->
 	<context-param>
-        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-name>jakarta.faces.DEFAULT_SUFFIX</param-name>
         <param-value>.xhtml</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+        <param-name>jakarta.faces.FACELETS_SKIP_COMMENTS</param-name>
         <param-value>true</param-value>
     </context-param>
     <context-param>
         <description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
-        <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+        <param-name>jakarta.faces.STATE_SAVING_METHOD</param-name>
         <param-value>server</param-value>
     </context-param>
     <context-param>
-        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-name>jakarta.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
 	<context-param>
-		<param-name>
-			javax.faces.WEBAPP_RESOURCES_DIRECTORY
-		</param-name>
+		<param-name>jakarta.faces.WEBAPP_RESOURCES_DIRECTORY</param-name>
 		<param-value>/WEB-INF/resources</param-value>
 	</context-param>
 	<context-param>
-        <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
+        <param-name>jakarta.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
         <param-value>true</param-value>
     </context-param>
 	<!-- sam, redmond, smoothness, bootstrap -->
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>#{request.getAttribute('skyveUxUi') == null ? 'casablanca' : request.getAttribute('skyveUxUi').getPfTheme()}</param-value>
-	</context-param>
-	<context-param>
-		<param-name>primefaces.FONT_AWESOME</param-name>
-		<param-value>true</param-value>
+		<param-value>#{request.getAttribute('skyveUxUi') == null ? 'saga' : request.getAttribute('skyveUxUi').getPfTheme()}</param-value>
 	</context-param>
 	<!--Skyve runs its own endpoint extension so it can get hold of the WebSocket sessions -->
 	<context-param>
@@ -79,14 +122,6 @@
 		<param-name>org.skyve.web.faces.PRIMEFLEX</param-name>
 		<param-value>false</param-value>
 	</context-param>
-	<filter>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<filter-class>org.primefaces.webapp.filter.FileUploadFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>PrimeFaces FileUpload Filter</filter-name>
-		<servlet-name>FacesServlet</servlet-name>
-	</filter-mapping>
 
     <filter>
         <display-name>SkyveFacesFilter</display-name>
@@ -108,8 +143,11 @@
         	<param-name>unsecured</param-name>
         	<param-value>
         		<![CDATA[
-					/javax.faces.resource/
+					/jakarta.faces.resource/
 					/device.xhtml
+					/contentUpload.xhtml
+					/fileUpload.xhtml
+					/imageUpload.xhtml
         		]]>
         	</param-value>
         </init-param>
@@ -124,75 +162,16 @@
 		<url-pattern>*.jsp</url-pattern>
     </filter-mapping>
 
+	<!-- Replace faces servlet Cache-control: no-cache with Cache-Control: no-cache,no-store,must-revalidate -->
 	<filter>
-		<filter-name>SkyveFilter</filter-name>
-		<filter-class>org.skyve.impl.web.filter.SkyveFilter</filter-class>
+		<filter-name>FacesNoCacheFilter</filter-name>
+		<filter-class>org.omnifaces.filter.CacheControlFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<url-pattern>*.xhtml</url-pattern>  <!-- just filter xhtml resources, not other resources served by faces servlet -->
+		<filter-name>FacesNoCacheFilter</filter-name>
+		<servlet-name>FacesServlet</servlet-name>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>DynamicImageServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>ReportServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientGeneratorServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientListServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientSnapServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientTagServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientCompleteServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientEditServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>SmartClientTextSearchServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>PrimeInitialiseServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>MapServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>ChartServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>BizportExportServlet</servlet-name>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>SkyveFilter</filter-name>
-		<servlet-name>TrackmateServlet</servlet-name>
-	</filter-mapping>
-
+	
 	<filter>
 		<filter-name>NeverExpiresFilter</filter-name>
 		<filter-class>org.skyve.impl.web.filter.ResponseHeaderFilter</filter-class>
@@ -211,9 +190,32 @@
 			<param-value>31536000000</param-value>
 		</init-param>
 	</filter>
+	<!-- Javascript -->
 	<filter-mapping>
 		<filter-name>NeverExpiresFilter</filter-name>
 		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+	<!-- Fonts -->
+	<filter-mapping>
+		<filter-name>NeverExpiresFilter</filter-name>
+		<url-pattern>*.ttf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>NeverExpiresFilter</filter-name>
+		<url-pattern>*.otf</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>NeverExpiresFilter</filter-name>
+		<url-pattern>*.woff</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>NeverExpiresFilter</filter-name>
+		<url-pattern>*.woff2</url-pattern>
+	</filter-mapping>
+	<!-- WASM -->
+	<filter-mapping>
+		<filter-name>NeverExpiresFilter</filter-name>
+		<url-pattern>*.wasm</url-pattern>
 	</filter-mapping>
 
 	<!-- Firefox requires public to cache resources to disk when using SSL -->
@@ -248,11 +250,11 @@
 
 	<!-- CSRF Header to stop click jacking or frame busting -->
 	<filter>
-		<filter-name>CSRFHeadersFilter</filter-name>
+		<filter-name>SecurityHeadersFilter</filter-name>
 		<filter-class>org.skyve.impl.web.filter.ResponseHeaderFilter</filter-class>
 		<init-param>
 			<param-name>Content-Security-Policy</param-name>
-			<param-value>frame-ancestors 'self'</param-value>
+			<param-value>upgrade-insecure-requests; base-uri 'self'; default-src 'self'; frame-src 'self' *.google.com *.cloudflare.com; frame-ancestors 'self'; media-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' *.google.com *.googleapis.com *.gstatic.com https://unpkg.com *.cloudflare.com; style-src 'self' 'unsafe-inline' *.googleapis.com *.gstatic.com https://unpkg.com; font-src 'self' data: *.googleapis.com *.gstatic.com; img-src 'self' data: blob: *.openstreetmap.org *.googleapis.com *.gstatic.com; object-src 'none'; form-action 'self'; connect-src 'self' ws: wss: *.googleapis.com *.gstatic.com https://unpkg.com</param-value>
 		</init-param>
 		<init-param>
 			<param-name>X-Frame-Options</param-name>
@@ -262,59 +264,37 @@
 			<param-name>Referrer-Policy</param-name>
 			<param-value>same-origin</param-value>
 		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>CSRFHeadersFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CSRFHeadersFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CSRFHeadersFilter</filter-name>
-		<url-pattern>*.xhtml</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CSRFHeadersFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>CSRFHeadersFilter</filter-name>
-		<url-pattern>/login</url-pattern>
-	</filter-mapping>
-
-	<!-- HSTS Header for protection from man in the middle on user agent client networks -->
+		<init-param>
+			<param-name>X-Content-Type-Options</param-name>
+			<param-value>nosniff</param-value>
+		</init-param>
+		<init-param>
+			<param-name>X-XSS-Protection</param-name>
+			<param-value>1; mode=block</param-value>
+		</init-param>
+		<init-param>
+			<param-name>X-Permitted-Cross-Domain-Policies</param-name>
+			<param-value>none</param-value>
+		</init-param>
+		<init-param>
+			<param-name>Permissions-Policy</param-name>
+			<!-- unload=() can't be added here as unload event is used by SC -->
+			<param-value>accelerometer=(),ambient-light-sensor=(),attribution-reporting=(),autoplay=(),bluetooth=(),browsing-topics=(),camera=(self),compute-pressure=(),cross-origin-isolated=(),display-capture=(),document-domain=(),encrypted-media=(),fullscreen=(self),gamepad=(),geolocation=(self),gyroscope=(),hid=(),identity-credentials-get=(),idle-detection=(self),local-fonts=(self),magnetometer=(),microphone=(),midi=(),otp-credentials=(),payment=(),picture-in-picture=(),publickey-credentials-create=(),publickey-credentials-get=(),screen-wake-lock=(),serial=(),speaker-selection=(),storage-access=(self),usb=(),screen-wake-lock=(),web-share=(),window-management=(),xr-spatial-tracking=()</param-value>
+		</init-param>
+		<!-- HSTS Header for protection from man in the middle on user agent client networks -->
+		<!-- This is switched in foundry projects in nginx -->
 <!--
-	<filter>
-		<filter-name>HSTSHeaderFilter</filter-name>
-		<filter-class>org.skyve.impl.web.filter.ResponseHeaderFilter</filter-class>
 		<init-param>
 			<param-name>Strict-Transport-Security</param-name>
 			<param-value>max-age=31536000; includeSubDomains</param-value>
 		</init-param>
+-->
 	</filter>
 	<filter-mapping>
-		<filter-name>HSTSHeaderFilter</filter-name>
+		<filter-name>SecurityHeadersFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<filter-mapping>
-		<filter-name>HSTSHeaderFilter</filter-name>
-		<url-pattern>*.jsp</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>HSTSHeaderFilter</filter-name>
-		<url-pattern>*.xhtml</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>HSTSHeaderFilter</filter-name>
-		<url-pattern>*.html</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>HSTSHeaderFilter</filter-name>
-		<url-pattern>/login</url-pattern>
-	</filter-mapping>
--->
+ 
     <filter>
         <display-name>RestFilter</display-name>
         <filter-name>RestFilter</filter-name>
@@ -325,8 +305,45 @@
 		<url-pattern>/rest/*</url-pattern>
     </filter-mapping>
 
+    <!-- Uncomment to enable Dev Login Filter for doing skyve-vue development -->
+	<!--
+	<filter>                                                                                  
+		<filter-name>DevLoginFilter</filter-name>                                  
+		<filter-class>org.skyve.impl.web.filter.DevLoginFilter</filter-class>     
+		<init-param>
+			<param-name>customer</param-name>
+			<param-value>bizhub</param-value>
+		</init-param>
+		<init-param>
+			<param-name>user</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+		<init-param>
+			<param-name>password</param-name>
+			<param-value>admin</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DevLoginFilter</filter-name>
+		<servlet-name>SmartClientListServlet</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>DevLoginFilter</filter-name>
+		<servlet-name>SmartClientSnapServlet</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>DevLoginFilter</filter-name>
+		<servlet-name>SmartClientTagServlet</servlet-name>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>DevLoginFilter</filter-name>
+		<url-pattern>/export</url-pattern>
+	</filter-mapping>
+	-->
+
     <!-- API documentation servlet -->
-	<!-- <servlet>
+	<!--
+	<servlet>
 		<servlet-name>DocsServlet</servlet-name>
 		<servlet-class>org.skyve.impl.web.service.DocsServlet</servlet-class>
 		<init-param>
@@ -337,26 +354,20 @@
 	<servlet-mapping>
 		<servlet-name>DocsServlet</servlet-name>
 		<url-pattern>/docs</url-pattern>
-	</servlet-mapping> -->
-
+	</servlet-mapping>
+	-->
+	
 	<!-- Uncomment the following to allow access to the H2 web console. -->
-	<!--<servlet>
+	<!--
+	<servlet>
 		<servlet-name>H2Console</servlet-name>
-		<servlet-class>org.h2.server.web.WebServlet</servlet-class>
+		<servlet-class>org.h2.server.web.JakartaWebServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>H2Console</servlet-name>
 		<url-pattern>/h2/*</url-pattern>
-	</servlet-mapping>-->
-
-	<servlet>
-		<servlet-name>HomeServlet</servlet-name>
-		<servlet-class>org.skyve.impl.web.HomeServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>HomeServlet</servlet-name>
-		<url-pattern>/home/*</url-pattern>
 	</servlet-mapping>
+	-->
 
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
@@ -370,10 +381,6 @@
 		<servlet-name>LoginServlet</servlet-name>
 		<url-pattern>/loggedOut</url-pattern>
 	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>LoginServlet</servlet-name>
-		<url-pattern>/smartClientJavascriptLogin</url-pattern>
-	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>DynamicImageServlet</servlet-name>
@@ -381,15 +388,15 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DynamicImageServlet</servlet-name>
-		<url-pattern>/images/dynamic.png</url-pattern>
+		<url-pattern>/dynamic.png</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DynamicImageServlet</servlet-name>
-		<url-pattern>/images/dynamic.gif</url-pattern>
+		<url-pattern>/dynamic.gif</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DynamicImageServlet</servlet-name>
-		<url-pattern>/images/dynamic.jpeg</url-pattern>
+		<url-pattern>/dynamic.jpeg</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -426,28 +433,28 @@
 		<servlet-name>DownloadServlet</servlet-name>
 		<url-pattern>/download</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet>
 		<servlet-name>ImageServlet</servlet-name>
-		<servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
+		<servlet-class>org.skyve.impl.web.jasperreports.ImageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ImageServlet</servlet-name>
 		<url-pattern>/image</url-pattern>
 	</servlet-mapping>
-
+	
 	<servlet>
 		<servlet-name>CustomerResourceServlet</servlet-name>
 		<servlet-class>org.skyve.impl.web.CustomerResourceServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CustomerResourceServlet</servlet-name>
-		<url-pattern>/resources/*</url-pattern>
+		<url-pattern>/resources</url-pattern>
 	</servlet-mapping>
 	<!-- for smart client widgets which always look in the images directory -->
 	<servlet-mapping>
 		<servlet-name>CustomerResourceServlet</servlet-name>
-		<url-pattern>/images/resources/*</url-pattern>
+		<url-pattern>/images/resources</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CustomerResourceServlet</servlet-name>
@@ -518,14 +525,13 @@
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>PrimeInitialiseServlet</servlet-name>
-		<servlet-class>org.skyve.impl.web.service.prime.InitialiseServlet</servlet-class>
+		<servlet-name>MetaDataServlet</servlet-name>
+		<servlet-class>org.skyve.impl.web.service.MetaDataServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>PrimeInitialiseServlet</servlet-name>
-		<url-pattern>/primeinit</url-pattern>
+		<servlet-name>MetaDataServlet</servlet-name>
+		<url-pattern>/meta</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>ChartServlet</servlet-name>
 		<servlet-class>org.skyve.impl.web.service.ChartServlet</servlet-class>
@@ -534,7 +540,6 @@
 		<servlet-name>ChartServlet</servlet-name>
 		<url-pattern>/chart</url-pattern>
 	</servlet-mapping>
-
 	<servlet>
 		<servlet-name>MapServlet</servlet-name>
 		<servlet-class>org.skyve.impl.web.service.MapServlet</servlet-class>
@@ -544,17 +549,17 @@
 		<url-pattern>/map</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>TrackmateServlet</servlet-name>
-		<servlet-class>org.skyve.impl.web.service.TrackmateServlet</servlet-class>
+		<servlet-name>HealthServlet</servlet-name>
+		<servlet-class>org.skyve.impl.web.service.HealthServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>TrackmateServlet</servlet-name>
-		<url-pattern>/tracks</url-pattern>
+		<servlet-name>HealthServlet</servlet-name>
+		<url-pattern>/health</url-pattern>
 	</servlet-mapping>
 
     <servlet>
         <servlet-name>FacesServlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>FacesServlet</servlet-name>
@@ -619,11 +624,23 @@
 		<location>/login</location>
 	</error-page>
 	<error-page>
+		<exception-type>org.skyve.domain.messages.SessionEndedException</exception-type>
+		<location>/pages/expired.jsp</location>
+	</error-page>
+	<error-page>
+		<exception-type>org.skyve.domain.messages.ConversationEndedException</exception-type>
+		<location>/pages/expired.jsp</location>
+	</error-page>
+	<error-page>
 		<exception-type>java.lang.Throwable</exception-type>
 		<location>/pages/error.jsp</location>
 	</error-page>
 
 	<session-config>
 		<session-timeout>30</session-timeout>
+		<!-- 
+			<cookie-config/> is set in SkyveContextListener based on Util.isSecureUrl().
+			The SameSite attribute is set within undertow-handlers.conf as it was impossible through spring security or Filters.
+		-->
 	</session-config>
 </web-app>

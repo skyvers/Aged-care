@@ -10,28 +10,36 @@
 		<job name="jTruncateAuditLog" displayName="Truncate Audit Log" className="modules.admin.DataMaintenance.TruncateAuditLogJob" />
 		<job name="jBackup" displayName="Scheduled Backup all data and content" className="modules.admin.DataMaintenance.BackupJob" />
 		<job name="jAdhocBackup" displayName="Adhoc Backup all data and content" className="org.skyve.impl.backup.BackupJob" />
-		<job name="jRestore" displayName="Restore all data and content" className="org.skyve.impl.backup.RestoreJob" />
 		<job name="jReindex" displayName="Reindex all data and attachments" className="org.skyve.impl.backup.ReindexJob" />
 		<job name="jReindexAttachments" displayName="Reindex all attachments" className="org.skyve.impl.backup.ReindexAttachmentsJob" />
 		<job name="jReindexBeans" displayName="Reindex all data" className="org.skyve.impl.backup.ReindexBeansJob" />
 		<job name="jRefreshDocumentTuples" displayName="Refresh Persisted Document Data" className="modules.admin.DataMaintenance.RefreshDocumentTuplesJob"/>
 		<job name="jBulkUserCreation" displayName="Create Users" className="modules.admin.UserList.BulkUserCreationJob"/>
 		<job name="jGenerateTestData" displayName="Generate Test Data" className="modules.admin.ControlPanel.GenerateTestDataJob"/>
+		<job name="jAvailableDiskSpaceAlarm" displayName="Available Disk Space Alarm" className="modules.admin.Configuration.AvailableDiskSpaceAlarmJob"/>
+		<job name="jDifferentCountryLoginNotification" displayName="Different Country Login Notification" className="modules.admin.UserLoginRecord.jobs.DifferentCountryLoginNotificationJob"/>
+		<job name="jPasswordChangeNotification" displayName="Password change notification" className="modules.admin.ChangePassword.SendPasswordChangeNotificationJob"/>
+		<job name="ArchiveJob" displayName="Archive Job" className="org.skyve.impl.archive.job.ArchiveJob" />
 	</jobs>
 	<documents>
 		<document ref="Audit" defaultQueryName="qAudits" />
+		<document ref="AuditList" />
 		<document ref="ChangePassword" />
 		<document ref="Communication" defaultQueryName="qCommunications" />
-		<document ref="CommunicationTemplate" />
+		<document ref="CommunicationTemplate" defaultQueryName="qCommunicationTemplate"/>
 		<document ref="Configuration" />
 		<document ref="Contact" defaultQueryName="qContacts" />
 		<document ref="Content" />
 		<document ref="ControlPanel" />
+		<document ref="CorruptArchiveError"/>
+		<document ref="Country" />
 		<document ref="DataGroup" />
 		<document ref="DataMaintenance" />
 		<document ref="DocumentCreator" />
 		<document ref="DocumentNumber" defaultQueryName="qDocumentNumbers"/>
 		<document ref="DownloadFolder" />
+		<document ref="DynamicEntity" />
+		<document ref="DynamicRelation" />
 		<document ref="Generic" />
 		<document ref="Group" />
 		<document ref="GroupRole" />
@@ -42,9 +50,15 @@
 		<document ref="JobSchedule" defaultQueryName="qAllSchedules" />
 		<document ref="ModuleDocument" />
 		<document ref="ReportDesign" />
-		<document ref="SelfRegistration" />		
+		<document ref="ReportDataset" />
+		<document ref="ReportParameter" />
+		<document ref="ReportManager" />
+		<document ref="ReportTemplate" defaultQueryName="qReportTemplates" />
+		<document ref="SecurityLog" defaultQueryName="qSecurityLogs"/>
+		<document ref="SelfRegistration" />
 		<document ref="SelfRegistrationActivation" />
 		<document ref="Snapshot" defaultQueryName="qSnapshots" />
+		<document ref="Snapshots" />
 		<document ref="Startup"/>
 		<document ref="Subscription"/>
 		<document ref="SystemDashboard" />
@@ -62,47 +76,66 @@
 	</documents>
 	<roles>
 		<role name="Anonymous">
-			<description>Access anonymous (not logged in) public features</description>
+			<description>admin.adminRoles.anonymous.description</description>
 			<privileges>
-				<document name="Communication" permission="_R__G"/>
-				<document name="CommunicationTemplate" permission="_R__G"/>
-				<document name="Configuration" permission="_R__C" />				
-				<document name="Generic" permission="CRUDG"/>
 				<document name="SelfRegistration" permission="_____">
 					<action name="Register" />
 				</document>
 				<document name="SelfRegistrationActivation" permission="_____"/>
-				<document name="Subscription" permission="CRUDG"/>
-				<document name="User" permission="_R__C" />				
+				<document name="Subscription" permission="_____"/>
 			</privileges>
+			<accesses>
+				<singularAccess document="SelfRegistration" />
+				<singularAccess document="SelfRegistrationActivation" />
+			</accesses>
 		</role>
 		<role name="AppUser">
 			<documentation>
 				The App User role is intended for retail and public users interacting through the "front office". 
 				These users are assumed to operate within their own scope and have only visibility to their own data.
 				
-				App Users can create their own contacts, and change their own passwords.			
+				App Users can create their own contacts, and change their own passwords.
+				
+				App Users can execute reports if given access via another module.			
 			</documentation>
-			<description>Manage own contact details and password</description>
+			<description>admin.adminRoles.appUser.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
 				</document>
 				<document name="Contact" permission="CRUDU" />
-				<document name="Generic" permission="CRUDG"/>
+				<document name="Country" permission="_R__G" />
+				<document name="DynamicEntity" permission="CRUDD" />
+				<document name="DynamicRelation" permission="CRUDD" />
+				<document name="Generic" permission="CRUDG" />
+				<document name="ReportTemplate" permission="_R__C">
+					<action name="DownloadJasperReport" />
+					<action name="DownloadReport" />
+				</document>
+				<document name="Snapshot" permission="CRUDU" />
 				<document name="User" permission="_RU_U" />
+				<document name="UserDashboard" permission="CR__U">
+					<action name="UpdateMyDetails" />
+				</document>
 				<document name="UserProxy" permission="_RU_U" />
 			</privileges>
+			<accesses>
+				<singularAccess document="ReportTemplate"/>
+			</accesses>
 		</role>
 		<role name="AuditManager">
-			<description>Manage the activity audit log</description>
+			<description>admin.adminRoles.auditManager.description</description>
 			<privileges>
 				<document name="Audit" permission="_R_DC"/>
+				<document name="AuditList" permission="_____"/>
 				<document name="DataMaintenance" permission="CRUDC">
 					<action name="CheckAuditMatches"/>
 					<action name="TruncateAuditLog"/>
 				</document>
 			</privileges>
+			<accesses>
+				<modelAggregateAccess document="Audit" model="ArchivedAuditListModel" />
+			</accesses>
 		</role>
 		<role name="BasicUser">
 			<documentation>
@@ -111,9 +144,11 @@
 				The role is for a typical office situation where users collaborate within the "Customer" scope on key application areas.
 				
 				For example, shared contact management, common document number serials 
-				and the ability to use Skyve's basic personal efficiency and automation capabilities, Tags, Snapshots, Communication and view dashboards.			
+				and the ability to use Skyve's basic personal efficiency and automation capabilities, Tags, Snapshots, Communication and view dashboards.
+				
+				BasicUser can know of the existence of other users and refer to them, but cannot change their user record.			
 			</documentation>
-			<description>General access to the administration module</description>
+			<description>admin.adminRoles.basicUser.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
@@ -122,11 +157,22 @@
 				<document name="CommunicationTemplate" permission="_R__C"/>
 				<document name="Configuration" permission="_R__C" />
 				<document name="Contact" permission="_RU_C" />
+				<document name="Country" permission="_R__G" />
 				<document name="DocumentNumber" permission="CRUDC" />
+				<document name="DynamicEntity" permission="CRUDD" />
+				<document name="DynamicRelation" permission="CRUDD" />
 				<document name="Generic" permission="CRUDG"/>
 				<document name="Job" permission="_R__U" />
+				<document name="ReportTemplate" permission="_RU_C">
+					<action name="AddUserToEmail" />
+					<action name="DownloadJasperReport" />
+					<action name="DownloadReport" />
+				</document>
 				<document name="Snapshot" permission="CRUDU">
 					<action name="CopySnapshotToUser" />
+				</document>
+				<document name="Snapshots" permission="_____">
+					<action name="Reorder" />
 				</document>
 				<document name="Subscription" permission="CRUDU"/>
 				<document name="Tag" permission="CRUDU">
@@ -153,7 +199,7 @@
 			<documentation>
 				Allows atomic control over management of, and interaction with, contacts.
 			</documentation>
-			<description>Manage contact details and interactions</description>
+			<description>admin.adminRoles.contactManager.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
@@ -172,6 +218,7 @@
 				</document>
 				<document name="CommunicationTemplate" permission="CRUDC"/>
 				<document name="Contact" permission="CRUDC" />
+				<document name="Country" permission="_R__G" />
 				<document name="Generic" permission="CRUDG"/>
 			</privileges>
 		</role>
@@ -179,50 +226,51 @@
 			<documentation>
 				Allows atomic control over visibility of contacts.
 			</documentation>
-			<description>View-only access to contact details</description>
+			<description>admin.adminRoles.contactViewer.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
 				</document>
 				<document name="Contact" permission="_R__C" />
+				<document name="Country" permission="_R__G" />
 				<document name="Generic" permission="CRUDG"/>
 			</privileges>
 		</role>
 		<role name="DevOps">
-			<description>Generate Skyve designs and metadata and administer technical aspects of the Skyve runtime</description>
+			<description>admin.adminRoles.devOps.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
-				</document>			
+				</document>
+				<document name="CorruptArchiveError" permission="CRUDC">
+				</document>
 				<document name="ControlPanel" permission="_____">
 					<action name="CacheStats" />
 					<action name="EvictFromCache" />
 					<action name="EvictSelectedCache" />
 					<action name="StopOrStartSelectedCache" />
 					<action name="ExecuteQuery" />
-					<action name="GenerateEditView" />
-					<action name="GenerateQuery" />
 					<action name="SwapCustomer" />
 					<action name="GenerateMenuSAIL" />
 					<action name="GenerateModuleSAIL" />
 					<action name="ExecuteSAIL" />
+					<action name="DownloadResults"/>
 					<action name="DownloadSAIL" />
 					<action name="DownloadClientSAIL" />
-					<action name="ApplyStartupConfiguration" />
-					<action name="AddAPIKey"/>
 					<action name="GenerateTestData" />
 					<action name="DeleteTestData" />
 				</document>
+				<document name="Country" permission="_R__G" />
 				<document name="DataMaintenance" permission="CRUDC">
 					<action name="Backup" />
 					<action name="BackupSelected" />
 					<action name="CheckContent" />
+					<action name="CollectContentGarbage" />
 					<action name="ContentSelected" />
 					<action name="DataMaintenanceExportAction" />
 					<action name="DataMaintenanceImportAction" />
 					<action name="DeleteBackup" />
-					<action name="MigrateContent" />
-					<action name="MigrateContentFiles" />
+					<action name="DropIndexing" />
 					<action name="RefreshBackupList" />
 					<action name="Reindex" />
 					<action name="ReindexData" />
@@ -240,6 +288,7 @@
 					<action name="Submit" />
 					<action name="UpdatePreview" />
 				</document>
+				<document name="DownloadFolder" permission="CRUDC" />
 				<document name="Generic" permission="CRUDG"/>
 				<document name="ImportExport" permission="CRUDC">
 					<action name="ClearImport"/>
@@ -255,6 +304,26 @@
 					<action name="GenerateDefault" />
 					<action name="Preview" />
 				</document>
+				<document name="ReportDataset" permission="CRUDC">
+					<action name="TestQuery" />
+				</document>
+				<document name="ReportTemplate" permission="CRUDC">
+					<action name="AddUserToEmail" />
+					<action name="Back" />
+					<action name="CopyReport" />
+					<action name="DownloadJasperReport" />
+					<action name="DownloadReport" />
+					<action name="DownloadTemplate" />
+					<action name="ExportReportSpecification" />
+					<action name="Next" />
+					<action name="TestJasperReport" />
+					<action name="TestReport" />
+				</document>
+				<document name="ReportParameter" permission="CRUDC"/>
+				<document name="ReportManager" permission="_____">
+					<action name="ExportReportSpecifications"/>
+					<action name="ImportReportSpecifications"/>
+				</document>
 				<document name="UserMonthlyHits" permission="_R__C" />
 				<document name="UserToken" permission="CRUDC" />
 			</privileges>
@@ -263,13 +332,17 @@
 			<documentation>
 				Allows atomic control over the ability to schedule jobs and review job progress.
 			</documentation>
-			<description>Maintain Jobs</description>
+			<description>admin.adminRoles.jobMaintainer.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
 				</document>
+				<document name="Country" permission="_R__G" />
 				<document name="Generic" permission="CRUDG"/>
-				<document name="Job" permission="CRUDC" />
+				<document name="Job" permission="CRUDC">
+					<action name="CancelJob" />
+					<action name="RerunJob" />
+				</document>
 				<document name="Jobs" permission="_____">
 					<action name="DeleteCompletedJobs" />
 					<action name="Refresh" />
@@ -283,11 +356,10 @@
 			<documentation>
 				Administration of users and permissions.
 			</documentation>
-			<description>Allows administration of Users and Groups</description>
+			<description>admin.adminRoles.securityAdministrator.description</description>
 			<privileges>
-				<document name="Audit" permission="_R__C">
-					<action name="SourceVersionChanged" />
-				</document>
+				<document name="Audit" permission="_R__C" />
+				<document name="AuditList" permission="_____"/>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
 				</document>
@@ -309,13 +381,22 @@
 				</document>
 				<document name="Contact" permission="CRUDC" />
 				<document name="Content" permission="_R__C" />
+				<document name="Country" permission="_R__G" />
 				<document name="DataGroup" permission="CRUDC" />
 				<document name="DocumentNumber" permission="CRUDC" />
 				<document name="DownloadFolder" permission="CRUDC" />
+				<document name="DynamicEntity" permission="CRUDD" />
+				<document name="DynamicRelation" permission="CRUDD" />
 				<document name="Generic" permission="CRUDG"/>
 				<document name="Group" permission="CRUDC" />
 				<document name="GroupRole" permission="CRUDC" />
 				<document name="Job" permission="_R__C" />
+				<document name="ReportTemplate" permission="_R__C">
+					<action name="AddUserToEmail" />
+					<action name="DownloadJasperReport" />
+					<action name="DownloadReport" />
+				</document>
+				<document name="SecurityLog" permission="_R_DC"/>
 				<document name="SelfRegistration" permission="_RUDC">
 					<action name="Register"/>
 				</document>
@@ -332,6 +413,7 @@
 					<action name="New" />
 					<action name="Next" />
 					<action name="Back" />
+					<action name="ResendActivation"/>
 				</document>
 				<document name="UserCandidateContact" permission="_____" />
 				<document name="UserList" permission="_____">
@@ -342,21 +424,30 @@
 				<document name="UserProxy" permission="_RU_C" />
 				<document name="UserRole" permission="CRUDC" />
 			</privileges>
+			<accesses>
+				<singularAccess document="Startup" />
+			</accesses>
 		</role>
 		<role name="ViewUser">
 			<documentation>
 			The view user is intended as a read-only office user, with visibility as per Basic User role.
 			</documentation>
-			<description>View-only access to the administration module</description>
+			<description>admin.adminRoles.viewUser.description</description>
 			<privileges>
 				<document name="ChangePassword" permission="_____">
 					<action name="MakePasswordChange" />
 				</document>
 				<document name="Contact" permission="_R__C" />
+				<document name="Country" permission="_R__G" />
 				<document name="DocumentNumber" permission="_R__C" />
+				<document name="DynamicEntity" permission="_R__D" />
+				<document name="DynamicRelation" permission="_R__D" />
 				<document name="Generic" permission="CRUDG"/>
 				<document name="Job" permission="_R__U" />
 				<document name="Snapshot" permission="CRUDU" />
+				<document name="Snapshots" permission="_____">
+					<action name="Reorder" />
+				</document>
 				<document name="Subscription" permission="CRUDU"/>
 				<document name="Tag" permission="CRUDU">
 					<action name="Clear" />
@@ -374,64 +465,67 @@
 		</role>
 	</roles>
 	<menu>
-		<edit document="ChangePassword" name="Password">
+		<edit document="ChangePassword" name="admin.adminMenu.changePassword.document.displayName">
 			<role name="BasicUser" />
 			<role name="ViewUser" />
 			<role name="AppUser" />
 		</edit>
-		<edit document="UserDashboard" name="User Dashboard">
+		<edit document="UserDashboard" name="admin.adminMenu.userDashboard.document.displayName">
+			<role name="AppUser" />
 			<role name="BasicUser" />
 		</edit>
-		<list document="Contact" name="Contacts">
+		<list document="Contact" name="admin.adminMenu.contact.list.displayName">
 			<role name="ContactViewer" />
 			<role name="ContactManager" />
 			<role name="SecurityAdministrator" />
 		</list>
-		<group name="Communication">
-			<list document="Communication" name="Communications">
+		<group name="admin.adminMenu.communication.group.displayName">
+			<list document="Communication" name="admin.adminMenu.communication.list.displayName">
 				<role name="ContactManager" />
 				<role name="SecurityAdministrator" />
 			</list>
-			<list document="CommunicationTemplate" name="Communication Templates">
+			<list document="CommunicationTemplate" name="admin.adminMenu.communicationTemplate.list.displayName">
 				<role name="ContactManager" />
 				<role name="SecurityAdministrator" />
 			</list>
 		</group>
-		<group name="Security Admin">
-			<list document="Group" name="Groups">
+		<group name="admin.adminMenu.securityAdmin.group.displayName">
+			<list document="Group" name="admin.adminMenu.groups.list.displayName">
 				<role name="SecurityAdministrator" />
 			</list>
-			<edit document="UserList" name="Users">
+			<edit document="UserList" name="admin.adminMenu.userList.document.displayName">
 				<role name="SecurityAdministrator" />
 			</edit>
-			<list document="DataGroup" name="Data Groups">
+			<list document="DataGroup" name="admin.adminMenu.dataGroup.list.displayName">
 				<uxui name="desktop" />
 				<uxui name="external" />
 				<uxui name="tablet" />
 				<role name="SecurityAdministrator" />
 			</list>
-			<edit document="Configuration" name="Configuration">
+			<edit document="Configuration" name="admin.adminMenu.configuration.document.displayName">
 				<role name="SecurityAdministrator" />
 			</edit>
-			<list query="qLoginHistory" name="Login History">
+			<list query="qLoginHistory" name="admin.adminMenu.qLoginHistory.list.displayName">
 				<role name="SecurityAdministrator" />
 			</list>
+			<list document="SecurityLog" name="Security Log">
+	            <uxui name="desktop"/>
+	            <uxui name="external"/>
+	            <uxui name="tablet"/>
+	            <role name="SecurityAdministrator"/>
+	        </list>
 		</group>
-		<group name="DevOps">
-			<edit document="ControlPanel" name="Control Panel">
+		<group name="admin.adminMenu.devOps.group.displayName">
+			<edit document="ControlPanel" name="admin.adminMenu.controlPanel.document.displayName">
 				<role name="DevOps" />
 			</edit>
-			<edit document="DataMaintenance" name="Data Maintenance">
+			<edit document="DataMaintenance" name="admin.adminMenu.dataMaintenance.document.displayName">
 				<role name="DevOps" />
 			</edit>
-			<edit name="Document Creator" document="DocumentCreator">
+			<edit document="DocumentCreator" name="admin.adminMenu.documentCreator.document.displayName">
 				<uxui name="desktop" />
 				<uxui name="external" />
 				<uxui name="tablet" />
-				<role name="DevOps" />
-			</edit>
-			<edit document="ReportDesign" name="Report Design">
-				<uxui name="desktop" />
 				<role name="DevOps" />
 			</edit>
 			<list document="UserMonthlyHits" name="User Hits" autoPopulate="false">
@@ -439,35 +533,51 @@
 				<role name="DevOps" />
 			</list>
 		</group>
-		<list name="Snapshots" document="Snapshot">
+		<group name="Reports">
+			<list name="Reports" query="qEnabledReports">
+				<uxui name="external" />
+				<uxui name="tablet"/>
+				<role name="BasicUser"/>
+			</list>
+			<edit name="Report Manager" document="ReportManager">
+				<uxui name="desktop" />
+				<role name="DevOps"/>
+			</edit>
+			<list name="Report Designer" document="ReportTemplate">
+				<uxui name="desktop" />
+				<role name="DevOps"/>
+			</list>
+			<list name="Report Schedules" query="qReportSchedules">
+				<uxui name="desktop" />
+				<role name="DevOps"/>
+				<role name="SecurityAdministrator"/>
+			</list>
+		</group>
+		<edit document="Snapshots" name="admin.adminMenu.snapshots.document.displayName">
 			<uxui name="desktop" />
-			<uxui name="external" />
-			<uxui name="tablet" />
+			<role name="BasicUser" />
+		</edit>
+		<list document="Tag" name="admin.adminMenu.tags.list.displayName">
+			<uxui name="desktop" />
 			<role name="BasicUser" />
 		</list>
-		<list name="Tags" document="Tag">
-			<uxui name="desktop" />
-			<uxui name="external" />
-			<uxui name="tablet" />
-			<role name="BasicUser" />
-		</list>
-		<list name="Audits" document="Audit">
-			<uxui name="desktop" />
-			<uxui name="external" />
-			<uxui name="tablet" />
-			<role name="SecurityAdministrator" />
-			<role name="AuditManager" />
-		</list>
-		<edit document="SystemDashboard" name="System Dashboard">
+        <edit document="AuditList" name="admin.adminMenu.audits.list.displayName">
+            <uxui name="desktop"/>
+            <uxui name="external"/>
+            <uxui name="tablet"/>
+            <role name="SecurityAdministrator"/>
+            <role name="AuditManager"/>
+        </edit>
+		<edit document="SystemDashboard" name="admin.adminMenu.systemDashboard.document.displayName">
 			<uxui name="desktop" />
 			<uxui name="external" />
 			<uxui name="tablet" />
 			<role name="SecurityAdministrator" />
 		</edit>
-		<list name="Document Numbers" document="DocumentNumber">
+		<list document="DocumentNumber" name="admin.adminMenu.documentNumber.list.displayName">
 			<role name="SecurityAdministrator" />
 		</list>
-		<edit document="Jobs" name="Jobs">
+		<edit document="Jobs" name="admin.adminMenu.jobs.document.displayName">
 			<role name="JobMaintainer" />
 		</edit>
 	</menu>
@@ -483,11 +593,11 @@
 		</query>
         <query name="qContactsByContactType" documentName="Contact" aggregate="true">
             <description>Number of Contacts by Contact Type</description>
-            <from>
+ 			<grouping>
                 <![CDATA[
-                    {admin.Contact} as bean group by bean.contactType
+ 					bean.contactType
                 ]]>
-            </from>
+ 			</grouping>
             <columns>
                 <column binding="contactType" sortOrder="ascending" />
                 <column displayName="Count">
@@ -570,9 +680,13 @@
 				<![CDATA[
 					{admin.User} as user
 					inner join user.groups as bean
-					group by bean.name
 				]]>
 			</from>
+			<grouping>
+				<![CDATA[
+					bean.name
+				]]>
+			</grouping>
 			<columns>
 				<column binding="name" sortOrder="ascending" />
 				<column displayName="Users">
@@ -591,6 +705,9 @@
 				<column binding="userName" />
 				<column binding="loginDateTime" sortOrder="descending" />
 				<column binding="failed" />
+				<column binding="ipAddress" />
+				<column binding="countryCode" />
+				<column binding="countryName" editable="false" filterable="false" sortable="false" />
 			</columns>
 		</query>
 		
@@ -618,6 +735,7 @@
 			<description>The list of all job schedule entries</description>
 			<columns>
 				<column binding="bizKey" sortOrder="ascending" />
+				<column binding="scheduleString" sortable="false" filterable="false" editable="false"/>
 				<column binding="startTime" sortOrder="ascending" pixelWidth="150" />
 				<column binding="endTime" pixelWidth="150"/>
 				<column binding="disabled" pixelWidth="150"/>
@@ -633,12 +751,12 @@
 					<filterExpression>?</filterExpression>
 					<projected>false</projected>
 				</column>
-				<column binding="year">
+				<column binding="hitYear">
 					<filterOperator>equal</filterOperator>
 					<filterExpression>?</filterExpression>
 					<projected>false</projected>
 				</column>
-				<column binding="month">
+				<column binding="hitMonth">
 					<filterOperator>equal</filterOperator>
 					<filterExpression>?</filterExpression>
 					<projected>false</projected>
@@ -650,6 +768,9 @@
 			<columns>
 				<column binding="moduleName" sortOrder="ascending" />
 				<column binding="queryName" sortOrder="ascending" />
+				<column binding="ordinal" sortOrder="ascending">
+					<projected>false</projected>
+				</column>
 				<column binding="name" sortOrder="ascending" />
 			</columns>
 		</query>
@@ -669,6 +790,9 @@
 				<column binding="auditModuleName" />
 				<column binding="auditDocumentName" />
 				<column binding="auditBizKey" />
+				<column binding="auditBizId" hidden="true" />
+				<column binding="archiveTimestamp" hidden="true" />
+				<column binding="archiveFilename" hidden="true" />
 				<column binding="millis" sortOrder="descending">
 					<projected>false</projected>
 				</column>
@@ -678,8 +802,25 @@
 			<description>Communications</description>
 			<columns>
 				<column binding="description" sortOrder="ascending" />
-				<column binding="documentName" />
 				<column binding="subject" />
+				<column binding="systemUse"/>
+				<column binding="template.bizKey"/>
+			</columns>
+		</query>
+		<query name="qCommunicationsForTemplate" documentName="Communication">
+			<description>Communications For Template</description>
+			<columns>
+				<column binding="description" sortOrder="ascending" />
+				<column binding="subject" />
+				<column binding="systemUse"/>
+			</columns>
+		</query>		
+		<query name="qCommunicationTemplate" documentName="CommunicationTemplate">
+			<description>Communication Templates</description>
+			<columns>
+				<column binding="name" sortOrder="ascending"/>
+				<column binding="description" />
+				<column binding="template" sanitise="relaxed" escape="false"/>
 			</columns>
 		</query>
 		<query name="qSubscriptions" documentName="Subscription">
@@ -690,7 +831,7 @@
 			</columns>
 		</query>
 		<query name="qUserSubscriptions" documentName="Subscription">
-			<description>Subscriptions</description>
+			<description>User Subscriptions</description>
 			<columns>
 				<column binding="communication.bizKey" sortOrder="ascending" />
 				<column binding="declined" />
@@ -698,7 +839,7 @@
 			</columns>
 		</query>
 		<query name="qTagCommunications" documentName="Communication">
-			<description>Communications</description>
+			<description>Tag Communications</description>
 			<columns>
 				<column binding="description" sortOrder="ascending" />
 				<column binding="moduleName">
@@ -727,6 +868,67 @@
                 <column binding="documentName" sortOrder="ascending"/>
                 <column binding="sequenceName" sortOrder="ascending"/>
                 <column binding="documentNumber" />
+            </columns>
+        </query>
+        <query documentName="ReportTemplate" name="qEnabledReports">
+        	<documentation>Shows all enabled reports which are not fragments, and makes sure 
+        		the logged in user has the role if the report is restricted to a specific role.</documentation>
+			<description><![CDATA[All Reports]]></description>
+			<filter>
+				bean.includeFragment = false AND bean.enabled = true
+				AND (
+					bean.restrictToRole IS NULL OR (
+						EXISTS (
+							SELECT 1
+							FROM {admin.UserRole} as ur
+							WHERE ur.roleName = bean.restrictToRole AND ur.parent.bizId = {USERID}
+						)
+						OR EXISTS (
+							SELECT 1
+							FROM {admin.User} as u
+	                		INNER JOIN u.groups as g
+	                		INNER JOIN g.roles as gr
+	                		WHERE gr.roleName = bean.restrictToRole AND u.bizId = {USERID}
+						) 
+					)
+				)
+			</filter>
+			<columns>
+				<column binding="name" sortOrder="ascending" />
+				<column binding="description" />
+			</columns>
+		</query>
+        <query documentName="ReportTemplate" name="qReportSchedules">
+			<documentation>Shows the schedules for enabled reports.</documentation>
+			<description><![CDATA[All Report Schedules]]></description>
+			<filter>bean.includeFragment = false and bean.enabled = true</filter>
+			<columns>
+				<column binding="name" sortOrder="ascending" />
+				<column binding="description" />
+				<column binding="scheduleDescription" editable="false" filterable="false" sortable="false" />
+			</columns>
+		</query>
+		<query documentName="ReportTemplate" name="qReportTemplates">
+			<description><![CDATA[All Report Templates]]></description>
+			<columns>
+				<column binding="name" sortOrder="ascending" />
+				<column binding="description" />
+				<column binding="enabled" />
+				<column binding="includeFragment" />
+				<column binding="outputFormat" displayName="Format" pixelWidth="80" />
+				<column binding="reportType" hidden="true" />
+				<column binding="templateName" />
+				<column binding="restrictToRole" hidden="true" />
+				<column binding="template" hidden="true" />
+			</columns>
+		</query>
+		<query documentName="SecurityLog" name="qSecurityLogs">
+            <description><![CDATA[All Security Logs]]></description>
+            <columns>
+                <column binding="timestamp" sortOrder="descending"/>
+                <column binding="username"/>
+                <column binding="eventType"/>
+                <column binding="eventMessage"/>
             </columns>
         </query>
 	</queries>

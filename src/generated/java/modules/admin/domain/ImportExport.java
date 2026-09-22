@@ -1,12 +1,14 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.ImportExport.ImportExportExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
@@ -14,18 +16,19 @@ import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Import Export
  * 
  * @depend - - - Mode
  * @depend - - - RollbackErrors
- * @depend - - - LoadType
  * @navcomposed 1 importExportColumns 0..n ImportExportColumn
  * @stereotype "persistent"
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class ImportExport extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -35,37 +38,51 @@ public abstract class ImportExport extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "ImportExport";
 
 	/** @hidden */
 	public static final String modePropertyName = "mode";
+
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String documentNamePropertyName = "documentName";
+
 	/** @hidden */
 	public static final String importFileAbsolutePathPropertyName = "importFileAbsolutePath";
+
 	/** @hidden */
 	public static final String importFileNamePropertyName = "importFileName";
+
 	/** @hidden */
 	public static final String exportFileAbsolutePathPropertyName = "exportFileAbsolutePath";
+
 	/** @hidden */
 	public static final String resultsPropertyName = "results";
+
 	/** @hidden */
 	@Deprecated
 	public static final String advancedModePropertyName = "advancedMode";
+
 	/** @hidden */
 	@Deprecated
 	public static final String columnTitlesOnlyPropertyName = "columnTitlesOnly";
+
 	/** @hidden */
 	public static final String fileContainsHeadersPropertyName = "fileContainsHeaders";
+
 	/** @hidden */
 	public static final String detailedLoggingPropertyName = "detailedLogging";
+
 	/** @hidden */
 	public static final String importExportColumnsPropertyName = "importExportColumns";
+
 	/** @hidden */
 	public static final String rollbackErrorsPropertyName = "rollbackErrors";
+
 	/** @hidden */
 	public static final String loadTypePropertyName = "loadType";
 
@@ -73,6 +90,7 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 * Mode
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum Mode implements Enumeration {
 		importData("importData", "Import Data"),
 		exportData("exportData", "Export Data");
@@ -84,7 +102,7 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(Mode::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private Mode(String code, String description) {
 			this.code = code;
@@ -98,8 +116,8 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -120,11 +138,11 @@ public abstract class ImportExport extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static Mode fromDescription(String description) {
+		public static Mode fromLocalisedDescription(String description) {
 			Mode result = null;
 
 			for (Mode value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -134,14 +152,6 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				Mode[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (Mode value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -150,9 +160,10 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 * Error handling
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum RollbackErrors implements Enumeration {
-		rollbackErrors("rollbackErrors", "Roll-back all if there's a problem"),
-		noRollbackErrors("noRollbackErrors", "Load and save until error or complete");
+		rollbackErrors("rollbackErrors", "admin.importExport.rollbackErrors.rollbackErrors.description"),
+		noRollbackErrors("noRollbackErrors", "admin.importExport.rollbackErrors.noRollbackErrors.description");
 
 		private String code;
 		private String description;
@@ -161,7 +172,7 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(RollbackErrors::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private RollbackErrors(String code, String description) {
 			this.code = code;
@@ -175,8 +186,8 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -197,11 +208,11 @@ public abstract class ImportExport extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static RollbackErrors fromDescription(String description) {
+		public static RollbackErrors fromLocalisedDescription(String description) {
 			RollbackErrors result = null;
 
 			for (RollbackErrors value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -211,97 +222,6 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				RollbackErrors[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (RollbackErrors value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
-			return domainValues;
-		}
-	}
-
-	/**
-	 * Loading strategy
-	 * <br/>
-	 * <p><b>Loading strategy</b></p>
-				<p><b>Create related records if they don't exist (recommended)</b>
-				<br/><i>With this option, uploaded records will be created but where these reference other records, they will only be created if a match can't be found</i></p>
-				<p><b>Create everything even if there might be duplicates</b>
-					<br/><i>With this option, uploaded records will be created but where these reference other records, they will only be created if a match can't be found</i></p>
-	 **/
-	@XmlEnum
-	public static enum LoadType implements Enumeration {
-		createFind("createFind", "Create related records if they don't exist"),
-		createAll("createAll", "Create everything even if there might be duplicates");
-
-		private String code;
-		private String description;
-
-		/** @hidden */
-		private DomainValue domainValue;
-
-		/** @hidden */
-		private static List<DomainValue> domainValues;
-
-		private LoadType(String code, String description) {
-			this.code = code;
-			this.description = description;
-			this.domainValue = new DomainValue(code, description);
-		}
-
-		@Override
-		public String toCode() {
-			return code;
-		}
-
-		@Override
-		public String toDescription() {
-			return description;
-		}
-
-		@Override
-		public DomainValue toDomainValue() {
-			return domainValue;
-		}
-
-		public static LoadType fromCode(String code) {
-			LoadType result = null;
-
-			for (LoadType value : values()) {
-				if (value.code.equals(code)) {
-					result = value;
-					break;
-				}
-			}
-
-			return result;
-		}
-
-		public static LoadType fromDescription(String description) {
-			LoadType result = null;
-
-			for (LoadType value : values()) {
-				if (value.description.equals(description)) {
-					result = value;
-					break;
-				}
-			}
-
-			return result;
-		}
-
-		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				LoadType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (LoadType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -310,68 +230,83 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 * Mode
 	 **/
 	private Mode mode = Mode.importData;
+
 	/**
 	 * Module Name
 	 **/
 	private String moduleName;
+
 	/**
 	 * Document
 	 **/
 	private String documentName;
+
 	/**
 	 * File Absolute Path
 	 **/
 	private String importFileAbsolutePath;
+
 	/**
 	 * Imported File
 	 **/
 	private String importFileName;
+
 	/**
 	 * File Absolute Path
 	 **/
 	private String exportFileAbsolutePath;
+
 	/**
 	 * Results
 	 **/
 	private String results;
+
 	/**
 	 * Advanced Mode
 	 **/
 	@Deprecated
 	private Boolean advancedMode;
+
 	/**
 	 * Include Titles only
 	 **/
 	@Deprecated
 	private Boolean columnTitlesOnly;
+
 	/**
 	 * Column Headers
 	 **/
-	private Boolean fileContainsHeaders = new Boolean(true);
+	private Boolean fileContainsHeaders = Boolean.valueOf(true);
+
 	/**
 	 * Detailed logging
 	 * <br/>
 	 * Include all import details row by row to server log
 	 **/
-	private Boolean detailedLogging = new Boolean(true);
+	private Boolean detailedLogging = Boolean.valueOf(true);
+
 	/**
 	 * Columns
 	 **/
 	private List<ImportExportColumn> importExportColumns = new ChangeTrackingArrayList<>("importExportColumns", this);
+
 	/**
 	 * Error handling
 	 **/
 	private RollbackErrors rollbackErrors = RollbackErrors.rollbackErrors;
+
 	/**
 	 * Loading strategy
 	 * <br/>
 	 * <p><b>Loading strategy</b></p>
-				<p><b>Create related records if they don't exist (recommended)</b>
-				<br/><i>With this option, uploaded records will be created but where these reference other records, they will only be created if a match can't be found</i></p>
-				<p><b>Create everything even if there might be duplicates</b>
-					<br/><i>With this option, uploaded records will be created but where these reference other records, they will only be created if a match can't be found</i></p>
+<p><b>Create related records if they don't exist (recommended)</b>
+<br/>
+<i>With this option, uploaded records will be created but where these reference other records, they will only be created if a match can't be found</i></p>
+<p><b>Create everything even if there might be duplicates</b>
+<br/>
+<i>With this option, new records will always be created</i></p>
 	 **/
-	private LoadType loadType = LoadType.createFind;
+	private String loadType;
 
 	@Override
 	@XmlTransient
@@ -406,12 +341,6 @@ public abstract class ImportExport extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ImportExport) && 
-					this.getBizId().equals(((ImportExport) o).getBizId()));
 	}
 
 	/**
@@ -648,7 +577,9 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 **/
 	public boolean addImportExportColumnsElement(ImportExportColumn element) {
 		boolean result = importExportColumns.add(element);
-		element.setParent((ImportExportExtension) this);
+		if (result) {
+			element.setParent((ImportExportExtension) this);
+		}
 		return result;
 	}
 
@@ -668,7 +599,9 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 **/
 	public boolean removeImportExportColumnsElement(ImportExportColumn element) {
 		boolean result = importExportColumns.remove(element);
-		element.setParent(null);
+		if (result) {
+			element.setParent(null);
+		}
 		return result;
 	}
 
@@ -704,7 +637,7 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 * {@link #loadType} accessor.
 	 * @return	The value.
 	 **/
-	public LoadType getLoadType() {
+	public String getLoadType() {
 		return loadType;
 	}
 
@@ -713,7 +646,7 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	 * @param loadType	The new value.
 	 **/
 	@XmlElement
-	public void setLoadType(LoadType loadType) {
+	public void setLoadType(String loadType) {
 		preset(loadTypePropertyName, loadType);
 		this.loadType = loadType;
 	}
@@ -764,7 +697,7 @@ public abstract class ImportExport extends AbstractPersistentBean {
 	@XmlTransient
 	public boolean isLoadTypeCreateFind() {
 		return (!isShowExport()
-				&& LoadType.createFind.equals(loadType));
+				&& modules.admin.ImportExport.ImportExportBizlet.CREATE_RELATED_RECORDS_IF_THEY_DON_T_EXIST.equals(loadType));
 	}
 
 	/**

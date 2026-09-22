@@ -13,6 +13,7 @@ import org.skyve.metadata.model.document.Document;
 import org.skyve.metadata.module.Module;
 import org.skyve.persistence.DocumentQuery;
 import org.skyve.persistence.Persistence;
+import org.skyve.tag.TagManager;
 import org.skyve.util.Binder;
 import org.skyve.util.DataBuilder;
 import org.skyve.util.PushMessage;
@@ -22,12 +23,12 @@ import modules.admin.domain.ModuleDocument;
 import modules.admin.domain.Tag;
 
 public class GenerateTestDataJob extends CancellableJob {
-
-	private static final long serialVersionUID = -3430408494450224782L;
 	private DataBuilder db;
 	
 	@Override
 	public void execute() throws Exception {
+		EXT.push(new PushMessage().user(CORE.getUser()).growl(MessageSeverity.info,
+				"Generate Test Data Job has been started"));
 		List<String> log = getLog();
 		Customer customer = CORE.getCustomer();
 		Persistence pers = CORE.getPersistence();
@@ -43,6 +44,7 @@ public class GenerateTestDataJob extends CancellableJob {
 		int failed = 0;
 		int size = bean.getTestDocumentNames().size() * bean.getTestNumberToGenerate().intValue();
 		
+		TagManager tm = EXT.getTagManager();
 		for (ModuleDocument docName : bean.getTestDocumentNames()) {
 			for (int i = 0; i < bean.getTestNumberToGenerate().intValue(); i++) {
 				try {
@@ -52,7 +54,7 @@ public class GenerateTestDataJob extends CancellableJob {
 					PersistentBean newTestDataItem = db.build(module, document);
 					pers.save(document, newTestDataItem);
 					if (Boolean.TRUE.equals(bean.getTestTagGeneratedData())) {
-						EXT.tag(tag.getBizId(), module.getName(), document.getName(), newTestDataItem.getBizId());
+						tm.tag(tag.getBizId(), module.getName(), document.getName(), newTestDataItem.getBizId());
 					}
 
 					log.add(Binder.formatMessage("Succesfully created {moduleName}.{documentName} ", docName)
@@ -77,7 +79,7 @@ public class GenerateTestDataJob extends CancellableJob {
 		log.add("Finished Generate Test Data job at " + new Date());
 		log.add(successful + " Documents successfully created, " + failed + " failed.");
 		EXT.push(new PushMessage().user(CORE.getUser()).growl(MessageSeverity.info,
-				String.format("%d Documents successfully created", new Integer(successful))));
+				String.format("%d Documents successfully created", Integer.valueOf(successful))));
 	}
 
 	private static Tag createOrRetrieveTag(Persistence pers, ControlPanelExtension bean) {

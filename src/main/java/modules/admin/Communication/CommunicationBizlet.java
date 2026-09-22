@@ -1,13 +1,13 @@
 package modules.admin.Communication;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.skyve.CORE;
 import org.skyve.domain.Bean;
-import org.skyve.domain.messages.DomainException;
+import org.skyve.domain.app.admin.Communication.FormatType;
 import org.skyve.domain.messages.Message;
 import org.skyve.domain.messages.ValidationException;
 import org.skyve.metadata.controller.ImplicitActionName;
@@ -15,26 +15,20 @@ import org.skyve.metadata.customer.Customer;
 import org.skyve.metadata.model.document.Bizlet;
 import org.skyve.metadata.model.document.Document;
 import org.skyve.metadata.module.Module;
+import org.skyve.metadata.user.DocumentPermissionScope;
 import org.skyve.metadata.user.User;
+import org.skyve.persistence.DocumentFilter;
 import org.skyve.persistence.DocumentQuery;
 import org.skyve.persistence.Persistence;
-import org.skyve.persistence.SQL;
 import org.skyve.util.Util;
 import org.skyve.web.WebContext;
 
 import modules.admin.Jobs.JobsBizlet;
 import modules.admin.domain.Communication;
-import modules.admin.domain.Communication.FormatType;
 import modules.admin.domain.CommunicationTemplate;
 import modules.admin.domain.Tag;
 
 public class CommunicationBizlet extends Bizlet<Communication> {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -7404508611264793559L;
-
 	public static final String SYSTEM_COMMUNICATION_JOB_NOTIFICATION = "SYSTEM Communication Job Notification";
 	public static final String SYSTEM_COMMUNICATION_JOB_DEFAULT_SUBJECT = "Bulk Communication Job for '{description}' - Complete";
 	public static final String SYSTEM_COMMUNICATION_JOB_DEFAULT_BODY = "The bulk communication job '{description}' for Tag '{tag.name}' is complete." + JobsBizlet.SYSTEM_JOB_NOTIFICATION_LINK_TO_JOBS;
@@ -84,8 +78,9 @@ public class CommunicationBizlet extends Bizlet<Communication> {
 				Module module = customer.getModule(bean.getModuleName());
 				for (String documentName : module.getDocumentRefs().keySet()) {
 					Document document = module.getDocument(customer, documentName);
-					result.add(new DomainValue(document.getName(), document.getSingularAlias()));
+					result.add(new DomainValue(document.getName(), document.getLocalisedSingularAlias()));
 				}
+				result.sort(Comparator.comparing(DomainValue::getLocalisedDescription));
 			}
 		}
 
@@ -101,7 +96,7 @@ public class CommunicationBizlet extends Bizlet<Communication> {
 		Customer customer = pers.getUser().getCustomer();
 		if (Communication.moduleNamePropertyName.equals(attributeName)) {
 			for (Module module : customer.getModules()) {
-				result.add(new DomainValue(module.getName(), module.getTitle()));
+				result.add(new DomainValue(module.getName(), module.getLocalisedTitle()));
 			}
 		}
 
@@ -137,11 +132,11 @@ public class CommunicationBizlet extends Bizlet<Communication> {
 			Document document = module.getDocument(customer, Communication.DOCUMENT_NAME);
 
 			StringBuilder sb = new StringBuilder(64);
-			sb.append(document.getAttribute(Communication.systemUsePropertyName).getDisplayName());
-			sb.append(' ').append(document.getPluralAlias());
+			@SuppressWarnings("null")
+			String su = document.getAttribute(Communication.systemUsePropertyName).getLocalisedDisplayName();
+			sb.append(su).append(' ').append(document.getLocalisedPluralAlias());
 			sb.append(" may not be deleted unless ");
-			sb.append(document.getAttribute(Communication.systemUsePropertyName).getDisplayName());
-			sb.append(" is set to FALSE.");
+			sb.append(su).append(" is set to FALSE.");
 
 			throw new ValidationException(new Message(sb.toString()));
 		}
@@ -161,38 +156,31 @@ public class CommunicationBizlet extends Bizlet<Communication> {
 	/**
 	 * anonymously check whether a communication exists for a customer
 	 * 
+	 * Used in UnsubscribeView
+	 * 
 	 * @param p
 	 * @param bizCustomer
 	 * @param communicationId
 	 * @return
 	 */
-	public static boolean anonymouslyCommunicationExists(Persistence p, String bizCustomer, String communicationId) {
-
-		boolean result = false;
-
-		StringBuilder sqlSubString = new StringBuilder(256);
-		sqlSubString.append("select count(*) from ADM_Communication ");
-		sqlSubString.append(" where bizId = :").append(Bean.DOCUMENT_ID);
-		sqlSubString.append(" and bizCustomer = :").append(Bean.CUSTOMER_NAME);
-
-		SQL sqlSub = p.newSQL(sqlSubString.toString());
-		sqlSub.putParameter(Bean.CUSTOMER_NAME, bizCustomer, false);
-		sqlSub.putParameter(Bean.DOCUMENT_ID, communicationId, false);
-
-		// get results
-		try {
-			BigInteger exists = sqlSub.scalarResult(BigInteger.class);
-			result = exists.compareTo(new BigInteger("0")) > 0;
-		} catch (DomainException d) {
-			// do nothing, return false
-		}
-		return result;
+	@SuppressWarnings("boxing")
+	public static boolean anonymouslyCommunicationExists(Persistence persistence, String bizCustomer, String communicationId) {
+		// temporarily elevate user to be able to see Communication records in case they don't usually have access
+		Boolean result = persistence.withDocumentPermissionScopes(DocumentPermissionScope.customer, p -> {
+			DocumentQuery q = p.newDocumentQuery(Communication.MODULE_NAME, Communication.DOCUMENT_NAME);
+			q.addBoundProjection(Bean.DOCUMENT_ID);
+			DocumentFilter f = q.getFilter();
+			f.addEquals(Bean.CUSTOMER_NAME, bizCustomer);
+			f.addEquals(Bean.DOCUMENT_ID, communicationId);
+			return q.scalarResult(String.class) != null;
+		});
+		return Boolean.TRUE.equals(result);
 	}
 
 	public static Communication setLinks(Communication communication) {
 		Communication bean = communication;
 
-		//construct UnsubscribeUrl
+		// construct the unsubscribe URL
 		StringBuilder url = new StringBuilder(256);
 		url.append(Util.getSkyveContextUrl());
 		url.append("/");

@@ -13,8 +13,6 @@ import modules.admin.domain.User.GroupSelection;
 import modules.admin.domain.User.WizardState;
 
 public class Next implements ServerSideAction<UserExtension> {
-	private static final long serialVersionUID = -4667349358677521637L;
-
 	@Override
 	public ServerSideActionResult<UserExtension> execute(UserExtension adminUser, WebContext webContext)
 	throws Exception {
@@ -35,7 +33,11 @@ public class Next implements ServerSideAction<UserExtension> {
 			UserBizlet.validateUserContact(adminUser, e);
 			
 			// propose a new username
-			adminUser.setUserName(GenerateUniqueUserName.generateUniqueUserNameFromContactName(adminUser));
+			if(adminUser.getContact()!=null && adminUser.getContact().getEmail1()!=null) {
+				adminUser.setUserName(adminUser.getContact().getEmail1());
+			} else {
+				adminUser.setUserName(GenerateUniqueUserName.generateUniqueUserNameFromContactName(adminUser));
+			}
 			adminUser.setWizardState(WizardState.confirmUserNameAndPassword);
 			
 		} else if(WizardState.confirmUserNameAndPassword.equals(adminUser.getWizardState())){

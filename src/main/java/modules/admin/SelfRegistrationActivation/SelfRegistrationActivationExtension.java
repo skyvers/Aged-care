@@ -3,8 +3,8 @@ package modules.admin.SelfRegistrationActivation;
 import org.skyve.CORE;
 import org.skyve.domain.types.DateTime;
 import org.skyve.impl.util.TimeUtil;
+import org.skyve.metadata.user.DocumentPermissionScope;
 import org.skyve.persistence.DocumentQuery;
-import org.skyve.persistence.Persistence;
 import org.skyve.util.Util;
 
 import modules.admin.User.UserExtension;
@@ -13,34 +13,38 @@ import modules.admin.domain.SelfRegistrationActivation;
 import modules.admin.domain.User;
 
 public class SelfRegistrationActivationExtension extends SelfRegistrationActivation {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -852587779096146278L;
 
-	public User activateUser(String activationCode) {
-		Persistence p = CORE.getPersistence();
-		DocumentQuery userQuery = p.newDocumentQuery(User.MODULE_NAME, User.DOCUMENT_NAME);
-		userQuery.getFilter().addEquals(User.activationCodePropertyName, activationCode);
+	/**
+	 * Activates a user account using the provided activation code.
+	 * This method temporarily escalates access to query and save users.
+	 * 
+	 * @param activationCode The activation code to validate and activate the user
+	 * @return The activated UserExtension instance
+	 */
+	public UserExtension activateUser(String activationCode) {
+		// temporarily escalate access to query and save users
+		return CORE.getPersistence().withDocumentPermissionScopes(DocumentPermissionScope.customer, p -> {
+			DocumentQuery userQuery = p.newDocumentQuery(User.MODULE_NAME, User.DOCUMENT_NAME);
+			userQuery.getFilter().addEquals(User.activationCodePropertyName, activationCode);
 
-		UserExtension user = userQuery.beanResult();
-		try {
-			if (user == null) {
-				Util.LOGGER.warning("No user exists for activation code=" + activationCode);
+			UserExtension result = userQuery.beanResult();
+			if (result == null) {
+				LOGGER.warn("No user exists for activation code=" + activationCode);
 				setResult(Result.FAILURE);
-			} else if (Boolean.TRUE.equals(user.getActivated())) {
+			}
+			else if (Boolean.TRUE.equals(result.getActivated())) {
 				// User already activated, prompt them to login
-				Util.LOGGER.warning("User=" + user.getUserName() + " already activated");
-				setUser(user);
+				LOGGER.warn("User=" + result.getUserName() + " already activated");
+				setUser(result);
 				setResult(Result.ALREADYACTIVATED);
-			} else {
-
+			}
+			else {
 				boolean expired = false;
 				// check for expiry of activation code
 				Configuration configuration = Configuration.newInstance();
 				if (configuration.getSelfRegistrationActivationExpiryHours() != null) {
-					DateTime expiryDateTime = user.getActivationCodeCreationDateTime();
+					DateTime expiryDateTime = result.getActivationCodeCreationDateTime();
 					DateTime now = new DateTime();
 					if (expiryDateTime != null) {
 						TimeUtil.addHours(expiryDateTime, configuration.getSelfRegistrationActivationExpiryHours().intValue());
@@ -51,19 +55,19 @@ public class SelfRegistrationActivationExtension extends SelfRegistrationActivat
 					}
 				}
 				if (!expired) {
-					user.setActivated(Boolean.TRUE);
-					user = p.save(user);
+					result.setActivated(Boolean.TRUE);
+					result = p.save(result);
 
-					setUser(user);
+					setUser(result);
 					setResult(Result.SUCCESS);
-				} else {
+				}
+				else {
 					setResult(Result.EXPIRED);
 				}
 			}
-			return user;
-		} catch (Exception e) {
-			throw e;
-		}
+			
+			return result;
+		});
 	}
 
 	@Override
@@ -71,4 +75,30 @@ public class SelfRegistrationActivationExtension extends SelfRegistrationActivat
 		return Util.getSkyveContextUrl() + "/login";
 	}
 
+	@Override
+	public String getPleaseSignIn() {
+		return Util.nullSafeI18n("admin.selfRegistrationActivation.pleaseSignIn", this.getUser().getContact().getName(), this.getLoginUrl(),
+				this.getUser().getContact().getEmail1());
+	}
+
+	@Override
+	public String getSignInLink() {
+		return Util.nullSafeI18n("admin.selfRegistrationActivation.signInLink", this.getLoginUrl());
+	}
+
+	@Override
+	public String getAlreadyActivated() {
+		return Util.nullSafeI18n("admin.selfRegistrationActivation.alreadyActivated", this.getUser().getContact().getName(),
+				this.getLoginUrl());
+	}
+
+	@Override
+	public String getNoLongerValid() {
+		return Util.nullSafeI18n("admin.selfRegistrationActivation.noLongerValid", this.getLoginUrl());
+	}
+
+	@Override
+	public String getNotRecognised() {
+		return Util.nullSafeI18n("admin.selfRegistrationActivation.notRecognised", this.getLoginUrl());
+	}
 }

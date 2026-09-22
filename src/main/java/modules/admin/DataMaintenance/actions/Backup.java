@@ -14,8 +14,6 @@ import org.skyve.web.WebContext;
 import modules.admin.domain.DataMaintenance;
 
 public class Backup implements ServerSideAction<DataMaintenance> {
-	private static final long serialVersionUID = -2943997026132660437L;
-
 	@Override
 	public ServerSideActionResult<DataMaintenance> execute(DataMaintenance bean, WebContext webContext)
 	throws Exception {
@@ -24,7 +22,7 @@ public class Backup implements ServerSideAction<DataMaintenance> {
 		Module m = c.getModule(DataMaintenance.MODULE_NAME);
 		
 		JobMetaData job = m.getJob("jAdhocBackup");
-		EXT.runOneShotJob(job, bean, u);
+		EXT.getJobScheduler().runOneShotJob(job, bean, u);
 		webContext.growl(MessageSeverity.info, "Backup Job has been started");
 		
 		return new ServerSideActionResult<>(bean);

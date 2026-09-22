@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <view xmlns="http://www.skyve.org/xml/view" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="edit" title="Startup Configuration" xsi:schemaLocation="http://www.skyve.org/xml/view ../../../../schemas/view.xsd"
 	xmlns:c="http://www.skyve.org/xml/common">
-	
+
 	<vbox border="true" borderTitle="admin.startup.environmentSettings.frameset.title">
 	    <form responsiveWidth="12" widgetId="formEnvironment">
 	        <column responsiveWidth="3"/>
@@ -19,7 +19,7 @@
 	        </row>
 		</form>
 	</vbox>
-	
+
 	<vbox border="true" borderTitle="admin.startup.mailSettings.frameset.title">
 		<form responsiveWidth="12" widgetId="formMail">
 	        <column responsiveWidth="3"/>
@@ -62,7 +62,7 @@
 	        </row>
 		</form>
 	</vbox>
-	
+
 	<vbox border="true" borderTitle="admin.startup.mapSettings.frameset.title">
 	    <form responsiveWidth="12" widgetId="formMap">
 	        <column responsiveWidth="3"/>
@@ -91,10 +91,11 @@
 	        		<spacer visible="mapTypeGmap" />
 	        	</item>
 	        	<item colspan="2">
+	        		<!--{i18n:admin.startup.mapTypeGmap.obtainGoogleKey}-->
 	        		<blurb visible="mapTypeGmap">
 	        			<![CDATA[
 	        				<span style="font-size: 80%; color: #888; word-wrap: break-word;">
-	        					Note: Google Maps will be in Developer Mode when used without an API 
+	        					Note: Google Maps will be in Developer Mode when used without an API
 	        					key. To obtain a Google maps API Key, visit <a href="https://developers.google.com/maps/documentation/javascript/get-api-key" target="_blank">https://developers.google.com/maps/documentation/javascript/get-api-key</a>.
 	       					</span>
 	        			]]>
@@ -103,7 +104,7 @@
 	        </row>
 	        <row>
 	            <item>
-	                <default binding="mapZoom"/>
+	                <spinner binding="mapZoom"  min="1" max="19"/>
 	            </item>
 	        </row>
 	        <row>
@@ -118,15 +119,75 @@
 	        </row>
 		</form>
 	</vbox>
-	
-	<vbox border="true" borderTitle="admin.startup.securitySettings.frameset.title">
-		<form responsiveWidth="12" widgetId="formSecurity">
+
+	<vbox border="true" borderTitle="admin.startup.securitySettings.frameset.title" widgetId="formSecurity">
+		<form responsiveWidth="12">
 	        <column responsiveWidth="3"/>
 	        <column/>
 	        <column responsiveWidth="2"/>
+	        
+	        <!-- Password Security -->
+	        <row>
+	        	<item align="right">
+	        		<blurb>
+	        			<![CDATA[
+	        				<span style="font-weight: bold; color: #666;">Password Security</span>
+	        			]]>
+	        		</blurb>
+	        	</item>
+	        </row>
+	        <row>
+				<item>
+					<checkBox binding="checkForBreachedPassword" triState="false" />
+				</item>
+			</row>
+			
+			<!-- CAPTCHA Settings -->
+	        <row>
+	        	<item align="right">
+	        		<blurb>
+	        			<![CDATA[
+	        				<span style="font-weight: bold; color: #666;">CAPTCHA Protection</span>
+	        			]]>
+	        		</blurb>
+	        	</item>
+	        </row>
+	        <row>
+	        	<item>
+	        		<combo binding="captchaType">
+	        			<onChangedHandlers>
+	        				<rerender>
+	        					<properties>
+	        						<c:property key="update">formSecurity</c:property>
+	        					</properties>
+	        				</rerender>
+	        			</onChangedHandlers>
+	        		</combo>
+	        	</item>
+	        	<item>
+	        		<spacer/>
+	        	</item>
+	        </row>
+	        <!-- Google Recaptcha keys -->
 	        <row>
 	            <item>
-	                <default binding="apiGoogleRecaptchaKey"/>
+	                <textField binding="apiGoogleRecaptchaSiteKey" visible="googleRecaptcha"/>
+	            </item>
+	        </row>
+	        <row>
+	            <item>
+	                <textField binding="apiGoogleRecaptchaSecretKey" visible="googleRecaptcha"/>
+	            </item>
+	        </row>
+	        <!-- Cloudflare Turnstile keys -->
+	        <row>
+	            <item>
+	                <textField binding="apiCloudflareTurnstileSiteKey" visible="cloudflareTurnstile"/>
+	            </item>
+	        </row>
+	        <row>
+	            <item>
+	                <textField binding="apiCloudflareTurnstileSecretKey" visible="cloudflareTurnstile"/>
 	            </item>
 	        </row>
 	        <row>
@@ -134,18 +195,147 @@
 	        		<spacer />
 	        	</item>
 	        	<item colspan="2">
+	        		<!--{i18n:admin.startup.recaptcha.seeDevGuide}-->
 	        		<blurb>
 	        			<![CDATA[
 	        				<span style="font-size: 80%; color: #888;">
-	        					See instructions in the <a href='https://skyvers.github.io/skyve-dev-guide/appendix/#configuring-recaptcha-for-the-sign-in-page' target='_blank'>Skyve Dev Guide</a>
+	        					See detailed instructions in the <a href='https://skyvers.github.io/skyve-dev-guide/appendix-skyve-application-configuration/#configuring-captcha-for-the-sign-in-page' target='_blank'>Skyve Dev Guide</a>
 	       					</span>
 	        			]]>
 	        		</blurb>
 	        	</item>
 	        </row>
+	        
+	        <!-- IP Settings -->
+	        <row>
+	        	<item align="right">
+	        		<blurb>
+	        			<![CDATA[
+	        				<span style="font-weight: bold; color: #666;">IP Tracking</span>
+	        			]]>
+	        		</blurb>
+	        	</item>
+	        </row>
+			<row>
+	            <item>
+	                <checkBox binding="ipAddressChecks" triState="false">
+						<onChangedHandlers>
+							<rerender>
+								<properties>
+									<c:property key="update">formSecurity</c:property>
+								</properties>
+							</rerender>
+						</onChangedHandlers>
+					</checkBox>
+	            </item>
+	        </row>
+		        <row>
+		            <item>
+		                <spinner binding="ipAddressHistoryCheckCount" min="0" max="10" visible="ipAddressChecksEnabled" />
+		            </item>
+		        </row>
+		        <row>
+		        	<item>
+		        		<checkBox binding="concurrentSessionWarnings" triState="false" />
+		        	</item>
+		        </row>
+	        
+	        <!-- GEO IP Settings -->
+	        <row>
+	        	<item align="right">
+	        		<blurb>
+	        			<![CDATA[
+	        				<span style="font-weight: bold; color: #666;">GEO IP Blocking</span>
+	        			]]>
+	        		</blurb>
+	        	</item>
+	        </row>
+	        <row>
+	            <item>
+	                <textField binding="geoIPKey">
+	                	<onChangedHandlers>
+	                		<rerender>
+	        					<properties>
+	        						<c:property key="update">formSecurity</c:property>
+	        					</properties>
+	        				</rerender>
+	                	</onChangedHandlers>
+	                </textField>
+	            </item>
+	        </row>
+	    </form>
+		<vbox visible="hasGeoIPKey">
+			<form responsiveWidth="12">
+				<column responsiveWidth="3"/>
+				<column/>
+				<column responsiveWidth="2"/>
+				<row>
+					<item>
+						<radio binding="geoIPCountryListType"/>
+					</item>
+				</row>
+			</form>
+			<listMembership binding="geoIPCountries" candidatesHeading="Available Countries" membersHeading="Selected Countries" />
+		</vbox>
+	        
+	   	<form responsiveWidth="12">
+	        <column responsiveWidth="3"/>
+	        <column/>
+	        <column responsiveWidth="2"/>
+	        
+	        <!-- Security Notifications -->
+	        <row>
+	        	<item align="right">
+	        		<blurb>
+	        			<![CDATA[
+	        				<span style="font-weight: bold; color: #666;">Notifications</span>
+	        			]]>
+	        		</blurb>
+	        	</item>
+	        </row>
+	        <row>
+				<item>
+					<default binding="securityNotificationsEmail" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="geoIPBlockNotifications" triState="false" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="concurrentSessionNotifications" triState="false" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="passwordChangeNotifications" triState="false" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="differentCountryLoginNotifications" triState="false" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="ipAddressChangeNotifications" triState="false" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="accessExceptionNotifications" triState="false" />
+				</item>
+			</row>
+			<row>
+				<item>
+					<checkBox binding="securityExceptionNotifications" triState="false" />
+				</item>
+			</row>
 	    </form>
     </vbox>
-    
+
     <vbox border="true" borderTitle="admin.startup.accountSettings.frameset.title">
 	    <form responsiveWidth="12" widgetId="formAccount">
 	        <column responsiveWidth="3"/>
@@ -161,6 +351,7 @@
 	        		<spacer visible="notSingleTenant" />
 	        	</item>
 	        	<item colspan="2">
+	        		<!--{i18n:admin.startup.selfRegistrationDisabledForMultiTenant}-->
 	        		<blurb visible="notSingleTenant">* Self-registration cannot be enabled for multi-tenant applications. Please specify a customer in your application json file.</blurb>
 	        	</item>
 	        </row>
@@ -169,10 +360,11 @@
 	        		<spacer />
 	        	</item>
 	        	<item colspan="2">
+	        		<!--{i18n:admin.startup.selfRegistrationRequiresEmailConfiguration}-->
 	        		<blurb>
 	        			<![CDATA[
 	        				<span style="font-size: 80%; color: #888;">
-	        					Self-registration requires email to be configured and additional setup in Security Admin -> Configuration -> General. 
+	        					Self-registration requires email to be configured and additional setup in Security Admin -> Configuration -> General.
 	       					</span>
 	        			]]>
 	        		</blurb>
@@ -180,7 +372,7 @@
 	        </row>
 	    </form>
     </vbox>
-    
+
     <vbox border="true" borderTitle="admin.startup.smsSettings.frameset.title">
 	    <form responsiveWidth="12" widgetId="formSMS">
 	        <column responsiveWidth="3"/>
@@ -204,9 +396,55 @@
 	    </form>
     </vbox>
     
+    <vbox border="true" borderTitle="Cloud Backup Settings">
+	    <form responsiveWidth="12" widgetId="formBackup">
+	        <column responsiveWidth="3"/>
+	        <column/>
+	        <column responsiveWidth="2"/>
+	        <row>
+	            <item>
+	                <!-- <textField binding="backupBackupClass"/> -->
+	                <combo binding="backupType">
+	                	<onChangedHandlers>
+	                		<rerender clientValidation="false">
+	                			<properties>
+						            <c:property key="update">formBackup</c:property>
+	                			</properties>
+	                		</rerender>
+	                	</onChangedHandlers>
+	                </combo>
+	            </item>
+	        </row>
+	        <row>
+	            <item>
+	                <password binding="backupConnectionString" visible="backupTypeAzure"/>
+	            </item>
+	        </row>
+	        <row>
+	            <item>
+	                <textField binding="backupDirectoryName" visible="backupTypeAzure"/>
+	            </item>
+	        </row>
+	        <row>
+	        	<item>
+	        		<spacer />
+	        	</item>
+	        	<item colspan="2">
+	        		<blurb>
+	        			<![CDATA[
+	        				<span style="font-size: 80%; color: #888;">
+	        					See cloud backup instructions in the <a href='https://skyvers.github.io/skyve-dev-guide/backup-restore/#cloud-backups' target='_blank'>Skyve Dev Guide</a>
+	       					</span>
+	        			]]>
+	        		</blurb>
+	        	</item>
+	        </row>
+	    </form>
+    </vbox>
+
     <actions widgetId="actionPanel">
         <!-- <defaults/> -->
-        <action className="Dismiss" displayName="Dismiss" clientValidation="false" iconStyleClass="fa fa-angle-left" />
-        <action className="SaveChanges" displayName="Save Changes" clientValidation="true" iconStyleClass="fa fa-floppy-o" inActionPanel="true"/>
+        <action className="Dismiss" displayName="Dismiss" clientValidation="false" iconStyleClass="fa-solid fa-angle-left" />
+        <action className="SaveChanges" displayName="Save Changes" clientValidation="true" iconStyleClass="fa-solid fa-floppy-disk" inActionPanel="true"/>
     </actions>
 </view>

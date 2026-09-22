@@ -1,14 +1,16 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.DataMaintenance.DataMaintenanceExtension;
 import modules.admin.UserProxy.UserProxyExtension;
 import modules.admin.domain.Audit.Operation;
@@ -20,6 +22,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.TimestampMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Data Maintenance
@@ -30,13 +33,15 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  * @depend - - - Operation
  * @depend - - - RefreshOption
  * @depend - - - EvictOption
+ * @depend - - - DataSensitivity
  * @navhas n auditUser 0..1 UserProxy
  * @navhas n refreshDocuments 0..n ModuleDocument
  * @stereotype "persistent"
  */
 @XmlType
 @XmlRootElement
-public abstract class DataMaintenance extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public abstract class DataMaintenance extends AbstractPersistentBean implements org.skyve.domain.app.admin.DataMaintenance {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -45,74 +50,119 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "DataMaintenance";
 
 	/** @hidden */
 	public static final String modDocNamePropertyName = "modDocName";
+
 	/** @hidden */
 	public static final String confirmPasswordPropertyName = "confirmPassword";
+
 	/** @hidden */
 	public static final String injectBootstrapUserPropertyName = "injectBootstrapUser";
+
 	/** @hidden */
 	public static final String schemaNamePropertyName = "schemaName";
+
 	/** @hidden */
 	public static final String refreshDocumentsPropertyName = "refreshDocuments";
+
 	/** @hidden */
 	public static final String notificationPropertyName = "notification";
+
 	/** @hidden */
 	public static final String ddlScriptPropertyName = "ddlScript";
+
 	/** @hidden */
 	public static final String dailyBackupRetentionPropertyName = "dailyBackupRetention";
+
 	/** @hidden */
 	public static final String weeklyBackupRetentionPropertyName = "weeklyBackupRetention";
+
 	/** @hidden */
 	public static final String monthlyBackupRetentionPropertyName = "monthlyBackupRetention";
+
 	/** @hidden */
 	public static final String yearlyBackupRetentionPropertyName = "yearlyBackupRetention";
+
 	/** @hidden */
 	public static final String restorePreProcessPropertyName = "restorePreProcess";
+
 	/** @hidden */
 	public static final String contentRestoreOptionPropertyName = "contentRestoreOption";
+
 	/** @hidden */
 	public static final String restoreIndexingOptionPropertyName = "restoreIndexingOption";
+
 	/** @hidden */
 	public static final String selectedBackupNamePropertyName = "selectedBackupName";
+
 	/** @hidden */
 	public static final String selectedContentIdPropertyName = "selectedContentId";
+
 	/** @hidden */
 	public static final String refreshBackupsPropertyName = "refreshBackups";
+
 	/** @hidden */
 	public static final String instructionHintPropertyName = "instructionHint";
+
 	/** @hidden */
 	public static final String refreshContentPropertyName = "refreshContent";
+
 	/** @hidden */
 	public static final String contentLinkPropertyName = "contentLink";
+
 	/** @hidden */
 	public static final String auditModuleNamePropertyName = "auditModuleName";
+
 	/** @hidden */
 	public static final String auditDocumentNamePropertyName = "auditDocumentName";
+
 	/** @hidden */
 	public static final String auditOperationPropertyName = "auditOperation";
+
 	/** @hidden */
 	public static final String auditTimestampStartPropertyName = "auditTimestampStart";
+
 	/** @hidden */
 	public static final String auditTimestampEndPropertyName = "auditTimestampEnd";
+
 	/** @hidden */
 	public static final String auditUserPropertyName = "auditUser";
+
 	/** @hidden */
 	public static final String auditMatchCountPropertyName = "auditMatchCount";
+
 	/** @hidden */
 	public static final String auditResponsePropertyName = "auditResponse";
+
 	/** @hidden */
 	public static final String refreshOptionPropertyName = "refreshOption";
+
 	/** @hidden */
 	public static final String evictOptionPropertyName = "evictOption";
 
+	/** @hidden */
+	public static final String flagFailedPropertyName = "flagFailed";
+
+	/** @hidden */
+	public static final String dataSensitivityPropertyName = "dataSensitivity";
+
+	/** @hidden */
+	public static final String includeContentPropertyName = "includeContent";
+
+	/** @hidden */
+	public static final String includeAuditLogPropertyName = "includeAuditLog";
+
 	/**
 	 * Pre-Process
+	 * <br/>
+	 * Controls the preProcessing method used when a restore is running.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum RestorePreProcess implements Enumeration {
 		noProcessing("noProcessing", "No Processing"),
 		dropTablesUsingMetadataRecreateTablesFromBackupCreatesql("dropUsingMetadataAndCreateUsingBackup", "Drop tables using metadata & recreate tables from backup create.sql"),
@@ -130,7 +180,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(RestorePreProcess::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private RestorePreProcess(String code, String description) {
 			this.code = code;
@@ -144,8 +194,8 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -166,11 +216,11 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static RestorePreProcess fromDescription(String description) {
+		public static RestorePreProcess fromLocalisedDescription(String description) {
 			RestorePreProcess result = null;
 
 			for (RestorePreProcess value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -180,22 +230,17 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				RestorePreProcess[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (RestorePreProcess value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
 	 * Content Option
+	 * <br/>
+	 * How to treat missing content during the restore.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum ContentRestoreOption implements Enumeration {
 		clearOrphanedContentIDs("clearOrphanedContentIds", "Clear Orphaned Content IDs"),
 		saveOrphanedContentIDs("saveOrphanedContentIds", "Save Orphaned Content IDs"),
@@ -208,7 +253,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(ContentRestoreOption::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private ContentRestoreOption(String code, String description) {
 			this.code = code;
@@ -222,8 +267,8 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -244,11 +289,11 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static ContentRestoreOption fromDescription(String description) {
+		public static ContentRestoreOption fromLocalisedDescription(String description) {
 			ContentRestoreOption result = null;
 
 			for (ContentRestoreOption value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -258,22 +303,17 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				ContentRestoreOption[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (ContentRestoreOption value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
 	 * Indexing Option
+	 * <br/>
+	 * Controls which data and content should be re-indexed after the restore.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum RestoreIndexingOption implements Enumeration {
 		data("data", "Data"),
 		content("content", "Content"),
@@ -287,7 +327,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(RestoreIndexingOption::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private RestoreIndexingOption(String code, String description) {
 			this.code = code;
@@ -301,8 +341,8 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -323,11 +363,11 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static RestoreIndexingOption fromDescription(String description) {
+		public static RestoreIndexingOption fromLocalisedDescription(String description) {
 			RestoreIndexingOption result = null;
 
 			for (RestoreIndexingOption value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -337,14 +377,6 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				RestoreIndexingOption[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (RestoreIndexingOption value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -353,6 +385,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 * Option
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum RefreshOption implements Enumeration {
 		upsert("Upsert", "Upsert"),
 		save("Save", "Save");
@@ -364,7 +397,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(RefreshOption::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private RefreshOption(String code, String description) {
 			this.code = code;
@@ -378,8 +411,8 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -400,11 +433,11 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static RefreshOption fromDescription(String description) {
+		public static RefreshOption fromLocalisedDescription(String description) {
 			RefreshOption result = null;
 
 			for (RefreshOption value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -414,14 +447,6 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				RefreshOption[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (RefreshOption value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -430,10 +455,10 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 * Cache Evict
 	 * <br/>
 	 * <p>Whether to evict each bean after processing.</p>
-				<p>Evicting beans will free memory for large data jobs, however there may be impacts
-				if the action (processing) selected affects items that other beans may reference.</p>
+<p>Evicting beans will free memory for large data jobs, however there may be impacts if the action (processing) selected affects items that other beans may reference.</p>
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum EvictOption implements Enumeration {
 		bean("Bean", "Bean"),
 		none("None", "None"),
@@ -446,7 +471,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(EvictOption::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private EvictOption(String code, String description) {
 			this.code = code;
@@ -460,8 +485,8 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -482,11 +507,11 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static EvictOption fromDescription(String description) {
+		public static EvictOption fromLocalisedDescription(String description) {
 			EvictOption result = null;
 
 			for (EvictOption value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -496,142 +521,208 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				EvictOption[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (EvictOption value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
 	 * Module.Document
+	 * <br/>
+	 * Holds which module and document were selected for BizPort.
 	 **/
 	private String modDocName;
+
 	/**
 	 * Confirm password
 	 **/
 	private String confirmPassword;
+
 	/**
 	 * Inject bootstrap user
+	 * <br/>
+	 * Whether to inject the bootstrap user after truncation
 	 **/
 	private Boolean injectBootstrapUser;
+
 	/**
 	 * Schema Name
+	 * <br/>
+	 * The scheme name to truncate
 	 **/
 	private String schemaName;
+
 	/**
 	 * Refresh Documents
 	 **/
 	private List<ModuleDocument> refreshDocuments = new ChangeTrackingArrayList<>("refreshDocuments", this);
+
 	/**
 	 * Notify me on completion
 	 **/
 	private Boolean notification;
+
 	/**
 	 * Script
 	 **/
 	private String ddlScript;
+
 	/**
 	 * Daily Backup Retention
 	 **/
 	private Integer dailyBackupRetention;
+
 	/**
 	 * Weekly Backup Retention
 	 **/
 	private Integer weeklyBackupRetention;
+
 	/**
 	 * Monthly Backup Retention
 	 **/
 	private Integer monthlyBackupRetention;
+
 	/**
 	 * Yearly Backup Retention
 	 **/
 	private Integer yearlyBackupRetention;
+
 	/**
 	 * Pre-Process
+	 * <br/>
+	 * Controls the preProcessing method used when a restore is running.
 	 **/
 	private RestorePreProcess restorePreProcess;
+
 	/**
 	 * Content Option
+	 * <br/>
+	 * How to treat missing content during the restore.
 	 **/
 	private ContentRestoreOption contentRestoreOption = ContentRestoreOption.error;
+
 	/**
 	 * Indexing Option
+	 * <br/>
+	 * Controls which data and content should be re-indexed after the restore.
 	 **/
 	private RestoreIndexingOption restoreIndexingOption = RestoreIndexingOption.both;
+
 	/**
 	 * Selected Backup Name
 	 **/
 	private String selectedBackupName;
+
 	/**
 	 * Selected Content Id
 	 **/
 	private String selectedContentId;
+
 	/**
 	 * Refresh Backups
 	 **/
-	private Boolean refreshBackups = new Boolean(true);
+	private Boolean refreshBackups = Boolean.valueOf(true);
+
 	/**
-	 * Hint
+	 * admin.dataMaintenance.instructionHint.displayName
 	 **/
 	private String instructionHint;
+
 	/**
 	 * Refresh Content
 	 **/
-	private Boolean refreshContent = new Boolean(true);
+	private Boolean refreshContent = Boolean.valueOf(true);
+
 	/**
 	 * Content Link
 	 **/
 	private String contentLink;
+
 	/**
 	 * Module
 	 **/
 	private String auditModuleName;
+
 	/**
 	 * Document
 	 **/
 	private String auditDocumentName;
+
 	/**
 	 * Operation
 	 **/
 	private Operation auditOperation;
+
 	/**
 	 * From
 	 **/
 	private Timestamp auditTimestampStart;
+
 	/**
 	 * To
 	 **/
 	private Timestamp auditTimestampEnd;
+
 	/**
 	 * User
 	 **/
 	private UserProxyExtension auditUser = null;
+
 	/**
 	 * Found
 	 **/
 	private Integer auditMatchCount;
+
 	/**
 	 * Status
 	 **/
 	private String auditResponse;
+
 	/**
 	 * Option
 	 **/
 	private RefreshOption refreshOption;
+
 	/**
 	 * Cache Evict
 	 * <br/>
 	 * <p>Whether to evict each bean after processing.</p>
-				<p>Evicting beans will free memory for large data jobs, however there may be impacts
-				if the action (processing) selected affects items that other beans may reference.</p>
+<p>Evicting beans will free memory for large data jobs, however there may be impacts if the action (processing) selected affects items that other beans may reference.</p>
 	 **/
 	private EvictOption evictOption = EvictOption.bean;
+
+	/**
+	 * Flag Failed 
+	 * <br/>
+	 * Flag records that fail to Save/Upsert
+	 **/
+	private Boolean flagFailed = Boolean.valueOf(false);
+
+	/**
+	 * Sensitivity
+	 * <br/>
+	 * Determines which attributes are redacted in backup. Attributes with greater than or equal to sensitivity level selected are redacted.
+	 * <br/>
+	 * Determines which attributes are redacted during an ad-hoc backup.
+	 **/
+	private DataSensitivity dataSensitivity;
+
+	/**
+	 * Content
+	 * <br/>
+	 * Determines if content is included in the backup file.
+	 * <br/>
+	 * Determines if content is to be included in the generated backup.
+	 **/
+	private Boolean includeContent = Boolean.valueOf(true);
+
+	/**
+	 * Audit Log
+	 * <br/>
+	 * Determines if the audit log is to be included in the backup file.
+	 * <br/>
+	 * Determines if the audit log is to be included in the generated backup.
+	 **/
+	private Boolean includeAuditLog = Boolean.valueOf(true);
 
 	@Override
 	@XmlTransient
@@ -668,12 +759,6 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 		}
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof DataMaintenance) && 
-					this.getBizId().equals(((DataMaintenance) o).getBizId()));
-	}
-
 	/**
 	 * {@link #modDocName} accessor.
 	 * @return	The value.
@@ -706,6 +791,7 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 **/
 	@XmlElement
 	public void setConfirmPassword(String confirmPassword) {
+		preset(confirmPasswordPropertyName, confirmPassword);
 		this.confirmPassword = confirmPassword;
 	}
 
@@ -926,7 +1012,6 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 **/
 	@XmlElement
 	public void setRestorePreProcess(RestorePreProcess restorePreProcess) {
-		preset(restorePreProcessPropertyName, restorePreProcess);
 		this.restorePreProcess = restorePreProcess;
 	}
 
@@ -944,7 +1029,6 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 **/
 	@XmlElement
 	public void setContentRestoreOption(ContentRestoreOption contentRestoreOption) {
-		preset(contentRestoreOptionPropertyName, contentRestoreOption);
 		this.contentRestoreOption = contentRestoreOption;
 	}
 
@@ -962,7 +1046,6 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 **/
 	@XmlElement
 	public void setRestoreIndexingOption(RestoreIndexingOption restoreIndexingOption) {
-		preset(restoreIndexingOptionPropertyName, restoreIndexingOption);
 		this.restoreIndexingOption = restoreIndexingOption;
 	}
 
@@ -1134,9 +1217,9 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 * {@link #auditTimestampStart} mutator.
 	 * @param auditTimestampStart	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(TimestampMapper.class)
-	@XmlElement
 	public void setAuditTimestampStart(Timestamp auditTimestampStart) {
 		preset(auditTimestampStartPropertyName, auditTimestampStart);
 		this.auditTimestampStart = auditTimestampStart;
@@ -1154,9 +1237,9 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	 * {@link #auditTimestampEnd} mutator.
 	 * @param auditTimestampEnd	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(TimestampMapper.class)
-	@XmlElement
 	public void setAuditTimestampEnd(Timestamp auditTimestampEnd) {
 		preset(auditTimestampEndPropertyName, auditTimestampEnd);
 		this.auditTimestampEnd = auditTimestampEnd;
@@ -1248,6 +1331,74 @@ public abstract class DataMaintenance extends AbstractPersistentBean {
 	@XmlElement
 	public void setEvictOption(EvictOption evictOption) {
 		this.evictOption = evictOption;
+	}
+
+	/**
+	 * {@link #flagFailed} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getFlagFailed() {
+		return flagFailed;
+	}
+
+	/**
+	 * {@link #flagFailed} mutator.
+	 * @param flagFailed	The new value.
+	 **/
+	@XmlElement
+	public void setFlagFailed(Boolean flagFailed) {
+		this.flagFailed = flagFailed;
+	}
+
+	/**
+	 * {@link #dataSensitivity} accessor.
+	 * @return	The value.
+	 **/
+	public DataSensitivity getDataSensitivity() {
+		return dataSensitivity;
+	}
+
+	/**
+	 * {@link #dataSensitivity} mutator.
+	 * @param dataSensitivity	The new value.
+	 **/
+	@XmlElement
+	public void setDataSensitivity(DataSensitivity dataSensitivity) {
+		this.dataSensitivity = dataSensitivity;
+	}
+
+	/**
+	 * {@link #includeContent} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getIncludeContent() {
+		return includeContent;
+	}
+
+	/**
+	 * {@link #includeContent} mutator.
+	 * @param includeContent	The new value.
+	 **/
+	@XmlElement
+	public void setIncludeContent(Boolean includeContent) {
+		this.includeContent = includeContent;
+	}
+
+	/**
+	 * {@link #includeAuditLog} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getIncludeAuditLog() {
+		return includeAuditLog;
+	}
+
+	/**
+	 * {@link #includeAuditLog} mutator.
+	 * @param includeAuditLog	The new value.
+	 **/
+	@XmlElement
+	public void setIncludeAuditLog(Boolean includeAuditLog) {
+		this.includeAuditLog = includeAuditLog;
 	}
 
 	/**

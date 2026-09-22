@@ -8,17 +8,15 @@ import org.skyve.CORE;
 import org.skyve.job.Job;
 import org.skyve.persistence.DocumentQuery;
 import org.skyve.persistence.Persistence;
+import org.skyve.util.CommunicationUtil;
+import org.skyve.util.CommunicationUtil.ResponseMode;
 
-import modules.admin.Communication.CommunicationUtil;
-import modules.admin.Communication.CommunicationUtil.ResponseMode;
 import modules.admin.DataMaintenance.actions.TruncateAuditLog;
 import modules.admin.Jobs.JobsBizlet;
 import modules.admin.domain.Audit;
 import modules.admin.domain.DataMaintenance;
 
 public class TruncateAuditLogJob extends Job {
-	private static final long serialVersionUID = 6282346785863992703L;
-
 	@Override
 	public String cancel() {
 		return null;

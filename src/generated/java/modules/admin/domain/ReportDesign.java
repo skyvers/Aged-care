@@ -1,13 +1,15 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Decimal2;
@@ -17,6 +19,7 @@ import org.skyve.impl.domain.AbstractTransientBean;
 import org.skyve.impl.domain.types.jaxb.Decimal2Mapper;
 import org.skyve.impl.domain.types.jaxb.Decimal5Mapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Report Design
@@ -30,6 +33,7 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class ReportDesign extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -39,121 +43,178 @@ public class ReportDesign extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "ReportDesign";
 
 	/** @hidden */
 	public static final String namePropertyName = "name";
+
 	/** @hidden */
 	public static final String modePropertyName = "mode";
+
 	/** @hidden */
 	public static final String definitionSourcePropertyName = "definitionSource";
+
 	/** @hidden */
 	public static final String reportTypePropertyName = "reportType";
+
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String documentNamePropertyName = "documentName";
+
 	/** @hidden */
 	public static final String queryNamePropertyName = "queryName";
+
 	/** @hidden */
 	public static final String menuItemPropertyName = "menuItem";
+
 	/** @hidden */
 	public static final String repositoryPathPropertyName = "repositoryPath";
+
 	/** @hidden */
 	public static final String saveToDocumentPackagePropertyName = "saveToDocumentPackage";
+
 	/** @hidden */
 	public static final String orientationPropertyName = "orientation";
+
 	/** @hidden */
 	public static final String widthPropertyName = "width";
+
 	/** @hidden */
 	public static final String heightPropertyName = "height";
+
 	/** @hidden */
 	public static final String leftMarginPropertyName = "leftMargin";
+
 	/** @hidden */
 	public static final String rightMarginPropertyName = "rightMargin";
+
 	/** @hidden */
 	public static final String topMarginPropertyName = "topMargin";
+
 	/** @hidden */
 	public static final String bottomMarginPropertyName = "bottomMargin";
+
 	/** @hidden */
 	public static final String columnWidthPropertyName = "columnWidth";
+
 	/** @hidden */
 	public static final String defaultFontNamePropertyName = "defaultFontName";
+
 	/** @hidden */
 	public static final String titleFontSizePropertyName = "titleFontSize";
+
 	/** @hidden */
 	public static final String defaultFontSizePropertyName = "defaultFontSize";
+
 	/** @hidden */
 	public static final String defaultLineColourPropertyName = "defaultLineColour";
+
 	/** @hidden */
 	public static final String defaultLineWidthPropertyName = "defaultLineWidth";
+
 	/** @hidden */
 	public static final String renderLabelAsTextFieldsPropertyName = "renderLabelAsTextFields";
+
 	/** @hidden */
 	public static final String defaultBorderPropertyName = "defaultBorder";
+
 	/** @hidden */
 	public static final String defaultBorderTopPropertyName = "defaultBorderTop";
+
 	/** @hidden */
 	public static final String defaultBorderLeftPropertyName = "defaultBorderLeft";
+
 	/** @hidden */
 	public static final String defaultBorderBottomPropertyName = "defaultBorderBottom";
+
 	/** @hidden */
 	public static final String defaultBorderRightPropertyName = "defaultBorderRight";
+
 	/** @hidden */
 	public static final String defaultElementHeightPropertyName = "defaultElementHeight";
+
 	/** @hidden */
 	public static final String includePageNumbersPropertyName = "includePageNumbers";
+
 	/** @hidden */
 	public static final String defaultCellTopPaddingPropertyName = "defaultCellTopPadding";
+
 	/** @hidden */
 	public static final String defaultCellLeftPaddingPropertyName = "defaultCellLeftPadding";
+
 	/** @hidden */
 	public static final String defaultCellBottomPaddingPropertyName = "defaultCellBottomPadding";
+
 	/** @hidden */
 	public static final String defaultCellRightPaddingPropertyName = "defaultCellRightPadding";
+
 	/** @hidden */
 	public static final String dynamicFlowPropertyName = "dynamicFlow";
+
 	/** @hidden */
 	public static final String bandSplitTypePropertyName = "bandSplitType";
+
 	/** @hidden */
 	public static final String boldLabelsPropertyName = "boldLabels";
+
 	/** @hidden */
 	public static final String checkBoxFontNamePropertyName = "checkBoxFontName";
+
 	/** @hidden */
 	public static final String checkBoxDisplayExpressionPropertyName = "checkBoxDisplayExpression";
+
 	/** @hidden */
 	public static final String pixelToTwipPropertyName = "pixelToTwip";
+
 	/** @hidden */
 	public static final String sectionBorderTopPropertyName = "sectionBorderTop";
+
 	/** @hidden */
 	public static final String sectionBorderLeftPropertyName = "sectionBorderLeft";
+
 	/** @hidden */
 	public static final String sectionBorderRightPropertyName = "sectionBorderRight";
+
 	/** @hidden */
 	public static final String sectionBorderBottomPropertyName = "sectionBorderBottom";
+
 	/** @hidden */
 	public static final String sectionTitleBorderTopPropertyName = "sectionTitleBorderTop";
+
 	/** @hidden */
 	public static final String sectionTitleBorderLeftPropertyName = "sectionTitleBorderLeft";
+
 	/** @hidden */
 	public static final String sectionTitleBorderRightPropertyName = "sectionTitleBorderRight";
+
 	/** @hidden */
 	public static final String sectionTitleBorderBottomPropertyName = "sectionTitleBorderBottom";
+
 	/** @hidden */
 	public static final String sectionTitleForegroundPropertyName = "sectionTitleForeground";
+
 	/** @hidden */
 	public static final String sectionTitleBackgroundPropertyName = "sectionTitleBackground";
+
 	/** @hidden */
 	public static final String jrxmlPropertyName = "jrxml";
+
 	/** @hidden */
 	public static final String fieldPropertyName = "field";
+
 	/** @hidden */
 	public static final String collectionTypePropertyName = "collectionType";
+
 	/** @hidden */
 	public static final String parentReportPersistentNamePropertyName = "parentReportPersistentName";
+
 	/** @hidden */
 	public static final String verticalisePropertyName = "verticalise";
+
 	/** @hidden */
 	public static final String labelAlignmentOverridePropertyName = "labelAlignmentOverride";
 
@@ -161,6 +222,7 @@ public class ReportDesign extends AbstractTransientBean {
 	 * Mode
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum Mode implements Enumeration {
 		sql("sql", "sql"),
 		bean("bean", "bean");
@@ -172,7 +234,7 @@ public class ReportDesign extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(Mode::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private Mode(String code, String description) {
 			this.code = code;
@@ -186,8 +248,8 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -208,11 +270,11 @@ public class ReportDesign extends AbstractTransientBean {
 			return result;
 		}
 
-		public static Mode fromDescription(String description) {
+		public static Mode fromLocalisedDescription(String description) {
 			Mode result = null;
 
 			for (Mode value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -222,14 +284,6 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				Mode[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (Mode value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -238,6 +292,7 @@ public class ReportDesign extends AbstractTransientBean {
 	 * Definition Source
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum DefinitionSource implements Enumeration {
 		document("document", "document"),
 		view("view", "view"),
@@ -251,7 +306,7 @@ public class ReportDesign extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(DefinitionSource::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private DefinitionSource(String code, String description) {
 			this.code = code;
@@ -265,8 +320,8 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -287,11 +342,11 @@ public class ReportDesign extends AbstractTransientBean {
 			return result;
 		}
 
-		public static DefinitionSource fromDescription(String description) {
+		public static DefinitionSource fromLocalisedDescription(String description) {
 			DefinitionSource result = null;
 
 			for (DefinitionSource value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -301,14 +356,6 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				DefinitionSource[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (DefinitionSource value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -317,6 +364,7 @@ public class ReportDesign extends AbstractTransientBean {
 	 * Type
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum ReportType implements Enumeration {
 		report("Report", "Report"),
 		subreport("Subreport", "Subreport");
@@ -328,7 +376,7 @@ public class ReportDesign extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(ReportType::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private ReportType(String code, String description) {
 			this.code = code;
@@ -342,8 +390,8 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -364,11 +412,11 @@ public class ReportDesign extends AbstractTransientBean {
 			return result;
 		}
 
-		public static ReportType fromDescription(String description) {
+		public static ReportType fromLocalisedDescription(String description) {
 			ReportType result = null;
 
 			for (ReportType value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -378,14 +426,6 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				ReportType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (ReportType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -394,6 +434,7 @@ public class ReportDesign extends AbstractTransientBean {
 	 * Orientation
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum Orientation implements Enumeration {
 		portrait("Portrait", "Portrait"),
 		landscape("Landscape", "Landscape");
@@ -405,7 +446,7 @@ public class ReportDesign extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(Orientation::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private Orientation(String code, String description) {
 			this.code = code;
@@ -419,8 +460,8 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -441,11 +482,11 @@ public class ReportDesign extends AbstractTransientBean {
 			return result;
 		}
 
-		public static Orientation fromDescription(String description) {
+		public static Orientation fromLocalisedDescription(String description) {
 			Orientation result = null;
 
 			for (Orientation value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -455,14 +496,6 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				Orientation[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (Orientation value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -471,6 +504,7 @@ public class ReportDesign extends AbstractTransientBean {
 	 * Collection Type
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum CollectionType implements Enumeration {
 		child("child", "child"),
 		aggregation("aggregation", "aggregation"),
@@ -483,7 +517,7 @@ public class ReportDesign extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(CollectionType::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private CollectionType(String code, String description) {
 			this.code = code;
@@ -497,8 +531,8 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -519,11 +553,11 @@ public class ReportDesign extends AbstractTransientBean {
 			return result;
 		}
 
-		public static CollectionType fromDescription(String description) {
+		public static CollectionType fromLocalisedDescription(String description) {
 			CollectionType result = null;
 
 			for (CollectionType value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -533,14 +567,6 @@ public class ReportDesign extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				CollectionType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (CollectionType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -549,258 +575,313 @@ public class ReportDesign extends AbstractTransientBean {
 	 * Report Name
 	 **/
 	private String name;
+
 	/**
 	 * Mode
 	 **/
 	private Mode mode;
+
 	/**
 	 * Definition Source
 	 **/
 	private DefinitionSource definitionSource;
+
 	/**
 	 * Type
 	 **/
 	private ReportType reportType;
+
 	/**
 	 * Module
 	 * <br/>
 	 * Report Bean Module.
 	 **/
 	private String moduleName;
+
 	/**
 	 * Document
 	 * <br/>
 	 * Report Bean Document.
 	 **/
 	private String documentName;
+
 	/**
 	 * Query
 	 * <br/>
 	 * Report Query.
 	 **/
 	private String queryName;
+
 	/**
 	 * Menu Item
 	 * <br/>
-	 * Menu Item.
+	 * Menu Item
 	 **/
 	private String menuItem;
+
 	/**
 	 * Output Path
 	 * <br/>
 	 * <p>The path to the place where you want jrxml files created.</p>
-			<p>Normally this will be the path to the folder where you modules are defined - e.g. C:\workspace\projectName\src\skyve\</p>
+<p>Normally this will be the path to the folder where you modules are defined - e.g. C:\workspace\projectName\src\skyve\</p>
 	 **/
 	private String repositoryPath;
+
 	/**
 	 * Save to Document Package
 	 * <br/>
 	 * <p>Use this if you want report files to be created in a directory structure matching the metadata repository structure.</p>
-			<p>This is useful if you want to put the reports into place ready to run.</p>
+<p>This is useful if you want to put the reports into place ready to run.</p>
 	 **/
 	private Boolean saveToDocumentPackage;
+
 	/**
 	 * Orientation
 	 **/
 	private Orientation orientation;
+
 	/**
 	 * Width
 	 **/
 	private Integer width;
+
 	/**
 	 * Height
 	 **/
 	private Integer height;
+
 	/**
 	 * Left Margin
 	 **/
 	private Integer leftMargin;
+
 	/**
 	 * Right Margin
 	 **/
 	private Integer rightMargin;
+
 	/**
 	 * Top Margin
 	 **/
 	private Integer topMargin;
+
 	/**
 	 * Bottom Margin
 	 **/
 	private Integer bottomMargin;
+
 	/**
 	 * Column Width
 	 **/
 	private Integer columnWidth;
+
 	/**
 	 * Font Name
 	 * <br/>
 	 * Font not working? Check that you've included a font extension jar for your font in the classpath
 	 **/
 	private String defaultFontName;
+
 	/**
 	 * Font Size (Title)
 	 **/
 	private Integer titleFontSize;
+
 	/**
 	 * Font Size (Detail)
 	 **/
 	private Integer defaultFontSize;
+
 	/**
 	 * Default Line Colour
 	 **/
 	private String defaultLineColour;
+
 	/**
-	 * Default Line Pen Stroke thickness
+	 * Default Line Pen Stroke Thickness
 	 **/
 	private Decimal2 defaultLineWidth;
+
 	/**
 	 * Render Labels as TextFields
 	 * <br/>
 	 * This option will allow labels to flow and stretch like text fields
 	 **/
 	private Boolean renderLabelAsTextFields;
+
 	/**
 	 * Default Border
 	 **/
 	private Boolean defaultBorder;
+
 	/**
 	 * Default Border Top
 	 **/
 	private Boolean defaultBorderTop;
+
 	/**
 	 * Default Border Left
 	 **/
 	private Boolean defaultBorderLeft;
+
 	/**
 	 * Default Border Bottom
 	 **/
 	private Boolean defaultBorderBottom;
+
 	/**
 	 * Default Border Right
 	 **/
 	private Boolean defaultBorderRight;
+
 	/**
 	 * Default Element Height
 	 **/
 	private Integer defaultElementHeight;
+
 	/**
 	 * Include Page Numbers
 	 **/
 	private Boolean includePageNumbers;
+
 	/**
 	 * Cell Top Padding
 	 **/
 	private Integer defaultCellTopPadding;
+
 	/**
 	 * Cell Left Padding
 	 **/
 	private Integer defaultCellLeftPadding;
+
 	/**
 	 * Cell Bottom Padding
 	 **/
 	private Integer defaultCellBottomPadding;
+
 	/**
 	 * Cell Right Padding
 	 **/
 	private Integer defaultCellRightPadding;
+
 	/**
 	 * Dynamic Flow
 	 * <br/>
 	 * <p><b>Dynamic Flow</b></p>
-			<p>Allow (as far as possible) page sections, bands and fields to flow as much as required 
-			to show all data.</p>
+<p>Allow (as far as possible) page sections, bands and fields to flow as much as required to show all data.</p>
 	 **/
 	private Boolean dynamicFlow;
+
 	/**
 	 * Split Type
 	 **/
 	private String bandSplitType;
+
 	/**
 	 * Bold Labels
 	 * <br/>
 	 * Bold not working? Check that you've included a font extension jar for your font in the classpath
 	 **/
 	private Boolean boldLabels;
+
 	/**
-	 * Checkbox FontName
+	 * Checkbox Font Name
 	 * <br/>
 	 * This is the font for checkboxes - ensure the font will be on your classpath
 	 **/
 	private String checkBoxFontName;
+
 	/**
 	 * Checkbox Display Expression
 	 * <br/>
 	 * This is the expression to use to represent checkboxes
 	 **/
 	private String checkBoxDisplayExpression;
+
 	/**
 	 * Pixel to TWIP
 	 * <br/>
 	 * TWIP conversion ratio for pixel-specified item sizing in views.
 	 **/
 	private Decimal5 pixelToTwip;
+
 	/**
 	 * Border Top
 	 **/
 	private Boolean sectionBorderTop;
+
 	/**
 	 * Border Left
 	 **/
 	private Boolean sectionBorderLeft;
+
 	/**
 	 * Border Right
 	 **/
 	private Boolean sectionBorderRight;
+
 	/**
 	 * Border Bottom
 	 **/
 	private Boolean sectionBorderBottom;
+
 	/**
 	 * Title Border Top
 	 **/
 	private Boolean sectionTitleBorderTop;
+
 	/**
 	 * Title Border Left
 	 **/
 	private Boolean sectionTitleBorderLeft;
+
 	/**
 	 * Title Border Right
 	 **/
 	private Boolean sectionTitleBorderRight;
+
 	/**
 	 * Title Border Bottom
 	 **/
 	private Boolean sectionTitleBorderBottom;
+
 	/**
 	 * Title Foreground
 	 **/
 	private String sectionTitleForeground;
+
 	/**
 	 * Title Background
 	 **/
 	private String sectionTitleBackground;
+
 	/**
-	 * Jrxml File Definition
+	 * Jrxml File Destination
 	 **/
 	private String jrxml;
+
 	/**
 	 * Field
 	 * <br/>
 	 * The field on which this subreport is based (if this is a subreport).
 	 **/
 	private String field;
+
 	/**
 	 * Collection Type
 	 **/
 	private CollectionType collectionType;
+
 	/**
 	 * Parent Report Persistent Name
 	 **/
 	private String parentReportPersistentName;
+
 	/**
 	 * Transform horizontal containers to vertical
 	 **/
 	private Boolean verticalise;
+
 	/**
 	 * Label Alignment
 	 **/
@@ -839,12 +920,6 @@ public class ReportDesign extends AbstractTransientBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ReportDesign) && 
-					this.getBizId().equals(((ReportDesign) o).getBizId()));
 	}
 
 	/**
@@ -1255,8 +1330,8 @@ public class ReportDesign extends AbstractTransientBean {
 	 * {@link #defaultLineWidth} mutator.
 	 * @param defaultLineWidth	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	@XmlElement
+	@XmlJavaTypeAdapter(Decimal2Mapper.class)
 	public void setDefaultLineWidth(Decimal2 defaultLineWidth) {
 		preset(defaultLineWidthPropertyName, defaultLineWidth);
 		this.defaultLineWidth = defaultLineWidth;
@@ -1580,8 +1655,8 @@ public class ReportDesign extends AbstractTransientBean {
 	 * {@link #pixelToTwip} mutator.
 	 * @param pixelToTwip	The new value.
 	 **/
-	@XmlJavaTypeAdapter(Decimal5Mapper.class)
 	@XmlElement
+	@XmlJavaTypeAdapter(Decimal5Mapper.class)
 	public void setPixelToTwip(Decimal5 pixelToTwip) {
 		preset(pixelToTwipPropertyName, pixelToTwip);
 		this.pixelToTwip = pixelToTwip;

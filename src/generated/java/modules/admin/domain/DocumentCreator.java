@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractTransientBean;
@@ -15,6 +16,7 @@ import org.skyve.impl.domain.AbstractTransientBean;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class DocumentCreator extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -24,52 +26,60 @@ public class DocumentCreator extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "DocumentCreator";
 
 	/** @hidden */
 	public static final String outputLocationPropertyName = "outputLocation";
+
 	/** @hidden */
 	public static final String scriptPropertyName = "script";
+
 	/** @hidden */
 	public static final String documentPreviewPropertyName = "documentPreview";
+
 	/** @hidden */
 	public static final String markdownPreviewPropertyName = "markdownPreview";
+
 	/** @hidden */
 	public static final String errorsPropertyName = "errors";
+
 	/** @hidden */
 	public static final String defaultModulePropertyName = "defaultModule";
 
 	/**
 	 * Output Location
 	 * <br/>
-	 * Absolute path on the filesystem to the module source directory. 
-					E.g. c:/workspace/project/src/main/java/modules/
+	 * Absolute path on the filesystem to the module source directory. E.g. c:/workspace/project/src/main/java/modules/
 	 **/
 	private String outputLocation;
+
 	/**
 	 * Script
 	 **/
 	private String script;
+
 	/**
 	 * Document Preview
 	 **/
 	private String documentPreview;
+
 	/**
 	 * Markdown Preview
 	 **/
 	private String markdownPreview;
+
 	/**
 	 * Errors
 	 **/
 	private String errors;
+
 	/**
 	 * Default Module
 	 * <br/>
-	 * <p>This allows you to add documents to an existing module already in the system 
-					without having to declare the module again in the script.</p>
-					<p>I.e. you can go straight into document declarations (<code>##</code>) and they will
-					be added to the selected module.</p>
+	 * <p>This allows you to add documents to an existing module already in the system 	without having to declare the module again in the script.</p>
+<p>I.e. you can go straight into document declarations (<code>##</code>) and they will be added to the selected module.</p>
 	 **/
 	private String defaultModule;
 
@@ -106,12 +116,6 @@ public class DocumentCreator extends AbstractTransientBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof DocumentCreator) && 
-					this.getBizId().equals(((DocumentCreator) o).getBizId()));
 	}
 
 	/**

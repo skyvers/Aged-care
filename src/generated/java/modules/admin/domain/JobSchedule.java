@@ -1,11 +1,13 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import modules.admin.JobSchedule.JobScheduleExtension;
 import modules.admin.UserProxy.UserProxyExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
@@ -21,7 +23,8 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
  */
 @XmlType
 @XmlRootElement
-public class JobSchedule extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public abstract class JobSchedule extends AbstractPersistentBean {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -30,896 +33,1195 @@ public class JobSchedule extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "JobSchedule";
 
 	/** @hidden */
 	public static final String jobNamePropertyName = "jobName";
+
 	/** @hidden */
 	public static final String cronExpressionPropertyName = "cronExpression";
+
 	/** @hidden */
 	public static final String allMinutesPropertyName = "allMinutes";
+
 	/** @hidden */
 	public static final String minute0PropertyName = "minute0";
+
 	/** @hidden */
 	public static final String minute1PropertyName = "minute1";
+
 	/** @hidden */
 	public static final String minute2PropertyName = "minute2";
+
 	/** @hidden */
 	public static final String minute3PropertyName = "minute3";
+
 	/** @hidden */
 	public static final String minute4PropertyName = "minute4";
+
 	/** @hidden */
 	public static final String minute5PropertyName = "minute5";
+
 	/** @hidden */
 	public static final String minute6PropertyName = "minute6";
+
 	/** @hidden */
 	public static final String minute7PropertyName = "minute7";
+
 	/** @hidden */
 	public static final String minute8PropertyName = "minute8";
+
 	/** @hidden */
 	public static final String minute9PropertyName = "minute9";
+
 	/** @hidden */
 	public static final String minute10PropertyName = "minute10";
+
 	/** @hidden */
 	public static final String minute11PropertyName = "minute11";
+
 	/** @hidden */
 	public static final String minute12PropertyName = "minute12";
+
 	/** @hidden */
 	public static final String minute13PropertyName = "minute13";
+
 	/** @hidden */
 	public static final String minute14PropertyName = "minute14";
+
 	/** @hidden */
 	public static final String minute15PropertyName = "minute15";
+
 	/** @hidden */
 	public static final String minute16PropertyName = "minute16";
+
 	/** @hidden */
 	public static final String minute17PropertyName = "minute17";
+
 	/** @hidden */
 	public static final String minute18PropertyName = "minute18";
+
 	/** @hidden */
 	public static final String minute19PropertyName = "minute19";
+
 	/** @hidden */
 	public static final String minute20PropertyName = "minute20";
+
 	/** @hidden */
 	public static final String minute21PropertyName = "minute21";
+
 	/** @hidden */
 	public static final String minute22PropertyName = "minute22";
+
 	/** @hidden */
 	public static final String minute23PropertyName = "minute23";
+
 	/** @hidden */
 	public static final String minute24PropertyName = "minute24";
+
 	/** @hidden */
 	public static final String minute25PropertyName = "minute25";
+
 	/** @hidden */
 	public static final String minute26PropertyName = "minute26";
+
 	/** @hidden */
 	public static final String minute27PropertyName = "minute27";
+
 	/** @hidden */
 	public static final String minute28PropertyName = "minute28";
+
 	/** @hidden */
 	public static final String minute29PropertyName = "minute29";
+
 	/** @hidden */
 	public static final String minute30PropertyName = "minute30";
+
 	/** @hidden */
 	public static final String minute31PropertyName = "minute31";
+
 	/** @hidden */
 	public static final String minute32PropertyName = "minute32";
+
 	/** @hidden */
 	public static final String minute33PropertyName = "minute33";
+
 	/** @hidden */
 	public static final String minute34PropertyName = "minute34";
+
 	/** @hidden */
 	public static final String minute35PropertyName = "minute35";
+
 	/** @hidden */
 	public static final String minute36PropertyName = "minute36";
+
 	/** @hidden */
 	public static final String minute37PropertyName = "minute37";
+
 	/** @hidden */
 	public static final String minute38PropertyName = "minute38";
+
 	/** @hidden */
 	public static final String minute39PropertyName = "minute39";
+
 	/** @hidden */
 	public static final String minute40PropertyName = "minute40";
+
 	/** @hidden */
 	public static final String minute41PropertyName = "minute41";
+
 	/** @hidden */
 	public static final String minute42PropertyName = "minute42";
+
 	/** @hidden */
 	public static final String minute43PropertyName = "minute43";
+
 	/** @hidden */
 	public static final String minute44PropertyName = "minute44";
+
 	/** @hidden */
 	public static final String minute45PropertyName = "minute45";
+
 	/** @hidden */
 	public static final String minute46PropertyName = "minute46";
+
 	/** @hidden */
 	public static final String minute47PropertyName = "minute47";
+
 	/** @hidden */
 	public static final String minute48PropertyName = "minute48";
+
 	/** @hidden */
 	public static final String minute49PropertyName = "minute49";
+
 	/** @hidden */
 	public static final String minute50PropertyName = "minute50";
+
 	/** @hidden */
 	public static final String minute51PropertyName = "minute51";
+
 	/** @hidden */
 	public static final String minute52PropertyName = "minute52";
+
 	/** @hidden */
 	public static final String minute53PropertyName = "minute53";
+
 	/** @hidden */
 	public static final String minute54PropertyName = "minute54";
+
 	/** @hidden */
 	public static final String minute55PropertyName = "minute55";
+
 	/** @hidden */
 	public static final String minute56PropertyName = "minute56";
+
 	/** @hidden */
 	public static final String minute57PropertyName = "minute57";
+
 	/** @hidden */
 	public static final String minute58PropertyName = "minute58";
+
 	/** @hidden */
 	public static final String minute59PropertyName = "minute59";
+
 	/** @hidden */
 	public static final String allHoursPropertyName = "allHours";
+
 	/** @hidden */
 	public static final String hour0PropertyName = "hour0";
+
 	/** @hidden */
 	public static final String hour1PropertyName = "hour1";
+
 	/** @hidden */
 	public static final String hour2PropertyName = "hour2";
+
 	/** @hidden */
 	public static final String hour3PropertyName = "hour3";
+
 	/** @hidden */
 	public static final String hour4PropertyName = "hour4";
+
 	/** @hidden */
 	public static final String hour5PropertyName = "hour5";
+
 	/** @hidden */
 	public static final String hour6PropertyName = "hour6";
+
 	/** @hidden */
 	public static final String hour7PropertyName = "hour7";
+
 	/** @hidden */
 	public static final String hour8PropertyName = "hour8";
+
 	/** @hidden */
 	public static final String hour9PropertyName = "hour9";
+
 	/** @hidden */
 	public static final String hour10PropertyName = "hour10";
+
 	/** @hidden */
 	public static final String hour11PropertyName = "hour11";
+
 	/** @hidden */
 	public static final String hour12PropertyName = "hour12";
+
 	/** @hidden */
 	public static final String hour13PropertyName = "hour13";
+
 	/** @hidden */
 	public static final String hour14PropertyName = "hour14";
+
 	/** @hidden */
 	public static final String hour15PropertyName = "hour15";
+
 	/** @hidden */
 	public static final String hour16PropertyName = "hour16";
+
 	/** @hidden */
 	public static final String hour17PropertyName = "hour17";
+
 	/** @hidden */
 	public static final String hour18PropertyName = "hour18";
+
 	/** @hidden */
 	public static final String hour19PropertyName = "hour19";
+
 	/** @hidden */
 	public static final String hour20PropertyName = "hour20";
+
 	/** @hidden */
 	public static final String hour21PropertyName = "hour21";
+
 	/** @hidden */
 	public static final String hour22PropertyName = "hour22";
+
 	/** @hidden */
 	public static final String hour23PropertyName = "hour23";
+
 	/** @hidden */
 	public static final String allDaysPropertyName = "allDays";
+
 	/** @hidden */
 	public static final String day1PropertyName = "day1";
+
 	/** @hidden */
 	public static final String day2PropertyName = "day2";
+
 	/** @hidden */
 	public static final String day3PropertyName = "day3";
+
 	/** @hidden */
 	public static final String day4PropertyName = "day4";
+
 	/** @hidden */
 	public static final String day5PropertyName = "day5";
+
 	/** @hidden */
 	public static final String day6PropertyName = "day6";
+
 	/** @hidden */
 	public static final String day7PropertyName = "day7";
+
 	/** @hidden */
 	public static final String day8PropertyName = "day8";
+
 	/** @hidden */
 	public static final String day9PropertyName = "day9";
+
 	/** @hidden */
 	public static final String day10PropertyName = "day10";
+
 	/** @hidden */
 	public static final String day11PropertyName = "day11";
+
 	/** @hidden */
 	public static final String day12PropertyName = "day12";
+
 	/** @hidden */
 	public static final String day13PropertyName = "day13";
+
 	/** @hidden */
 	public static final String day14PropertyName = "day14";
+
 	/** @hidden */
 	public static final String day15PropertyName = "day15";
+
 	/** @hidden */
 	public static final String day16PropertyName = "day16";
+
 	/** @hidden */
 	public static final String day17PropertyName = "day17";
+
 	/** @hidden */
 	public static final String day18PropertyName = "day18";
+
 	/** @hidden */
 	public static final String day19PropertyName = "day19";
+
 	/** @hidden */
 	public static final String day20PropertyName = "day20";
+
 	/** @hidden */
 	public static final String day21PropertyName = "day21";
+
 	/** @hidden */
 	public static final String day22PropertyName = "day22";
+
 	/** @hidden */
 	public static final String day23PropertyName = "day23";
+
 	/** @hidden */
 	public static final String day24PropertyName = "day24";
+
 	/** @hidden */
 	public static final String day25PropertyName = "day25";
+
 	/** @hidden */
 	public static final String day26PropertyName = "day26";
+
 	/** @hidden */
 	public static final String day27PropertyName = "day27";
+
 	/** @hidden */
 	public static final String day28PropertyName = "day28";
+
 	/** @hidden */
 	public static final String day29PropertyName = "day29";
+
 	/** @hidden */
 	public static final String day30PropertyName = "day30";
+
 	/** @hidden */
 	public static final String day31PropertyName = "day31";
+
 	/** @hidden */
 	public static final String allMonthsPropertyName = "allMonths";
+
 	/** @hidden */
 	public static final String month1PropertyName = "month1";
+
 	/** @hidden */
 	public static final String month2PropertyName = "month2";
+
 	/** @hidden */
 	public static final String month3PropertyName = "month3";
+
 	/** @hidden */
 	public static final String month4PropertyName = "month4";
+
 	/** @hidden */
 	public static final String month5PropertyName = "month5";
+
 	/** @hidden */
 	public static final String month6PropertyName = "month6";
+
 	/** @hidden */
 	public static final String month7PropertyName = "month7";
+
 	/** @hidden */
 	public static final String month8PropertyName = "month8";
+
 	/** @hidden */
 	public static final String month9PropertyName = "month9";
+
 	/** @hidden */
 	public static final String month10PropertyName = "month10";
+
 	/** @hidden */
 	public static final String month11PropertyName = "month11";
+
 	/** @hidden */
 	public static final String month12PropertyName = "month12";
+
 	/** @hidden */
 	public static final String allWeekdaysPropertyName = "allWeekdays";
+
 	/** @hidden */
 	public static final String weekday1PropertyName = "weekday1";
+
 	/** @hidden */
 	public static final String weekday2PropertyName = "weekday2";
+
 	/** @hidden */
 	public static final String weekday3PropertyName = "weekday3";
+
 	/** @hidden */
 	public static final String weekday4PropertyName = "weekday4";
+
 	/** @hidden */
 	public static final String weekday5PropertyName = "weekday5";
+
 	/** @hidden */
 	public static final String weekday6PropertyName = "weekday6";
+
 	/** @hidden */
 	public static final String weekday7PropertyName = "weekday7";
+
 	/** @hidden */
 	public static final String startTimePropertyName = "startTime";
+
 	/** @hidden */
 	public static final String endTimePropertyName = "endTime";
+
 	/** @hidden */
 	public static final String runAsPropertyName = "runAs";
+
 	/** @hidden */
 	public static final String jobScheduledImmediatelyPropertyName = "jobScheduledImmediately";
+
 	/** @hidden */
 	public static final String disabledPropertyName = "disabled";
+
+	/** @hidden */
+	public static final String scheduleStringPropertyName = "scheduleString";
 
 	/**
 	 * Job To Run
 	 **/
 	private String jobName;
+
 	/**
-	 * CRON Expression
+	 * admin.jobSchedule.cronExppression.displayName
 	 **/
 	private String cronExpression;
+
 	/**
 	 * All Minutes
 	 **/
 	private String allMinutes;
+
 	/**
 	 * 00
 	 **/
 	private Boolean minute0;
+
 	/**
 	 * 01
 	 **/
 	private Boolean minute1;
+
 	/**
 	 * 02
 	 **/
 	private Boolean minute2;
+
 	/**
 	 * 03
 	 **/
 	private Boolean minute3;
+
 	/**
 	 * 04
 	 **/
 	private Boolean minute4;
+
 	/**
 	 * 05
 	 **/
 	private Boolean minute5;
+
 	/**
 	 * 06
 	 **/
 	private Boolean minute6;
+
 	/**
 	 * 07
 	 **/
 	private Boolean minute7;
+
 	/**
 	 * 08
 	 **/
 	private Boolean minute8;
+
 	/**
 	 * 09
 	 **/
 	private Boolean minute9;
+
 	/**
 	 * 10
 	 **/
 	private Boolean minute10;
+
 	/**
 	 * 11
 	 **/
 	private Boolean minute11;
+
 	/**
 	 * 12
 	 **/
 	private Boolean minute12;
+
 	/**
 	 * 13
 	 **/
 	private Boolean minute13;
+
 	/**
 	 * 14
 	 **/
 	private Boolean minute14;
+
 	/**
 	 * 15
 	 **/
 	private Boolean minute15;
+
 	/**
 	 * 16
 	 **/
 	private Boolean minute16;
+
 	/**
 	 * 17
 	 **/
 	private Boolean minute17;
+
 	/**
 	 * 18
 	 **/
 	private Boolean minute18;
+
 	/**
 	 * 19
 	 **/
 	private Boolean minute19;
+
 	/**
 	 * 20
 	 **/
 	private Boolean minute20;
+
 	/**
 	 * 21
 	 **/
 	private Boolean minute21;
+
 	/**
 	 * 22
 	 **/
 	private Boolean minute22;
+
 	/**
 	 * 23
 	 **/
 	private Boolean minute23;
+
 	/**
 	 * 24
 	 **/
 	private Boolean minute24;
+
 	/**
 	 * 25
 	 **/
 	private Boolean minute25;
+
 	/**
 	 * 26
 	 **/
 	private Boolean minute26;
+
 	/**
 	 * 27
 	 **/
 	private Boolean minute27;
+
 	/**
 	 * 28
 	 **/
 	private Boolean minute28;
+
 	/**
 	 * 29
 	 **/
 	private Boolean minute29;
+
 	/**
 	 * 30
 	 **/
 	private Boolean minute30;
+
 	/**
 	 * 31
 	 **/
 	private Boolean minute31;
+
 	/**
 	 * 32
 	 **/
 	private Boolean minute32;
+
 	/**
 	 * 33
 	 **/
 	private Boolean minute33;
+
 	/**
 	 * 34
 	 **/
 	private Boolean minute34;
+
 	/**
 	 * 35
 	 **/
 	private Boolean minute35;
+
 	/**
 	 * 36
 	 **/
 	private Boolean minute36;
+
 	/**
 	 * 37
 	 **/
 	private Boolean minute37;
+
 	/**
 	 * 38
 	 **/
 	private Boolean minute38;
+
 	/**
 	 * 39
 	 **/
 	private Boolean minute39;
+
 	/**
 	 * 40
 	 **/
 	private Boolean minute40;
+
 	/**
 	 * 41
 	 **/
 	private Boolean minute41;
+
 	/**
 	 * 42
 	 **/
 	private Boolean minute42;
+
 	/**
 	 * 43
 	 **/
 	private Boolean minute43;
+
 	/**
 	 * 44
 	 **/
 	private Boolean minute44;
+
 	/**
 	 * 45
 	 **/
 	private Boolean minute45;
+
 	/**
 	 * 46
 	 **/
 	private Boolean minute46;
+
 	/**
 	 * 47
 	 **/
 	private Boolean minute47;
+
 	/**
 	 * 48
 	 **/
 	private Boolean minute48;
+
 	/**
 	 * 49
 	 **/
 	private Boolean minute49;
+
 	/**
 	 * 50
 	 **/
 	private Boolean minute50;
+
 	/**
 	 * 51
 	 **/
 	private Boolean minute51;
+
 	/**
 	 * 52
 	 **/
 	private Boolean minute52;
+
 	/**
 	 * 53
 	 **/
 	private Boolean minute53;
+
 	/**
 	 * 54
 	 **/
 	private Boolean minute54;
+
 	/**
 	 * 55
 	 **/
 	private Boolean minute55;
+
 	/**
 	 * 56
 	 **/
 	private Boolean minute56;
+
 	/**
 	 * 57
 	 **/
 	private Boolean minute57;
+
 	/**
 	 * 58
 	 **/
 	private Boolean minute58;
+
 	/**
 	 * 59
 	 **/
 	private Boolean minute59;
+
 	/**
 	 * All Hours
 	 **/
 	private String allHours;
+
 	/**
 	 * 00
 	 **/
 	private Boolean hour0;
+
 	/**
 	 * 01
 	 **/
 	private Boolean hour1;
+
 	/**
 	 * 02
 	 **/
 	private Boolean hour2;
+
 	/**
 	 * 03
 	 **/
 	private Boolean hour3;
+
 	/**
 	 * 04
 	 **/
 	private Boolean hour4;
+
 	/**
 	 * 05
 	 **/
 	private Boolean hour5;
+
 	/**
 	 * 06
 	 **/
 	private Boolean hour6;
+
 	/**
 	 * 07
 	 **/
 	private Boolean hour7;
+
 	/**
 	 * 08
 	 **/
 	private Boolean hour8;
+
 	/**
 	 * 09
 	 **/
 	private Boolean hour9;
+
 	/**
 	 * 10
 	 **/
 	private Boolean hour10;
+
 	/**
 	 * 11
 	 **/
 	private Boolean hour11;
+
 	/**
 	 * 12
 	 **/
 	private Boolean hour12;
+
 	/**
 	 * 13
 	 **/
 	private Boolean hour13;
+
 	/**
 	 * 14
 	 **/
 	private Boolean hour14;
+
 	/**
 	 * 15
 	 **/
 	private Boolean hour15;
+
 	/**
 	 * 16
 	 **/
 	private Boolean hour16;
+
 	/**
 	 * 17
 	 **/
 	private Boolean hour17;
+
 	/**
 	 * 18
 	 **/
 	private Boolean hour18;
+
 	/**
 	 * 19
 	 **/
 	private Boolean hour19;
+
 	/**
 	 * 20
 	 **/
 	private Boolean hour20;
+
 	/**
 	 * 21
 	 **/
 	private Boolean hour21;
+
 	/**
 	 * 22
 	 **/
 	private Boolean hour22;
+
 	/**
 	 * 23
 	 **/
 	private Boolean hour23;
+
 	/**
 	 * All Days
 	 **/
 	private String allDays;
+
 	/**
 	 * 01
 	 **/
 	private Boolean day1;
+
 	/**
 	 * 02
 	 **/
 	private Boolean day2;
+
 	/**
 	 * 03
 	 **/
 	private Boolean day3;
+
 	/**
 	 * 04
 	 **/
 	private Boolean day4;
+
 	/**
 	 * 05
 	 **/
 	private Boolean day5;
+
 	/**
 	 * 06
 	 **/
 	private Boolean day6;
+
 	/**
 	 * 07
 	 **/
 	private Boolean day7;
+
 	/**
 	 * 08
 	 **/
 	private Boolean day8;
+
 	/**
 	 * 09
 	 **/
 	private Boolean day9;
+
 	/**
 	 * 10
 	 **/
 	private Boolean day10;
+
 	/**
 	 * 11
 	 **/
 	private Boolean day11;
+
 	/**
 	 * 12
 	 **/
 	private Boolean day12;
+
 	/**
 	 * 13
 	 **/
 	private Boolean day13;
+
 	/**
 	 * 14
 	 **/
 	private Boolean day14;
+
 	/**
 	 * 15
 	 **/
 	private Boolean day15;
+
 	/**
 	 * 16
 	 **/
 	private Boolean day16;
+
 	/**
 	 * 17
 	 **/
 	private Boolean day17;
+
 	/**
 	 * 18
 	 **/
 	private Boolean day18;
+
 	/**
 	 * 19
 	 **/
 	private Boolean day19;
+
 	/**
 	 * 20
 	 **/
 	private Boolean day20;
+
 	/**
 	 * 21
 	 **/
 	private Boolean day21;
+
 	/**
 	 * 22
 	 **/
 	private Boolean day22;
+
 	/**
 	 * 23
 	 **/
 	private Boolean day23;
+
 	/**
 	 * 24
 	 **/
 	private Boolean day24;
+
 	/**
 	 * 25
 	 **/
 	private Boolean day25;
+
 	/**
 	 * 26
 	 **/
 	private Boolean day26;
+
 	/**
 	 * 27
 	 **/
 	private Boolean day27;
+
 	/**
 	 * 28
 	 **/
 	private Boolean day28;
+
 	/**
 	 * 29
 	 **/
 	private Boolean day29;
+
 	/**
 	 * 30
 	 **/
 	private Boolean day30;
+
 	/**
 	 * 31
 	 **/
 	private Boolean day31;
+
 	/**
 	 * All Months
 	 **/
 	private String allMonths;
+
 	/**
 	 * Jan
 	 **/
 	private Boolean month1;
+
 	/**
 	 * Feb
 	 **/
 	private Boolean month2;
+
 	/**
 	 * Mar
 	 **/
 	private Boolean month3;
+
 	/**
 	 * Apr
 	 **/
 	private Boolean month4;
+
 	/**
 	 * May
 	 **/
 	private Boolean month5;
+
 	/**
 	 * Jun
 	 **/
 	private Boolean month6;
+
 	/**
 	 * Jul
 	 **/
 	private Boolean month7;
+
 	/**
 	 * Aug
 	 **/
 	private Boolean month8;
+
 	/**
 	 * Sep
 	 **/
 	private Boolean month9;
+
 	/**
 	 * Oct
 	 **/
 	private Boolean month10;
+
 	/**
 	 * Nov
 	 **/
 	private Boolean month11;
+
 	/**
 	 * Dec
 	 **/
 	private Boolean month12;
+
 	/**
-	 * All Months
+	 * All Weekdays
 	 **/
 	private String allWeekdays;
+
 	/**
 	 * Sun
 	 **/
 	private Boolean weekday1;
+
 	/**
 	 * Mon
 	 **/
 	private Boolean weekday2;
+
 	/**
 	 * Tue
 	 **/
 	private Boolean weekday3;
+
 	/**
 	 * Wed
 	 **/
 	private Boolean weekday4;
+
 	/**
 	 * Thu
 	 **/
 	private Boolean weekday5;
+
 	/**
 	 * Fri
 	 **/
 	private Boolean weekday6;
+
 	/**
 	 * Sat
 	 **/
 	private Boolean weekday7;
+
 	/**
 	 * Start Time
 	 * <br/>
 	 * When to start triggering the job.  May be left blank
 	 **/
 	private DateTime startTime;
+
 	/**
 	 * End Time
 	 * <br/>
 	 * When to finish triggering the job.  May be left blank
 	 **/
 	private DateTime endTime;
+
 	/**
 	 * Run As
 	 * <br/>
 	 * The user to run the job
 	 **/
 	private UserProxyExtension runAs = null;
+
 	/**
 	 * Job Scheduled Immediately
 	 * <br/>
 	 * Whether or not the job was scheduled immediately
 	 **/
-	private Boolean jobScheduledImmediately = new Boolean(false);
+	private Boolean jobScheduledImmediately = Boolean.valueOf(false);
+
 	/**
 	 * Disabled
 	 * <br/>
 	 * Whether or not this schedule is disabled.
 	 **/
-	private Boolean disabled = new Boolean(false);
+	private Boolean disabled = Boolean.valueOf(false);
+
+	/**
+	 * Schedule
+	 **/
+	private String scheduleString;
 
 	@Override
 	@XmlTransient
@@ -933,7 +1235,7 @@ public class JobSchedule extends AbstractPersistentBean {
 		return JobSchedule.DOCUMENT_NAME;
 	}
 
-	public static JobSchedule newInstance() {
+	public static JobScheduleExtension newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -949,12 +1251,6 @@ public class JobSchedule extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 return modules.admin.JobSchedule.JobScheduleBizlet.getBizKey(this);
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof JobSchedule) && 
-					this.getBizId().equals(((JobSchedule) o).getBizId()));
 	}
 
 	/**
@@ -3507,9 +3803,9 @@ return modules.admin.JobSchedule.JobScheduleBizlet.getBizKey(this);
 	 * {@link #startTime} mutator.
 	 * @param startTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setStartTime(DateTime startTime) {
 		preset(startTimePropertyName, startTime);
 		this.startTime = startTime;
@@ -3527,9 +3823,9 @@ return modules.admin.JobSchedule.JobScheduleBizlet.getBizKey(this);
 	 * {@link #endTime} mutator.
 	 * @param endTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setEndTime(DateTime endTime) {
 		preset(endTimePropertyName, endTime);
 		this.endTime = endTime;
@@ -3592,6 +3888,24 @@ return modules.admin.JobSchedule.JobScheduleBizlet.getBizKey(this);
 	}
 
 	/**
+	 * {@link #scheduleString} accessor.
+	 * @return	The value.
+	 **/
+	public String getScheduleString() {
+		return scheduleString;
+	}
+
+	/**
+	 * {@link #scheduleString} mutator.
+	 * @param scheduleString	The new value.
+	 **/
+	@XmlElement
+	public void setScheduleString(String scheduleString) {
+		preset(scheduleStringPropertyName, scheduleString);
+		this.scheduleString = scheduleString;
+	}
+
+	/**
 	 * Whether this instance is configured to run schedule jobs
 	 *
 	 * @return The condition
@@ -3627,5 +3941,100 @@ return modules.admin.JobSchedule.JobScheduleBizlet.getBizKey(this);
 	 */
 	public boolean isNotScheduledImmediately() {
 		return (! isScheduledImmediately());
+	}
+
+	/**
+	 * True when Selected Days.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelectedDays() {
+		return ("X".equals(getAllDays()));
+	}
+
+	/**
+	 * {@link #isSelectedDays} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelectedDays() {
+		return (! isSelectedDays());
+	}
+
+	/**
+	 * True when Selected Hours.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelectedHours() {
+		return ("X".equals(getAllHours()));
+	}
+
+	/**
+	 * {@link #isSelectedHours} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelectedHours() {
+		return (! isSelectedHours());
+	}
+
+	/**
+	 * True when Selected Minutes.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelectedMinutes() {
+		return ("X".equals(getAllMinutes()));
+	}
+
+	/**
+	 * {@link #isSelectedMinutes} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelectedMinutes() {
+		return (! isSelectedMinutes());
+	}
+
+	/**
+	 * True when Selected Months.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelectedMonths() {
+		return ("X".equals(getAllMonths()));
+	}
+
+	/**
+	 * {@link #isSelectedMonths} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelectedMonths() {
+		return (! isSelectedMonths());
+	}
+
+	/**
+	 * True when Selected Weekdays.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelectedWeekdays() {
+		return ("X".equals(getAllWeekdays()));
+	}
+
+	/**
+	 * {@link #isSelectedWeekdays} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelectedWeekdays() {
+		return (! isSelectedWeekdays());
 	}
 }

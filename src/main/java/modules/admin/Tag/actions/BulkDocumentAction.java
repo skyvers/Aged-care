@@ -1,8 +1,5 @@
 package modules.admin.Tag.actions;
 
-import modules.admin.Tag.TagDefaultAction;
-import modules.admin.domain.Tag;
-
 import org.skyve.CORE;
 import org.skyve.EXT;
 import org.skyve.domain.messages.MessageSeverity;
@@ -16,41 +13,39 @@ import org.skyve.metadata.user.User;
 import org.skyve.persistence.Persistence;
 import org.skyve.web.WebContext;
 
-public class BulkDocumentAction implements ServerSideAction<Tag> {
-	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 2886341074753936987L;
+import modules.admin.Tag.TagDefaultAction;
+import modules.admin.Tag.TagExtension;
+import modules.admin.domain.Tag;
 
+public class BulkDocumentAction implements ServerSideAction<TagExtension> {
 	/**
-	 * Update the payment batch details.
+	 * Perform an action in bulk.
 	 */
 	@Override
-	public ServerSideActionResult<Tag> execute(Tag tag, WebContext webContext)
+	public ServerSideActionResult<TagExtension> execute(TagExtension tag, WebContext webContext)
 	throws Exception {
-		
 		Persistence pers = CORE.getPersistence();
 		User user = pers.getUser();
 		Customer customer= user.getCustomer();
 		Module module = customer.getModule(Tag.MODULE_NAME);
 		JobMetaData job = module.getJob("jPerformDocumentActionForTag");
 
-		EXT.runOneShotJob(job, tag, user);
+		EXT.getJobScheduler().runOneShotJob(job, tag, user);
 		
 		StringBuilder sb = new StringBuilder(128);
 		sb.append("Perform action: ");
 		
 		if (TagDefaultAction.isDefaultTagAction(tag.getDocumentAction())) {
 			TagDefaultAction defaultAction  = TagDefaultAction.fromCode(tag.getDocumentAction());
-			sb.append(defaultAction.toDescription());	
+			sb.append(defaultAction.toLocalisedDescription());	
 		} else {
 			sb.append(tag.getDocumentAction());
 		}
 		
 		Module docMod = customer.getModule(tag.getActionModuleName());
 		Document document = docMod.getDocument(customer, tag.getActionDocumentName());		
-		sb.append("\nFor all tagged instances of: ").append(docMod.getTitle());
-		sb.append(" ").append(document.getPluralAlias());
+		sb.append("\nFor all tagged instances of: ").append(docMod.getLocalisedTitle());
+		sb.append(" ").append(document.getLocalisedPluralAlias());
 		
 		if(tag.getDocumentCondition()!=null){
 			sb.append("\nMeeting condition: ").append(tag.getDocumentCondition());

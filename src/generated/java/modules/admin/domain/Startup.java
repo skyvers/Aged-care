@@ -1,21 +1,26 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import modules.admin.Country.CountryExtension;
 import modules.admin.Startup.StartupExtension;
 import org.locationtech.jts.geom.Geometry;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractTransientBean;
+import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.GeometryMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Startup Configuration
@@ -24,10 +29,15 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
 		and is shown to the administrator by default on first login.
  * 
  * @depend - - - MapType
+ * @depend - - - BackupType
+ * @depend - - - CaptchaType
+ * @depend - - - GeoIPCountryListType
+ * @navhas n geoIPCountries 0..n Country
  * @stereotype "transient"
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class Startup extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -37,49 +47,135 @@ public abstract class Startup extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Startup";
 
 	/** @hidden */
 	public static final String dontShowAgainPropertyName = "dontShowAgain";
+
 	/** @hidden */
 	public static final String environmentIdentifierPropertyName = "environmentIdentifier";
+
 	/** @hidden */
 	public static final String environmentSupportEmailPropertyName = "environmentSupportEmail";
+
 	/** @hidden */
 	public static final String mapTypePropertyName = "mapType";
+
 	/** @hidden */
 	public static final String mapZoomPropertyName = "mapZoom";
+
 	/** @hidden */
 	public static final String mapLayerPropertyName = "mapLayer";
+
 	/** @hidden */
 	public static final String mapCentrePropertyName = "mapCentre";
+
 	/** @hidden */
 	public static final String mailServerUrlPropertyName = "mailServerUrl";
+
 	/** @hidden */
 	public static final String mailPortPropertyName = "mailPort";
+
 	/** @hidden */
 	public static final String mailUsernamePropertyName = "mailUsername";
+
 	/** @hidden */
 	public static final String mailPasswordPropertyName = "mailPassword";
+
 	/** @hidden */
 	public static final String mailSenderPropertyName = "mailSender";
+
 	/** @hidden */
 	public static final String mailBogusSendPropertyName = "mailBogusSend";
+
 	/** @hidden */
 	public static final String mailTestRecipientPropertyName = "mailTestRecipient";
+
 	/** @hidden */
 	public static final String apiGoogleMapsKeyPropertyName = "apiGoogleMapsKey";
+
 	/** @hidden */
-	public static final String apiGoogleRecaptchaKeyPropertyName = "apiGoogleRecaptchaKey";
+	public static final String apiGoogleRecaptchaSiteKeyPropertyName = "apiGoogleRecaptchaSiteKey";
+
+	/** @hidden */
+	public static final String apiGoogleRecaptchaSecretKeyPropertyName = "apiGoogleRecaptchaSecretKey";
+
+	/** @hidden */
+	public static final String apiCloudflareTurnstileSiteKeyPropertyName = "apiCloudflareTurnstileSiteKey";
+
+	/** @hidden */
+	public static final String apiCloudflareTurnstileSecretKeyPropertyName = "apiCloudflareTurnstileSecretKey";
+
 	/** @hidden */
 	public static final String accountAllowUserSelfRegistrationPropertyName = "accountAllowUserSelfRegistration";
+
 	/** @hidden */
 	public static final String apiTwilioSIDPropertyName = "apiTwilioSID";
+
 	/** @hidden */
 	public static final String apiTwilioAuthTokenPropertyName = "apiTwilioAuthToken";
+
 	/** @hidden */
 	public static final String apiTwilioDefaultSendNumberPropertyName = "apiTwilioDefaultSendNumber";
+
+	/** @hidden */
+	public static final String backupTypePropertyName = "backupType";
+
+	/** @hidden */
+	public static final String backupConnectionStringPropertyName = "backupConnectionString";
+
+	/** @hidden */
+	public static final String backupDirectoryNamePropertyName = "backupDirectoryName";
+
+	/** @hidden */
+	public static final String checkForBreachedPasswordPropertyName = "checkForBreachedPassword";
+
+	/** @hidden */
+	public static final String securityNotificationsEmailPropertyName = "securityNotificationsEmail";
+
+	/** @hidden */
+	public static final String ipAddressChecksPropertyName = "ipAddressChecks";
+
+	/** @hidden */
+	public static final String ipAddressHistoryCheckCountPropertyName = "ipAddressHistoryCheckCount";
+
+	/** @hidden */
+	public static final String concurrentSessionWarningsPropertyName = "concurrentSessionWarnings";
+
+	/** @hidden */
+	public static final String captchaTypePropertyName = "captchaType";
+
+	/** @hidden */
+	public static final String geoIPKeyPropertyName = "geoIPKey";
+
+	/** @hidden */
+	public static final String geoIPCountryListTypePropertyName = "geoIPCountryListType";
+
+	/** @hidden */
+	public static final String geoIPCountriesPropertyName = "geoIPCountries";
+
+	/** @hidden */
+	public static final String geoIPBlockNotificationsPropertyName = "geoIPBlockNotifications";
+
+	/** @hidden */
+	public static final String concurrentSessionNotificationsPropertyName = "concurrentSessionNotifications";
+
+	/** @hidden */
+	public static final String passwordChangeNotificationsPropertyName = "passwordChangeNotifications";
+
+	/** @hidden */
+	public static final String differentCountryLoginNotificationsPropertyName = "differentCountryLoginNotifications";
+
+	/** @hidden */
+	public static final String ipAddressChangeNotificationsPropertyName = "ipAddressChangeNotifications";
+
+	/** @hidden */
+	public static final String accessExceptionNotificationsPropertyName = "accessExceptionNotifications";
+
+	/** @hidden */
+	public static final String securityExceptionNotificationsPropertyName = "securityExceptionNotifications";
 
 	/**
 	 * Type
@@ -87,6 +183,7 @@ public abstract class Startup extends AbstractTransientBean {
 	 * Which map technology would you like to use for this Skyve application? Note: Google Maps requires an API key.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum MapType implements Enumeration {
 		gmap("gmap", "Google Maps"),
 		leaflet("leaflet", "Open Street Map");
@@ -98,7 +195,7 @@ public abstract class Startup extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(MapType::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private MapType(String code, String description) {
 			this.code = code;
@@ -112,8 +209,8 @@ public abstract class Startup extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -134,11 +231,11 @@ public abstract class Startup extends AbstractTransientBean {
 			return result;
 		}
 
-		public static MapType fromDescription(String description) {
+		public static MapType fromLocalisedDescription(String description) {
 			MapType result = null;
 
 			for (MapType value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -148,14 +245,222 @@ public abstract class Startup extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				MapType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (MapType value : values) {
-					domainValues.add(value.domainValue);
+			return domainValues;
+		}
+	}
+
+	/**
+	 * Type
+	 * <br/>
+	 * Which external backup provider should be used this Skyve application? Note: additional charges may apply.
+	 **/
+	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+	public static enum BackupType implements Enumeration {
+		none("none", "None (Internal Backups)"),
+		azure("org.skyve.impl.backup.AzureBlobStorageBackup", "Azure Blob Storage");
+
+		private String code;
+		private String description;
+
+		/** @hidden */
+		private DomainValue domainValue;
+
+		/** @hidden */
+		private static List<DomainValue> domainValues = Stream.of(values()).map(BackupType::toDomainValue).collect(Collectors.toUnmodifiableList());
+
+		private BackupType(String code, String description) {
+			this.code = code;
+			this.description = description;
+			this.domainValue = new DomainValue(code, description);
+		}
+
+		@Override
+		public String toCode() {
+			return code;
+		}
+
+		@Override
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
+		}
+
+		@Override
+		public DomainValue toDomainValue() {
+			return domainValue;
+		}
+
+		public static BackupType fromCode(String code) {
+			BackupType result = null;
+
+			for (BackupType value : values()) {
+				if (value.code.equals(code)) {
+					result = value;
+					break;
 				}
 			}
 
+			return result;
+		}
+
+		public static BackupType fromLocalisedDescription(String description) {
+			BackupType result = null;
+
+			for (BackupType value : values()) {
+				if (value.toLocalisedDescription().equals(description)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static List<DomainValue> toDomainValues() {
+			return domainValues;
+		}
+	}
+
+	/**
+	 * CAPTCHA Type
+	 * <br/>
+	 * Which CAPTCHA service to use for the self-registration and self-service password reset (forgot password) function. You may choose between Cloudflare Turnstile and Google Recaptcha or leave blank to not enable a CAPTCHA.
+	 **/
+	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+	public static enum CaptchaType implements Enumeration {
+		googleRecaptcha("Google Recaptcha", "Google Recaptcha"),
+		cloudflareTurnstile("Cloudflare Turnstile", "Cloudflare Turnstile");
+
+		private String code;
+		private String description;
+
+		/** @hidden */
+		private DomainValue domainValue;
+
+		/** @hidden */
+		private static List<DomainValue> domainValues = Stream.of(values()).map(CaptchaType::toDomainValue).collect(Collectors.toUnmodifiableList());
+
+		private CaptchaType(String code, String description) {
+			this.code = code;
+			this.description = description;
+			this.domainValue = new DomainValue(code, description);
+		}
+
+		@Override
+		public String toCode() {
+			return code;
+		}
+
+		@Override
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
+		}
+
+		@Override
+		public DomainValue toDomainValue() {
+			return domainValue;
+		}
+
+		public static CaptchaType fromCode(String code) {
+			CaptchaType result = null;
+
+			for (CaptchaType value : values()) {
+				if (value.code.equals(code)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static CaptchaType fromLocalisedDescription(String description) {
+			CaptchaType result = null;
+
+			for (CaptchaType value : values()) {
+				if (value.toLocalisedDescription().equals(description)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static List<DomainValue> toDomainValues() {
+			return domainValues;
+		}
+	}
+
+	/**
+	 * Country List Type
+	 * <br/>
+	 * This determines whether the countries selected should be allowed (whitelist) or denied (blacklist) from accessing the application.
+	 **/
+	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+	public static enum GeoIPCountryListType implements Enumeration {
+		blacklist("blacklist", "Blacklist"),
+		whitelist("whitelist", "Whitelist");
+
+		private String code;
+		private String description;
+
+		/** @hidden */
+		private DomainValue domainValue;
+
+		/** @hidden */
+		private static List<DomainValue> domainValues = Stream.of(values()).map(GeoIPCountryListType::toDomainValue).collect(Collectors.toUnmodifiableList());
+
+		private GeoIPCountryListType(String code, String description) {
+			this.code = code;
+			this.description = description;
+			this.domainValue = new DomainValue(code, description);
+		}
+
+		@Override
+		public String toCode() {
+			return code;
+		}
+
+		@Override
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
+		}
+
+		@Override
+		public DomainValue toDomainValue() {
+			return domainValue;
+		}
+
+		public static GeoIPCountryListType fromCode(String code) {
+			GeoIPCountryListType result = null;
+
+			for (GeoIPCountryListType value : values()) {
+				if (value.code.equals(code)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static GeoIPCountryListType fromLocalisedDescription(String description) {
+			GeoIPCountryListType result = null;
+
+			for (GeoIPCountryListType value : values()) {
+				if (value.toLocalisedDescription().equals(description)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static List<DomainValue> toDomainValues() {
 			return domainValues;
 		}
 	}
@@ -165,116 +470,298 @@ public abstract class Startup extends AbstractTransientBean {
 	 * <br/>
 	 * Allow the user to bypass the setup screen and set the showSetup value to false.
 	 **/
-	private Boolean dontShowAgain = new Boolean(false);
+	private Boolean dontShowAgain = Boolean.valueOf(false);
+
 	/**
 	 * Identifier
 	 * <br/>
 	 * The description of this environment, e.g. Test, UAT. Leave this blank for production.
+					<br/>
+					<em>Note: If this is blank, the bootstrap user (if configured) will not be created for 
+					this instance until this is set to a non-blank value.</em>
 	 **/
 	private String environmentIdentifier;
+
 	/**
 	 * Support Email Address
 	 * <br/>
 	 * Email address for system support
 	 **/
 	private String environmentSupportEmail;
+
 	/**
 	 * Type
 	 * <br/>
 	 * Which map technology would you like to use for this Skyve application? Note: Google Maps requires an API key.
 	 **/
 	private MapType mapType = MapType.leaflet;
+
 	/**
 	 * Zoom
 	 * <br/>
 	 * What should the default zoom level be when opening a new map (value between 1-19)?
 	 **/
-	private Integer mapZoom = new Integer(1);
+	private Integer mapZoom = Integer.valueOf(1);
+
 	/**
 	 * Layers
 	 * <br/>
 	 * Google Map or Leaflet layer to show the map backdrop
 	 **/
 	private String mapLayer;
+
 	/**
 	 * Centre
 	 * <br/>
 	 * Where to centre a new map when it opens
 	 **/
 	private Geometry mapCentre;
+
 	/**
 	 * Server URL
 	 * <br/>
 	 * URL or IP address of the SMTP server to use
 	 **/
 	private String mailServerUrl;
+
 	/**
 	 * Server Port
 	 * <br/>
 	 * Which port should be used to access the mail server? This is usually 25, 465 or 587 depending if it is secure or insecure.
 	 **/
-	private Integer mailPort = new Integer(25);
+	private Integer mailPort = Integer.valueOf(25);
+
 	/**
 	 * Username
 	 * <br/>
 	 * Mail server username
 	 **/
 	private String mailUsername;
+
 	/**
 	 * Password
 	 * <br/>
 	 * Mail server password
 	 **/
 	private String mailPassword;
+
 	/**
 	 * Default Sender
 	 * <br/>
 	 * Default send from email address
 	 **/
 	private String mailSender;
+
 	/**
 	 * Test Mode
 	 * <br/>
 	 * If true, email is disabled and just logged, it will never be sent
 	 **/
-	private Boolean mailBogusSend = new Boolean(false);
+	private Boolean mailBogusSend = Boolean.valueOf(false);
+
 	/**
 	 * Test Mail Recipient
 	 * <br/>
 	 * All emails will only be sent to this email address if specified
 	 **/
 	private String mailTestRecipient;
+
 	/**
 	 * Google Maps Key
 	 * <br/>
 	 * If using Google Maps for your map type, specify your map key here
 	 **/
 	private String apiGoogleMapsKey;
+
 	/**
 	 * Google Recaptcha Site Key
 	 * <br/>
-	 * To enable the forgot password function, this application must be registered 
-					for Google Recaptcha and the site key must be specified here.
+	 * Google Recaptcha site key must be specified here.
 	 **/
-	private String apiGoogleRecaptchaKey;
+	private String apiGoogleRecaptchaSiteKey;
+
 	/**
-	 * admin.startup.accountAllowUserSelfRegistration.displayName
+	 * Google Recaptcha Secret Key
 	 * <br/>
-	 * admin.startup.accountAllowUserSelfRegistration.description
+	 * Google Recaptcha secret key can be specified here to enable server-side validation for stronger security.
 	 **/
-	private Boolean accountAllowUserSelfRegistration = new Boolean(false);
+	private String apiGoogleRecaptchaSecretKey;
+
+	/**
+	 * Cloudflare Turnstile Site Key
+	 * <br/>
+	 * Cloudflare Turnstile site key must be specified here.
+	 **/
+	private String apiCloudflareTurnstileSiteKey;
+
+	/**
+	 * Cloudflare Turnstile Secret Key
+	 * <br/>
+	 * Cloudflare Turnstile secret key can be specified here to enable server-side validation for stronger security.
+	 **/
+	private String apiCloudflareTurnstileSecretKey;
+
+	/**
+	 * Allow User Self Registration
+	 * <br/>
+	 * Allows new users to register for an account when enabled, requires email.
+	 **/
+	private Boolean accountAllowUserSelfRegistration = Boolean.valueOf(false);
+
 	/**
 	 * Account SID
 	 **/
 	private String apiTwilioSID;
+
 	/**
 	 * Account Auth Token
 	 **/
 	private String apiTwilioAuthToken;
+
 	/**
 	 * Default Send Number
 	 **/
 	private String apiTwilioDefaultSendNumber;
+
+	/**
+	 * Type
+	 * <br/>
+	 * Which external backup provider should be used this Skyve application? Note: additional charges may apply.
+	 **/
+	private BackupType backupType = BackupType.none;
+
+	/**
+	 * Connection String
+	 * <br/>
+	 * The connection string to the external backup location, e.g. 
+					<code style='white-space: pre-wrap;'>DefaultEndpointsProtocol=https;AccountName=ACCOUNT_NAME;AccountKey=ACCOUNT_KEY;EndpointSuffix=core.windows.net</code>.
+	 **/
+	private String backupConnectionString;
+
+	/**
+	 * Directory Name
+	 * <br/>
+	 * The name of the top-level backup directory, e.g. <code>application-name</code>, this will be 
+					created if it does not exist.<br/>
+					This must be a valid DNS name, starting with a letter or number, containing only letters, numbers
+					and the dash character. Every dash must be immediately preceeded and followed by a ltter or number.<br/>
+					Must be from 3 to 63 characters long.
+	 **/
+	private String backupDirectoryName;
+
+	/**
+	 * Check for breached password
+	 * <br/>
+	 * When users try to create or change a password, this checks whether the new password has been compromised in known data breaches (requires internet access).
+	 * <br/>
+	 * Determines whether or not HaveIBeenPwned API is used as part of password validation.
+	 **/
+	private Boolean checkForBreachedPassword = Boolean.valueOf(true);
+
+	/**
+	 * Security Notifications Email Address
+	 * <br/>
+	 * Email address where security notifications will be sent. If not specified, security notifications will be sent to the support email address.
+	 **/
+	private String securityNotificationsEmail;
+
+	/**
+	 * Enable IP Address Checks
+	 * <br/>
+	 * When enabled, security events will be logged for IP address changes or logins from different countries.
+	 **/
+	private Boolean ipAddressChecks = Boolean.valueOf(true);
+
+	/**
+	 * IP Address History Check Count
+	 * <br/>
+	 * Number of previous IP addresses to check when determining if a security event should be logged.
+	 **/
+	private Integer ipAddressHistoryCheckCount = Integer.valueOf(1);
+
+	/**
+	 * Concurrent Session Warnings
+	 * <br/>
+	 * When enabled, a security event will be logged when a user starts a new session while another session is already active.
+	 **/
+	private Boolean concurrentSessionWarnings = Boolean.valueOf(true);
+
+	/**
+	 * CAPTCHA Type
+	 * <br/>
+	 * Which CAPTCHA service to use for the self-registration and self-service password reset (forgot password) function. You may choose between Cloudflare Turnstile and Google Recaptcha or leave blank to not enable a CAPTCHA.
+	 **/
+	private CaptchaType captchaType;
+
+	/**
+	 * GEO IP Key/Token
+	 * <br/>
+	 * By supplying a Geo IP API token (default is ipinfo.io), you can allow/disallow countries for registration and password reset.
+	 **/
+	private String geoIPKey;
+
+	/**
+	 * Country List Type
+	 * <br/>
+	 * This determines whether the countries selected should be allowed (whitelist) or denied (blacklist) from accessing the application.
+	 **/
+	private GeoIPCountryListType geoIPCountryListType;
+
+	/**
+	 * Counties
+	 * <br/>
+	 * Descriptions can be different based on the user's locale.
+	 **/
+	private List<CountryExtension> geoIPCountries = new ChangeTrackingArrayList<>("geoIPCountries", this);
+
+	/**
+	 * Geo IP Block Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent when a Geo IP block occurs.
+	 **/
+	private Boolean geoIPBlockNotifications;
+
+	/**
+	 * Concurrent Session Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent when a concurrent session warning is logged.
+	 **/
+	private Boolean concurrentSessionNotifications = Boolean.valueOf(true);
+
+	/**
+	 * Password Change Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent when a password is changed.
+	 **/
+	private Boolean passwordChangeNotifications;
+
+	/**
+	 * Different Country Login Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent when a user logs in from a different country.
+	 **/
+	private Boolean differentCountryLoginNotifications;
+
+	/**
+	 * IP Address Change Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent when a user logs in from a different IP address.
+	 **/
+	private Boolean ipAddressChangeNotifications;
+
+	/**
+	 * Access Exception Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent following an access exception.
+	 **/
+	private Boolean accessExceptionNotifications;
+
+	/**
+	 * Security Exception Notifications
+	 * <br/>
+	 * When enabled, notifications will be sent following a security exception.
+	 **/
+	private Boolean securityExceptionNotifications;
 
 	@Override
 	@XmlTransient
@@ -305,12 +792,6 @@ public abstract class Startup extends AbstractTransientBean {
 	public String getBizKey() {
 		return toString();
 
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Startup) && 
-					this.getBizId().equals(((Startup) o).getBizId()));
 	}
 
 	/**
@@ -433,8 +914,8 @@ public abstract class Startup extends AbstractTransientBean {
 	 * {@link #mapCentre} mutator.
 	 * @param mapCentre	The new value.
 	 **/
-	@XmlJavaTypeAdapter(GeometryMapper.class)
 	@XmlElement
+	@XmlJavaTypeAdapter(GeometryMapper.class)
 	public void setMapCentre(Geometry mapCentre) {
 		preset(mapCentrePropertyName, mapCentre);
 		this.mapCentre = mapCentre;
@@ -585,21 +1066,75 @@ public abstract class Startup extends AbstractTransientBean {
 	}
 
 	/**
-	 * {@link #apiGoogleRecaptchaKey} accessor.
+	 * {@link #apiGoogleRecaptchaSiteKey} accessor.
 	 * @return	The value.
 	 **/
-	public String getApiGoogleRecaptchaKey() {
-		return apiGoogleRecaptchaKey;
+	public String getApiGoogleRecaptchaSiteKey() {
+		return apiGoogleRecaptchaSiteKey;
 	}
 
 	/**
-	 * {@link #apiGoogleRecaptchaKey} mutator.
-	 * @param apiGoogleRecaptchaKey	The new value.
+	 * {@link #apiGoogleRecaptchaSiteKey} mutator.
+	 * @param apiGoogleRecaptchaSiteKey	The new value.
 	 **/
 	@XmlElement
-	public void setApiGoogleRecaptchaKey(String apiGoogleRecaptchaKey) {
-		preset(apiGoogleRecaptchaKeyPropertyName, apiGoogleRecaptchaKey);
-		this.apiGoogleRecaptchaKey = apiGoogleRecaptchaKey;
+	public void setApiGoogleRecaptchaSiteKey(String apiGoogleRecaptchaSiteKey) {
+		preset(apiGoogleRecaptchaSiteKeyPropertyName, apiGoogleRecaptchaSiteKey);
+		this.apiGoogleRecaptchaSiteKey = apiGoogleRecaptchaSiteKey;
+	}
+
+	/**
+	 * {@link #apiGoogleRecaptchaSecretKey} accessor.
+	 * @return	The value.
+	 **/
+	public String getApiGoogleRecaptchaSecretKey() {
+		return apiGoogleRecaptchaSecretKey;
+	}
+
+	/**
+	 * {@link #apiGoogleRecaptchaSecretKey} mutator.
+	 * @param apiGoogleRecaptchaSecretKey	The new value.
+	 **/
+	@XmlElement
+	public void setApiGoogleRecaptchaSecretKey(String apiGoogleRecaptchaSecretKey) {
+		preset(apiGoogleRecaptchaSecretKeyPropertyName, apiGoogleRecaptchaSecretKey);
+		this.apiGoogleRecaptchaSecretKey = apiGoogleRecaptchaSecretKey;
+	}
+
+	/**
+	 * {@link #apiCloudflareTurnstileSiteKey} accessor.
+	 * @return	The value.
+	 **/
+	public String getApiCloudflareTurnstileSiteKey() {
+		return apiCloudflareTurnstileSiteKey;
+	}
+
+	/**
+	 * {@link #apiCloudflareTurnstileSiteKey} mutator.
+	 * @param apiCloudflareTurnstileSiteKey	The new value.
+	 **/
+	@XmlElement
+	public void setApiCloudflareTurnstileSiteKey(String apiCloudflareTurnstileSiteKey) {
+		preset(apiCloudflareTurnstileSiteKeyPropertyName, apiCloudflareTurnstileSiteKey);
+		this.apiCloudflareTurnstileSiteKey = apiCloudflareTurnstileSiteKey;
+	}
+
+	/**
+	 * {@link #apiCloudflareTurnstileSecretKey} accessor.
+	 * @return	The value.
+	 **/
+	public String getApiCloudflareTurnstileSecretKey() {
+		return apiCloudflareTurnstileSecretKey;
+	}
+
+	/**
+	 * {@link #apiCloudflareTurnstileSecretKey} mutator.
+	 * @param apiCloudflareTurnstileSecretKey	The new value.
+	 **/
+	@XmlElement
+	public void setApiCloudflareTurnstileSecretKey(String apiCloudflareTurnstileSecretKey) {
+		preset(apiCloudflareTurnstileSecretKeyPropertyName, apiCloudflareTurnstileSecretKey);
+		this.apiCloudflareTurnstileSecretKey = apiCloudflareTurnstileSecretKey;
 	}
 
 	/**
@@ -675,6 +1210,485 @@ public abstract class Startup extends AbstractTransientBean {
 	}
 
 	/**
+	 * {@link #backupType} accessor.
+	 * @return	The value.
+	 **/
+	public BackupType getBackupType() {
+		return backupType;
+	}
+
+	/**
+	 * {@link #backupType} mutator.
+	 * @param backupType	The new value.
+	 **/
+	@XmlElement
+	public void setBackupType(BackupType backupType) {
+		preset(backupTypePropertyName, backupType);
+		this.backupType = backupType;
+	}
+
+	/**
+	 * {@link #backupConnectionString} accessor.
+	 * @return	The value.
+	 **/
+	public String getBackupConnectionString() {
+		return backupConnectionString;
+	}
+
+	/**
+	 * {@link #backupConnectionString} mutator.
+	 * @param backupConnectionString	The new value.
+	 **/
+	@XmlElement
+	public void setBackupConnectionString(String backupConnectionString) {
+		preset(backupConnectionStringPropertyName, backupConnectionString);
+		this.backupConnectionString = backupConnectionString;
+	}
+
+	/**
+	 * {@link #backupDirectoryName} accessor.
+	 * @return	The value.
+	 **/
+	public String getBackupDirectoryName() {
+		return backupDirectoryName;
+	}
+
+	/**
+	 * {@link #backupDirectoryName} mutator.
+	 * @param backupDirectoryName	The new value.
+	 **/
+	@XmlElement
+	public void setBackupDirectoryName(String backupDirectoryName) {
+		preset(backupDirectoryNamePropertyName, backupDirectoryName);
+		this.backupDirectoryName = backupDirectoryName;
+	}
+
+	/**
+	 * {@link #checkForBreachedPassword} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getCheckForBreachedPassword() {
+		return checkForBreachedPassword;
+	}
+
+	/**
+	 * {@link #checkForBreachedPassword} mutator.
+	 * @param checkForBreachedPassword	The new value.
+	 **/
+	@XmlElement
+	public void setCheckForBreachedPassword(Boolean checkForBreachedPassword) {
+		preset(checkForBreachedPasswordPropertyName, checkForBreachedPassword);
+		this.checkForBreachedPassword = checkForBreachedPassword;
+	}
+
+	/**
+	 * {@link #securityNotificationsEmail} accessor.
+	 * @return	The value.
+	 **/
+	public String getSecurityNotificationsEmail() {
+		return securityNotificationsEmail;
+	}
+
+	/**
+	 * {@link #securityNotificationsEmail} mutator.
+	 * @param securityNotificationsEmail	The new value.
+	 **/
+	@XmlElement
+	public void setSecurityNotificationsEmail(String securityNotificationsEmail) {
+		preset(securityNotificationsEmailPropertyName, securityNotificationsEmail);
+		this.securityNotificationsEmail = securityNotificationsEmail;
+	}
+
+	/**
+	 * {@link #ipAddressChecks} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getIpAddressChecks() {
+		return ipAddressChecks;
+	}
+
+	/**
+	 * {@link #ipAddressChecks} mutator.
+	 * @param ipAddressChecks	The new value.
+	 **/
+	@XmlElement
+	public void setIpAddressChecks(Boolean ipAddressChecks) {
+		preset(ipAddressChecksPropertyName, ipAddressChecks);
+		this.ipAddressChecks = ipAddressChecks;
+	}
+
+	/**
+	 * {@link #ipAddressHistoryCheckCount} accessor.
+	 * @return	The value.
+	 **/
+	public Integer getIpAddressHistoryCheckCount() {
+		return ipAddressHistoryCheckCount;
+	}
+
+	/**
+	 * {@link #ipAddressHistoryCheckCount} mutator.
+	 * @param ipAddressHistoryCheckCount	The new value.
+	 **/
+	@XmlElement
+	public void setIpAddressHistoryCheckCount(Integer ipAddressHistoryCheckCount) {
+		preset(ipAddressHistoryCheckCountPropertyName, ipAddressHistoryCheckCount);
+		this.ipAddressHistoryCheckCount = ipAddressHistoryCheckCount;
+	}
+
+	/**
+	 * {@link #concurrentSessionWarnings} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getConcurrentSessionWarnings() {
+		return concurrentSessionWarnings;
+	}
+
+	/**
+	 * {@link #concurrentSessionWarnings} mutator.
+	 * @param concurrentSessionWarnings	The new value.
+	 **/
+	@XmlElement
+	public void setConcurrentSessionWarnings(Boolean concurrentSessionWarnings) {
+		preset(concurrentSessionWarningsPropertyName, concurrentSessionWarnings);
+		this.concurrentSessionWarnings = concurrentSessionWarnings;
+	}
+
+	/**
+	 * {@link #captchaType} accessor.
+	 * @return	The value.
+	 **/
+	public CaptchaType getCaptchaType() {
+		return captchaType;
+	}
+
+	/**
+	 * {@link #captchaType} mutator.
+	 * @param captchaType	The new value.
+	 **/
+	@XmlElement
+	public void setCaptchaType(CaptchaType captchaType) {
+		preset(captchaTypePropertyName, captchaType);
+		this.captchaType = captchaType;
+	}
+
+	/**
+	 * {@link #geoIPKey} accessor.
+	 * @return	The value.
+	 **/
+	public String getGeoIPKey() {
+		return geoIPKey;
+	}
+
+	/**
+	 * {@link #geoIPKey} mutator.
+	 * @param geoIPKey	The new value.
+	 **/
+	@XmlElement
+	public void setGeoIPKey(String geoIPKey) {
+		preset(geoIPKeyPropertyName, geoIPKey);
+		this.geoIPKey = geoIPKey;
+	}
+
+	/**
+	 * {@link #geoIPCountryListType} accessor.
+	 * @return	The value.
+	 **/
+	public GeoIPCountryListType getGeoIPCountryListType() {
+		return geoIPCountryListType;
+	}
+
+	/**
+	 * {@link #geoIPCountryListType} mutator.
+	 * @param geoIPCountryListType	The new value.
+	 **/
+	@XmlElement
+	public void setGeoIPCountryListType(GeoIPCountryListType geoIPCountryListType) {
+		preset(geoIPCountryListTypePropertyName, geoIPCountryListType);
+		this.geoIPCountryListType = geoIPCountryListType;
+	}
+
+	/**
+	 * {@link #geoIPCountries} accessor.
+	 * @return	The value.
+	 **/
+	@XmlElement
+	public List<CountryExtension> getGeoIPCountries() {
+		return geoIPCountries;
+	}
+
+	/**
+	 * {@link #geoIPCountries} accessor.
+	 * @param bizId	The bizId of the element in the list.
+	 * @return	The value of the element in the list.
+	 **/
+	public CountryExtension getGeoIPCountriesElementById(String bizId) {
+		return getElementById(geoIPCountries, bizId);
+	}
+
+	/**
+	 * {@link #geoIPCountries} mutator.
+	 * @param bizId	The bizId of the element in the list.
+	 * @param element	The new value of the element in the list.
+	 **/
+	public void setGeoIPCountriesElementById(String bizId, CountryExtension element) {
+		setElementById(geoIPCountries, element);
+	}
+
+	/**
+	 * {@link #geoIPCountries} add.
+	 * @param element	The element to add.
+	 **/
+	public boolean addGeoIPCountriesElement(CountryExtension element) {
+		return geoIPCountries.add(element);
+	}
+
+	/**
+	 * {@link #geoIPCountries} add.
+	 * @param index	The index in the list to add the element to.
+	 * @param element	The element to add.
+	 **/
+	public void addGeoIPCountriesElement(int index, CountryExtension element) {
+		geoIPCountries.add(index, element);
+	}
+
+	/**
+	 * {@link #geoIPCountries} remove.
+	 * @param element	The element to remove.
+	 **/
+	public boolean removeGeoIPCountriesElement(CountryExtension element) {
+		return geoIPCountries.remove(element);
+	}
+
+	/**
+	 * {@link #geoIPCountries} remove.
+	 * @param index	The index in the list to remove the element from.
+	 **/
+	public CountryExtension removeGeoIPCountriesElement(int index) {
+		return geoIPCountries.remove(index);
+	}
+
+	/**
+	 * {@link #geoIPBlockNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getGeoIPBlockNotifications() {
+		return geoIPBlockNotifications;
+	}
+
+	/**
+	 * {@link #geoIPBlockNotifications} mutator.
+	 * @param geoIPBlockNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setGeoIPBlockNotifications(Boolean geoIPBlockNotifications) {
+		preset(geoIPBlockNotificationsPropertyName, geoIPBlockNotifications);
+		this.geoIPBlockNotifications = geoIPBlockNotifications;
+	}
+
+	/**
+	 * {@link #concurrentSessionNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getConcurrentSessionNotifications() {
+		return concurrentSessionNotifications;
+	}
+
+	/**
+	 * {@link #concurrentSessionNotifications} mutator.
+	 * @param concurrentSessionNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setConcurrentSessionNotifications(Boolean concurrentSessionNotifications) {
+		preset(concurrentSessionNotificationsPropertyName, concurrentSessionNotifications);
+		this.concurrentSessionNotifications = concurrentSessionNotifications;
+	}
+
+	/**
+	 * {@link #passwordChangeNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getPasswordChangeNotifications() {
+		return passwordChangeNotifications;
+	}
+
+	/**
+	 * {@link #passwordChangeNotifications} mutator.
+	 * @param passwordChangeNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setPasswordChangeNotifications(Boolean passwordChangeNotifications) {
+		preset(passwordChangeNotificationsPropertyName, passwordChangeNotifications);
+		this.passwordChangeNotifications = passwordChangeNotifications;
+	}
+
+	/**
+	 * {@link #differentCountryLoginNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getDifferentCountryLoginNotifications() {
+		return differentCountryLoginNotifications;
+	}
+
+	/**
+	 * {@link #differentCountryLoginNotifications} mutator.
+	 * @param differentCountryLoginNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setDifferentCountryLoginNotifications(Boolean differentCountryLoginNotifications) {
+		preset(differentCountryLoginNotificationsPropertyName, differentCountryLoginNotifications);
+		this.differentCountryLoginNotifications = differentCountryLoginNotifications;
+	}
+
+	/**
+	 * {@link #ipAddressChangeNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getIpAddressChangeNotifications() {
+		return ipAddressChangeNotifications;
+	}
+
+	/**
+	 * {@link #ipAddressChangeNotifications} mutator.
+	 * @param ipAddressChangeNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setIpAddressChangeNotifications(Boolean ipAddressChangeNotifications) {
+		preset(ipAddressChangeNotificationsPropertyName, ipAddressChangeNotifications);
+		this.ipAddressChangeNotifications = ipAddressChangeNotifications;
+	}
+
+	/**
+	 * {@link #accessExceptionNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getAccessExceptionNotifications() {
+		return accessExceptionNotifications;
+	}
+
+	/**
+	 * {@link #accessExceptionNotifications} mutator.
+	 * @param accessExceptionNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setAccessExceptionNotifications(Boolean accessExceptionNotifications) {
+		preset(accessExceptionNotificationsPropertyName, accessExceptionNotifications);
+		this.accessExceptionNotifications = accessExceptionNotifications;
+	}
+
+	/**
+	 * {@link #securityExceptionNotifications} accessor.
+	 * @return	The value.
+	 **/
+	public Boolean getSecurityExceptionNotifications() {
+		return securityExceptionNotifications;
+	}
+
+	/**
+	 * {@link #securityExceptionNotifications} mutator.
+	 * @param securityExceptionNotifications	The new value.
+	 **/
+	@XmlElement
+	public void setSecurityExceptionNotifications(Boolean securityExceptionNotifications) {
+		preset(securityExceptionNotificationsPropertyName, securityExceptionNotifications);
+		this.securityExceptionNotifications = securityExceptionNotifications;
+	}
+
+	/**
+	 * True when the selected backup type is Azure Blob Storage
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isBackupTypeAzure() {
+		return (BackupType.azure == getBackupType());
+	}
+
+	/**
+	 * {@link #isBackupTypeAzure} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotBackupTypeAzure() {
+		return (! isBackupTypeAzure());
+	}
+
+	/**
+	 * True when the captcha type is Cloudflare Turnstile
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isCloudflareTurnstile() {
+		return (getCaptchaType() != null && CaptchaType.cloudflareTurnstile == getCaptchaType());
+	}
+
+	/**
+	 * {@link #isCloudflareTurnstile} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotCloudflareTurnstile() {
+		return (! isCloudflareTurnstile());
+	}
+
+	/**
+	 * True when the captcha type is Google Recaptcha
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isGoogleRecaptcha() {
+		return (getCaptchaType() != null && CaptchaType.googleRecaptcha == getCaptchaType());
+	}
+
+	/**
+	 * {@link #isGoogleRecaptcha} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotGoogleRecaptcha() {
+		return (! isGoogleRecaptcha());
+	}
+
+	/**
+	 * True when a Geo IP key/token has been set
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isHasGeoIPKey() {
+		return (geoIPKey != null);
+	}
+
+	/**
+	 * {@link #isHasGeoIPKey} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotHasGeoIPKey() {
+		return (! isHasGeoIPKey());
+	}
+
+	/**
+	 * True when IP address checks are enabled.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isIpAddressChecksEnabled() {
+		return (Boolean.TRUE.equals(getIpAddressChecks()));
+	}
+
+	/**
+	 * {@link #isIpAddressChecksEnabled} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotIpAddressChecksEnabled() {
+		return (! isIpAddressChecksEnabled());
+	}
+
+	/**
 	 * True when the selected map type is Google Maps
 	 *
 	 * @return The condition
@@ -691,6 +1705,25 @@ public abstract class Startup extends AbstractTransientBean {
 	 */
 	public boolean isNotMapTypeGmap() {
 		return (! isMapTypeGmap());
+	}
+
+	/**
+	 * True when no captcha type is selected
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isNoCaptcha() {
+		return (getCaptchaType() == null);
+	}
+
+	/**
+	 * {@link #isNoCaptcha} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotNoCaptcha() {
+		return (! isNoCaptcha());
 	}
 
 	/**
