@@ -122,7 +122,7 @@
 	// URL settings - various SKYVE URL/URI fragments - useful for linking and mailing
 	"url": {
 		// server URL
-		"server": "http://${SKYVE_HOSTNAME:localhost}:${SKYVE_PORT:8080}",
+		"server": "${SKYVE_URL:http://localhost:8080}",
 		// web context path
 		"context": "${SKYVE_CONTEXT:/agedCare}", 
 		// home path - the default after login
@@ -224,11 +224,11 @@
 		"skyve": {
 			// Connection (H2 - Skyve 9+ no longer uses ds.xml for H2)
 			"driver": "org.h2.Driver",
-			"url": "jdbc:h2:file:/content/agedCare_db;IFEXISTS=FALSE;IGNORECASE=TRUE;AUTO_SERVER=TRUE",
-			"user": "sa",
-			"password": "sa",
+			"url": "${DB_CONNECTION_URL}",
+			"user": "${DB_USERNAME}",
+			"password": "${DB_PASSWORD}",
 			// Dialect
-			"dialect": "org.skyve.impl.persistence.hibernate.dialect.H2SpatialDialect",
+			"dialect": "${SKYVE_DATASTORE_DIALECT:org.skyve.impl.persistence.hibernate.dialect.H2SpatialDialect}",
 			// Timeout for data store connections employed in general UI/forms processing - 0 indicates no timeout
 			"oltpConnectionTimeoutInSeconds": 30,
 			// Timeout for data store connections employed when running jobs and background tasks - 0 indicates no timeout
@@ -369,7 +369,7 @@
 	// Environment settings
 	"environment": {
 		// test, sit, uat, dev etc: null = prod
-		"identifier": "${IDENTIFIER:dev}",
+		"identifier": "${IDENTIFIER:null}",
 		// Dev Mode will drop cached metadata allowing the effects of any changes to be observed without redeploying
 		"devMode": true,
 		// Check Skyve URLs and endpoints against the metadata and what can be navigated to
