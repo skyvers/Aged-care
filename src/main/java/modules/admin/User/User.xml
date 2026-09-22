@@ -6,12 +6,15 @@
 	<persistent name="ADM_SecurityUser" />
 	<singularAlias>User</singularAlias>
 	<pluralAlias>Users</pluralAlias>
-	<iconStyleClass>fa fa-user</iconStyleClass>
-	<bizKey >
+	<iconStyleClass>fa-solid fa-user</iconStyleClass>
+	<bizKey sensitivity="personal">
 		<![CDATA[return modules.admin.User.UserBizlet.bizKey(this);]]>
 	</bizKey>
+	<implements>
+		<interface>org.skyve.domain.app.admin.User</interface>
+	</implements>
 	<attributes>
-		<text name="userName" required="true">
+		<text name="userName" required="true" sensitivity="personal">
 			<documentation>
 				<![CDATA[
 					Length is derived from the maximum email address length from RFC 5321
@@ -20,13 +23,13 @@
 			<displayName>admin.user.userName.displayName</displayName>
 			<length>254</length>
 		</text>
-		<text name="password" audited="false">
+		<text name="password" audited="false" sensitivity="secret">
 			<displayName>admin.user.password.displayName</displayName>
 			<description>admin.user.password.description</description>
 			<!--  The password is checked and populated in the Bizlet -->
-			<length>100</length>
+			<length>255</length>
 		</text>
-		<text name="generatedPassword" audited="false"  persistent="false" trackChanges="false">
+		<text name="generatedPassword" audited="false" persistent="false" trackChanges="false" usage="view" sensitivity="secret">
 			<displayName>admin.user.generatedPassword.displayName</displayName>
 			<description>admin.user.generatedPassword.description</description>
 			<length>255</length>
@@ -41,12 +44,12 @@
 			<domain>variant</domain>
 			<length>30</length>
 		</text>
-		<text name="newPassword" persistent="false" audited="false">
+		<text name="newPassword" audited="false" persistent="false" usage="both" sensitivity="secret">
 			<displayName>admin.user.newPassword.displayName</displayName>
 			<description>admin.user.newPassword.description</description>
 			<length>255</length>
 		</text>
-		<text name="confirmPassword" persistent="false" audited="false">
+		<text name="confirmPassword" audited="false" persistent="false" usage="both" sensitivity="secret">
 			<displayName>admin.user.confirmPassword.displayName</displayName>
 			<description>admin.user.confirmPassword.description</description>
 			<length>255</length>
@@ -56,21 +59,51 @@
 			<description>admin.user.legacyId.description</description>
 			<length>100</length>
 		</text>
-		<boolean name="passwordExpired">
+		<boolean name="passwordExpired" sensitivity="secret">
 			<displayName>admin.user.passwordExpired.displayName</displayName>
 			<description>admin.user.passwordExpired.description</description>
 		</boolean >
-		<dateTime name="passwordLastChanged">
+		<dateTime name="passwordLastChanged" sensitivity="secret">
+			<documentation>When password was last changed. Referenced in password change notification email contents.</documentation>
 			<displayName>admin.user.passwordLastChanged.displayName</displayName>
 			<description>admin.user.passwordLastChanged.description</description>
 		</dateTime>
-		<text name="passwordResetToken">
+		<text name="passwordLastChangedIP" sensitivity="secret" usage="domain">
+			<documentation>IP when password was last changed. Referenced in password change notification email contents.</documentation>
+			<displayName>admin.user.passwordLastChangedIP.displayName</displayName>
+			<description>admin.user.passwordLastChangedIP.description</description>
+			<length>45</length>
+		</text>
+		<text name="passwordLastChangedCountryCode" sensitivity="secret" usage="domain">
+			<documentation>2-letter country-code where password was last changed. Referenced in password change notification email contents.</documentation>
+			<displayName>admin.user.passwordLastChangedCountryCode.displayName</displayName>
+			<description>admin.user.passwordLastChangedCountryCode.description</description>
+			<length>2</length>
+		</text>
+		<text name="passwordLastChangedCountryName" audited="false" persistent="false" trackChanges="false" sensitivity="secret" usage="view">
+			<documentation>
+				<![CDATA[
+					User Locale Country Name where password was last changed.
+					Referenced in password change notification email contents.
+					The getter is overridden in the extension class.
+				]]>
+			</documentation>
+			<displayName>admin.user.passwordLastChangedCountryName.displayName</displayName>
+			<description>admin.user.passwordLastChangedCountryName.description</description>
+			<length>100</length>
+		</text>
+		<text name="passwordResetToken" sensitivity="secret">
 			<documentation>This contains a token (UUID + time in millis) which when submitted by the user will enable them to reset their password.</documentation>
 			<displayName>admin.user.passwordResetToken.displayName</displayName>
 			<description>admin.user.passwordResetToken.description</description>
 			<length>56</length>
 		</text>
-		<memo name="passwordHistory" audited="false" trackChanges="false">
+		<timestamp name="passwordResetTokenCreationTimestamp" usage="domain">
+			<documentation>Used in WebUtil.resetPassword to evaluate token expiry.</documentation>
+			<displayName>admin.user.passwordResetTokenCreationTimestamp.displayName</displayName>
+			<description>admin.user.passwordResetTokenCreationTimestamp.description</description>
+		</timestamp>
+		<memo name="passwordHistory" audited="false" trackChanges="false" sensitivity="secret">
 			<documentation>
 				A tab separated list of previous password hashes used
 			</documentation>
@@ -134,7 +167,7 @@
 		</collection>
 		
 		<!-- New user wizard state properties -->
-		<enum name="wizardState" persistent="false">
+		<enum name="wizardState" audited="false" persistent="false" usage="view">
 			<displayName>Wizard State</displayName>
 			<description>
 			The create user wizard is staged into the following states which roughly follow in order.
@@ -151,23 +184,23 @@
 				<value code="confirmGroupMemberships"/>
 			</values>
 		</enum>
-		<text name="searchContactName" persistent="false">
+		<text name="searchContactName" audited="false" persistent="false" usage="view">
 			<displayName>admin.user.searchContactName.displayName</displayName>
 			<description>admin.user.searchContactName.description</description>
 			<length>1024</length>
 		</text>
-		<text name="searchEmail" persistent="false">
+		<text name="searchEmail" audited="false" persistent="false" usage="view">
 			<displayName>admin.user.searchEmail.displayName</displayName>
 			<description>admin.user.searchEmail.description</description>
 			<length>512</length>
 		</text>
-		<collection name="candidateContacts" type="child" persistent="false">
+		<collection name="candidateContacts" type="child" audited="false" persistent="false" usage="view">
 			<displayName>admin.user.collection.candidateContacts.displayName</displayName>
 			<description>admin.user.collection.candidateContacts.description</description>
 			<documentName>UserCandidateContact</documentName>
 			<minCardinality>0</minCardinality>
 		</collection>
-		<boolean name="contactSelected" persistent="false">
+		<boolean name="contactSelected" audited="false" persistent="false" trackChanges="false" usage="view">
 			<displayName>admin.user.contactSelected.displayName</displayName>
 			<defaultValue>false</defaultValue>
 		</boolean>
@@ -175,14 +208,14 @@
 			<displayName>admin.user.inactive.displayName</displayName>
 			<description>admin.user.inactive.description</description>
 		</boolean>
-		<enum name="groupSelection" persistent="false" audited="false" trackChanges="false">
+		<enum name="groupSelection" audited="false" persistent="false" trackChanges="false" usage="view">
 			<displayName>admin.user.groupSelection.displayName</displayName>
 			<values>
 				<value code="existingGroups" description="Existing groups"/>
 				<value code="newGroup" description="New group"/>
 			</values>
 		</enum>
-		<boolean name="groupsExist" persistent="false" audited="false" trackChanges="false">
+		<boolean name="groupsExist" audited="false" persistent="false"  trackChanges="false" usage="view">
 			<displayName>admin.user.groupsExist.displayName</displayName>
 		</boolean>
 		<association type="aggregation" name="newGroup"  persistent="false" audited="false" trackChanges="false">
@@ -216,7 +249,26 @@
 			<displayName>admin.user.activationCodeCreationDateTime.displayName</displayName>
 			<description>admin.user.activationCodeCreationDateTime.description</description>
 		</dateTime>
+		<text name="activateUrl" audited="false" persistent="false" trackChanges="false" usage="both">
+			<displayName>Activation Url</displayName>
+			<length>2083</length>
+		</text>	
 		
+		<!-- 2FA -->
+		<text name="twoFactorCode" audited="false" sensitivity="secret">
+			<documentation>this is hashed</documentation>
+			<displayName>Two Factor Code</displayName>
+			<length>255</length>
+		</text>
+		<timestamp name="twoFactorCodeGeneratedTimestamp" audited="false" sensitivity="secret">
+			<documentation>used to invalidate the 2fa code when X amount of time has passed. Not displayed to the user</documentation>
+			<displayName>2FA Code DateTime</displayName>
+		</timestamp>
+		<text name="twoFactorToken" audited="false">
+			<documentation>Used to identify the user is in the same session for 2FA code entry, this is for the system</documentation>
+			<displayName>Two Factor Token</displayName>
+			<length>100</length>
+		</text>
 	</attributes>
 	<conditions>
 		<!-- Evaluation of Wizard State -->
@@ -268,6 +320,18 @@
 				<![CDATA[isUserInRole("admin","SecurityAdministrator")]]>
 			</expression>
 		</condition>
+		<condition name="owningUser">
+			<description>Whether the current user is this user</description>
+			<expression>
+				<![CDATA[((UserExtension) this).owningUser()]]>
+			</expression>
+		</condition>
+		<condition name="accessDenied">
+			<description>Whether the current user is allowed to manage this user's details</description>
+			<expression>
+				<![CDATA[!isOwningUser() && !isSecurityAdministrator()]]>
+			</expression>
+		</condition>
 		<condition name="designer">
 			<description>Designer</description>
 			<expression>
@@ -294,6 +358,12 @@
 			<description>True when User Self-Registration is enabled.</description>
 			<expression>
 				<![CDATA[org.skyve.impl.util.UtilImpl.ACCOUNT_ALLOW_SELF_REGISTRATION]]>
+			</expression>
+		</condition>
+		<condition name="selfRegistrationEnabledAndUserNotActivated" usage="view">
+			<description>True when User Self-Registration is enabled and the User has not been activated.</description>
+			<expression>
+				<![CDATA[isSelfRegistrationEnabled() && Boolean.FALSE.equals(getActivated()) && isSecurityAdministrator()]]>
 			</expression>
 		</condition>
 		<condition name="canActivateUser" usage="view">

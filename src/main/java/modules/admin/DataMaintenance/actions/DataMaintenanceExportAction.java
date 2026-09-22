@@ -5,12 +5,9 @@ import org.skyve.bizport.BizPortWorkbook;
 import org.skyve.metadata.controller.BizExportAction;
 import org.skyve.web.WebContext;
 
-import modules.admin.ModulesUtil;
 import modules.admin.domain.DataMaintenance;
 
 public class DataMaintenanceExportAction extends BizExportAction {
-	private static final long serialVersionUID = -4559826499532491074L;
-
 	@Override
 	public BizPortWorkbook bizExport(WebContext webContext) throws Exception {
 		DataMaintenance d = (DataMaintenance) webContext.getCurrentBean();
@@ -24,6 +21,6 @@ public class DataMaintenanceExportAction extends BizExportAction {
 		}
 
 		String[] refs = modocName.split("\\.");
-		return ModulesUtil.standardBeanBizExport(refs[0], refs[1], null);
+		return EXT.standardBizExport(refs[0], refs[1]);
 	}
 }

@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -15,7 +16,8 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  */
 @XmlType
 @XmlRootElement
-public class CommunicationTemplate extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public class CommunicationTemplate extends AbstractPersistentBean implements org.skyve.domain.app.admin.CommunicationTemplate {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -24,13 +26,16 @@ public class CommunicationTemplate extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "CommunicationTemplate";
 
 	/** @hidden */
 	public static final String namePropertyName = "name";
+
 	/** @hidden */
 	public static final String descriptionPropertyName = "description";
+
 	/** @hidden */
 	public static final String templatePropertyName = "template";
 
@@ -38,16 +43,18 @@ public class CommunicationTemplate extends AbstractPersistentBean {
 	 * Name
 	 **/
 	private String name;
+
 	/**
 	 * Description
 	 **/
 	private String description;
+
 	/**
 	 * Template
 	 * <br/>
 	 * Include "{body}" to designate where the body of the communication will be placed.
 	 **/
-	private String template;
+	private String template = "<p>{body}</p>";
 
 	@Override
 	@XmlTransient
@@ -82,12 +89,6 @@ public class CommunicationTemplate extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof CommunicationTemplate) && 
-					this.getBizId().equals(((CommunicationTemplate) o).getBizId()));
 	}
 
 	/**

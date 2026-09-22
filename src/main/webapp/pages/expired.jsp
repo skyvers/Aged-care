@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page isErrorPage="true"%>
+<%@page session="false" isErrorPage="true" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Locale"%>
 <%@page import="org.skyve.CORE"%>
 <%@page import="org.skyve.metadata.customer.Customer"%>
@@ -64,7 +63,7 @@
 		    	</div>
 		    	<%@include file="fragments/noscript.html" %>
 		    	
-		        <form class="ui large form">
+		        <div class="ui large form">
 		            <div class="ui segment">
 		            	<div class="ui header">
 		            		<%=Util.i18n("page.expired.banner", locale)%>
@@ -73,13 +72,13 @@
 		            		<%=Util.i18n("page.expired.explanation", locale)%>
 		            	</div>
 		            	
-		            	<% if (referer == null) { %>
-							<a href="<%=Util.getSkyveContextUrl()%><%=Util.getHomeUri()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.loginError.retry", locale)%></a>
+						<% if ((referer == null) || referer.contains("/login") || referer.contains("/pages/")) { // no referer or came from the login or other jsp page %>
+							<a href="<%=Util.getBaseUrl()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.loginError.retry", locale)%></a>
 						<% } else { %>
 							<a href="<%=referer%>" class="ui fluid large blue submit button"><%=Util.i18n("page.loginError.retry", locale)%></a>
 						<% } %>
 		            </div>
-		        </form>
+		        </div>
 		    </div>
 		</div>
 	</body>

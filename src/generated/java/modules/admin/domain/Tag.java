@@ -1,12 +1,15 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import modules.admin.Tag.TagExtension;
 import modules.admin.UserProxy.UserProxyExtension;
 import modules.admin.domain.DataMaintenance.EvictOption;
 import org.skyve.CORE;
@@ -14,6 +17,7 @@ import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Tag
@@ -28,7 +32,8 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
-public class Tag extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public abstract class Tag extends AbstractPersistentBean implements org.skyve.domain.app.admin.Tag {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -37,61 +42,88 @@ public class Tag extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Tag";
 
 	/** @hidden */
 	public static final String namePropertyName = "name";
+
 	/** @hidden */
 	public static final String visiblePropertyName = "visible";
+
 	/** @hidden */
 	public static final String combinationsOperatorPropertyName = "combinationsOperator";
+
 	/** @hidden */
 	public static final String combinationExplanationPropertyName = "combinationExplanation";
+
 	/** @hidden */
 	public static final String totalTaggedPropertyName = "totalTagged";
+
 	/** @hidden */
 	public static final String copyToUserPropertyName = "copyToUser";
+
 	/** @hidden */
 	public static final String copyToUserTagNamePropertyName = "copyToUserTagName";
+
 	/** @hidden */
 	public static final String uploadModuleNamePropertyName = "uploadModuleName";
+
 	/** @hidden */
 	public static final String uploadDocumentNamePropertyName = "uploadDocumentName";
+
 	/** @hidden */
 	public static final String attributeNamePropertyName = "attributeName";
+
 	/** @hidden */
 	public static final String fileHasHeadersPropertyName = "fileHasHeaders";
+
 	/** @hidden */
 	public static final String uploadedPropertyName = "uploaded";
+
 	/** @hidden */
 	public static final String uploadMatchedPropertyName = "uploadMatched";
+
 	/** @hidden */
 	public static final String uploadTaggedPropertyName = "uploadTagged";
+
 	/** @hidden */
 	public static final String filterOperatorPropertyName = "filterOperator";
+
 	/** @hidden */
 	public static final String filterActionPropertyName = "filterAction";
+
 	/** @hidden */
 	public static final String actionModuleNamePropertyName = "actionModuleName";
+
 	/** @hidden */
 	public static final String actionDocumentNamePropertyName = "actionDocumentName";
+
 	/** @hidden */
 	public static final String unTagSuccessfulPropertyName = "unTagSuccessful";
+
 	/** @hidden */
 	public static final String notificationPropertyName = "notification";
+
 	/** @hidden */
 	public static final String filterColumnPropertyName = "filterColumn";
+
 	/** @hidden */
 	public static final String operandTagPropertyName = "operandTag";
+
 	/** @hidden */
 	public static final String operandTagCountPropertyName = "operandTagCount";
+
 	/** @hidden */
 	public static final String documentConditionPropertyName = "documentCondition";
+
 	/** @hidden */
 	public static final String documentActionPropertyName = "documentAction";
+
 	/** @hidden */
 	public static final String documentActionResultsPropertyName = "documentActionResults";
+
 	/** @hidden */
 	public static final String evictOptionPropertyName = "evictOption";
 
@@ -99,6 +131,7 @@ public class Tag extends AbstractPersistentBean {
 	 * Operator
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum CombinationsOperator implements Enumeration {
 		union("Union", "Union"),
 		except("Except", "Except"),
@@ -111,7 +144,7 @@ public class Tag extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(CombinationsOperator::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private CombinationsOperator(String code, String description) {
 			this.code = code;
@@ -125,8 +158,8 @@ public class Tag extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -147,11 +180,11 @@ public class Tag extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static CombinationsOperator fromDescription(String description) {
+		public static CombinationsOperator fromLocalisedDescription(String description) {
 			CombinationsOperator result = null;
 
 			for (CombinationsOperator value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -161,14 +194,6 @@ public class Tag extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				CombinationsOperator[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (CombinationsOperator value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -177,6 +202,7 @@ public class Tag extends AbstractPersistentBean {
 	 * Filter Operator
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum FilterOperator implements Enumeration {
 		equals("equals", "Equals"),
 		like("like", "Like"),
@@ -189,7 +215,7 @@ public class Tag extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(FilterOperator::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private FilterOperator(String code, String description) {
 			this.code = code;
@@ -203,8 +229,8 @@ public class Tag extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -225,11 +251,11 @@ public class Tag extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static FilterOperator fromDescription(String description) {
+		public static FilterOperator fromLocalisedDescription(String description) {
 			FilterOperator result = null;
 
 			for (FilterOperator value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -239,14 +265,6 @@ public class Tag extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				FilterOperator[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (FilterOperator value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -255,6 +273,7 @@ public class Tag extends AbstractPersistentBean {
 	 * Filter Action
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum FilterAction implements Enumeration {
 		tagRecordsThatMatch("tag", "Tag records that match"),
 		unTagRecordsThatMatch("unTag", "UnTag records that match");
@@ -266,7 +285,7 @@ public class Tag extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(FilterAction::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private FilterAction(String code, String description) {
 			this.code = code;
@@ -280,8 +299,8 @@ public class Tag extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -302,11 +321,11 @@ public class Tag extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static FilterAction fromDescription(String description) {
+		public static FilterAction fromLocalisedDescription(String description) {
 			FilterAction result = null;
 
 			for (FilterAction value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -316,14 +335,6 @@ public class Tag extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				FilterAction[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (FilterAction value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -332,128 +343,153 @@ public class Tag extends AbstractPersistentBean {
 	 * Name
 	 **/
 	private String name;
+
 	/**
 	 * Visible
 	 **/
 	private Boolean visible;
+
 	/**
 	 * Operator
 	 **/
 	private CombinationsOperator combinationsOperator;
+
 	/**
 	 * Explanation
 	 **/
 	private String combinationExplanation;
+
 	/**
 	 * Total Tagged
 	 **/
 	private Long totalTagged;
+
 	/**
 	 * Copy to user
 	 **/
 	private UserProxyExtension copyToUser = null;
+
 	/**
 	 * Tag Name
 	 **/
 	private String copyToUserTagName;
+
 	/**
 	 * Module
 	 * <br/>
 	 * The module to tag.
 	 **/
 	private String uploadModuleName;
+
 	/**
 	 * Document
 	 * <br/>
-	 * The document to tag.
+	 * Document
 	 **/
 	private String uploadDocumentName;
+
 	/**
 	 * Attribute
 	 * <br/>
 	 * The name of the attribute to tag.
 	 **/
 	private String attributeName;
+
 	/**
 	 * Upload File has Column Headers
 	 **/
 	private Boolean fileHasHeaders;
+
 	/**
 	 * Uploaded
 	 **/
 	private Long uploaded;
+
 	/**
 	 * Match
 	 **/
 	private Long uploadMatched;
+
 	/**
 	 * Tagged
 	 **/
 	private Long uploadTagged;
+
 	/**
 	 * Filter Operator
 	 **/
 	private FilterOperator filterOperator;
+
 	/**
 	 * Filter Action
 	 **/
 	private FilterAction filterAction;
+
 	/**
 	 * Module
 	 * <br/>
 	 * The module for the tag Action.
 	 **/
 	private String actionModuleName;
+
 	/**
 	 * Document
 	 * <br/>
 	 * The document for the tag Action.
 	 **/
 	private String actionDocumentName;
+
 	/**
 	 * Untag successful documents
 	 **/
 	private Boolean unTagSuccessful;
+
 	/**
 	 * Notify when job is complete
 	 **/
 	private Boolean notification;
+
 	/**
-	 * Column (first column is 1))
+	 * Column (first column is 1)
 	 **/
 	private Integer filterColumn;
+
 	/**
 	 * Other Tag
 	 * <br/>
 	 * The other tag to use for the combination.
 	 **/
-	private Tag operandTag = null;
+	private TagExtension operandTag = null;
+
 	/**
 	 * Tagged
 	 **/
 	private Long operandTagCount;
+
 	/**
 	 * Condition
 	 * <br/>
 	 * The condition which must be satisfied for the tagged document, for the action to be executed.
 	 **/
 	private String documentCondition;
+
 	/**
 	 * Action
 	 * <br/>
 	 * The action to be executed on the tagged document (provided the specified condition is satisfied for that document).
 	 **/
 	private String documentAction;
+
 	/**
 	 * Request
 	 **/
 	private String documentActionResults;
+
 	/**
 	 * Cache Evict
 	 * <br/>
 	 * <p>Whether to evict each bean after processing.</p>
-				<p>Evicting beans will free memory for large data jobs, however there may be impacts
-				if the action (processing) selected affects items that other beans may reference.</p>
+<p>Evicting beans will free memory for large data jobs, however there may be impacts if the action (processing) selected affects items that other beans may reference.</p>
 	 **/
 	private EvictOption evictOption = EvictOption.bean;
 
@@ -469,7 +505,7 @@ public class Tag extends AbstractPersistentBean {
 		return Tag.DOCUMENT_NAME;
 	}
 
-	public static Tag newInstance() {
+	public static TagExtension newInstance() {
 		try {
 			return CORE.getUser().getCustomer().getModule(MODULE_NAME).getDocument(CORE.getUser().getCustomer(), DOCUMENT_NAME).newInstance(CORE.getUser());
 		}
@@ -490,12 +526,6 @@ public class Tag extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Tag) && 
-					this.getBizId().equals(((Tag) o).getBizId()));
 	}
 
 	/**
@@ -874,7 +904,7 @@ public class Tag extends AbstractPersistentBean {
 	 * {@link #operandTag} accessor.
 	 * @return	The value.
 	 **/
-	public Tag getOperandTag() {
+	public TagExtension getOperandTag() {
 		return operandTag;
 	}
 
@@ -883,7 +913,7 @@ public class Tag extends AbstractPersistentBean {
 	 * @param operandTag	The new value.
 	 **/
 	@XmlElement
-	public void setOperandTag(Tag operandTag) {
+	public void setOperandTag(TagExtension operandTag) {
 		if (this.operandTag != operandTag) {
 			this.operandTag = operandTag;
 		}

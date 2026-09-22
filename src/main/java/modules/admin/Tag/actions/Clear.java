@@ -1,26 +1,20 @@
 package modules.admin.Tag.actions;
 
-import modules.admin.domain.Tag;
-
 import org.skyve.CORE;
 import org.skyve.metadata.controller.ServerSideAction;
 import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.persistence.Persistence;
 import org.skyve.web.WebContext;
 
-public class Clear implements ServerSideAction<Tag> {
-	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 2886341074753936987L;
+import modules.admin.Tag.TagExtension;
 
+public class Clear implements ServerSideAction<TagExtension> {
 	/**
-	 * Update the payment batch details.
+	 * Clear tagged values.
 	 */
 	@Override
-	public ServerSideActionResult<Tag> execute(Tag bean, WebContext webContext)
+	public ServerSideActionResult<TagExtension> execute(TagExtension bean, WebContext webContext)
 	throws Exception {
-		
 		//clear tagged values
 		StringBuilder deleteSQL = new StringBuilder();
 		deleteSQL.append("delete from ADM_Tagged where tag_id = ");
@@ -30,8 +24,8 @@ public class Clear implements ServerSideAction<Tag> {
 		Persistence persistence = CORE.getPersistence();
 		persistence.newSQL(deleteSQL.toString()).execute();
 		
-		bean.setUploadTagged(new Long(0));
-		bean.setTotalTagged(new Long(0));
+		bean.setUploadTagged(Long.valueOf(0));
+		bean.setTotalTagged(Long.valueOf(0));
 		
 		return new ServerSideActionResult<>(bean);
 	}

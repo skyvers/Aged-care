@@ -1,5 +1,6 @@
 package modules.admin.JobSchedule;
 
+import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Set;
 
 import org.quartz.CronExpression;
 import org.skyve.CORE;
+import org.skyve.EXT;
+import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.messages.Message;
 import org.skyve.domain.messages.ValidationException;
 import org.skyve.job.JobScheduler;
@@ -19,11 +22,6 @@ import org.skyve.util.Binder;
 import modules.admin.domain.JobSchedule;
 
 public class JobScheduleBizlet extends Bizlet<JobSchedule> {
-	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 1824057397777084860L;
-
 	public static String getBizKey(JobSchedule schedule) {
 		try {
 			String jobName = schedule.getJobName();
@@ -32,53 +30,78 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 			Module module = customer.getModule(jobName.substring(0, dotIndex));
 			JobMetaData job = module.getJob(jobName.substring(dotIndex + 1));
 	
-			return module.getName() + " - " + job.getDisplayName();
+			return module.getName() + " - " + job.getLocalisedDisplayName();
 		}
-		catch (Exception e) {
+		catch (@SuppressWarnings("unused") Exception e) {
 			return "";
 		}
 	}
 	
-	public static class JobCronExpression extends CronExpression {
-		private static final long serialVersionUID = 511950182588354122L;
+	public static class JobCronExpression {
+		private CronExpression expression = null;
 
 		public JobCronExpression(String cronExpression)
 		throws ParseException {
-			super(cronExpression);
+			expression = new CronExpression(cronExpression);
 		}
+
+		private Object get(String name) {
+			try {
+				Field f = expression.getClass().getDeclaredField(name);
+				if (! f.canAccess(expression)) {
+					f.setAccessible(true);
+				}
+				return f.get(expression);
+			}
+			catch (Exception e) {
+				throw new DomainException("Cant get " + name + " from CRON expression " + expression.getCronExpression(), e);
+			}
+		}
+		
+		@SuppressWarnings("unchecked")
 		public Set<Integer> getMinutes() {
-			return minutes;
+			return (Set<Integer>) get("minutes");
 		}
+		
+		@SuppressWarnings("unchecked")
 		public Set<Integer> getHours() {
-			return hours;
+			return (Set<Integer>) get("hours");
 		}
+		
+		@SuppressWarnings("unchecked")
 		public Set<Integer> getDaysOfMonth() {
-			return daysOfMonth;
+			return (Set<Integer>) get("daysOfMonth");
 		}
+
+		@SuppressWarnings("unchecked")
 		public Set<Integer> getMonths() {
-			return months;
+			return (Set<Integer>) get("months");
 		}
+
+		@SuppressWarnings("unchecked")
 		public Set<Integer> getDaysOfWeek() {
-			return daysOfWeek;
+			return (Set<Integer>) get("daysOfWeek");
 		}
+		
 		public boolean getLastDayOfWeek() {
-			return lastdayOfWeek;
+			return Boolean.TRUE.equals(get("lastdayOfWeek"));
 		}
+
 		public boolean getLastDayOfMonth() {
-			return lastdayOfMonth;
+			return Boolean.TRUE.equals(get("lastdayOfMonth"));
 		}
 		public boolean getNearestWeekday() {
-			return nearestWeekday;
+			return Boolean.TRUE.equals(get("nearestWeekday"));
 		}
 	}
 
 	private static final String ALL_CODE = "*";
-	private static final Integer ALL_CODE_SPEC = new Integer(99);
+	private static final Integer ALL_CODE_SPEC = Integer.valueOf(99);
 	private static final String SELECTED_CODE = "X";
 	private static final String LAST_DAY_CODE = "L";
 	private static final String LAST_WEEK_DAY_CODE = "LW";
 	private static final String ANY_CODE = "?";
-	private static final Integer ANY_CODE_SPEC = new Integer(98);
+	private static final Integer ANY_CODE_SPEC = Integer.valueOf(98);
 	
 	@Override
 	public JobSchedule newInstance(JobSchedule bean) throws Exception {
@@ -128,7 +151,7 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 					StringBuilder sb = new StringBuilder(128);
 					StringBuilder sbDisplay = new StringBuilder(128);
 					sb.append(module.getName()).append('.').append(job.getName());
-					sbDisplay.append(module.getName()).append(" - ").append(job.getDisplayName());
+					sbDisplay.append(module.getName()).append(" - ").append(job.getLocalisedDisplayName());
 					result.add(new DomainValue(sb.toString(), sbDisplay.toString()));
 				}
 			}
@@ -153,7 +176,7 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 		else {
 			bean.setAllMinutes(SELECTED_CODE);
 			for (int i = 0, l = 60; i < l; i++) {
-				Binder.set(bean, "minute" + i, minutes.contains(new Integer(i)) ? Boolean.TRUE : Boolean.FALSE);
+				Binder.set(bean, "minute" + i, minutes.contains(Integer.valueOf(i)) ? Boolean.TRUE : Boolean.FALSE);
 			}
 		}
 
@@ -163,7 +186,7 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 		else {
 			bean.setAllHours(SELECTED_CODE);
 			for (int i = 0, l = 24; i < l; i++) {
-				Binder.set(bean, "hour" + i, hours.contains(new Integer(i)) ? Boolean.TRUE : Boolean.FALSE);
+				Binder.set(bean, "hour" + i, hours.contains(Integer.valueOf(i)) ? Boolean.TRUE : Boolean.FALSE);
 			}
 		}
 		
@@ -181,7 +204,7 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 		else {
 			bean.setAllDays(SELECTED_CODE);
 			for (int i = 1, l = 32; i < l; i++) {
-				Binder.set(bean, "day" + i, days.contains(new Integer(i)) ? Boolean.TRUE : Boolean.FALSE);
+				Binder.set(bean, "day" + i, days.contains(Integer.valueOf(i)) ? Boolean.TRUE : Boolean.FALSE);
 			}
 		}
 		
@@ -191,7 +214,7 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 		else {
 			bean.setAllMonths(SELECTED_CODE);
 			for (int i = 1, l = 13; i < l; i++) {
-				Binder.set(bean, "month" + i, months.contains(new Integer(i)) ? Boolean.TRUE : Boolean.FALSE);
+				Binder.set(bean, "month" + i, months.contains(Integer.valueOf(i)) ? Boolean.TRUE : Boolean.FALSE);
 			}
 		}
 		
@@ -201,7 +224,7 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 		else {
 			bean.setAllWeekdays(SELECTED_CODE);
 			for (int i = 1, l = 8; i < l; i++) {
-				Binder.set(bean, "weekday" + i, weekdays.contains(new Integer(i)) ? Boolean.TRUE : Boolean.FALSE);
+				Binder.set(bean, "weekday" + i, weekdays.contains(Integer.valueOf(i)) ? Boolean.TRUE : Boolean.FALSE);
 			}
 		}
 	}
@@ -306,15 +329,16 @@ public class JobScheduleBizlet extends Bizlet<JobSchedule> {
 		Customer customer = CORE.getUser().getCustomer();
 		
 		// Re-schedule the job
-		JobScheduler.unscheduleJob(bean, customer);
+		JobScheduler jobScheduler = EXT.getJobScheduler();
+		jobScheduler.unscheduleJob(bean, customer);
 		if (! Boolean.TRUE.equals(bean.getDisabled())) {
-			JobScheduler.scheduleJob(bean, bean.getRunAs().toMetaDataUser());
+			jobScheduler.scheduleJob(bean, bean.getRunAs().toMetaDataUser());
 		}
 	}
 	
 	@Override
 	public void preDelete(JobSchedule bean) throws Exception {
-		JobScheduler.unscheduleJob(bean, CORE.getUser().getCustomer());
+		EXT.getJobScheduler().unscheduleJob(bean, CORE.getUser().getCustomer());
 	}
 
 	@Override

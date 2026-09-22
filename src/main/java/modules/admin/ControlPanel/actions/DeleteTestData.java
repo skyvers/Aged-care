@@ -19,8 +19,6 @@ import modules.admin.domain.Tag;
 
 public class DeleteTestData implements ServerSideAction<ControlPanelExtension> {
 
-	private static final long serialVersionUID = -1015595549604693410L;
-
 	@Override
 	public ServerSideActionResult<ControlPanelExtension> execute(ControlPanelExtension bean, WebContext webContext)
 			throws Exception {
@@ -37,7 +35,7 @@ public class DeleteTestData implements ServerSideAction<ControlPanelExtension> {
 		q.getFilter().addEquals(Tag.namePropertyName, bean.getTestTagName());
 		Tag tagForDelete = q.beanResult();
 		if(tagForDelete!=null) {
-			EXT.runOneShotJob(job, tagForDelete, CORE.getUser());
+			EXT.getJobScheduler().runOneShotJob(job, tagForDelete, CORE.getUser());
 			webContext.growl(MessageSeverity.info, "Delete All Tagged Data For Tag Job has been started");
 		} else {
 			throw new ValidationException(new Message(ControlPanel.testTagNamePropertyName, "You have no tag by that name"));

@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractTransientBean;
@@ -19,6 +20,7 @@ import org.skyve.impl.domain.AbstractTransientBean;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class ModuleDocument extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -28,15 +30,19 @@ public class ModuleDocument extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "ModuleDocument";
 
 	/** @hidden */
 	public static final String includePropertyName = "include";
+
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String documentNamePropertyName = "documentName";
+
 	/** @hidden */
 	public static final String modDocNamePropertyName = "modDocName";
 
@@ -46,18 +52,21 @@ public class ModuleDocument extends AbstractTransientBean {
 	 * Used to indicate if this document is to be included when refreshing as part of DataMaintenance.
 	 **/
 	private Boolean include;
+
 	/**
 	 * Module Name
 	 * <br/>
 	 * The name of the module.
 	 **/
 	private String moduleName;
+
 	/**
 	 * Document Name
 	 * <br/>
 	 * The name of the document.
 	 **/
 	private String documentName;
+
 	/**
 	 * Document Name
 	 * <br/>
@@ -94,12 +103,6 @@ public class ModuleDocument extends AbstractTransientBean {
 	public String getBizKey() {
 		return toString();
 
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof ModuleDocument) && 
-					this.getBizId().equals(((ModuleDocument) o).getBizId()));
 	}
 
 	/**

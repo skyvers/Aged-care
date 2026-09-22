@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page session="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
@@ -12,32 +12,48 @@
 <%@page import="org.skyve.impl.web.WebUtil"%>
 <%@page import="org.skyve.metadata.user.User"%>
 <%@page import="org.skyve.util.Util"%>
+<%@page import="org.slf4j.LoggerFactory"%>
+<%@page import="org.slf4j.Logger"%>
+
+<%! static final Logger logger = LoggerFactory.getLogger("org.skyve.jsp.requestPasswordReset"); %>
+
 <%
+
 	String basePath = Util.getSkyveContextUrl() + "/";
 	String customer = WebUtil.determineCustomerWithoutSession(request);
 	boolean mobile = UserAgent.getType(request).isMobile();
 	Principal p = request.getUserPrincipal();
-	User user = WebUtil.processUserPrincipalForRequest(request, (p == null) ? null : p.getName(), true);
+	User user = WebUtil.processUserPrincipalForRequest(request, (p == null) ? null : p.getName());
 	Locale locale = (user == null) ? request.getLocale() : user.getLocale();
 
 	// This is a postback, process it and move on
 	String customerValue = request.getParameter("customer");
 	String emailValue = request.getParameter("email");
-	String oldCaptcha = (String) session.getAttribute("g-recaptcha-response");
-	String newCaptcha = Util.processStringValue(request.getParameter("g-recaptcha-response"));
-	boolean recaptchaSet = (UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY!=null);
+	String captcha = Util.processStringValue(request.getParameter("g-recaptcha-response"));
+	String siteKey = null;
+	if (UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY != null) {
+		siteKey = UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY;
+	}
+	else if (UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY != null) {
+		siteKey = UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY;
+	}
 	
-	boolean postback = (emailValue != null) && (newCaptcha != null) && (! newCaptcha.equals(oldCaptcha));
+	String requestPasswordResetErrorMessage = null;
+	boolean postback = (emailValue != null);
 	if (postback) {
-		session.setAttribute("g-recaptcha-response", newCaptcha);
-		try {
-			WebUtil.requestPasswordReset(customerValue, emailValue);
+		// Only validate if we have a captcha rendered
+		if ((siteKey == null) || WebUtil.validateRecaptcha(captcha)) {
+			try {
+				WebUtil.requestPasswordReset(customerValue, emailValue);
+			}
+			catch (Exception e) {
+				// don't stop - we need to give nothing away
+				logger.error("Password Reset Request Failed for customer={} and email={}", customerValue, emailValue, e);
+			}
 		}
-		catch (Exception e) {
-			// don't stop - we need to give nothing away
-			UtilImpl.LOGGER.log(Level.SEVERE, 
-									String.format("Password Reset Request Failed for customer=%s and email=%s", customerValue, emailValue),
-									e);
+		else {
+		    logger.error("Recaptcha failed validation");
+		    requestPasswordResetErrorMessage = Util.i18n("page.resetPassword.captcha.error", locale);
 		}
 	}
 %>
@@ -111,17 +127,25 @@
 			});
 			-->
 		</script>
-		<script src='https://www.google.com/recaptcha/api.js'></script>
+		<% if (UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY != null) { %>
+			<script src='https://www.google.com/recaptcha/api.js'></script>
+		<% } else if (UtilImpl.CLOUDFLARE_TURNSTILE_SITE_KEY != null) {%>
+			<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?compat=recaptcha" async defer></script>
+		<% } %>
 	</head>
-	<body>
+	<% if (requestPasswordResetErrorMessage != null) { %>
+		<body onload="alert('<%=requestPasswordResetErrorMessage%>');">
+	<% } else { %>
+		<body>
+	<% } %>
 		<div class="ui middle aligned center aligned grid">
 		    <div class="column">
 		    	<div style="text-align: center; margin: 0 auto; margin-bottom: 10px;">
 		    		<%@include file="fragments/logo.html" %>
 		    	</div>
 		    	
-		    	<% if (postback) { %>
-			    	<form class="ui large form">
+		    	<% if (postback && requestPasswordResetErrorMessage == null) { %>
+			    	<div class="ui large form">
 			            <div class="ui segment">
 			            	<div class="ui header">
 			            		<%=Util.i18n("page.requestPasswordReset.complete.banner", locale)%>
@@ -129,18 +153,16 @@
 			            	<div class="field">
 			            		<%=Util.i18n("page.requestPasswordReset.complete.message", locale)%>
 			            	</div>
-			            	<a href="<%=request.getContextPath()%><%=Util.getHomeUri()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+			            	<a href="<%=Util.getBaseUrl()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.login.submit.label", locale)%></a>
 			            </div>
-			        </form>
+			        </div>
 		    	<% } else { %>
 		    		<form method="post" onsubmit="return testMandatoryFields(this)" class="ui large form">
 			    		<div class="ui segment">
 
 				    		<div class="ui header">
-				    			<%=Util.i18n("page.requestPasswordReset.banner", locale)%>
-				    		</div>
-
-							<% if (recaptchaSet) { %>
+				    			<%=	Util.i18n("page.requestPasswordReset.banner", locale)%>
+				    		</div>	
 			    			<div class="field">
 								<%=Util.i18n("page.requestPasswordReset.message", locale)%>
 			    			</div>
@@ -161,28 +183,29 @@
 									<% } %>
 			                    </div>
 			                </div>
-
-			                <div class="field">
-			                	<!-- A table to brute force the captcha to centre as it is an iframe -->
-								<table>
-									<tr>
-										<td style="width:50%" />
-										<td>
-											<div class="g-recaptcha" data-sitekey="<%=UtilImpl.GOOGLE_RECAPTCHA_SITE_KEY%>"></div>
-										</td>
-										<td style="width:50%" />
-									</tr>
-								</table>
-			                </div>
-		                	<input type="submit" value="<%=Util.i18n("page.requestPasswordReset.submit.label", locale)%>" class="ui fluid large blue submit button" />
-			                <% } else { %>
-			                <div class="field">
-		                		<%=Util.i18n("page.resetPassword.recaptchaNotConfiguredMessage", locale)%>
-			                </div>
-			                <% } %>
+							<% if (siteKey != null) { %>
+								<div class="field">
+									<!-- A table to brute force the captcha to centre as it is an iframe -->
+									<table>
+										<tr>
+											<td style="width:50%" />
+											<td>
+												<div class="g-recaptcha" data-sitekey="<%=siteKey%>"></div>
+											</td>
+											<td style="width:50%" />
+										</tr>
+									</table>
+								</div>
+							<% } %>
+							
+							<input type="submit" value="<%=Util.i18n("page.requestPasswordReset.submit.label", locale)%>" class="ui fluid large blue submit button" />
 			                
 			                <div style="margin-top: 5px;">
-			                	<a href="<%=request.getContextPath()%><%=Util.getHomeUri()%><%=(user == null) ? "" : (String.format("home?customer=%s", user.getCustomerName()))%>" class="ui fluid basic large button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+			                	<% if (UtilImpl.CUSTOMER == null) { %>
+				                	<a href="<%=Util.getBaseUrl()%><%=(user == null) ? "" : ("?customer=" + user.getCustomerName())%>" class="ui fluid basic large button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+				                <% } else { %>
+				                	<a href="<%=Util.getBaseUrl()%>" class="ui fluid basic large button"><%=Util.i18n("page.login.submit.label", locale)%></a>
+				                <% } %>
 			                </div>
 		                </div>
 		                

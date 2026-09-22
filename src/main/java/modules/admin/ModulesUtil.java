@@ -3,28 +3,21 @@ package modules.admin;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Comparator;
-import java.util.Formatter;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.UUID;
 
 import org.skyve.CORE;
 import org.skyve.EXT;
-import org.skyve.bizport.BizPortWorkbook;
 import org.skyve.domain.Bean;
 import org.skyve.domain.ChildBean;
-import org.skyve.domain.PersistentBean;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.messages.Message;
-import org.skyve.domain.messages.UploadException;
 import org.skyve.domain.messages.ValidationException;
 import org.skyve.domain.types.DateOnly;
 import org.skyve.domain.types.Decimal10;
 import org.skyve.domain.types.Decimal2;
 import org.skyve.domain.types.Decimal5;
 import org.skyve.domain.types.converters.date.DD_MMM_YYYY;
-import org.skyve.impl.bizport.StandardGenerator;
-import org.skyve.impl.bizport.StandardLoader;
 import org.skyve.metadata.customer.Customer;
 import org.skyve.metadata.model.Attribute;
 import org.skyve.metadata.model.Persistent;
@@ -33,26 +26,31 @@ import org.skyve.metadata.model.document.Document;
 import org.skyve.metadata.module.Module;
 import org.skyve.metadata.user.User;
 import org.skyve.persistence.DocumentQuery;
-import org.skyve.persistence.DocumentQuery.AggregateFunction;
 import org.skyve.persistence.Persistence;
 import org.skyve.util.Binder;
+import org.skyve.util.CommunicationUtil;
 import org.skyve.util.Time;
 
+import modules.admin.Group.GroupExtension;
 import modules.admin.User.UserExtension;
+import modules.admin.UserList.UserListUtil;
 import modules.admin.UserProxy.UserProxyExtension;
 import modules.admin.domain.Contact;
-import modules.admin.domain.DocumentNumber;
+import modules.admin.domain.Group;
+import modules.admin.domain.GroupRole;
 import modules.admin.domain.UserProxy;
 
 /**
  * Utility methods applicable across application modules.
  * <p>
  * This class is provided as part of Skyve
- * 
+ *
  * @author robert.brown
- * 
+ *
  */
 public class ModulesUtil {
+
+	public static final long MEGABYTE = 1024L * 1024L;
 
 	/** comparator to allow sorting of domain values by code */
 	public static class DomainValueSortByCode implements Comparator<DomainValue> {
@@ -66,7 +64,7 @@ public class ModulesUtil {
 	public static class DomainValueSortByDescription implements Comparator<DomainValue> {
 		@Override
 		public int compare(DomainValue d1, DomainValue d2) {
-			return d1.getDescription().compareTo(d2.getDescription());
+			return d1.getLocalisedDescription().compareTo(d2.getLocalisedDescription());
 		}
 	}
 
@@ -122,7 +120,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns a calendar day of the week
-	 * 
+	 *
 	 * @param weekDay
 	 *        - the day of the week (DayOfWeek)
 	 * @return - the day of the week as a Calendar.day (int)
@@ -157,7 +155,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns a day of the week from a Calendar day
-	 * 
+	 *
 	 * @param calendarDay
 	 *        - the number of the day (int)
 	 * @return - the DayOfWeek (DayOfWeek)
@@ -210,7 +208,7 @@ public class ModulesUtil {
 	/**
 	 * Returns the number of periods of specified frequency which occur in the
 	 * calendar year.
-	 * 
+	 *
 	 * @param frequency
 	 *        - the specified frequency (OccurrenceFrequency)
 	 * @return - the number of times the specified frequency occurs in a
@@ -240,7 +238,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns the number of periods which occur in a calendar year.
-	 * 
+	 *
 	 * @param period
 	 *        - the time period (OccurrencePeriod)
 	 * @return - the number of times the period occurs within a calendar year
@@ -265,7 +263,7 @@ public class ModulesUtil {
 
 	/**
 	 * Adds a time frequency to a given date.
-	 * 
+	 *
 	 * @param frequency
 	 *        - the frequency to add
 	 * @param date
@@ -281,7 +279,7 @@ public class ModulesUtil {
 			}
 
 			DateOnly newDate = new DateOnly(date.getTime());
-			Calendar calendar = new GregorianCalendar();
+			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(newDate);
 			calendar.setLenient(false);
 
@@ -316,7 +314,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns the last day of the month in which the specified date occurs.
-	 * 
+	 *
 	 * @param date
 	 *        - the specified date
 	 * @return - the date of the last day of the month in which the specified
@@ -325,7 +323,7 @@ public class ModulesUtil {
 	public static DateOnly lastDayOfMonth(DateOnly date) {
 		if (date != null) {
 			DateOnly newDate = new DateOnly(date.getTime());
-			Calendar calendar = new GregorianCalendar();
+			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(newDate);
 			calendar.setLenient(false);
 
@@ -349,7 +347,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns the last day of the year in which the specified date occurs.
-	 * 
+	 *
 	 * @param date
 	 *        - the specified date
 	 * @return - the date of the last day of the year in which the specified
@@ -358,7 +356,7 @@ public class ModulesUtil {
 	public static DateOnly lastDayOfYear(DateOnly date) {
 		if (date != null) {
 			DateOnly newDate = new DateOnly(date.getTime());
-			Calendar calendar = new GregorianCalendar();
+			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(newDate);
 			calendar.setLenient(false);
 
@@ -384,14 +382,14 @@ public class ModulesUtil {
 	/**
 	 * Returns the date of the first day of the month in which the specified
 	 * date occurs.
-	 * 
+	 *
 	 * @param date
 	 *        - the specified date
 	 * @return - the date of the first day of that month
 	 */
 	@SuppressWarnings("deprecation")
 	public static DateOnly firstDayOfMonth(DateOnly date) {
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.setLenient(false);
 
@@ -411,13 +409,13 @@ public class ModulesUtil {
 	/**
 	 * Returns the date of the first day of the year in which the specified date
 	 * occurs.
-	 * 
+	 *
 	 * @param date
 	 *        - the specified date
 	 * @return - the date of the first day of that year
 	 */
 	public static DateOnly firstDayOfYear(DateOnly date) {
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.setLenient(false);
 
@@ -437,7 +435,7 @@ public class ModulesUtil {
 	/**
 	 * Returns the date which occurs after the specified date, given the number
 	 * of days to add.
-	 * 
+	 *
 	 * @param date
 	 *        - the specified date
 	 * @param daysToAdd
@@ -445,7 +443,7 @@ public class ModulesUtil {
 	 * @return - the resulting date
 	 */
 	public static DateOnly addDaysDateOnly(DateOnly date, int daysToAdd) {
-		Calendar calendar = new GregorianCalendar();
+		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		calendar.setLenient(false);
 
@@ -547,7 +545,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns the current session/conversation user as an Admin module User
-	 * 
+	 *
 	 * @return The current {@link modules.admin.User.UserExtension}
 	 */
 	public static UserExtension currentAdminUser() {
@@ -566,8 +564,91 @@ public class ModulesUtil {
 	}
 
 	/**
+	 * Creates a new admin User for a given contact
+	 * - sets the new user name to be the contact email address
+	 * - adds the specified group privileges to the user
+	 * - sets their home Module (if provided)
+	 * - sets an expired password (to force them to reset their password)
+	 * - sets a password reset token that can be provided to the user to reset their password
+	 * - optionally sends an invitation email
+	 *
+	 * @param contact the Contact to create the new User from
+	 * @param groupName The name of the group
+	 * @param homeModuleName
+	 * @param sendInvitation
+	 * @return
+	 */
+	public static UserExtension createAdminUserFromContactWithGroup(Contact contact, final String groupName,
+			final String homeModuleName, final boolean sendInvitation) {
+
+
+		if (contact == null) {
+			throw new DomainException("admin.modulesUtils.createAdminUserFromContactWithGroup.exception.contact");
+		}
+
+		if (groupName == null) {
+			throw new DomainException("admin.modulesUtils.createAdminUserFromContactWithGroup.exception.groupName");
+		}
+
+		// check if user already exists
+		DocumentQuery q = CORE.getPersistence().newDocumentQuery(modules.admin.domain.User.MODULE_NAME, modules.admin.domain.User.DOCUMENT_NAME);
+		q.getFilter().addEquals(modules.admin.domain.User.userNamePropertyName, contact.getEmail1());
+		q.setMaxResults(1);
+
+		UserExtension found = q.beanResult();
+		if (found != null) {
+			throw new DomainException("admin.modulesUtils.createAdminUserFromContactWithGroup.exception.duplicateUser");
+		}
+
+		// check the group exists
+		DocumentQuery qGroup = CORE.getPersistence().newDocumentQuery(Group.MODULE_NAME, Group.DOCUMENT_NAME);
+		qGroup.getFilter().addEquals(Group.namePropertyName, groupName);
+		qGroup.setMaxResults(1);
+		GroupExtension group = qGroup.beanResult();
+
+		if (group == null) {
+			throw new DomainException("admin.modulesUtils.createAdminUserFromContactWithGroup.exception.invalidGroup");
+		}
+
+		// check the home module name exists (Skyve will throw if it doesn't)
+		CORE.getCustomer().getModule(homeModuleName);
+
+		// save the contact to validate the contact and so that it can be referenced by the user
+		Contact newContact = CORE.getPersistence().save(contact);
+
+		final String token = UUID.randomUUID().toString() + Long.toString(System.currentTimeMillis());
+		// create a user - not with a generated password
+		UserExtension newUser = modules.admin.domain.User.newInstance();
+		newUser.setUserName(newContact.getEmail1());
+		newUser.setPassword(EXT.hashPassword(token));
+		newUser.setPasswordExpired(Boolean.TRUE);
+		newUser.setPasswordResetToken(token);
+		newUser.setHomeModule(homeModuleName);
+		newUser.setContact(newContact);
+
+		// assign group
+		newUser.getGroups().add(group);
+
+		newUser = CORE.getPersistence().save(newUser);
+
+		if (sendInvitation) {
+			try {
+				// send invitation email
+				CommunicationUtil.sendFailSafeSystemCommunication(UserListUtil.SYSTEM_USER_INVITATION,
+																  UserListUtil.SYSTEM_USER_INVITATION_DEFAULT_SUBJECT,
+																  UserListUtil.SYSTEM_USER_INVITATION_DEFAULT_BODY,
+																  CommunicationUtil.ResponseMode.EXPLICIT, null, newUser);
+
+			} catch (Exception e) {
+				throw new DomainException("admin.modulesUtils.createAdminUserFromContactWithGroup.exception.invitation", e);
+			}
+		}
+		return newUser;
+	}
+
+	/**
 	 * Returns the current session/conversation user as an Admin module UserProxy
-	 * 
+	 *
 	 * @return The current {@link modules.admin.domain.UserProxy}
 	 */
 	public static UserProxyExtension currentAdminUserProxy() {
@@ -599,189 +680,6 @@ public class ModulesUtil {
 		Message vM = new Message(messageString);
 		vM.addBinding(fieldName);
 		e.getMessages().add(vM);
-	}
-
-	/**
-	 * Returns a new document/sequence number for the given
-	 * module.document.fieldName in a thread-safe way.
-	 * <p>
-	 * If no previous record is found in the DocumentNumber table, the method
-	 * attempts to find the Maximum existing value currently extant in the field
-	 * and increments that. Otherwise, the value returned is incremented and
-	 * updated DocumentNumber value for the specified combination.
-	 * 
-	 * @param prefix
-	 *        - if the sequence value has a known prefix before the number,
-	 *        eg INV0001 has a prefix of "INV"
-	 * @param moduleName
-	 *        - the application module
-	 * @param documentName
-	 *        - the application document
-	 * @param fieldName
-	 *        - the fieldName/columnName in which the value is held
-	 * @param numberLength
-	 *        - the minimum length of the number when specified as a string
-	 * @return - the next sequence number
-	 */
-	public static String getNextDocumentNumber(String prefix, String moduleName, String documentName, String fieldName,
-			int numberLength) {
-
-		Persistence pers = CORE.getPersistence();
-		User user = pers.getUser();
-		Customer customer = user.getCustomer();
-		Module module = customer.getModule(DocumentNumber.MODULE_NAME);
-		Document document = module.getDocument(customer, DocumentNumber.DOCUMENT_NAME);
-
-		String nextNumber = "0";
-		String lastNumber = "0";
-
-		DocumentNumber dN = null;
-		try {
-			DocumentQuery qN = pers.newDocumentQuery(DocumentNumber.MODULE_NAME, DocumentNumber.DOCUMENT_NAME);
-			qN.getFilter().addEquals(DocumentNumber.moduleNamePropertyName, moduleName);
-			qN.getFilter().addEquals(DocumentNumber.documentNamePropertyName, documentName);
-			qN.getFilter().addEquals(DocumentNumber.sequenceNamePropertyName, fieldName);
-
-			List<DocumentNumber> num = qN.beanResults();
-			if (num.isEmpty()) {
-
-				// System.out.println("DOCUMENT NUMBER: No previous found - source from table");
-
-				// Check if sequence name is a field in that table
-				boolean isField = false;
-				for (Attribute attribute : document.getAttributes()) {
-					if (attribute.getName().equals(fieldName)) {
-						isField = true;
-						break;
-					}
-				}
-
-				if (isField) {
-					// first hit - go lookup max number from table
-					DocumentQuery query = pers.newDocumentQuery(moduleName, documentName);
-					query.addAggregateProjection(AggregateFunction.Max, fieldName, "MaxNumber");
-
-					List<Bean> beans = query.projectedResults();
-					if (!beans.isEmpty()) {
-						Object o = Binder.get(beans.get(0), "MaxNumber");
-						if (o instanceof Integer) {
-							lastNumber = ((Integer) Binder.get(beans.get(0), "MaxNumber")).toString();
-						} else {
-							lastNumber = (String) Binder.get(beans.get(0), "MaxNumber");
-						}
-					}
-				}
-
-				// create a new document number record
-				dN = DocumentNumber.newInstance();
-				dN.setModuleName(moduleName);
-				dN.setDocumentName(documentName);
-				dN.setSequenceName(fieldName);
-
-			} else {
-				// System.out.println("DOCUMENT NUMBER: Previous found");
-				dN = num.get(0);
-				dN = pers.retrieveAndLock(document, dN.getBizId()); // issue a row-level lock
-				lastNumber = dN.getDocumentNumber();
-			}
-			// just update from the document Number
-			nextNumber = incrementAlpha(prefix, lastNumber, numberLength);
-			dN.setDocumentNumber(nextNumber);
-
-			pers.preMerge(document, dN);
-			pers.upsertBeanTuple(dN);
-			pers.postMerge(document, dN);
-		} finally {
-			if (dN != null) {
-				pers.evictCached(dN);
-			}
-		}
-		// System.out.println("Next document number for " + moduleName + "." +
-		// documentName + "." + fieldName + " is " + nextNumber);
-
-		return nextNumber;
-	}
-
-	/**
-	 * Wrapper for getNextDocumentNumber, specifically for numeric only
-	 * sequences
-	 */
-	public static Integer getNextDocumentNumber(String moduleName, String documentName, String fieldName) {
-
-		return new Integer(Integer.parseInt(getNextDocumentNumber(null, moduleName, documentName, fieldName, 0)));
-	}
-
-	/**
-     * Wrapper for getNextDocumentNumber, specifically for long only
-     * sequences
-     */
-    public static Long getNextLongDocumentNumber(String moduleName, String documentName, String fieldName) {
-
-        return new Long(Long.parseLong(getNextDocumentNumber(null, moduleName, documentName, fieldName, 0)));
-    }
-
-	/**
-	 * Returns the next alpha value - ie A00A1 becomes A00A2 etc
-	 * 
-	 * @param suppliedPrefix
-	 *        - if the sequence value has a known prefix before the number,
-	 *        eg INV0001 has a prefix of "INV"
-	 * @param lastNumber
-	 *        - the number to increment
-	 * @param numberLength
-	 *        - the minimum length of the number when specified as a string
-	 *        
-	 * @return - the next number
-	 */
-	public static String incrementAlpha(String suppliedPrefix, String lastNumber, int numberLength) {
-
-		String newNumber = "";
-		String nonNumeric = lastNumber;
-		Integer value = new Integer(1);
-		String prefix;
-		if (suppliedPrefix != null) {
-			prefix = suppliedPrefix;
-		} else {
-			prefix = "";
-		}
-
-		if (lastNumber != null) {
-			String[] parts = (new StringBuilder(" ").append(lastNumber)).toString().split("\\D\\d+$");
-
-			// cater for alpha prefix
-			if (parts.length > 0 && parts[0].length() < lastNumber.length()) {
-				String numberPart = lastNumber.substring(parts[0].length(), lastNumber.length());
-				nonNumeric = lastNumber.substring(0, parts[0].length());
-
-				value = new Integer(Integer.parseInt(numberPart) + 1);
-
-				// cater for purely numeric prefix
-			} else if (prefix.matches("^\\d+$") && lastNumber.matches("^\\d+$") && !"0".equals(lastNumber)) {
-				int len = prefix.length();
-				value = new Integer(Integer.parseInt(lastNumber.substring(len)) + 1);
-				nonNumeric = prefix;
-
-				// cater for numeric only
-			} else if (lastNumber.matches("^\\d+$")) {
-				nonNumeric = prefix;
-				value = new Integer(Integer.parseInt(lastNumber) + 1);
-			}
-		} else {
-			nonNumeric = prefix;
-		}
-
-		// now put prefix and value together
-		int newLength = (nonNumeric.length() + value.toString().length() > numberLength
-				? nonNumeric.length() + value.toString().length() : numberLength);
-
-		StringBuilder sb = new StringBuilder(newLength + 1);
-		try (Formatter f = new Formatter(sb)) {
-			newNumber = nonNumeric
-					+ f.format(new StringBuilder("%1$").append(newLength - nonNumeric.length()).append("s").toString(),
-							value.toString()).toString().replace(" ", "0");
-		}
-
-		return newNumber;
 	}
 
 	private static final long PRIME = 4294967291L;
@@ -847,18 +745,18 @@ public class ModulesUtil {
 	public static Decimal5 coalesce(Decimal5 val, Decimal5 ifNullValue) {
 		return (val == null ? ifNullValue : val);
 	}
-	
+
 	/** returns null if zero - for reports or data import/export */
 	public static Decimal10 coalesce(Decimal10 val, Decimal10 ifNullValue) {
 		return (val == null ? ifNullValue : val);
-	}	
+	}
 
 	/**
 	 * Replaces the value found in the bean for the binding string provided,
 	 * e.g. if the bean has a binding of contact.name, for which the
 	 * displayNames of those bindings are Contact.FullName , then get the value
 	 * of that binding from the bean provided.
-	 * 
+	 *
 	 * @param bean
 	 *        - the bean relevant for the binding
 	 * @param replacementString
@@ -905,8 +803,8 @@ public class ModulesUtil {
 					Module module = customer.getModule(b.getBizModule());
 					Document document = module.getDocument(customer, b.getBizDocument());
 
-					for (Attribute attribute : document.getAllAttributes()) {
-						if (attribute.getDisplayName().equals(a)) {
+					for (Attribute attribute : document.getAllAttributes(customer)) {
+						if (attribute.getLocalisedDisplayName().equals(a)) {
 							found = true;
 							if (binding.toString().length() > 0) {
 								binding.append('.').append(attribute.getName());
@@ -992,7 +890,7 @@ public class ModulesUtil {
 
 	/**
 	 * Returns whether the user has access to the specified module
-	 * 
+	 *
 	 * @param moduleName
 	 * @return
 	 */
@@ -1007,89 +905,6 @@ public class ModulesUtil {
 			}
 		}
 		return result;
-	}
-
-	/**
-	 * Generic bizport export method.
-	 * 
-	 * @param moduleName
-	 *        - the module to be exported
-	 * @param documentName
-	 *        - the document to be exported
-	 * @param b
-	 *        - the top-level bean to export
-	 * @return - the reference to the Bizportable
-	 */
-	public static BizPortWorkbook standardBeanBizExport(String modName, String docName, Bean b) {
-
-		String documentName = docName;
-		String moduleName = modName;
-
-		BizPortWorkbook result = EXT.newBizPortWorkbook(false);
-
-		if (b != null) {
-			moduleName = b.getBizModule();
-			documentName = b.getBizDocument();
-		}
-
-		Persistence persistence = CORE.getPersistence();
-		Customer customer = persistence.getUser().getCustomer();
-		Module module = customer.getModule(moduleName);
-
-		// Project
-		Document document = module.getDocument(customer, documentName);
-		StandardGenerator bgBean = EXT.newBizPortStandardGenerator(customer, document);
-		bgBean.generateStructure(result);
-
-		result.materialise();
-
-		// System.out.println("BIZPORTING PROJECT " );
-		DocumentQuery query = persistence.newDocumentQuery(moduleName, documentName);
-		if (b != null) {
-			// filter for this project if provided
-			query.getFilter().addEquals(Bean.DOCUMENT_ID, b.getBizId());
-		}
-		bgBean.generateData(result, query.beanIterable());
-
-		return result;
-	}
-
-	public static void standardBeanBizImport(BizPortWorkbook workbook, UploadException problems) throws Exception {
-		final Persistence persistence = CORE.getPersistence();
-		final Customer customer = persistence.getUser().getCustomer();
-		StandardLoader loader = new StandardLoader(workbook, problems);
-		List<Bean> bs = loader.populate(persistence);
-
-		for (String key : loader.getBeanKeys()) {
-			Bean bean = loader.getBean(key);
-			Module module = customer.getModule(bean.getBizModule());
-			Document document = module.getDocument(customer, bean.getBizDocument());
-
-			try {
-				persistence.preMerge(document, bean);
-			} catch (DomainException e) {
-				loader.addError(customer, bean, e);
-			}
-		}
-
-		// throw if we have errors found
-		if (problems.hasErrors()) {
-			throw problems;
-		}
-
-		// do the insert as 1 operation, bugging out if we encounter any errors
-		PersistentBean pb = null;
-		try {
-			for (Bean b : bs) {
-				pb = (PersistentBean) b;
-				pb = persistence.save(pb);
-			}
-		} catch (DomainException e) {
-			if (pb != null) {
-				loader.addError(customer, pb, e);
-			}
-			throw problems;
-		}
 	}
 
 	/** short-hand way of finding a bean using a legacy key */
@@ -1116,12 +931,12 @@ public class ModulesUtil {
 		Module module = customer.getModule(moduleName);
 		Document document = module.getDocument(customer, documentName);
 		Persistent p = document.getPersistent();
-		return p.getPersistentIdentifier();
+		return (p == null) ? null : p.getPersistentIdentifier();
 	}
-	
+
 	/**
 	 * Convenience method for returning autocomplete suggestions for a String attribute based on previous values
-	 * 
+	 *
 	 * @param moduleName
 	 * @param documentName
 	 * @param attributeName
@@ -1130,18 +945,56 @@ public class ModulesUtil {
 	 * @throws Exception
 	 */
 	public static List<String> getCompleteSuggestions(String moduleName, String documentName, String attributeName, String value) throws Exception {
-		
 		DocumentQuery q = CORE.getPersistence().newDocumentQuery(moduleName, documentName);
-		q.getFilter().addLike(attributeName, value + "%");
+		if (value != null) {
+			q.getFilter().addLike(attributeName, value + "%");
+		}
 		q.addBoundProjection(attributeName, attributeName);
+		q.addBoundOrdering(attributeName);
 		q.setDistinct(true);
-		
-		List<Bean> potentialMatches = q.projectedResults();
-		List<String> results = new ArrayList<>();
-		results.addAll(potentialMatches.stream()
-				.map(t -> (String) Binder.get(t, attributeName))
-				.collect(Collectors.toList()));
-		return results;
+		return q.scalarResults(String.class);
 	}
-	
+
+	/**
+	 * Configure a permissions group with at least the roleNames specified
+	 * 
+	 * @param name
+	 * @param roleNames
+	 */
+	public static GroupExtension configureGroup(String name, String... roleNames) {
+		// Configure required Staff permissions group
+		DocumentQuery qGroup = CORE.getPersistence().newDocumentQuery(Group.MODULE_NAME, Group.DOCUMENT_NAME);
+		qGroup.getFilter().addEquals(Group.namePropertyName, name);
+		boolean saveRequired = false;
+		GroupExtension g = qGroup.beanResult();
+		if (g == null) {
+			g = Group.newInstance();
+			g.setName(name);
+			saveRequired = true;
+		}
+		// check roles
+		for (String s : roleNames) {
+			boolean found = false;
+			for (GroupRole gr : g.getRoles()) {
+				if (s.equals(gr.getRoleName())) {
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				GroupRole gr = GroupRole.newInstance();
+				gr.setRoleName(s);
+				g.addRolesElement(gr);
+				saveRequired = true;
+			}
+		}
+
+		// and Save the group
+		if (saveRequired) {
+			g = CORE.getPersistence().save(g);
+		}
+
+		return g;
+	}
+
 }

@@ -1,21 +1,16 @@
 package modules.admin.Snapshot.actions;
 
-import modules.admin.domain.Snapshot;
-
 import org.skyve.CORE;
 import org.skyve.metadata.controller.ServerSideAction;
 import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.persistence.Persistence;
 import org.skyve.web.WebContext;
 
+import modules.admin.domain.Snapshot;
+
 public class CopySnapshotToUser implements ServerSideAction<Snapshot> {
 	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 2886341074753936987L;
-
-	/**
-	 * Update the payment batch details.
+	 * Copy a snapshot to a user - ie donate a snapshot.
 	 */
 	@Override
 	public ServerSideActionResult<Snapshot> execute(Snapshot bean, WebContext webContext) throws Exception {

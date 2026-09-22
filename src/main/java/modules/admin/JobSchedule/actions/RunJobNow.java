@@ -1,11 +1,9 @@
 package modules.admin.JobSchedule.actions;
 
-import modules.admin.domain.JobSchedule;
-
 import org.skyve.CORE;
 import org.skyve.EXT;
-import org.skyve.domain.messages.ValidationException;
 import org.skyve.domain.messages.Message;
+import org.skyve.domain.messages.ValidationException;
 import org.skyve.metadata.controller.ServerSideAction;
 import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.metadata.customer.Customer;
@@ -15,19 +13,30 @@ import org.skyve.metadata.user.User;
 import org.skyve.persistence.Persistence;
 import org.skyve.util.Util;
 import org.skyve.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import modules.admin.domain.JobSchedule;
 
 public class RunJobNow implements ServerSideAction<JobSchedule> {
-	private static final long serialVersionUID = -1037253249182913062L;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RunJobNow.class);
 
 	@Override
 	public ServerSideActionResult<JobSchedule> execute(JobSchedule bean, WebContext webContext) throws Exception {
+
+		// validate that a job is selected
+		if (bean.getJobName() == null) {
+			throw new ValidationException(JobSchedule.jobNamePropertyName,
+					Util.nullSafeI18n("admin.jobSchedule.jobName.displayName") + " is required");
+		}
 
 		Persistence persistence = CORE.getPersistence();
 		User user = persistence.getUser();
 		Customer customer = user.getCustomer();
 
 		// don't know which module this is in
-		Util.LOGGER.info("Job requested for immediate execution: " + bean.getJobName());
+		LOGGER.info("Job requested for immediate execution: " + bean.getJobName());
 
 		String[] parts = bean.getJobName().split("\\.");
 		if (parts.length < 2) {
@@ -43,7 +52,7 @@ public class RunJobNow implements ServerSideAction<JobSchedule> {
 		JobMetaData job = module.getJob(parts[1]);
 
 		// run as the current user
-		EXT.runOneShotJob(job, bean, user);
+		EXT.getJobScheduler().runOneShotJob(job, bean, user);
 
 		// Used to update the UI.
 		bean.setJobScheduledImmediately(Boolean.TRUE);

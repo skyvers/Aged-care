@@ -3,6 +3,8 @@ docs:
     children:
       - title: "Tutorial Overview"
         url: /
+      - title: "Local Docker Deployment"
+        url: /local-docker-deployment/
   - title: No-code Development
     children:
       - title: "No-code Development"

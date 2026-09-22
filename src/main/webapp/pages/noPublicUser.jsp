@@ -1,4 +1,4 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page session="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.Locale"%>
 <%@page import="org.skyve.metadata.user.User"%>
 <%@page import="org.skyve.util.Util"%>
@@ -7,7 +7,6 @@
 <%
 	String basePath = Util.getSkyveContextUrl() + "/";
 	boolean mobile = UserAgent.getType(request).isMobile();
-	String referer = WebUtil.getRefererHeader(request);
 	Locale locale = request.getLocale();
 	if (locale == null) {
 		locale = Locale.ENGLISH;
@@ -46,7 +45,7 @@
 		    		<%@include file="fragments/logo.html" %>
 		    	</div>
 		    	
-		        <form class="ui large form">
+		        <div class="ui large form">
 		            <div class="ui segment">
 		            	<div class="ui red message">
 		            		<div class="ui header">
@@ -63,7 +62,7 @@
 							</a>
 					 	</div>
 		            </div>
-		        </form>
+		        </div>
 		    </div>
 		</div>
 	</body>

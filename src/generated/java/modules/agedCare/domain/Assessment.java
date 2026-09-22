@@ -1,13 +1,13 @@
 package modules.agedCare.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.admin.User.UserExtension;
-import modules.agedCare.domain.Resident;
 import org.skyve.CORE;
 import org.skyve.domain.Bean;
 import org.skyve.domain.ChildBean;
@@ -27,6 +27,7 @@ import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Assessment extends AbstractPersistentBean implements ChildBean<Resident> {
 	/**
 	 * For Serialization
@@ -36,25 +37,34 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 
 	/** @hidden */
 	public static final String MODULE_NAME = "agedCare";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Assessment";
 
 	/** @hidden */
 	public static final String hygieneAssessmentPropertyName = "hygieneAssessment";
+
 	/** @hidden */
 	public static final String painAssessmentPropertyName = "painAssessment";
+
 	/** @hidden */
 	public static final String continenceAssessmentPropertyName = "continenceAssessment";
+
 	/** @hidden */
 	public static final String sleepAssessmentPropertyName = "sleepAssessment";
+
 	/** @hidden */
 	public static final String behaviourAssessmentPropertyName = "behaviourAssessment";
+
 	/** @hidden */
 	public static final String createdByPropertyName = "createdBy";
+
 	/** @hidden */
 	public static final String assessmentReviewPropertyName = "assessmentReview";
+
 	/** @hidden */
 	public static final String assessmentCreatedTimePropertyName = "assessmentCreatedTime";
+
 	/** @hidden */
 	public static final String nursePropertyName = "nurse";
 
@@ -62,46 +72,54 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	 * Hygiene Assessment
 	 **/
 	private String hygieneAssessment;
+
 	/**
 	 * Pain Assessment
 	 **/
 	private String painAssessment;
+
 	/**
 	 * Continence Assessment
 	 **/
 	private String continenceAssessment;
+
 	/**
 	 * Sleep Assessment
 	 **/
 	private String sleepAssessment;
+
 	/**
 	 * Behaviour Assessment
 	 **/
 	private String behaviourAssessment;
+
 	/**
 	 * Assessment Created By
 	 * <br/>
 	 * Staff who involve in Assessment.
 	 **/
 	private UserExtension createdBy = null;
+
 	/**
 	 * Assessment Review Time
 	 **/
 	private DateTime assessmentReview;
+
 	/**
 	 * Assessment Created Time
 	 **/
 	private DateTime assessmentCreatedTime;
+
 	/**
 	 * AssessmentReviewedBy
 	 * <br/>
 	 * Staff who Reviewed Assessment.
 	 **/
 	private UserExtension nurse = null;
+
 	private Resident parent;
 
 	private Integer bizOrdinal;
-
 
 	@Override
 	@XmlTransient
@@ -136,12 +154,6 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Assessment) && 
-					this.getBizId().equals(((Assessment) o).getBizId()));
 	}
 
 	/**
@@ -266,9 +278,9 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	 * {@link #assessmentReview} mutator.
 	 * @param assessmentReview	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setAssessmentReview(DateTime assessmentReview) {
 		preset(assessmentReviewPropertyName, assessmentReview);
 		this.assessmentReview = assessmentReview;
@@ -286,9 +298,9 @@ public class Assessment extends AbstractPersistentBean implements ChildBean<Resi
 	 * {@link #assessmentCreatedTime} mutator.
 	 * @param assessmentCreatedTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setAssessmentCreatedTime(DateTime assessmentCreatedTime) {
 		preset(assessmentCreatedTimePropertyName, assessmentCreatedTime);
 		this.assessmentCreatedTime = assessmentCreatedTime;

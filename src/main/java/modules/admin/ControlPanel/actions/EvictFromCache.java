@@ -1,15 +1,15 @@
 package modules.admin.ControlPanel.actions;
 
 import org.skyve.CORE;
+import org.skyve.impl.util.UtilImpl;
 import org.skyve.metadata.controller.ServerSideAction;
 import org.skyve.metadata.controller.ServerSideActionResult;
+import org.skyve.metadata.repository.CachedRepository;
 import org.skyve.web.WebContext;
 
 import modules.admin.ControlPanel.ControlPanelExtension;
 
 public class EvictFromCache implements ServerSideAction<ControlPanelExtension> {
-	private static final long serialVersionUID = 3049239808434701310L;
-
 	@Override
 	public ServerSideActionResult<ControlPanelExtension> execute(ControlPanelExtension bean, WebContext webContext) 
 	throws Exception {
@@ -17,7 +17,7 @@ public class EvictFromCache implements ServerSideAction<ControlPanelExtension> {
 		bean.setTabIndex(null);
 
 		try {
-			CORE.getRepository().evictCachedMetaData(null);
+			((CachedRepository) CORE.getRepository()).evictCachedMetaData((UtilImpl.CUSTOMER == null) ? CORE.getCustomer() : null);
 		}
 		catch (Exception e) {
 			bean.trapException(e);

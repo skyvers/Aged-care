@@ -7,20 +7,15 @@ import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.web.WebContext;
 
 import modules.admin.Tag.TagBizlet;
+import modules.admin.Tag.TagExtension;
 import modules.admin.domain.Tag;
 
-public class PerformCombination implements ServerSideAction<Tag> {
+public class PerformCombination implements ServerSideAction<TagExtension> {
 	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 2886341074753936987L;
-
-	/**
-	 * Update the payment batch details.
+	 * Combine 2 tags with a set operator.
 	 */
 	@Override
-	public ServerSideActionResult<Tag> execute(Tag bean, WebContext webContext) throws Exception {
-
+	public ServerSideActionResult<TagExtension> execute(TagExtension bean, WebContext webContext) throws Exception {
 		if (bean.getCombinationsOperator() == null) {
 			throw new ValidationException(new Message(Tag.combinationsOperatorPropertyName, "You have not set an operator."));
 		}

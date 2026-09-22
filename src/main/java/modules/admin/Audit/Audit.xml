@@ -7,27 +7,33 @@
 	<singularAlias>Audit</singularAlias>
 	<pluralAlias>Audits</pluralAlias>
 	<audited>false</audited>
-	<iconStyleClass>fa fa-check</iconStyleClass>
-	<bizKey expression="{operation} by {userName} at {timestamp}" />
+	<iconStyleClass>fa-solid fa-check</iconStyleClass>
+	<bizKey expression="{operation} by {userName} at {timestamp}" sensitivity="personal" />
+	<implements>
+		<interface>org.skyve.archive.support.ArchiveableBean</interface>
+	</implements>
 	<attributes>
 		<text name="auditModuleName" required="true">
-			<displayName>Module</displayName>
+			<displayName>admin.audit.auditModuleName.displayName</displayName>
+			<index>database</index>
 			<length>128</length>
 		</text>
 		<text name="auditDocumentName" required="true">
-			<displayName>Document</displayName>
+			<displayName>admin.audit.auditDocumentName.displayName</displayName>
+			<index>database</index>
 			<length>128</length>
 		</text>
 		<id name="auditBizId" required="true">
-			<displayName>BizId</displayName>
+			<displayName>admin.audit.auditBizId.displayName</displayName>
 			<index>database</index>
 		</id>
 		<text name="auditBizKey" required="true">
-			<displayName>Description</displayName>
+			<displayName>admin.audit.auditBizKey.displayName</displayName>
+			<index>database</index>
 			<length>1024</length>
 		</text>
 		<enum name="operation" required="true">
-			<displayName>Operation</displayName>
+			<displayName>admin.audit.operation.displayName</displayName>
 			<values>
 				<value code="I" description="Insert" />
 				<value code="U" description="Update" />
@@ -35,34 +41,41 @@
 			</values>
 		</enum>
 		<timestamp name="timestamp" required="true">
-			<displayName>Timestamp</displayName>
+			<displayName>admin.audit.timestamp.displayName</displayName>
 		</timestamp>
 		<longInteger name="millis" required="true">
-			<displayName>Millis</displayName>
+			<displayName>admin.audit.millis.displayName</displayName>
 			<index>database</index>
 		</longInteger>
-		<text name="userName" required="true">
-			<displayName>User</displayName>
+		<text name="userName" required="true" sensitivity="personal">
+			<displayName>admin.audit.userName.displayName</displayName>
 			<length>254</length>
 		</text>
 		<memo name="auditDetail" required="true">
-			<displayName>Audit</displayName>
+			<displayName>admin.audit.auditDetail.displayName</displayName>
 			<index>none</index>
 		</memo>
 		<!-- The following are used to drive the edit view -->
-		<association name="sourceVersion" type="aggregation" persistent="false" required="true">
-			<displayName>Source Version To Compare</displayName>
+		<association name="sourceVersion" type="aggregation" persistent="false" required="true" usage="view">
+			<displayName>admin.audit.association.sourceVersion.displayName</displayName>
 			<domain>dynamic</domain>
 			<documentName>Audit</documentName>
 		</association>
-		<association name="comparisonVersion" type="aggregation" persistent="false">
-			<displayName>Other Version To Compare</displayName>
+		<association name="comparisonVersion" type="aggregation" persistent="false" usage="view">
+			<displayName>admin.audit.association.comparisonVersion.displayName</displayName>
 			<domain>dynamic</domain>
 			<documentName>Audit</documentName>
 		</association>
-		<association name="me" type="aggregation" persistent="false">
-			<displayName>Me</displayName>
+		<association name="me" type="aggregation" persistent="false" usage="view">
+			<displayName>admin.audit.association.me.displayName</displayName>
 			<documentName>Audit</documentName>
 		</association>
+		<timestamp name="archiveTimestamp" >
+			<displayName>admin.audit.archiveTimestamp.displayName</displayName>
+		</timestamp>
+		<text name="archiveFilename">
+			<displayName>admin.audit.archiveFilename.displayName</displayName>
+			<length>500</length>
+		</text>
 	</attributes>
 </document>

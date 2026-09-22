@@ -1,9 +1,7 @@
 package util;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.skyve.CORE;
-import org.skyve.cache.CacheUtil;
 import org.skyve.impl.persistence.AbstractPersistence;
 import org.skyve.persistence.Persistence;
 
@@ -18,19 +16,12 @@ import org.skyve.persistence.Persistence;
  * An example of when to extend this base class is if the code under test is
  * performing its own commits, which will not be able to be rolled back.
  */
-public class AbstractH2TestDispose extends AbstractH2Test {
+public abstract class AbstractH2TestDispose extends AbstractH2Test {
+	@Override
+	@AfterEach
+	public void afterBase() {
+		super.afterBase(); // rollback and evict
 
-	@Before
-	@SuppressWarnings("static-method")
-	public void before() throws Exception {
-		if (CacheUtil.isUnInitialised()) {
-			CacheUtil.init();
-		}
-	}
-
-	@After
-	@SuppressWarnings("static-method")
-	public void after() throws Exception {
 		// The call to commit and disposeAllPersistenceInstances will close and dispose the current connection.
 		// For H2 by default, closing the last connection to a database closes the database.
 		// For an in-memory database, this means the content is lost.

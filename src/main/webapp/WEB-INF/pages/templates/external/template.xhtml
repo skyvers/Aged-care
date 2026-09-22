@@ -7,96 +7,75 @@
 		xmlns:p="http://primefaces.org/ui"
 		xmlns:pe="http://primefaces.org/ui/extensions"
 		xmlns:o="http://omnifaces.org/ui"
+		xmlns:s="http://skyve.org/xml/ui"
 		dir="#{bean.dir}">
-	<f:view encoding="UTF-8">
-		<h:head>
+	<f:view contentType="text/html" encoding="UTF-8">
+		<h:head id="head">
 	        <f:facet name="first">
 	            <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 	        </f:facet>
-			<meta http-equiv="pragma" content="no-cache" />
-			<meta http-equiv="cache-control" content="private,no-cache,no-store" />
-			<meta http-equiv="expires" content="0" />
-			<meta http-equiv="Content-Type" content="text/html" />
 		
 			<meta name="format-detection" content="telephone=no" />
 			<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
 		
-			<title>Skyve</title>
+			<title>${project.description}</title>
 			<base href="#{bean.baseHref}" />
 			<!-- normally commented out for security reasons
 			<h:outputText value="#{bean.skyveVersionComment}" escape="false" />
 			-->
 			<ui:include src="/WEB-INF/pages/includes/favicon.xhtml" />
+			<!-- 4.7 is disabled by default
+			<link type="text/css" rel="stylesheet" href="fontawesome-4.7.0/css/font-awesome.min.css" />
+			-->
+			<link type="text/css" rel="stylesheet" href="fontawesome-6.5.1/css/all.min.css" />
 <!--
-			<link type="text/css" rel="stylesheet" href="css/primeflex.min.css?v=#{bean.webResourceFileVersion}" />
+			<link type="text/css" rel="stylesheet" href="skyve/css/primeflex.min.css?v=#{bean.webResourceFileVersion}" />
 -->
-			<link type="text/css" rel="stylesheet" href="css/prime-min.css?v=#{bean.webResourceFileVersion}" />
-			<link type="text/css" rel="stylesheet" href="pages/css/admin.css" />
-			
-			<script type="text/javascript" src="prime/skyve-min.js?v=#{bean.webResourceFileVersion}"></script>
+			<link type="text/css" rel="stylesheet" href="skyve/css/prime-min.css?v=#{bean.webResourceFileVersion}" />
+			<h:outputStylesheet name="editorial/assets/css/main.css?v=#{bean.webResourceFileVersion}" library="skyve" />
+			<link type="text/css" rel="stylesheet" href="pages/css/admin.css?v=#{bean.webResourceFileVersion}" />  
+			<script type="text/javascript" src="skyve/prime/skyve-min.js?v=#{bean.webResourceFileVersion}"></script>
 			<script type="text/javascript">
-				SKYVE.Util.setTouchCookie();
+				<!-- PF8 doesnt work with touch on - a.swipe is not a function when registering swipeLeft and swipeRight -->
+				PrimeFaces.env.touch=false;
 				#{bean.apiScript}
 				SKYVE.PF.establishHistory();
 			</script>
-			<ui:insert name="head" />
+			<ui:insert name="templateHead" />
 		</h:head>
-		<h:body>
+		<h:body id="body" class="is-preload">
 			<h:panelGroup styleClass="skyveEnvBanner skyveTopEnvBanner" rendered="#{not empty bean.environmentIdentifier}">#{bean.environmentIdentifier}</h:panelGroup>
 			<h:panelGroup styleClass="skyveEnvBanner skyveBottomEnvBanner" rendered="#{not empty bean.environmentIdentifier}">#{bean.environmentIdentifier}</h:panelGroup>
-			<p:ajaxStatus onstart="$('#busy').css({display:'block',top:$(window).scrollTop()+($(window).height()/2)-25});" oncomplete="$('#busy').css({display:'none'})"/>
-			<div id="busy" class="wheelOfDeath">
-				<p:graphicImage style="padding-top: 8px;" value="images/busy.gif" />
-			</div>
-			<table style="height:100%;width:100%;table-layout:fixed;border-collapse:collapse">
-				<tbody>
-					<tr style="height:46px;background:url(images/skyve_bar.png) repeat-x 0 0;">
-						<td style="width:30%;padding-left:10px">
-							<img src="images/skyve_inv.png" alt="Skyve" />
-						</td>
-						<td style="width:70%">
-							<div id="formHeader">
-								<div>
-									<h3 class="ui-widget" style="color:white">
-										<p:outputPanel id="title" layout="inline">
-											#{bean.title}
-											<p:autoUpdate />
-										</p:outputPanel>
-									</h3>
-								</div>
-							</div>
-						</td>
-						<c:if test="#{showSwitchMode}">
-							<td width="40px">
-								<a href="javascript:setUxUi()" title="Switch Mode">
-									<i style="color:whitesmoke" class="fa fa-share-square-o fa-2x" />
-								</a>
-							</td>
-						</c:if>
-						<c:if test="#{showLogout}">
-							<td width="40px">
-								<a href="loggedOut" title="Logout">
-									<i style="color:whitesmoke" class="fa fa-power-off fa-2x" />
-								</a>
-							</td>
-						</c:if>
-					</tr>
-					<tr>
-						<c:if test="#{showMenu}">
-							<td style="height:100%;vertical-align:top">
-								<div style="text-align:center;overflow:hidden"><img src="#{bean.logoRelativeFileNameUrl}" /></div>
-								<h:form id="menuform" prependId="false"> 
-									<p:panelMenu model="#{menu.menu}" />
-								</h:form>
-							</td>
-						</c:if>
-						<td colspan="2" style="height:100%;vertical-align:top">
-<!--
-								<ui:insert name="breadcrumbs" />
--->
-							<h:form id="uxuiform" prependId="false"> 
-								<p:remoteCommand name="setUxUi" actionListener="#{bean.setUxUi('desktop')}" ignoreAutoUpdate="true" onsuccess="location.reload()" process="@this" update="@none" />
-							</h:form>
+
+			<div id="wrapper">
+				<div id="main">
+					<div class="inner">
+						<header id="header" class="ui-panel">
+							<p:outputPanel id="title" layout="inline" class="ui-panel-content logo title">
+								#{bean.title}
+								<p:autoUpdate />
+							</p:outputPanel>
+							<ul class="icons">
+								<c:if test="#{showSwitchMode}">
+									<li>
+										<h:form id="uxuiform" prependId="false"> 
+											<h:inputHidden id="uxuicsrf" value="#{bean.csrfToken}">
+												<p:autoUpdate />
+											</h:inputHidden>
+						            		<p:commandLink class="icon fa-solid fa-retweet" style="text-decoration:none" title="Switch Mode" action="#{bean.setUxUi('desktop')}" onsuccess="location.reload()" process="@form" update="@none" ignoreAutoUpdate="true" />
+										</h:form>
+									</li>
+								</c:if>
+								<c:if test="#{showLogout}">
+									<li>
+										<a href="loggedOut" title="Logout">
+											<i class="icon fa-solid fa-power-off" />
+										</a>
+									</li>
+								</c:if>
+							</ul>
+						</header>
+						<section>
 							<p:messages id="messages" widgetVar="messages" globalOnly="true" escape="false">
 								<p:autoUpdate />
 							</p:messages>
@@ -114,20 +93,59 @@
 													type="button"
 													styleClass="ui-confirmdialog-no" 
 													style="float:right;"
-													icon="fa fa-remove" />
+													icon="fa-solid fa-xmark" />
 								<p:commandButton id="confirmOK" 
 													value="OK" 
 													type="button"
 													styleClass="ui-confirmdialog-yes" 
 													style="float:right;"
-													icon="fa fa-check" />
+													icon="fa-solid fa-check" />
 							</p:confirmDialog>
-							
-							<ui:insert name="body" />
-						</td>
-					</tr>
-				</tbody>
-			</table>
+							<ui:insert name="templateBody" />
+						</section>
+						<!-- Footer -->
+						<footer id="footer">
+				        	<p class="copyright"><i class="fa-solid fa-copyright"></i> All Rights Reserved</p>   
+						</footer>
+					</div>
+				</div>
+				<!-- Sidebar -->
+				<s:resetMenuState rendered="#{resetMenu}" />
+				<c:if test="#{showMenu}">
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+							<nav id="menu">
+								<table style="margin: 0; padding: 0; border: 0; width:100%; min-height: 109px;">
+									<tr>
+										<td style="vertical-align: middle; text-align: center;">
+											<img src="#{bean.logoRelativeFileNameUrl}" alt="logo" style="max-width: 280px; object-fit: contain" />
+										</td>
+									</tr>
+								</table>
+								<h:form id="menuform" prependId="false"> 
+									<p:panelMenu id="leftMenu" model="#{menu.menu}" stateful="true" statefulGlobal="true" />
+								</h:form>
+							</nav>
+						</div>
+					</div>
+				</c:if>
+			</div>
+
+			<p:ajaxStatus id="wheelOfDeath" styleClass="wheelOfDeath">
+				<f:facet name="start">
+					<i class="fa-solid fa-2x fa-circle-notch fa-spin ajax-loader" aria-hidden="true"></i>
+				</f:facet>
+				<f:facet name="complete">
+					<h:outputText value="" />
+				</f:facet>
+			</p:ajaxStatus>
+
+			<!-- Scripts -->
+			<h:outputScript name="editorial/assets/js/browser.min.js?v=#{bean.webResourceFileVersion}" library="skyve" />
+			<h:outputScript name="editorial/assets/js/breakpoints.min.js?v=#{bean.webResourceFileVersion}" library="skyve" />
+			<h:outputScript name="editorial/assets/js/util.js?v=#{bean.webResourceFileVersion}" library="skyve" />
+			<h:outputScript name="editorial/assets/js/main.js?v=#{bean.webResourceFileVersion}" library="skyve" />
 		</h:body>
 	</f:view>
 </html>

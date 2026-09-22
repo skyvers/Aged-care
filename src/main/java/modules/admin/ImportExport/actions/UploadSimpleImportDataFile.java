@@ -5,11 +5,13 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 import org.skyve.CORE;
 import org.skyve.domain.messages.MessageSeverity;
 import org.skyve.domain.messages.UploadException;
 import org.skyve.impl.bizport.POISheetLoader;
+import org.skyve.metadata.controller.Upload;
 import org.skyve.metadata.controller.UploadAction;
 import org.skyve.metadata.customer.Customer;
 import org.skyve.metadata.model.Attribute;
@@ -24,17 +26,12 @@ import modules.admin.ImportExport.ImportExportExtension;
 import modules.admin.domain.ImportExportColumn;
 
 public class UploadSimpleImportDataFile extends UploadAction<ImportExportExtension> {
-	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = -8154709480999519405L;
-
 	@Override
 	public ImportExportExtension upload(ImportExportExtension importExport,
-			UploadedFile file,
-			UploadException exception,
-			WebContext webContext)
-			throws Exception {
+											Upload upload,
+											UploadException exception,
+											WebContext webContext)
+	throws Exception {
 
 		ImportExportExtension bean = importExport;
 
@@ -48,7 +45,7 @@ public class UploadSimpleImportDataFile extends UploadAction<ImportExportExtensi
 				File importFile = new File(String.format("%s%s%s",
 						bean.baseFolder(),
 						File.separator,
-						file.getFileName()));
+						upload.getFileName()));
 
 				// and save temporary copy of file
 				File import_directory = new File(bean.baseFolder());
@@ -63,8 +60,10 @@ public class UploadSimpleImportDataFile extends UploadAction<ImportExportExtensi
 						throw new Exception("The previous upload of this file can't be removed.");
 					}
 				}
-				Files.copy(file.getInputStream(), Paths.get(importFile.getAbsolutePath()));
-				bean.setImportFileName(file.getFileName());
+				try (InputStream is = upload.getInputStream()) {
+					Files.copy(is, Paths.get(importFile.getAbsolutePath()));
+				}
+				bean.setImportFileName(upload.getFileName());
 				bean.setImportFileAbsolutePath(importFile.getAbsolutePath());
 
 				bean = loadColumnsFromFile(bean, exception);
@@ -124,7 +123,7 @@ public class UploadSimpleImportDataFile extends UploadAction<ImportExportExtensi
 				// create a new import export column config row for each column in the spreadsheet
 				ImportExportColumn newCol = ImportExportColumn.newInstance();
 				newCol.setParent(bean);
-				newCol.setBizOrdinal(new Integer(i)); // preserve load order
+				newCol.setBizOrdinal(Integer.valueOf(i)); // preserve load order
 				bean.getImportExportColumns().add(newCol);
 				if (Boolean.TRUE.equals(bean.getFileContainsHeaders())) {
 					newCol.setColumnName(columnName);
@@ -132,8 +131,9 @@ public class UploadSimpleImportDataFile extends UploadAction<ImportExportExtensi
 					// and guess a binding
 					// prefer a like match on Display Name
 					boolean bindingFound = false;
-					for (Attribute a : document.getAttributes()) {
-						if (a.getDisplayName().equalsIgnoreCase(columnName)) {
+					List<? extends Attribute> attributes = document.getAllAttributes(customer);
+					for (Attribute a : attributes) {
+						if (a.getLocalisedDisplayName().equalsIgnoreCase(columnName)) {
 							newCol.setBindingName(a.getName());
 							bindingFound = true;
 							break;
@@ -141,10 +141,22 @@ public class UploadSimpleImportDataFile extends UploadAction<ImportExportExtensi
 					}
 					if (!bindingFound) {
 						// attempt a close match on binding name
-						for (Attribute a : document.getAttributes()) {
+						for (Attribute a : attributes) {
 							String cleanColName = Binder.toJavaInstanceIdentifier(columnName);
 							if (a.getName().equalsIgnoreCase(cleanColName)) {
 								newCol.setBindingName(a.getName());
+								bindingFound = true;
+								break;
+							}
+						}
+					}
+					if (!bindingFound) {
+						// attempt a close match on description
+						for (Attribute a : attributes) {
+							String localisedDescription = a.getLocalisedDescription();
+							if ((localisedDescription) != null && localisedDescription.equalsIgnoreCase(columnName)) {
+								newCol.setBindingName(a.getName());
+								bindingFound = true;
 								break;
 							}
 						}

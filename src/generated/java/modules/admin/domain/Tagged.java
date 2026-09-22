@@ -1,9 +1,11 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import modules.admin.Tag.TagExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -16,6 +18,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Tagged extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -25,15 +28,19 @@ public class Tagged extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Tagged";
 
 	/** @hidden */
 	public static final String taggedModulePropertyName = "taggedModule";
+
 	/** @hidden */
 	public static final String taggedDocumentPropertyName = "taggedDocument";
+
 	/** @hidden */
 	public static final String taggedBizIdPropertyName = "taggedBizId";
+
 	/** @hidden */
 	public static final String tagPropertyName = "tag";
 
@@ -41,20 +48,23 @@ public class Tagged extends AbstractPersistentBean {
 	 * Tagged Module
 	 **/
 	private String taggedModule;
+
 	/**
 	 * Tagged Document
 	 **/
 	private String taggedDocument;
+
 	/**
 	 * Tagged BizId
 	 **/
 	private String taggedBizId;
+
 	/**
 	 * Tag
 	 * <br/>
 	 * The tag
 	 **/
-	private Tag tag = null;
+	private TagExtension tag = null;
 
 	@Override
 	@XmlTransient
@@ -89,12 +99,6 @@ public class Tagged extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Tagged) && 
-					this.getBizId().equals(((Tagged) o).getBizId()));
 	}
 
 	/**
@@ -155,7 +159,7 @@ public class Tagged extends AbstractPersistentBean {
 	 * {@link #tag} accessor.
 	 * @return	The value.
 	 **/
-	public Tag getTag() {
+	public TagExtension getTag() {
 		return tag;
 	}
 
@@ -164,7 +168,7 @@ public class Tagged extends AbstractPersistentBean {
 	 * @param tag	The new value.
 	 **/
 	@XmlElement
-	public void setTag(Tag tag) {
+	public void setTag(TagExtension tag) {
 		if (this.tag != tag) {
 			preset(tagPropertyName, tag);
 			this.tag = tag;

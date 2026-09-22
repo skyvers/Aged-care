@@ -1,17 +1,20 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * User Monthly Hits
@@ -21,6 +24,7 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class UserMonthlyHits extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -30,19 +34,25 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "UserMonthlyHits";
 
 	/** @hidden */
 	public static final String userNamePropertyName = "userName";
+
 	/** @hidden */
-	public static final String yearPropertyName = "year";
+	public static final String hitYearPropertyName = "hitYear";
+
 	/** @hidden */
-	public static final String monthPropertyName = "month";
+	public static final String hitMonthPropertyName = "hitMonth";
+
 	/** @hidden */
 	public static final String userAgentHeaderPropertyName = "userAgentHeader";
+
 	/** @hidden */
 	public static final String devicePropertyName = "device";
+
 	/** @hidden */
 	public static final String numberOfHitsPropertyName = "numberOfHits";
 
@@ -50,6 +60,7 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 	 * Device
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum Device implements Enumeration {
 		phone("P", "Phone"),
 		tablet("T", "Tablet"),
@@ -63,7 +74,7 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(Device::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private Device(String code, String description) {
 			this.code = code;
@@ -77,8 +88,8 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -99,11 +110,11 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static Device fromDescription(String description) {
+		public static Device fromLocalisedDescription(String description) {
 			Device result = null;
 
 			for (Device value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -113,14 +124,6 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				Device[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (Device value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -129,22 +132,27 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 	 * User Name
 	 **/
 	private String userName;
+
 	/**
 	 * Year
 	 **/
-	private Integer year;
+	private Integer hitYear;
+
 	/**
 	 * Month
 	 **/
-	private Integer month;
+	private Integer hitMonth;
+
 	/**
 	 * User-Agent Header
 	 **/
 	private String userAgentHeader;
+
 	/**
 	 * Device
 	 **/
 	private Device device;
+
 	/**
 	 * Number Of Hits
 	 **/
@@ -178,17 +186,11 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 		try {
-			return org.skyve.util.Binder.formatMessage("{userName} - {year}/{month} = {numberOfHits}", this);
+			return org.skyve.util.Binder.formatMessage("{userName} - {hitYear}/{hitMonth} = {numberOfHits}", this);
 		}
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof UserMonthlyHits) && 
-					this.getBizId().equals(((UserMonthlyHits) o).getBizId()));
 	}
 
 	/**
@@ -210,39 +212,39 @@ public class UserMonthlyHits extends AbstractPersistentBean {
 	}
 
 	/**
-	 * {@link #year} accessor.
+	 * {@link #hitYear} accessor.
 	 * @return	The value.
 	 **/
-	public Integer getYear() {
-		return year;
+	public Integer getHitYear() {
+		return hitYear;
 	}
 
 	/**
-	 * {@link #year} mutator.
-	 * @param year	The new value.
+	 * {@link #hitYear} mutator.
+	 * @param hitYear	The new value.
 	 **/
 	@XmlElement
-	public void setYear(Integer year) {
-		preset(yearPropertyName, year);
-		this.year = year;
+	public void setHitYear(Integer hitYear) {
+		preset(hitYearPropertyName, hitYear);
+		this.hitYear = hitYear;
 	}
 
 	/**
-	 * {@link #month} accessor.
+	 * {@link #hitMonth} accessor.
 	 * @return	The value.
 	 **/
-	public Integer getMonth() {
-		return month;
+	public Integer getHitMonth() {
+		return hitMonth;
 	}
 
 	/**
-	 * {@link #month} mutator.
-	 * @param month	The new value.
+	 * {@link #hitMonth} mutator.
+	 * @param hitMonth	The new value.
 	 **/
 	@XmlElement
-	public void setMonth(Integer month) {
-		preset(monthPropertyName, month);
-		this.month = month;
+	public void setHitMonth(Integer hitMonth) {
+		preset(hitMonthPropertyName, hitMonth);
+		this.hitMonth = hitMonth;
 	}
 
 	/**

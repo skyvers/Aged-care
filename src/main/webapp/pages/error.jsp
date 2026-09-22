@@ -1,21 +1,45 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page isErrorPage="true"%>
+<%@page session="false" isErrorPage="true" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.net.URLEncoder"%>
+<%@page import="java.nio.charset.StandardCharsets"%>
 <%@page import="java.security.Principal"%>
 <%@page import="java.util.Locale"%>
+<%@page import="org.skyve.domain.messages.SkyveException"%>
 <%@page import="org.skyve.metadata.user.User"%>
+<%@page import="org.skyve.metadata.view.TextOutput.Sanitisation"%>
 <%@page import="org.skyve.util.Util"%>
+<%@page import="org.skyve.util.OWASP"%>
 <%@page import="org.skyve.impl.web.UserAgent"%>
+<%@page import="org.skyve.impl.web.WebErrorUtil"%>
 <%@page import="org.skyve.impl.web.WebUtil"%>
+<%@page import="org.skyve.impl.web.filter.ResponseHeaderFilter"%>
 <%
+	// The web container error processing does not pass the error page the web app's filters 
+	ResponseHeaderFilter.applySecurityHeaders(response);
+	
 	String basePath = Util.getSkyveContextUrl() + "/";
 	boolean mobile = UserAgent.getType(request).isMobile();
-	String referer = WebUtil.getRefererHeader(request);
 	Principal p = request.getUserPrincipal();
-	User user = WebUtil.processUserPrincipalForRequest(request, (p == null) ? null : p.getName(), true);
+	User user = null;
+	try {
+		user = WebUtil.processUserPrincipalForRequest(request, (p == null) ? null : p.getName());
+	}
+	catch (SkyveException e) {
+		// The principal name is not a user in the database - continue on...
+	}
 	Locale locale = (user == null) ? request.getLocale() : user.getLocale();
 	if (locale == null) {
 		locale = Locale.ENGLISH;
 	}
+	String errorReference = OWASP.sanitise(Sanitisation.text, Util.processStringValue(request.getParameter(WebErrorUtil.ERROR_REFERENCE_PARAMETER)));
+	if ((errorReference != null) && (! errorReference.matches("[0-9a-fA-F-]{36}"))) {
+		errorReference = null;
+	}
+	String reportUser = (request.getUserPrincipal() != null) ? request.getUserPrincipal().getName() : Util.i18n("page.error.notLoggedIn", locale);
+	String reportMessage = (errorReference == null) ? Util.i18n("page.error.explanation", locale) : WebErrorUtil.genericMessage(errorReference);
+	String reportBody = reportMessage + " for " + reportUser + " at " + new java.util.Date();
+	String mailto = "mailto:" + org.skyve.util.Util.getSupportEmailAddress() +
+					"?subject=" + URLEncoder.encode("Exception Report", StandardCharsets.UTF_8) +
+					"&body=" + URLEncoder.encode(reportBody, StandardCharsets.UTF_8);
 %>
 <!DOCTYPE html>
 <html dir="<%=Util.isRTL(locale) ? "rtl" : "ltr"%>">
@@ -50,7 +74,7 @@
 		    		<%@include file="fragments/logo.html" %>
 		    	</div>
 		    	
-		        <form class="ui large form">
+		        <div class="ui large form">
 		            <div class="ui segment">
 		            	<div class="ui red message">
 		            		<div class="ui header">
@@ -59,18 +83,23 @@
 		            		<div class="field">
 		            			<%=Util.i18n("page.error.explanation", locale)%>
 		            		</div>
+							<% if (errorReference != null) { %>
+								<div class="field">
+									Reference: <%=errorReference%>
+								</div>
+							<% } %>
 		            	</div>
 						<div class="field">
-							<a href="<%=request.getContextPath()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.loginError.retry", locale)%></a>
+							<a href="<%=Util.getBaseUrl()%>" class="ui fluid large blue submit button"><%=Util.i18n("page.loginError.retry", locale)%></a>
 						</div>
 						<div class="field">
-							<a href="mailto:<%=org.skyve.util.Util.getSupportEmailAddress()%>?subject=Exception Report&body=<%=(exception == null) ? Util.i18n("page.error.noMessage", locale) : exception.getLocalizedMessage()%> for <%=(request.getUserPrincipal() != null) ? request.getUserPrincipal().getName() : Util.i18n("page.error.notLoggedIn", locale)%> at <%=new java.util.Date()%>"
+							<a href="<%=mailto%>"
 									class="ui fluid large blue basic button">
 								<i class="envelope icon"></i><%=Util.i18n("page.loginError.report", locale)%>
 							</a>
 					 	</div>
 		            </div>
-		        </form>
+		        </div>
 		    </div>
 		</div>
 	</body>

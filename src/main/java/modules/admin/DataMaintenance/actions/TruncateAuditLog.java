@@ -18,8 +18,6 @@ import modules.admin.domain.Audit;
 import modules.admin.domain.DataMaintenance;
 
 public class TruncateAuditLog implements ServerSideAction<DataMaintenance> {
-	private static final long serialVersionUID = -8003482363810304078L;
-
 	@Override
 	public ServerSideActionResult<DataMaintenance> execute(DataMaintenance bean, WebContext webContext)
 			throws Exception {
@@ -30,7 +28,7 @@ public class TruncateAuditLog implements ServerSideAction<DataMaintenance> {
 		Module module = customer.getModule(DataMaintenance.MODULE_NAME);
 		JobMetaData job = module.getJob("jTruncateAuditLog");
 		
-		EXT.runOneShotJob(job, bean, user);
+		EXT.getJobScheduler().runOneShotJob(job, bean, user);
 	
 		bean.setAuditResponse("Job commenced.");
 		
@@ -85,8 +83,8 @@ public class TruncateAuditLog implements ServerSideAction<DataMaintenance> {
 		DocumentQuery qAudits = getAuditQuery(pers, bean);
 		qAudits.addAggregateProjection(AggregateFunction.Count, Bean.DOCUMENT_ID, "CountOfAudits");
 
-		Long countOfAudit = qAudits.scalarResult(Long.class);
-		bean.setAuditMatchCount(new Integer(countOfAudit.intValue()));
+		Number countOfAudit = qAudits.scalarResult(Number.class);
+		bean.setAuditMatchCount(Integer.valueOf((countOfAudit == null) ? 0 : countOfAudit.intValue()));
 
 		return result;
 	}

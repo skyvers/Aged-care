@@ -1,7 +1,6 @@
 package modules.admin;
 
 import java.util.List;
-import java.util.logging.Level;
 
 import org.skyve.bizport.BizPortWorkbook;
 import org.skyve.domain.Bean;
@@ -11,210 +10,320 @@ import org.skyve.domain.messages.ValidationException;
 import org.skyve.metadata.controller.ImplicitActionName;
 import org.skyve.metadata.controller.Interceptor;
 import org.skyve.metadata.controller.ServerSideActionResult;
-import org.skyve.metadata.controller.UploadAction.UploadedFile;
+import org.skyve.metadata.controller.Upload;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
 import org.skyve.metadata.model.document.Document;
-import org.skyve.util.Util;
 import org.skyve.web.WebContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * Simple {@link Interceptor} implementation that logs each lifecycle
+ * callback. The {@code veto} flag can be toggled to prevent the operation
+ * from completing.
+ */
 public class LoggingInterceptor extends Interceptor {
-	private static final long serialVersionUID = 6991646689104206033L;
 
-	private boolean veto = false;
-	
-	@Override
-	public boolean beforeNewInstance(Bean bean) {
-		Util.LOGGER.log(Level.INFO, "beforeNewInstance - {0}", bean);
-		return veto;
-	}
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoggingInterceptor.class);
 
-	@Override
-	public void afterNewInstance(Bean bean) {
-		Util.LOGGER.log(Level.INFO, "afterNewInstance - {0}", bean);
-	}
+    /**
+     * Indicates whether intercepted operations should be vetoed.
+     */
+    private boolean veto = false;
 
-	@Override
-	public boolean beforeValidate(Bean bean, ValidationException e) {
-		Util.LOGGER.log(Level.INFO, "beforeValidate - {0}", bean);
-		return veto;
-	}
+        /**
+         * Called before a new bean instance is created.
+         * Logs the invocation and returns the {@code veto} flag.
+         */
+        @Override
+        public boolean beforeNewInstance(Bean bean) {
+                LOGGER.info("beforeNewInstance - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterValidate(Bean bean, ValidationException e) {
-		Util.LOGGER.log(Level.INFO, "afterValidate - {0}", bean);
-	}
+        /**
+         * Invoked after a new bean instance has been created.
+         * Only logs the event.
+         */
+        @Override
+        public void afterNewInstance(Bean bean) {
+                LOGGER.info("afterNewInstance - {}", bean);
+        }
 
-	@Override
-	public boolean beforeGetConstantDomainValues(String attributeName) {
-		Util.LOGGER.log(Level.INFO, "beforeGetConstantDomainValues - attribute = {0}", attributeName);
-		return veto;
-	}
+        /**
+         * Executed prior to validation.
+         * Logs the bean being validated and returns the veto flag.
+         */
+        @Override
+        public boolean beforeValidate(Bean bean, ValidationException e) {
+                LOGGER.info("beforeValidate - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterGetConstantDomainValues(String attributeName, List<DomainValue> result) {
-		Util.LOGGER.log(Level.INFO, "afterGetConstantDomainValues - attribute = {0}", attributeName);
-	}
+        /**
+         * Called after validation has completed.
+         * Logs the bean instance.
+         */
+        @Override
+        public void afterValidate(Bean bean, ValidationException e) {
+                LOGGER.info("afterValidate - {}", bean);
+        }
 
-	@Override
-	public boolean beforeGetVariantDomainValues(String attributeName) {
-		Util.LOGGER.log(Level.INFO, "beforeGetVariantDomainValues - attribute = {0}", attributeName);
-		return veto;
-	}
+        /**
+         * Invoked before constant domain values are retrieved.
+         * @param attributeName the attribute name
+         * @return {@code true} to veto value retrieval
+         */
+        @Override
+        public boolean beforeGetConstantDomainValues(String attributeName) {
+                LOGGER.info("beforeGetConstantDomainValues - attribute = {}", attributeName);
+                return veto;
+        }
 
-	@Override
-	public void afterGetVariantDomainValues(String attributeName, List<DomainValue> result) {
-		Util.LOGGER.log(Level.INFO, "afterGetVariantDomainValues - attribute = {0}", attributeName);
-	}
+        /**
+         * Called after constant domain values have been retrieved.
+         */
+        @Override
+        public void afterGetConstantDomainValues(String attributeName, List<DomainValue> result) {
+                LOGGER.info("afterGetConstantDomainValues - attribute = {}", attributeName);
+        }
 
-	@Override
-	public boolean beforeGetDynamicDomainValues(String attributeName, Bean bean) {
-		Util.LOGGER.log(Level.INFO, "beforeGetDynamicDomainValues - attribute = {0}", attributeName);
-		return veto;
-	}
+        /**
+         * Triggered before variant domain values are looked up.
+         * @param attributeName the attribute name
+         * @return {@code true} to stop retrieval
+         */
+        @Override
+        public boolean beforeGetVariantDomainValues(String attributeName) {
+                LOGGER.info("beforeGetVariantDomainValues - attribute = {}", attributeName);
+                return veto;
+        }
 
-	@Override
-	public void afterGetDynamicDomainValues(String attributeName, Bean bean, List<DomainValue> result) {
-		Util.LOGGER.log(Level.INFO, "afterGetDynamicDomainValues - attribute = {0}", attributeName);
-	}
+        /**
+         * Logs completion of variant domain value retrieval.
+         */
+        @Override
+        public void afterGetVariantDomainValues(String attributeName, List<DomainValue> result) {
+                LOGGER.info("afterGetVariantDomainValues - attribute = {}", attributeName);
+        }
 
-	@Override
-	public boolean beforeSave(Document document, PersistentBean bean) throws Exception {
-		Util.LOGGER.log(Level.INFO, "beforeSave - bean = {0}", bean);
-		return veto;
-	}
+        /**
+         * Called before dynamic domain values are calculated.
+         * @param attributeName the attribute requiring values
+         * @param bean          the context bean
+         * @return {@code true} to veto the call
+         */
+        @Override
+        public boolean beforeGetDynamicDomainValues(String attributeName, Bean bean) {
+                LOGGER.info("beforeGetDynamicDomainValues - attribute = {}", attributeName);
+                return veto;
+        }
 
-	@Override
-	public void afterSave(Document document, final PersistentBean result) throws Exception {
-		Util.LOGGER.log(Level.INFO, "afterSave - result = {0}", result);
-	}
+        /**
+         * Logs completion of dynamic domain value evaluation.
+         */
+        @Override
+        public void afterGetDynamicDomainValues(String attributeName, Bean bean, List<DomainValue> result) {
+                LOGGER.info("afterGetDynamicDomainValues - attribute = {}", attributeName);
+        }
 
-	@Override
-	public boolean beforePreSave(Bean bean) {
-		Util.LOGGER.log(Level.INFO, "beforePreSave - {0}", bean);
-		return veto;
-	}
+        /**
+         * Before a bean is persisted this method logs the intent.
+         *
+         * @return {@code true} to veto the save
+         */
+        @Override
+        public boolean beforeSave(Document document, PersistentBean bean) throws Exception {
+                LOGGER.info("beforeSave - bean = {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterPreSave(Bean bean) {
-		Util.LOGGER.log(Level.INFO, "afterPreSave - {0}", bean);
-	}
+        /**
+         * Logs the bean returned from a save operation.
+         */
+        @Override
+        public void afterSave(Document document, final PersistentBean result) throws Exception {
+                LOGGER.info("afterSave - result = {}", result);
+        }
 
-	@Override
-	public boolean beforePostSave(Bean bean) {
-		Util.LOGGER.log(Level.INFO, "beforePostSave - {0}", bean);
-		return veto;
-	}
+        /**
+         * Called before the pre-save lifecycle event.
+         * @return {@code true} to veto further processing
+         */
+        @Override
+        public boolean beforePreSave(Bean bean) {
+                LOGGER.info("beforePreSave - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterPostSave(Bean bean) {
-		Util.LOGGER.log(Level.INFO, "afterPostSave - {0}", bean);
-	}
+        /**
+         * Logs completion of the pre-save event.
+         */
+        @Override
+        public void afterPreSave(Bean bean) {
+                LOGGER.info("afterPreSave - {}", bean);
+        }
 
-	@Override
-	public boolean beforeDelete(Document document, PersistentBean bean) {
-		Util.LOGGER.log(Level.INFO, "beforeDelete - {0}", bean);
-		return veto;
-	}
+        /**
+         * Invoked before the post-save hook.
+         * @return {@code true} to veto the hook
+         */
+        @Override
+        public boolean beforePostSave(Bean bean) {
+                LOGGER.info("beforePostSave - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterDelete(Document document, PersistentBean bean) {
-		Util.LOGGER.log(Level.INFO, "afterDelete - {0}", bean);
-	}
+        /**
+         * Logs completion of the post-save hook.
+         */
+        @Override
+        public void afterPostSave(Bean bean) {
+                LOGGER.info("afterPostSave - {}", bean);
+        }
 
-	@Override
-	public boolean beforePreDelete(PersistentBean bean) {
-		Util.LOGGER.log(Level.INFO, "beforePreDelete - {0}", bean);
-		return veto;
-	}
+        /**
+         * Called before a bean is deleted.
+         *
+         * @return {@code true} to veto deletion
+         */
+        @Override
+        public boolean beforeDelete(Document document, PersistentBean bean) {
+                LOGGER.info("beforeDelete - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterPreDelete(PersistentBean bean) {
-		Util.LOGGER.log(Level.INFO, "afterPreDelete - {0}", bean);
-	}
+        /**
+         * Logs after a bean has been deleted.
+         */
+        @Override
+        public void afterDelete(Document document, PersistentBean bean) {
+                LOGGER.info("afterDelete - {}", bean);
+        }
 
-	@Override
-	public boolean beforePostLoad(PersistentBean bean) {
-		Util.LOGGER.log(Level.INFO, "beforePostLoad - {0}", bean);
-		return veto;
-	}
+        /**
+         * Invoked before the pre-delete hook.
+         * @return {@code true} to veto deletion
+         */
+        @Override
+        public boolean beforePreDelete(PersistentBean bean) {
+                LOGGER.info("beforePreDelete - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterPostLoad(PersistentBean bean) {
-		Util.LOGGER.log(Level.INFO, "afterPostLoad - {0}", bean);
-	}
+        /**
+         * Logs after the pre-delete hook has run.
+         */
+        @Override
+        public void afterPreDelete(PersistentBean bean) {
+                LOGGER.info("afterPreDelete - {}", bean);
+        }
 
-	@Override
-	public boolean beforePreExecute(ImplicitActionName actionName, Bean bean, Bean parentBean, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"beforePreExecute - action = {0}, bean = {1}, parent = {2}",
-							new Object[] {actionName, bean, parentBean});
-		return veto;
-	}
+        /**
+         * Called before the post-load event.
+         * @return {@code true} to veto further processing
+         */
+        @Override
+        public boolean beforePostLoad(PersistentBean bean) {
+                LOGGER.info("beforePostLoad - {}", bean);
+                return veto;
+        }
 
-	@Override
-	public void afterPreExecute(ImplicitActionName actionName, Bean result, Bean parentBean, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"afterPreExecute - action = {0}, bean = {1}, parent = {2}",
-							new Object[] {actionName, result, parentBean});
-	}
+        /**
+         * Logs when a bean has been loaded.
+         */
+        @Override
+        public void afterPostLoad(PersistentBean bean) {
+                LOGGER.info("afterPostLoad - {}", bean);
+        }
 
-	@Override
-	public boolean beforeServerSideAction(Document document, String actionName, Bean bean, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"beforeServerSideAction - doc = {0}.{1}, action = {2}, bean = {3}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, bean});
-		return veto;
-	}
+        /**
+         * Logs before an implicit action executes.
+         * @return {@code true} to veto execution
+         */
+        @Override
+        public boolean beforePreExecute(ImplicitActionName actionName, Bean bean, Bean parentBean, WebContext webContext) {
+                LOGGER.info("beforePreExecute - action = {}, bean = {}, parent = {}", actionName, bean, parentBean);
+                return veto;
+        }
 
-	@Override
-	public void afterServerSideAction(Document document, String actionName, ServerSideActionResult<Bean> result, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"afterServerSideAction - doc = {0}.{1}, action = {2}, result = {3}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, result});
-	}
+        /**
+         * Logs completion of an implicit action.
+         */
+        @Override
+        public void afterPreExecute(ImplicitActionName actionName, Bean result, Bean parentBean, WebContext webContext) {
+                LOGGER.info("afterPreExecute - action = {}, bean = {}, parent = {}", actionName, result, parentBean);
+        }
 
-	@Override
-	public boolean beforeUploadAction(Document document, String actionName, Bean bean, UploadedFile file, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"beforeUploadAction - doc = {0}.{1}, action = {2}, bean = {3}, file = {4}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, bean, file});
-		return veto;
-	}
+        /**
+         * Executed prior to a server side action.
+         * @return {@code true} to veto the action
+         */
+        @Override
+        public boolean beforeServerSideAction(Document document, String actionName, Bean bean, WebContext webContext) {
+                LOGGER.info("beforeServerSideAction - doc = {}.{}, action = {}, bean = {}", document.getOwningModuleName(), document.getName(), actionName, bean);
+                return veto;
+        }
 
-	@Override
-	public void afterUploadAction(Document document, String actionName, Bean bean, UploadedFile file, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"afterUploadAction - doc = {0}.{1}, action = {2}, bean = {3}, file = {4}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, bean, file});
-	}
+        /**
+         * Logs the outcome of a server side action.
+         */
+        @Override
+        public void afterServerSideAction(Document document, String actionName, ServerSideActionResult<Bean> result, WebContext webContext) {
+                LOGGER.info("afterServerSideAction - doc = {}.{}, action = {}, result = {}", document.getOwningModuleName(), document.getName(), actionName, result);
+        }
 
-	@Override
-	public boolean beforeBizImportAction(Document document, String actionName, BizPortWorkbook bizPortable, UploadException problems) {
-		Util.LOGGER.log(Level.INFO, 
-							"beforeBizImportAction - doc = {0}.{1}, action = {2}, bean = {3}, workbook = {4}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, bizPortable});
-		return veto;
-	}
+        /**
+         * Called before an upload action is processed.
+         * @return {@code true} to veto the action
+         */
+        @Override
+        public boolean beforeUploadAction(Document document, String actionName, Bean bean, Upload upload, WebContext webContext) {
+                LOGGER.info("beforeUploadAction - doc = {}.{}, action = {}, bean = {}, file = {}", document.getOwningModuleName(), document.getName(), actionName, bean, upload);
+                return veto;
+        }
 
-	@Override
-	public void afterBizImportAction(Document document, String actionName, BizPortWorkbook bizPortable, UploadException problems) {
-		Util.LOGGER.log(Level.INFO, 
-							"afterBizImportAction - doc = {0}.{1}, action = {2}, bean = {3}, workbook = {4}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, bizPortable});
-	}
+        /**
+         * Logs the uploaded file after the upload action has finished.
+         */
+        @Override
+        public void afterUploadAction(Document document, String actionName, Bean bean, Upload upload, WebContext webContext) {
+                LOGGER.info("afterUploadAction - doc = {}.{}, action = {}, bean = {}, file = {}", document.getOwningModuleName(), document.getName(), actionName, bean, upload);
+        }
 
-	@Override
-	public boolean beforeBizExportAction(Document document, String actionName, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"beforeBizExportAction - doc = {0}.{1}, action = {2}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName});
-		return veto;
-	}
+        /**
+         * Executed prior to a BizPort import action.
+         * @return {@code true} to veto the import
+         */
+        @Override
+        public boolean beforeBizImportAction(Document document, String actionName, BizPortWorkbook bizPortable, UploadException problems) {
+                LOGGER.info("beforeBizImportAction - doc = {}.{}, action = {}, bean = {}, workbook = {}", document.getOwningModuleName(), document.getName(), actionName, bizPortable);
+                return veto;
+        }
 
-	@Override
-	public void afterBizExportAction(Document document, String actionName, BizPortWorkbook result, WebContext webContext) {
-		Util.LOGGER.log(Level.INFO, 
-							"beforeBizExportAction - doc = {0}.{1}, action = {2}, result = {3}",
-							new Object[] {document.getOwningModuleName(), document.getName(), actionName, result});
-	}
+        /**
+         * Logs completion of a BizPort import action.
+         */
+        @Override
+        public void afterBizImportAction(Document document, String actionName, BizPortWorkbook bizPortable, UploadException problems) {
+                LOGGER.info("afterBizImportAction - doc = {}.{}, action = {}, bean = {}, workbook = {}", document.getOwningModuleName(), document.getName(), actionName, bizPortable);
+        }
+
+        /**
+         * Invoked before a BizPort export action is executed.
+         * @return {@code true} to veto the export
+         */
+        @Override
+        public boolean beforeBizExportAction(Document document, String actionName, WebContext webContext) {
+                LOGGER.info("beforeBizExportAction - doc = {}.{}, action = {}", document.getOwningModuleName(), document.getName(), actionName);
+                return veto;
+        }
+
+        /**
+         * Logs completion of a BizPort export action.
+         */
+        @Override
+        public void afterBizExportAction(Document document, String actionName, BizPortWorkbook result, WebContext webContext) {
+                LOGGER.info("beforeBizExportAction - doc = {}.{}, action = {}, result = {}", document.getOwningModuleName(), document.getName(), actionName, result);
+        }
 }

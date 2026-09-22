@@ -11,20 +11,14 @@ import org.skyve.persistence.DocumentQuery;
 import org.skyve.persistence.Persistence;
 import org.skyve.web.WebContext;
 
-import modules.admin.Tag.TagBizlet;
-import modules.admin.domain.Tag;
+import modules.admin.Tag.TagExtension;
 
-public class TagAll implements ServerSideAction<Tag> {
-	/**
-	 * For Serialization
-	 */
-	private static final long serialVersionUID = 2886341074753936987L;
-
+public class TagAll implements ServerSideAction<TagExtension> {
 	/**
 	 * Tag all records
 	 */
 	@Override
-	public ServerSideActionResult<Tag> execute(Tag bean, WebContext webContext)
+	public ServerSideActionResult<TagExtension> execute(TagExtension bean, WebContext webContext)
 	throws Exception {
 		
 		Persistence pers = CORE.getPersistence();
@@ -32,10 +26,10 @@ public class TagAll implements ServerSideAction<Tag> {
 		DocumentQuery q = pers.newDocumentQuery(bean.getUploadModuleName(), bean.getUploadDocumentName());
 		
 		List<Bean> beans = q.projectedResults();
-		EXT.tag(bean.getBizId(), beans);
+		EXT.getTagManager().tag(bean.getBizId(), beans);
 		
-		bean.setUploadTagged(TagBizlet.getCountOfDocument(bean, bean.getUploadModuleName(), bean.getUploadDocumentName()));
-		bean.setTotalTagged(TagBizlet.getCount(bean));
+		bean.setUploadTagged(Long.valueOf(bean.countDocument(bean.getUploadModuleName(), bean.getUploadDocumentName())));
+		bean.setTotalTagged(Long.valueOf(bean.count()));
 		
 		return new ServerSideActionResult<>(bean);
 	}

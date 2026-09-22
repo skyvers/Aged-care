@@ -1,10 +1,11 @@
 package modules.agedCare.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.admin.domain.Contact;
 import org.locationtech.jts.geom.Geometry;
 import org.skyve.CORE;
@@ -22,6 +23,7 @@ import org.skyve.impl.domain.types.jaxb.GeometryMapper;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Facility extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -31,21 +33,28 @@ public class Facility extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "agedCare";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Facility";
 
 	/** @hidden */
 	public static final String facilityNamePropertyName = "facilityName";
+
 	/** @hidden */
 	public static final String buildingNumberPropertyName = "buildingNumber";
+
 	/** @hidden */
 	public static final String streetNamePropertyName = "streetName";
+
 	/** @hidden */
 	public static final String suburbPropertyName = "suburb";
+
 	/** @hidden */
 	public static final String statePropertyName = "state";
+
 	/** @hidden */
 	public static final String facilityManagerPropertyName = "facilityManager";
+
 	/** @hidden */
 	public static final String locationPropertyName = "location";
 
@@ -53,26 +62,32 @@ public class Facility extends AbstractPersistentBean {
 	 * Facility Name
 	 **/
 	private String facilityName;
+
 	/**
 	 * Building Number
 	 **/
 	private Integer buildingNumber;
+
 	/**
 	 * Street Name
 	 **/
 	private String streetName;
+
 	/**
 	 * Suburb
 	 **/
 	private String suburb;
+
 	/**
 	 * State
 	 **/
 	private String state;
+
 	/**
 	 * Facility Manager
 	 **/
 	private Contact facilityManager = null;
+
 	/**
 	 * Location
 	 **/
@@ -111,12 +126,6 @@ public class Facility extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Facility) && 
-					this.getBizId().equals(((Facility) o).getBizId()));
 	}
 
 	/**
@@ -241,8 +250,8 @@ public class Facility extends AbstractPersistentBean {
 	 * {@link #location} mutator.
 	 * @param location	The new value.
 	 **/
-	@XmlJavaTypeAdapter(GeometryMapper.class)
 	@XmlElement
+	@XmlJavaTypeAdapter(GeometryMapper.class)
 	public void setLocation(Geometry location) {
 		preset(locationPropertyName, location);
 		this.location = location;

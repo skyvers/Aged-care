@@ -5,12 +5,13 @@
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:p="http://primefaces.org/ui"
 		dir="#{_skyveUpload.dir}">
-    <f:view encoding="#{_skyveUpload.encoding}">
+    <f:view contentType="text/html" encoding="#{_skyveUpload.encoding}">
 		<f:metadata>
 			<f:event type="preRenderView" listener="#{_skyveUpload.preRender}" />
 		</f:metadata>
 		<h:head>
 			<title>#{_skyveUpload.i18n['page.fileUpload.title']}</title>
+			<base href="#{_skyveUpload.baseHref}" />
 			<style>
 				.ui-widget {
 				    font-size: 12px !important;
@@ -29,16 +30,31 @@
 					background-position: right bottom;
 					background-repeat: no-repeat;
 				}
+				@media(max-width: 640px) {
+					.ui-fileupload-buttonbar .ui-button {
+						padding: 20px !important;
+					}
+				}
 			</style>
 		</h:head>
 		<h:body>
-			<h:form enctype="multipart/form-data" prependId="false">
+			<p:staticMessage severity="error"
+								summary="You cannot access this function"
+								detail="Click &lt;a href=&quot;javascript:void(0)&quot; onclick=&quot;window.top.location=''&quot;&gt;here&lt;/a&gt;"
+								rendered="#{not _skyveUpload.canAccess}"
+								escape="false"
+								style="width:100%; height:50px" />
+			<h:form enctype="multipart/form-data" prependId="false" rendered="#{_skyveUpload.canAccess}">
 				<h:inputHidden id="_c" value="#{_skyveUpload.context}" />
 				<h:inputHidden id="_b" value="#{_skyveUpload.binding}" />
 				<h:inputHidden id="_a" value="#{_skyveUpload.action}" />
-				<p:fileUpload fileUploadListener="#{_skyveUpload.handleFileUpload}" 
+				<p:fileUpload listener="#{_skyveUpload.handleFileUpload}"
+								sizeLimit="#{_skyveUpload.maximumSizeInBytes}"
+								invalidSizeMessage="#{_skyveUpload.i18n['page.fileUpload.sizeLimit']}"
+								allowTypes="#{'/'.concat(_skyveUpload.whitelistRegex).concat('/i')}"
+								invalidFileMessage="#{_skyveUpload.i18n['page.fileUpload.invalidFile']}"
 								update="problems" 
-								oncomplete="if (top.isc) { top.isc.WindowStack.getOpener().saveInstance(true,'_PUSH'); }" />
+								oncomplete="if(window.parent.isc){window.parent.isc.WindowStack.getOpener().saveInstance(true,'_PUSH');}" />
 			    <p:growl id="messages" showDetail="true" escape="false">
 					<p:autoUpdate />
 			    </p:growl>

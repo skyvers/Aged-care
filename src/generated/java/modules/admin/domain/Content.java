@@ -1,11 +1,12 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Timestamp;
@@ -19,6 +20,7 @@ import org.skyve.impl.domain.types.jaxb.TimestampMapper;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Content extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -28,23 +30,31 @@ public class Content extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Content";
 
 	/** @hidden */
 	public static final String contentIdPropertyName = "contentId";
+
 	/** @hidden */
 	public static final String customerNamePropertyName = "customerName";
+
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String documentNamePropertyName = "documentName";
+
 	/** @hidden */
 	public static final String contentBizIdPropertyName = "contentBizId";
+
 	/** @hidden */
 	public static final String attributeNamePropertyName = "attributeName";
+
 	/** @hidden */
 	public static final String lastModifiedPropertyName = "lastModified";
+
 	/** @hidden */
 	public static final String contentPropertyName = "content";
 
@@ -52,30 +62,37 @@ public class Content extends AbstractTransientBean {
 	 * Content Id
 	 **/
 	private String contentId;
+
 	/**
 	 * Customer Name
 	 **/
 	private String customerName;
+
 	/**
 	 * Module Name
 	 **/
 	private String moduleName;
+
 	/**
 	 * Document Name
 	 **/
 	private String documentName;
+
 	/**
 	 * Content Biz Id
 	 **/
 	private String contentBizId;
+
 	/**
 	 * Attribute Name
 	 **/
 	private String attributeName;
+
 	/**
 	 * Last Modified
 	 **/
 	private Timestamp lastModified;
+
 	/**
 	 * Content
 	 **/
@@ -110,12 +127,6 @@ public class Content extends AbstractTransientBean {
 	public String getBizKey() {
 		return toString();
 
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Content) && 
-					this.getBizId().equals(((Content) o).getBizId()));
 	}
 
 	/**
@@ -238,9 +249,9 @@ public class Content extends AbstractTransientBean {
 	 * {@link #lastModified} mutator.
 	 * @param lastModified	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(TimestampMapper.class)
-	@XmlElement
 	public void setLastModified(Timestamp lastModified) {
 		preset(lastModifiedPropertyName, lastModified);
 		this.lastModified = lastModified;

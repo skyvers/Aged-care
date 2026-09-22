@@ -1,17 +1,20 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Contact
@@ -21,7 +24,8 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
-public class Contact extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public class Contact extends AbstractPersistentBean implements org.skyve.domain.app.admin.Contact {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -30,26 +34,32 @@ public class Contact extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Contact";
 
 	/** @hidden */
 	public static final String namePropertyName = "name";
+
 	/** @hidden */
 	public static final String contactTypePropertyName = "contactType";
+
 	/** @hidden */
 	public static final String email1PropertyName = "email1";
+
 	/** @hidden */
 	public static final String mobilePropertyName = "mobile";
+
 	/** @hidden */
 	public static final String imagePropertyName = "image";
 
 	/**
-	 * admin.contact.contactType.displayName
+	 * Contact Type
 	 * <br/>
-	 * admin.contact.contactType.description
+	 * Whether this contact is a person or an organisation.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum ContactType implements Enumeration {
 		person("Person", "Person"),
 		organisation("Organisation", "Organisation");
@@ -61,7 +71,7 @@ public class Contact extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(ContactType::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private ContactType(String code, String description) {
 			this.code = code;
@@ -75,8 +85,8 @@ public class Contact extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -97,11 +107,11 @@ public class Contact extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static ContactType fromDescription(String description) {
+		public static ContactType fromLocalisedDescription(String description) {
 			ContactType result = null;
 
 			for (ContactType value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -111,38 +121,34 @@ public class Contact extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				ContactType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (ContactType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.contact.name.displayName
+	 * Name
 	 **/
 	private String name;
+
 	/**
-	 * admin.contact.contactType.displayName
+	 * Contact Type
 	 * <br/>
-	 * admin.contact.contactType.description
+	 * Whether this contact is a person or an organisation.
 	 **/
 	private ContactType contactType;
+
 	/**
-	 * admin.contact.email1.displayName
+	 * Email
 	 **/
 	private String email1;
+
 	/**
-	 * admin.contact.mobile.displayName
+	 * Mobile
 	 **/
 	private String mobile;
+
 	/**
-	 * admin.contact.image.displayName
+	 * Image
 	 **/
 	private String image;
 
@@ -174,12 +180,6 @@ public class Contact extends AbstractPersistentBean {
 	@XmlTransient
 	public String getBizKey() {
 return modules.admin.Contact.ContactBizlet.bizKey(this);
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Contact) && 
-					this.getBizId().equals(((Contact) o).getBizId()));
 	}
 
 	/**

@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -15,7 +16,8 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  */
 @XmlType
 @XmlRootElement
-public class DocumentNumber extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public class DocumentNumber extends AbstractPersistentBean implements org.skyve.domain.app.admin.DocumentNumber {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -24,15 +26,19 @@ public class DocumentNumber extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "DocumentNumber";
 
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String documentNamePropertyName = "documentName";
+
 	/** @hidden */
 	public static final String sequenceNamePropertyName = "sequenceName";
+
 	/** @hidden */
 	public static final String documentNumberPropertyName = "documentNumber";
 
@@ -42,18 +48,21 @@ public class DocumentNumber extends AbstractPersistentBean {
 	 * The name of the module.
 	 **/
 	private String moduleName;
+
 	/**
 	 * Document Name
 	 * <br/>
 	 * The name of the document.
 	 **/
 	private String documentName;
+
 	/**
 	 * Sequence
 	 * <br/>
 	 * The name of the field or sequence.
 	 **/
 	private String sequenceName;
+
 	/**
 	 * Number
 	 * <br/>
@@ -94,12 +103,6 @@ public class DocumentNumber extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof DocumentNumber) && 
-					this.getBizId().equals(((DocumentNumber) o).getBizId()));
 	}
 
 	/**

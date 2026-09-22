@@ -1,6 +1,7 @@
 package modules.admin.ImportExport;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.skyve.CORE;
@@ -14,18 +15,16 @@ import org.skyve.metadata.user.User;
 import org.skyve.persistence.Persistence;
 import org.skyve.web.WebContext;
 
+import modules.admin.ModulesUtil.DomainValueSortByDescription;
 import modules.admin.ImportExport.actions.UploadSimpleImportDataFile;
 import modules.admin.domain.ImportExport;
-import modules.admin.domain.ImportExport.LoadType;
 import modules.admin.domain.ImportExport.Mode;
 import modules.admin.domain.ImportExportColumn;
 
 public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3224886678815636057L;
+	public static final String CREATE_EVERYTHING_EVEN_IF_THERE_MIGHT_BE_DUPLICATES = "Create everything even if there might be duplicates";
+	public static final String CREATE_RELATED_RECORDS_IF_THEY_DON_T_EXIST = "Create related records if they don't exist";
 
 	@Override
 	public List<DomainValue> getConstantDomainValues(String attributeName) throws Exception {
@@ -35,8 +34,9 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 			Customer customer = CORE.getUser().getCustomer();
 			List<DomainValue> result = new ArrayList<>();
 			for (Module module : customer.getModules()) {
-				result.add(new DomainValue(module.getName(), module.getTitle()));
+				result.add(new DomainValue(module.getName(), module.getLocalisedTitle()));
 			}
+			Collections.sort(result, new DomainValueSortByDescription());
 			return result;
 		}
 
@@ -54,9 +54,12 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 				Module module = customer.getModule(bean.getModuleName());
 				for (String documentName : module.getDocumentRefs().keySet()) {
 					Document document = module.getDocument(customer, documentName);
-					result.add(new DomainValue(document.getName(), document.getSingularAlias()));
+					if (document.isPersistable()) {
+						result.add(new DomainValue(document.getName(), document.getLocalisedSingularAlias()));
+					}
 				}
 			}
+			Collections.sort(result, new DomainValueSortByDescription());
 			return result;
 		}
 
@@ -67,6 +70,10 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 	public void preRerender(String source, ImportExportExtension bean, WebContext webContext) throws Exception {
 
 		updateColumns(source, bean);
+		
+		if(bean.getLoadType() == null) {
+			bean.setLoadType(CREATE_RELATED_RECORDS_IF_THEY_DON_T_EXIST);
+		}
 
 		super.preRerender(source, bean, webContext);
 	}
@@ -82,15 +89,14 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 				bean.getImportExportColumns().clear();
 				UploadSimpleImportDataFile.loadColumnsFromFile(bean, new UploadException());
 				if (bean.getLoadType() == null) {
-					bean.setLoadType(LoadType.createFind);
+					bean.setLoadType(CREATE_RELATED_RECORDS_IF_THEY_DON_T_EXIST);
 				}
 			}
 			if (Mode.exportData.equals(bean.getMode()) && bean.getImportExportColumns().size() == 0) {
 				if (bean.getModuleName() != null && bean.getDocumentName() != null) {
 					List<ImportExportColumn> columns = generateColumns(bean);
 					for (ImportExportColumn c : columns) {
-						c.setParent(bean);
-						bean.getImportExportColumns().add(c);
+						bean.addImportExportColumnsElement(c);
 					}
 				}
 			}
@@ -112,7 +118,7 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 		Module module = customer.getModule(bean.getModuleName());
 		Document document = module.getDocument(customer, bean.getDocumentName());
 
-		for (Attribute a : document.getAttributes()) {
+		for (Attribute a : document.getAllAttributes(customer)) {
 			if (a.isPersistent()) {
 				// exclude unsupported types
 				switch (a.getAttributeType()) {
@@ -125,7 +131,7 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 				default:
 					ImportExportColumn col = ImportExportColumn.newInstance();
 					col.setBindingName(a.getName());
-					col.setColumnName(a.getDisplayName());
+					col.setColumnName(a.getLocalisedDisplayName());
 					columns.add(col);
 					break;
 				}
@@ -152,6 +158,17 @@ public class ImportExportBizlet extends Bizlet<ImportExportExtension> {
 		}
 
 		super.preSave(bean);
+	}
+
+	@Override
+	public List<String> complete(String attributeName, String value, ImportExportExtension bean) throws Exception {
+		List<String> results = new ArrayList<>();
+		if(ImportExport.loadTypePropertyName.equals(attributeName)) {
+			results.add(CREATE_RELATED_RECORDS_IF_THEY_DON_T_EXIST);
+			results.add(CREATE_EVERYTHING_EVEN_IF_THERE_MIGHT_BE_DUPLICATES);
+			return results;
+		}
+		return super.complete(attributeName, value, bean);
 	}
 
 }

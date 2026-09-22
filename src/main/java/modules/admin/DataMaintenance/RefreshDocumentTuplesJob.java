@@ -8,22 +8,21 @@ import org.skyve.EXT;
 import org.skyve.domain.Bean;
 import org.skyve.domain.PersistentBean;
 import org.skyve.domain.messages.MessageSeverity;
+import org.skyve.domain.messages.NoResultsException;
 import org.skyve.job.Job;
 import org.skyve.persistence.DocumentQuery;
 import org.skyve.persistence.DocumentQuery.AggregateFunction;
 import org.skyve.persistence.Persistence;
+import org.skyve.util.CommunicationUtil;
+import org.skyve.util.CommunicationUtil.ResponseMode;
 import org.skyve.util.PushMessage;
 
-import modules.admin.Communication.CommunicationUtil;
-import modules.admin.Communication.CommunicationUtil.ResponseMode;
 import modules.admin.domain.DataMaintenance;
 import modules.admin.domain.DataMaintenance.EvictOption;
 import modules.admin.domain.DataMaintenance.RefreshOption;
 import modules.admin.domain.ModuleDocument;
 
 public class RefreshDocumentTuplesJob extends Job {
-	private static final long serialVersionUID = 6282346785863992703L;
-
 	@Override
 	public String cancel() {
 		return null;
@@ -47,12 +46,16 @@ public class RefreshDocumentTuplesJob extends Job {
 				Persistence pers = CORE.getPersistence();
 				DocumentQuery q = pers.newDocumentQuery(doc.getModuleName(), doc.getDocumentName());
 				q.addAggregateProjection(AggregateFunction.Count, Bean.DOCUMENT_ID, "CountOfId");
-				size = size + q.scalarResult(Long.class).longValue();
+				Number n = q.scalarResult(Number.class);
+				if (n != null) {
+					size = size + n.longValue();
+				}
 			}
 		}
 
 		RefreshOption refresh = dm.getRefreshOption();
 		EvictOption evict = dm.getEvictOption();
+		Boolean flagFailedData = dm.getFlagFailed();
 
 		// iterate
 		for (ModuleDocument doc : dm.getRefreshDocuments()) {
@@ -67,9 +70,13 @@ public class RefreshDocumentTuplesJob extends Job {
 				Persistence pers = CORE.getPersistence();
 				DocumentQuery q = pers.newDocumentQuery(doc.getModuleName(), doc.getDocumentName());
 				for (PersistentBean bean : q.<PersistentBean>beanResults()) {
+					String bizId = bean.getBizId();
 					try {
 						if (EvictOption.bean.equals(evict) || EvictOption.all.equals(evict)) {
-                            bean = pers.retrieve(doc.getModuleName(), doc.getDocumentName(), bean.getBizId());
+                            bean = pers.retrieve(doc.getModuleName(), doc.getDocumentName(), bizId);
+                            if (bean == null) {
+                            	throw new NoResultsException();
+                            }
                         }
 						
 						if (RefreshOption.upsert.equals(refresh)) {
@@ -86,11 +93,15 @@ public class RefreshDocumentTuplesJob extends Job {
 						}
 						pers.begin();
 					}
-					catch (Exception e) {
+					catch (@SuppressWarnings("unused") Exception e) {
 						log.add(String.format("%s - %s failed for id: %s",
 												sb.toString(),
-												dm.getRefreshOption().toDescription(),
-												bean.getBizId()));
+												dm.getRefreshOption().toLocalisedDescription(),
+												bizId));
+						if ((bean != null) && Boolean.TRUE.equals(flagFailedData)) {
+							bean.setBizFlagComment("Data refresh failed - Please validate data and try again.");
+							CORE.getPersistence().upsertBeanTuple(bean);
+						}
 					}
 					processed++;
 					setPercentComplete((int) (((float) processed) / ((float) size) * 100F));
@@ -103,7 +114,6 @@ public class RefreshDocumentTuplesJob extends Job {
 		}
 
 		if (Boolean.TRUE.equals(dm.getNotification())) {
-
 			// send email notification for completion of Job
 			CommunicationUtil.sendFailSafeSystemCommunication(DataMaintenanceBizlet.SYSTEM_DATA_REFRESH_NOTIFICATION,
 					DataMaintenanceBizlet.SYSTEM_DATA_REFRESH_DEFAULT_SUBJECT, DataMaintenanceBizlet.SYSTEM_DATA_REFRESH_DEFAULT_BODY,

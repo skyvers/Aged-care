@@ -1,14 +1,16 @@
 package modules.agedCare.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateOnly;
@@ -17,6 +19,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.ChangeTrackingArrayList;
 import org.skyve.impl.domain.types.jaxb.DateOnlyMapper;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Resident
@@ -30,6 +33,7 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Resident extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -39,27 +43,37 @@ public class Resident extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "agedCare";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Resident";
 
 	/** @hidden */
 	public static final String residentIDPropertyName = "residentID";
+
 	/** @hidden */
 	public static final String residentNamePropertyName = "residentName";
+
 	/** @hidden */
 	public static final String photoPropertyName = "photo";
+
 	/** @hidden */
 	public static final String DOBPropertyName = "DOB";
+
 	/** @hidden */
 	public static final String roomNoPropertyName = "roomNo";
+
 	/** @hidden */
 	public static final String BIOPropertyName = "BIO";
+
 	/** @hidden */
 	public static final String admissionDatePropertyName = "admissionDate";
+
 	/** @hidden */
 	public static final String facilityNamePropertyName = "facilityName";
+
 	/** @hidden */
 	public static final String assessmentsPropertyName = "assessments";
+
 	/** @hidden */
 	public static final String residentStatusPropertyName = "residentStatus";
 
@@ -67,6 +81,7 @@ public class Resident extends AbstractPersistentBean {
 	 * Resident Status
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum ResidentStatus implements Enumeration {
 		current("Current", "Current"),
 		discharged("Discharged", "Discharged"),
@@ -79,7 +94,7 @@ public class Resident extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(ResidentStatus::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private ResidentStatus(String code, String description) {
 			this.code = code;
@@ -93,8 +108,8 @@ public class Resident extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -115,11 +130,11 @@ public class Resident extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static ResidentStatus fromDescription(String description) {
+		public static ResidentStatus fromLocalisedDescription(String description) {
 			ResidentStatus result = null;
 
 			for (ResidentStatus value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -129,14 +144,6 @@ public class Resident extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				ResidentStatus[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (ResidentStatus value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -145,38 +152,47 @@ public class Resident extends AbstractPersistentBean {
 	 * Resident ID
 	 **/
 	private String residentID;
+
 	/**
 	 * Resident Name
 	 **/
 	private String residentName;
+
 	/**
 	 * Photo
 	 **/
 	private String photo;
+
 	/**
 	 * DOB
 	 **/
 	private DateOnly DOB;
+
 	/**
 	 * Room No.
 	 **/
 	private Integer roomNo;
+
 	/**
 	 * BIO
 	 **/
 	private String BIO;
+
 	/**
 	 * Admission Date
 	 **/
 	private DateOnly admissionDate;
+
 	/**
 	 * Facility Name
 	 **/
 	private Facility facilityName = null;
+
 	/**
 	 * Assessments
 	 **/
 	private List<Assessment> assessments = new ChangeTrackingArrayList<>("assessments", this);
+
 	/**
 	 * Resident Status
 	 **/
@@ -215,12 +231,6 @@ public class Resident extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Resident) && 
-					this.getBizId().equals(((Resident) o).getBizId()));
 	}
 
 	/**
@@ -289,9 +299,9 @@ public class Resident extends AbstractPersistentBean {
 	 * {@link #DOB} mutator.
 	 * @param DOB	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(DateOnlyMapper.class)
-	@XmlElement
 	public void setDOB(DateOnly DOB) {
 		preset(DOBPropertyName, DOB);
 		this.DOB = DOB;
@@ -345,9 +355,9 @@ public class Resident extends AbstractPersistentBean {
 	 * {@link #admissionDate} mutator.
 	 * @param admissionDate	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "date")
 	@XmlJavaTypeAdapter(DateOnlyMapper.class)
-	@XmlElement
 	public void setAdmissionDate(DateOnly admissionDate) {
 		preset(admissionDatePropertyName, admissionDate);
 		this.admissionDate = admissionDate;
@@ -406,7 +416,9 @@ public class Resident extends AbstractPersistentBean {
 	 **/
 	public boolean addAssessmentsElement(Assessment element) {
 		boolean result = assessments.add(element);
-		element.setParent(this);
+		if (result) {
+			element.setParent(this);
+		}
 		return result;
 	}
 
@@ -426,7 +438,9 @@ public class Resident extends AbstractPersistentBean {
 	 **/
 	public boolean removeAssessmentsElement(Assessment element) {
 		boolean result = assessments.remove(element);
-		element.setParent(null);
+		if (result) {
+			element.setParent(null);
+		}
 		return result;
 	}
 

@@ -1,11 +1,11 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import modules.admin.Communication.CommunicationExtension;
-import modules.admin.domain.Communication.FormatType;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.impl.domain.AbstractPersistentBean;
@@ -25,13 +25,13 @@ import org.skyve.impl.domain.AbstractPersistentBean;
 		Subscriptions are user-scoped - The assumption is that it is up to the user whether they wish to 
 		accept or decline receiving communications and in what manner they are delivered.
  * 
- * @depend - - - FormatType
  * @navhas n communication 1 Communication
  * @stereotype "persistent"
  */
 @XmlType
 @XmlRootElement
-public class Subscription extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public class Subscription extends AbstractPersistentBean implements org.skyve.domain.app.admin.Subscription {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -40,18 +40,19 @@ public class Subscription extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Subscription";
 
 	/** @hidden */
 	public static final String communicationPropertyName = "communication";
+
 	/** @hidden */
 	public static final String receiverIdentifierPropertyName = "receiverIdentifier";
+
 	/** @hidden */
 	public static final String declinedPropertyName = "declined";
-	/** @hidden */
-	@Deprecated
-	public static final String formatTypePropertyName = "formatType";
+
 	/** @hidden */
 	public static final String preferredReceiverIdentifierPropertyName = "preferredReceiverIdentifier";
 
@@ -59,23 +60,19 @@ public class Subscription extends AbstractPersistentBean {
 	 * Communication
 	 **/
 	private CommunicationExtension communication = null;
+
 	/**
 	 * Receiver
 	 * <br/>
 	 * This could be an email or sms number, or any other identifier for a delivery method
 	 **/
 	private String receiverIdentifier;
+
 	/**
 	 * Declined
 	 **/
 	private Boolean declined;
-	/**
-	 * Format
-	 * <br/>
-	 * This feature has been deprecated
-	 **/
-	@Deprecated
-	private FormatType formatType;
+
 	/**
 	 * Redirect to
 	 * <br/>
@@ -118,12 +115,6 @@ public class Subscription extends AbstractPersistentBean {
 		}
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Subscription) && 
-					this.getBizId().equals(((Subscription) o).getBizId()));
-	}
-
 	/**
 	 * {@link #communication} accessor.
 	 * @return	The value.
@@ -140,19 +131,8 @@ public class Subscription extends AbstractPersistentBean {
 	public void setCommunication(CommunicationExtension communication) {
 		if (this.communication != communication) {
 			preset(communicationPropertyName, communication);
-			CommunicationExtension oldCommunication = this.communication;
 			this.communication = communication;
-			if ((communication != null) && (communication.getSubscriptionsElementById(getBizId()) == null)) {
-				communication.getSubscriptions().add(this);
-			}
-			if (oldCommunication != null) {
-				oldCommunication.getSubscriptions().remove(this);
-			}
 		}
-	}
-
-	public void nullCommunication() {
-		this.communication = null;
 	}
 
 	/**
@@ -189,26 +169,6 @@ public class Subscription extends AbstractPersistentBean {
 	public void setDeclined(Boolean declined) {
 		preset(declinedPropertyName, declined);
 		this.declined = declined;
-	}
-
-	/**
-	 * {@link #formatType} accessor.
-	 * @return	The value.
-	 **/
-	@Deprecated
-	public FormatType getFormatType() {
-		return formatType;
-	}
-
-	/**
-	 * {@link #formatType} mutator.
-	 * @param formatType	The new value.
-	 **/
-	@Deprecated
-	@XmlElement
-	public void setFormatType(FormatType formatType) {
-		preset(formatTypePropertyName, formatType);
-		this.formatType = formatType;
 	}
 
 	/**

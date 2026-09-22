@@ -1,7 +1,5 @@
 package modules.admin.DataMaintenance.actions;
 
-import modules.admin.domain.DataMaintenance;
-
 import org.skyve.CORE;
 import org.skyve.EXT;
 import org.skyve.domain.messages.MessageSeverity;
@@ -13,18 +11,17 @@ import org.skyve.metadata.module.Module;
 import org.skyve.metadata.user.User;
 import org.skyve.web.WebContext;
 
-public class ReindexContent implements ServerSideAction<DataMaintenance> {
-	private static final long serialVersionUID = 5097885778562163441L;
+import modules.admin.domain.DataMaintenance;
 
+public class ReindexContent implements ServerSideAction<DataMaintenance> {
 	@Override
 	public ServerSideActionResult<DataMaintenance> execute(DataMaintenance bean, WebContext webContext)
 	throws Exception {
 		User u = CORE.getUser();
 		Customer c = u.getCustomer();
 		Module m = c.getModule(DataMaintenance.MODULE_NAME);
-		
 		JobMetaData job = m.getJob("jReindexAttachments");
-		EXT.runOneShotJob(job, bean, u);
+		EXT.getJobScheduler().runOneShotJob(job, bean, u);
 		webContext.growl(MessageSeverity.info, "Reindex Job has been started");
 		return new ServerSideActionResult<>(bean);
 	}

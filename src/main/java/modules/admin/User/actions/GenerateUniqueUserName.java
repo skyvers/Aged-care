@@ -2,8 +2,6 @@ package modules.admin.User.actions;
 
 import java.util.List;
 
-import modules.admin.domain.User;
-
 import org.skyve.CORE;
 import org.skyve.domain.messages.Message;
 import org.skyve.domain.messages.ValidationException;
@@ -14,12 +12,9 @@ import org.skyve.persistence.DocumentQuery.AggregateFunction;
 import org.skyve.persistence.Persistence;
 import org.skyve.web.WebContext;
 
-public class GenerateUniqueUserName implements ServerSideAction<User> {
-	/**
-	 * For Serialization.
-	 */
-	private static final long serialVersionUID = 3904239033808385824L;
+import modules.admin.domain.User;
 
+public class GenerateUniqueUserName implements ServerSideAction<User> {
 	@Override
 	public ServerSideActionResult<User> execute(User user, WebContext webContext) throws Exception {
 
@@ -54,23 +49,23 @@ public class GenerateUniqueUserName implements ServerSideAction<User> {
 
 			if (maxUName != null) {
 				// go backwards and find trailing numeric
-				Integer numericPart = new Integer(0);
+				Integer numericPart = Integer.valueOf(0);
 				for (int i = maxUName.length() - 1; i > 0; i--) {
 					try {
 						// see if last chars are numeric
-						numericPart = new Integer(Integer.parseInt(maxUName.substring(i, maxUName.length())));
-					} catch (Exception e) {
+						numericPart = Integer.valueOf(Integer.parseInt(maxUName.substring(i, maxUName.length())));
+					} catch (@SuppressWarnings("unused") Exception e) {
 						// break out when non-numeric found
 						break;
 					}
 				}
 
-				if (numericPart.equals(new Integer(0))) {
+				if (numericPart.equals(Integer.valueOf(0))) {
 					// no previous matches - just append a numeric
 					newUName = maxUName + "1";
 				} else {
 					// previous matches found - increment the numeric
-					newUName = maxUName.replace(numericPart.toString(), (new Integer(numericPart.intValue() + 1)).toString());
+					newUName = maxUName.replace(numericPart.toString(), (Integer.valueOf(numericPart.intValue() + 1)).toString());
 				}
 
 			}

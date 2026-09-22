@@ -1,9 +1,10 @@
 package modules.admin.domain;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import modules.admin.UserProxy.UserProxyExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
@@ -17,6 +18,7 @@ import org.skyve.impl.domain.AbstractPersistentBean;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public class Snapshot extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -26,19 +28,28 @@ public class Snapshot extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Snapshot";
 
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String queryNamePropertyName = "queryName";
+
 	/** @hidden */
 	public static final String namePropertyName = "name";
+
 	/** @hidden */
 	public static final String snapshotPropertyName = "snapshot";
+
+	/** @hidden */
+	public static final String ordinalPropertyName = "ordinal";
+
 	/** @hidden */
 	public static final String copyToUserPropertyName = "copyToUser";
+
 	/** @hidden */
 	public static final String copyToUserSnapshotNamePropertyName = "copyToUserSnapshotName";
 
@@ -46,22 +57,32 @@ public class Snapshot extends AbstractPersistentBean {
 	 * Module
 	 **/
 	private String moduleName;
+
 	/**
 	 * Query
 	 **/
 	private String queryName;
+
 	/**
 	 * Name
 	 **/
 	private String name;
+
 	/**
 	 * Snapshot Code
 	 **/
 	private String snapshot;
+
+	/**
+	 * Ordinal
+	 **/
+	private Integer ordinal;
+
 	/**
 	 * Copy to user
 	 **/
 	private UserProxyExtension copyToUser = null;
+
 	/**
 	 * Snapshot Name for Copy
 	 **/
@@ -100,12 +121,6 @@ public class Snapshot extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Snapshot) && 
-					this.getBizId().equals(((Snapshot) o).getBizId()));
 	}
 
 	/**
@@ -178,6 +193,24 @@ public class Snapshot extends AbstractPersistentBean {
 	public void setSnapshot(String snapshot) {
 		preset(snapshotPropertyName, snapshot);
 		this.snapshot = snapshot;
+	}
+
+	/**
+	 * {@link #ordinal} accessor.
+	 * @return	The value.
+	 **/
+	public Integer getOrdinal() {
+		return ordinal;
+	}
+
+	/**
+	 * {@link #ordinal} mutator.
+	 * @param ordinal	The new value.
+	 **/
+	@XmlElement
+	public void setOrdinal(Integer ordinal) {
+		preset(ordinalPropertyName, ordinal);
+		this.ordinal = ordinal;
 	}
 
 	/**

@@ -115,4 +115,8 @@ If not, we invite you to orient yourself now by briefly exploring these webpages
 
 Now lets move to the next step, how to create an application with [Skyve Foundry](https://Foundry.skyve.org/).
 
+## Local Docker Deployment
+
+Developers working from the source repository can build and run the application locally using Docker. See [Local Docker Deployment]({{ site.url }}{{ site.baseurl }}local-docker-deployment/) for instructions.
+
 Continue to [No-Code Development]({{ site.url }}{{ site.baseurl }}chapter2/)

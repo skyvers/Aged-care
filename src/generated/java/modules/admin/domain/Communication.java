@@ -1,22 +1,19 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlSchemaType;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import modules.admin.Communication.CommunicationExtension;
+import modules.admin.Tag.TagExtension;
 import org.skyve.CORE;
 import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.DateTime;
-import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.impl.domain.types.jaxb.DateTimeMapper;
-import org.skyve.metadata.model.document.Bizlet.DomainValue;
 
 /**
  * Communication
@@ -29,7 +26,8 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
-public abstract class Communication extends AbstractPersistentBean {
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+public abstract class Communication extends AbstractPersistentBean implements org.skyve.domain.app.admin.Communication {
 	/**
 	 * For Serialization
 	 * @hidden
@@ -38,256 +36,140 @@ public abstract class Communication extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Communication";
 
 	/** @hidden */
 	public static final String descriptionPropertyName = "description";
+
 	/** @hidden */
 	public static final String moduleNamePropertyName = "moduleName";
+
 	/** @hidden */
 	public static final String documentNamePropertyName = "documentName";
+
 	/** @hidden */
 	public static final String tagPropertyName = "tag";
+
 	/** @hidden */
 	public static final String toBindingPropertyName = "toBinding";
+
 	/** @hidden */
 	public static final String sendToPropertyName = "sendTo";
+
 	/** @hidden */
 	public static final String ccToPropertyName = "ccTo";
+
 	/** @hidden */
 	public static final String sendToOverridePropertyName = "sendToOverride";
+
 	/** @hidden */
 	public static final String ccToOverridePropertyName = "ccToOverride";
+
 	/** @hidden */
 	public static final String sendFromPropertyName = "sendFrom";
+
 	/** @hidden */
 	public static final String monitorBccPropertyName = "monitorBcc";
+
 	/** @hidden */
 	public static final String subjectPropertyName = "subject";
+
 	/** @hidden */
 	public static final String bodyPropertyName = "body";
+
 	/** @hidden */
 	public static final String resultsPropertyName = "results";
+
 	/** @hidden */
 	public static final String attachment1PropertyName = "attachment1";
+
 	/** @hidden */
 	public static final String attachmentFileName1PropertyName = "attachmentFileName1";
+
 	/** @hidden */
 	public static final String attachment2PropertyName = "attachment2";
+
 	/** @hidden */
 	public static final String attachmentFileName2PropertyName = "attachmentFileName2";
+
 	/** @hidden */
 	public static final String attachment3PropertyName = "attachment3";
+
 	/** @hidden */
 	public static final String attachmentFileName3PropertyName = "attachmentFileName3";
+
 	/** @hidden */
 	public static final String actionTypePropertyName = "actionType";
+
 	/** @hidden */
 	public static final String formatTypePropertyName = "formatType";
+
 	/** @hidden */
 	public static final String selectedBatchTimestampFolderNamePropertyName = "selectedBatchTimestampFolderName";
+
 	/** @hidden */
 	public static final String refreshBatchesPropertyName = "refreshBatches";
+
 	/** @hidden */
 	public static final String unTagSuccessfulPropertyName = "unTagSuccessful";
+
 	/** @hidden */
 	public static final String notificationPropertyName = "notification";
+
 	/** @hidden */
 	public static final String systemUsePropertyName = "systemUse";
+
 	/** @hidden */
 	public static final String unsubscribeUrlPropertyName = "unsubscribeUrl";
+
 	/** @hidden */
 	public static final String includeCalendarPropertyName = "includeCalendar";
+
 	/** @hidden */
 	public static final String calendarTitleExpressionPropertyName = "calendarTitleExpression";
+
 	/** @hidden */
 	public static final String calendarStartTimePropertyName = "calendarStartTime";
+
 	/** @hidden */
 	public static final String calendarEndTimePropertyName = "calendarEndTime";
+
 	/** @hidden */
 	public static final String calendarDescriptionExpressionPropertyName = "calendarDescriptionExpression";
+
 	/** @hidden */
 	public static final String mailImagePropertyName = "mailImage";
+
 	/** @hidden */
 	public static final String templatePropertyName = "template";
+
 	/** @hidden */
 	public static final String basePathPropertyName = "basePath";
+
 	/** @hidden */
 	public static final String batchPropertyName = "batch";
-	/** @hidden */
-	public static final String subscriptionsPropertyName = "subscriptions";
-
-	/**
-	 * Action
-	 **/
-	@XmlEnum
-	public static enum ActionType implements Enumeration {
-		saveForBulkSend("save", "Save for bulk send"),
-		sendImmediately("send", "Send Immediately"),
-		testBindingsAndOutput("test", "Test bindings and output");
-
-		private String code;
-		private String description;
-
-		/** @hidden */
-		private DomainValue domainValue;
-
-		/** @hidden */
-		private static List<DomainValue> domainValues;
-
-		private ActionType(String code, String description) {
-			this.code = code;
-			this.description = description;
-			this.domainValue = new DomainValue(code, description);
-		}
-
-		@Override
-		public String toCode() {
-			return code;
-		}
-
-		@Override
-		public String toDescription() {
-			return description;
-		}
-
-		@Override
-		public DomainValue toDomainValue() {
-			return domainValue;
-		}
-
-		public static ActionType fromCode(String code) {
-			ActionType result = null;
-
-			for (ActionType value : values()) {
-				if (value.code.equals(code)) {
-					result = value;
-					break;
-				}
-			}
-
-			return result;
-		}
-
-		public static ActionType fromDescription(String description) {
-			ActionType result = null;
-
-			for (ActionType value : values()) {
-				if (value.description.equals(description)) {
-					result = value;
-					break;
-				}
-			}
-
-			return result;
-		}
-
-		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				ActionType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (ActionType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
-			return domainValues;
-		}
-	}
-
-	/**
-	 * Format
-	 **/
-	@XmlEnum
-	public static enum FormatType implements Enumeration {
-		email("email", "email");
-
-		private String code;
-		private String description;
-
-		/** @hidden */
-		private DomainValue domainValue;
-
-		/** @hidden */
-		private static List<DomainValue> domainValues;
-
-		private FormatType(String code, String description) {
-			this.code = code;
-			this.description = description;
-			this.domainValue = new DomainValue(code, description);
-		}
-
-		@Override
-		public String toCode() {
-			return code;
-		}
-
-		@Override
-		public String toDescription() {
-			return description;
-		}
-
-		@Override
-		public DomainValue toDomainValue() {
-			return domainValue;
-		}
-
-		public static FormatType fromCode(String code) {
-			FormatType result = null;
-
-			for (FormatType value : values()) {
-				if (value.code.equals(code)) {
-					result = value;
-					break;
-				}
-			}
-
-			return result;
-		}
-
-		public static FormatType fromDescription(String description) {
-			FormatType result = null;
-
-			for (FormatType value : values()) {
-				if (value.description.equals(description)) {
-					result = value;
-					break;
-				}
-			}
-
-			return result;
-		}
-
-		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				FormatType[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (FormatType value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
-			return domainValues;
-		}
-	}
 
 	/**
 	 * Description
 	 **/
 	private String description;
+
 	/**
 	 * Module
 	 * <br/>
 	 * Bindings used in the communication address, subject and body will be based on the selected module document.
 	 **/
 	private String moduleName;
+
 	/**
 	 * Document
 	 * <br/>
 	 * Bindings used in the communication address, subject and body will be based on the selected module document.
 	 **/
 	private String documentName;
+
 	/**
 	 * Tag
 	 * <br/>
@@ -298,192 +180,224 @@ public abstract class Communication extends AbstractPersistentBean {
 			by normal user actions through the list functions</li></ul>
 			</p>
 	 **/
-	private Tag tag = null;
+	private TagExtension tag = null;
+
 	/**
 	 * Send to
 	 * <br/>
 	 * Provide a binding which contains the email address to send to
 	 **/
 	private String toBinding;
+
 	/**
 	 * To
 	 * <br/>
 	 * The address to send to.
 	 **/
 	private String sendTo;
+
 	/**
 	 * CC To
 	 * <br/>
 	 * The address to send to.
 	 **/
 	private String ccTo;
+
 	/**
 	 * To (expression)
 	 * <br/>
 	 * The address to send to. Bindings are allowed relative to the above module document.
 	 **/
 	private String sendToOverride;
+
 	/**
 	 * CC To (expression)
 	 * <br/>
 	 * The address to send to. Bindings are allowed relative to the above module document.
 	 **/
 	private String ccToOverride;
+
 	/**
 	 * From (expression)
 	 * <br/>
 	 * The address to send from. Bindings are allowed relative to the above module document.
 	 **/
 	private String sendFrom;
+
 	/**
 	 * BCC Me
 	 * <br/>
 	 * Monitor outgoing emails by including yourself in the Bcc
 	 **/
 	private Boolean monitorBcc;
+
 	/**
 	 * Subject (expression)
 	 * <br/>
 	 * The subject of the communication. Bindings are allowed relative to the above module document.
 	 **/
 	private String subject;
+
 	/**
 	 * Body (expression)
 	 * <br/>
-	 * The body of the communication.  
-			<p/>
-			Bindings are allowed relative to the above module document.
-			<p/>
-			To include images in the HTML, switch to the Source view, and embed the 64bit encoding from a site like 
-			http://www.freeformatter.com/base64-encoder.html
+	 * 
+		The body of the communication.  
+		<p/>
+		Bindings are allowed relative to the above module document.
+		<p/>
+		To include images in the HTML, switch to the Source view, and embed the 64bit encoding from a site like 
+		http://www.freeformatter.com/base64-encoder.html
 	 **/
 	private String body;
+
 	/**
 	 * Results
 	 **/
 	private String results;
+
 	/**
 	 * Attachment 1
 	 **/
 	private String attachment1;
+
 	/**
 	 * Attachment File Name
 	 * <br/>
 	 * The file name for the attachment as it will appear to receivers.
 	 **/
 	private String attachmentFileName1;
+
 	/**
 	 * Attachment 2
 	 **/
 	private String attachment2;
+
 	/**
 	 * Attachment File Name
 	 * <br/>
 	 * The file name for the attachment as it will appear to receivers.
 	 **/
 	private String attachmentFileName2;
+
 	/**
 	 * Attachment 3
 	 **/
 	private String attachment3;
+
 	/**
 	 * Attachment File Name
 	 * <br/>
 	 * The file name for the attachment as it will appear to receivers.
 	 **/
 	private String attachmentFileName3;
+
 	/**
 	 * Action
 	 **/
 	private ActionType actionType;
+
 	/**
 	 * Format
 	 **/
 	private FormatType formatType;
+
 	/**
 	 * Selected Batch Timestamp Folder Name
 	 **/
 	private String selectedBatchTimestampFolderName;
+
 	/**
 	 * Refresh Batches
 	 **/
-	private Boolean refreshBatches = new Boolean(true);
+	private Boolean refreshBatches = Boolean.valueOf(true);
+
 	/**
 	 * Untag successful documents
 	 **/
 	private Boolean unTagSuccessful;
+
 	/**
 	 * Notify when job is complete
 	 **/
 	private Boolean notification;
+
 	/**
 	 * Used for System communications
 	 * <br/>
 	 * System communications can not be deleted unless the system flag is cleared first.
 	 **/
 	private Boolean systemUse;
+
 	/**
-	 * UnsubscribeUrl
+	 * admin.commmunication.unsubscribe.displayName
 	 **/
 	private String unsubscribeUrl;
+
 	/**
 	 * Include Calendar Item
 	 * <br/>
-	 * <b>Include Calendar Item</b>:
-				<br/>
-				Includes links for Google, Yahoo and .ics attachment for Outlook and iCal calendar events.
-				<br/>
-				Check Options page for more.
+	 * 
+	<b>Include Calendar Item</b>:
+	<br/>
+	Includes links for Google, Yahoo and .ics attachment for Outlook and iCal calendar events.
+	<br/>
+	Check Options page for more.
+
 	 **/
 	private Boolean includeCalendar;
+
 	/**
 	 * Title (expression)
 	 * <br/>
 	 * Specify the title for the calendar item as a binding expression relative to the module document.
 	 **/
 	private String calendarTitleExpression;
+
 	/**
 	 * Start Time
 	 **/
 	private DateTime calendarStartTime;
+
 	/**
 	 * End Time
 	 **/
 	private DateTime calendarEndTime;
+
 	/**
 	 * Description (expression)
 	 * <br/>
-	 * <b>Description (expression)</b>
-			<br/>
-			Specify a description for the calendar item as a binding expression relative to the module document.
-			<br/>
-			NOTE: Google and Yahoo calendar links do not support multi-line descriptions.
+	 * 	<b>Description (expression)</b>
+	<br/>
+	Specify a description for the calendar item as a binding expression relative to the module document.
+	<br/>
+	NOTE: Google and Yahoo calendar links do not support multi-line 	descriptions.
 	 **/
 	private String calendarDescriptionExpression;
+
 	/**
 	 * Image
 	 **/
 	private String mailImage;
+
 	/**
 	 * Communication Template
 	 * <br/>
 	 * <em>Optional</em> Select a communication template to use for this communication.
 	 **/
 	private CommunicationTemplate template = null;
+
 	/**
 	 * File Path to batches for this communication
 	 **/
 	private String basePath;
+
 	/**
 	 * Batch
 	 * <br/>
 	 * The batch identifier for a current bulk creation for this communication (in the format yyyyMMddHHmmss)
 	 **/
 	private String batch;
-	/**
-	 * Subscriptions
-	 **/
-	private List<Subscription> subscriptions = new ArrayList<>();
 
 	@Override
 	@XmlTransient
@@ -518,12 +432,6 @@ public abstract class Communication extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Communication) && 
-					this.getBizId().equals(((Communication) o).getBizId()));
 	}
 
 	/**
@@ -584,7 +492,7 @@ public abstract class Communication extends AbstractPersistentBean {
 	 * {@link #tag} accessor.
 	 * @return	The value.
 	 **/
-	public Tag getTag() {
+	public TagExtension getTag() {
 		return tag;
 	}
 
@@ -593,7 +501,7 @@ public abstract class Communication extends AbstractPersistentBean {
 	 * @param tag	The new value.
 	 **/
 	@XmlElement
-	public void setTag(Tag tag) {
+	public void setTag(TagExtension tag) {
 		if (this.tag != tag) {
 			this.tag = tag;
 		}
@@ -1071,9 +979,9 @@ public abstract class Communication extends AbstractPersistentBean {
 	 * {@link #calendarStartTime} mutator.
 	 * @param calendarStartTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setCalendarStartTime(DateTime calendarStartTime) {
 		preset(calendarStartTimePropertyName, calendarStartTime);
 		this.calendarStartTime = calendarStartTime;
@@ -1091,9 +999,9 @@ public abstract class Communication extends AbstractPersistentBean {
 	 * {@link #calendarEndTime} mutator.
 	 * @param calendarEndTime	The new value.
 	 **/
+	@XmlElement
 	@XmlSchemaType(name = "dateTime")
 	@XmlJavaTypeAdapter(DateTimeMapper.class)
-	@XmlElement
 	public void setCalendarEndTime(DateTime calendarEndTime) {
 		preset(calendarEndTimePropertyName, calendarEndTime);
 		this.calendarEndTime = calendarEndTime;
@@ -1186,78 +1094,6 @@ public abstract class Communication extends AbstractPersistentBean {
 	@XmlElement
 	public void setBatch(String batch) {
 		this.batch = batch;
-	}
-
-	/**
-	 * {@link #subscriptions} accessor.
-	 * @return	The value.
-	 **/
-	@XmlElement
-	public List<Subscription> getSubscriptions() {
-		return subscriptions;
-	}
-
-	/**
-	 * {@link #subscriptions} accessor.
-	 * @param bizId	The bizId of the element in the list.
-	 * @return	The value of the element in the list.
-	 **/
-	public Subscription getSubscriptionsElementById(String bizId) {
-		return getElementById(subscriptions, bizId);
-	}
-
-	/**
-	 * {@link #subscriptions} mutator.
-	 * @param bizId	The bizId of the element in the list.
-	 * @param element	The new value of the element in the list.
-	 **/
-	public void setSubscriptionsElementById(String bizId, Subscription element) {
-		setElementById(subscriptions, element);
-	}
-
-	/**
-	 * {@link #subscriptions} add.
-	 * @param element	The element to add.
-	 **/
-	public boolean addSubscriptionsElement(Subscription element) {
-		boolean result = false;
-		if (getElementById(subscriptions, element.getBizId()) == null) {
-			result = subscriptions.add(element);
-		}
-		element.setCommunication((CommunicationExtension) this);
-		return result;
-	}
-
-	/**
-	 * {@link #subscriptions} add.
-	 * @param index	The index in the list to add the element to.
-	 * @param element	The element to add.
-	 **/
-	public void addSubscriptionsElement(int index, Subscription element) {
-		subscriptions.add(index, element);
-		element.setCommunication((CommunicationExtension) this);
-	}
-
-	/**
-	 * {@link #subscriptions} remove.
-	 * @param element	The element to remove.
-	 **/
-	public boolean removeSubscriptionsElement(Subscription element) {
-		boolean result = subscriptions.remove(element);
-		if (result) {
-			element.nullCommunication();
-		}
-		return result;
-	}
-
-	/**
-	 * {@link #subscriptions} remove.
-	 * @param index	The index in the list to remove the element from.
-	 **/
-	public Subscription removeSubscriptionsElement(int index) {
-		Subscription result = subscriptions.remove(index);
-		result.nullCommunication();
-		return result;
 	}
 
 	/**

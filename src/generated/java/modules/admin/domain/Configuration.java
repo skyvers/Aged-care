@@ -1,12 +1,14 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.Configuration.ConfigurationExtension;
 import modules.admin.Group.GroupExtension;
 import modules.admin.Startup.StartupExtension;
@@ -16,11 +18,13 @@ import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractPersistentBean;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Setup
  * 
  * @depend - - - PasswordComplexityModel
+ * @depend - - - TwoFactorType
  * @navhas n publicUser 0..1 UserProxy
  * @navhas n emailToContact 0..1 Contact
  * @navhas n startup 0..1 Startup
@@ -29,6 +33,7 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class Configuration extends AbstractPersistentBean {
 	/**
 	 * For Serialization
@@ -38,59 +43,104 @@ public abstract class Configuration extends AbstractPersistentBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "Configuration";
 
 	/** @hidden */
 	public static final String passwordMinLengthPropertyName = "passwordMinLength";
+
 	/** @hidden */
 	public static final String passwordRequireLowercasePropertyName = "passwordRequireLowercase";
+
 	/** @hidden */
 	public static final String passwordRequireUppercasePropertyName = "passwordRequireUppercase";
+
 	/** @hidden */
 	public static final String passwordRequireNumericPropertyName = "passwordRequireNumeric";
+
 	/** @hidden */
 	public static final String passwordRequireSpecialPropertyName = "passwordRequireSpecial";
+
 	/** @hidden */
 	public static final String passwordRuleDescriptionPropertyName = "passwordRuleDescription";
+
 	/** @hidden */
 	public static final String fromEmailPropertyName = "fromEmail";
+
 	/** @hidden */
 	public static final String passwordResetEmailSubjectPropertyName = "passwordResetEmailSubject";
+
 	/** @hidden */
 	public static final String passwordResetEmailBodyPropertyName = "passwordResetEmailBody";
+
 	/** @hidden */
 	public static final String userSelfRegistrationGroupPropertyName = "userSelfRegistrationGroup";
+
 	/** @hidden */
 	public static final String selfRegistrationActivationExpiryHoursPropertyName = "selfRegistrationActivationExpiryHours";
+
+	/** @hidden */
+	public static final String passwordResetTokenExpiryMinutesPropertyName = "passwordResetTokenExpiryMinutes";
+
 	/** @hidden */
 	@Deprecated
 	public static final String allowUserSelfRegistrationPropertyName = "allowUserSelfRegistration";
+
 	/** @hidden */
 	@Deprecated
 	public static final String passwordComplexityModelPropertyName = "passwordComplexityModel";
+
+	/** @hidden */
+	public static final String twoFactorTypePropertyName = "twoFactorType";
+
+	/** @hidden */
+	public static final String twofactorPushCodeTimeOutSecondsPropertyName = "twofactorPushCodeTimeOutSeconds";
+
+	/** @hidden */
+	public static final String twoFactorEmailSubjectPropertyName = "twoFactorEmailSubject";
+
+	/** @hidden */
+	public static final String twoFactorEmailBodyPropertyName = "twoFactorEmailBody";
+
 	/** @hidden */
 	public static final String publicUserPropertyName = "publicUser";
+
 	/** @hidden */
 	public static final String emailFromPropertyName = "emailFrom";
+
 	/** @hidden */
 	public static final String emailToPropertyName = "emailTo";
+
 	/** @hidden */
 	public static final String emailSubjectPropertyName = "emailSubject";
+
 	/** @hidden */
 	public static final String emailContentPropertyName = "emailContent";
+
 	/** @hidden */
 	public static final String passwordExpiryDaysPropertyName = "passwordExpiryDays";
+
 	/** @hidden */
 	public static final String passwordHistoryRetentionPropertyName = "passwordHistoryRetention";
+
 	/** @hidden */
 	public static final String passwordAccountLockoutThresholdPropertyName = "passwordAccountLockoutThreshold";
+
 	/** @hidden */
 	public static final String passwordAccountLockoutDurationPropertyName = "passwordAccountLockoutDuration";
+
 	/** @hidden */
 	public static final String emailToContactPropertyName = "emailToContact";
+
 	/** @hidden */
 	public static final String startupPropertyName = "startup";
+
+	/** @hidden */
+	public static final String availableDiskSpaceAlarmLevelPercentagePropertyName = "availableDiskSpaceAlarmLevelPercentage";
+
+	/** @hidden */
+	public static final String availableDiskSpaceAlarmLevelMBPropertyName = "availableDiskSpaceAlarmLevelMB";
 
 	/**
 	 * Password Complexity
@@ -101,6 +151,7 @@ public abstract class Configuration extends AbstractPersistentBean {
 				in a future version of Skyve. Here for backwards compatibility during Restore.
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum PasswordComplexityModel implements Enumeration {
 		minimumMin6Chars("MINIMUM", "Minimum - min 6 chars"),
 		mediumMin6CharsUpperLowerAndNumeric("MEDIUM", "Medium - min 6 chars, upper, lower and numeric"),
@@ -114,7 +165,7 @@ public abstract class Configuration extends AbstractPersistentBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(PasswordComplexityModel::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private PasswordComplexityModel(String code, String description) {
 			this.code = code;
@@ -128,8 +179,8 @@ public abstract class Configuration extends AbstractPersistentBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -150,11 +201,11 @@ public abstract class Configuration extends AbstractPersistentBean {
 			return result;
 		}
 
-		public static PasswordComplexityModel fromDescription(String description) {
+		public static PasswordComplexityModel fromLocalisedDescription(String description) {
 			PasswordComplexityModel result = null;
 
 			for (PasswordComplexityModel value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -164,85 +215,167 @@ public abstract class Configuration extends AbstractPersistentBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				PasswordComplexityModel[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (PasswordComplexityModel value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
 
 	/**
-	 * admin.configuration.passwordMinLength.displayName
+	 * Two Factor Type
 	 * <br/>
-	 * admin.configuration.passwordMinLength.description
+	 * The type of two factor authentication to be used for all users.
 	 **/
-	private Integer passwordMinLength = new Integer(10);
+	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
+	public static enum TwoFactorType implements Enumeration {
+		off("OFF", "Off"),
+		email("EMAIL", "Email");
+
+		private String code;
+		private String description;
+
+		/** @hidden */
+		private DomainValue domainValue;
+
+		/** @hidden */
+		private static List<DomainValue> domainValues = Stream.of(values()).map(TwoFactorType::toDomainValue).collect(Collectors.toUnmodifiableList());
+
+		private TwoFactorType(String code, String description) {
+			this.code = code;
+			this.description = description;
+			this.domainValue = new DomainValue(code, description);
+		}
+
+		@Override
+		public String toCode() {
+			return code;
+		}
+
+		@Override
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
+		}
+
+		@Override
+		public DomainValue toDomainValue() {
+			return domainValue;
+		}
+
+		public static TwoFactorType fromCode(String code) {
+			TwoFactorType result = null;
+
+			for (TwoFactorType value : values()) {
+				if (value.code.equals(code)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static TwoFactorType fromLocalisedDescription(String description) {
+			TwoFactorType result = null;
+
+			for (TwoFactorType value : values()) {
+				if (value.toLocalisedDescription().equals(description)) {
+					result = value;
+					break;
+				}
+			}
+
+			return result;
+		}
+
+		public static List<DomainValue> toDomainValues() {
+			return domainValues;
+		}
+	}
+
 	/**
-	 * admin.configuration.passwordRequireLowercase.displayName
+	 * Minimum Password Length
 	 * <br/>
-	 * admin.configuration.passwordRequireLowercase.description
+	 * The minimum number of characters for new passwords
 	 **/
-	private Boolean passwordRequireLowercase;
+	private Integer passwordMinLength = Integer.valueOf(12);
+
 	/**
-	 * admin.configuration.passwordRequireUppercase.displayName
+	 * Requires Lowercase
 	 * <br/>
-	 * admin.configuration.passwordRequireUppercase.description
+	 * If new passwords should require at least one lowercase character
 	 **/
-	private Boolean passwordRequireUppercase;
+	private Boolean passwordRequireLowercase = Boolean.valueOf(true);
+
 	/**
-	 * admin.configuration.passwordRequireNumeric.displayName
+	 * Requires Uppercase
 	 * <br/>
-	 * admin.configuration.passwordRequireNumeric.description
+	 * If new passwords should require at least one uppercase character
 	 **/
-	private Boolean passwordRequireNumeric;
+	private Boolean passwordRequireUppercase = Boolean.valueOf(true);
+
 	/**
-	 * admin.configuration.passwordRequireSpecial.displayName
+	 * Requires Numeric Characters
 	 * <br/>
-	 * admin.configuration.passwordRequireSpecial.description
+	 * If new passwords should require at least one numeric character
 	 **/
-	private Boolean passwordRequireSpecial;
+	private Boolean passwordRequireNumeric = Boolean.valueOf(true);
+
 	/**
-	 * admin.configuration.passwordRuleDescription
+	 * Requires Special Characters
+	 * <br/>
+	 * If new passwords should require at least one special character
+	 **/
+	private Boolean passwordRequireSpecial = Boolean.valueOf(false);
+
+	/**
+	 * Password Rule Description
 	 * <br/>
 	 * A text description which can be shown to the user if their password does not comply
 				with the system password complexity settings. This is a calculated field, see ConfigurationExtension.
 	 **/
 	private String passwordRuleDescription;
+
 	/**
-	 * admin.configuration.fromEmail.displayName
+	 * Sender/From Email Address
 	 * <br/>
-	 * admin.configuration.fromEmail.description
+	 * Email Address that all email's that the system sends will be sent from.
 	 **/
 	private String fromEmail;
+
 	/**
-	 * admin.configuration.passwordResetEmailSubject.displayName
+	 * Password Reset Email Subject
 	 * <br/>
-	 * admin.configuration.passwordResetEmailSubject.description
+	 * The subject of the password reset email to be sent to clients. Bindings are allowed relative to the User.
 	 **/
 	private String passwordResetEmailSubject;
+
 	/**
-	 * admin.configuration.passwordResetEmailBody.displayName
+	 * Password Reset Email Body
 	 * <br/>
-	 * admin.configuration.passwordResetEmailBody.description
+	 * The body of the password reset email to be sent to clients. Bindings are allowed relative to the User.
 	 **/
 	private String passwordResetEmailBody;
+
 	/**
-	 * admin.configuration.association.userSelfRegistrationGroup.displayName
+	 * User Self Registration Group
 	 * <br/>
-	 * admin.configuration.association.userSelfRegistrationGroup.description
+	 * Which group self-registering users will be assigned upon registration, which specifies the roles they will have access to. 
 	 **/
 	private GroupExtension userSelfRegistrationGroup = null;
+
 	/**
-	 * admin.configuration.selfRegistrationActivationExpiryHours.displayName
+	 * Number of hours to keep self-registration activation codes enabled
 	 * <br/>
-	 * admin.configuration.selfRegistrationActivationExpiryHours.description
+	 * Clear this setting to have codes that never expire.
 	 **/
 	private Integer selfRegistrationActivationExpiryHours;
+
+	/**
+	 * Password Reset Token Expiry (minutes)
+	 * <br/>
+	 * Clear this setting to have tokens that never expire.
+	 **/
+	private Integer passwordResetTokenExpiryMinutes = Integer.valueOf(15);
+
 	/**
 	 * This option is now a startup property found in the project JSON file.
 	 * <br/>
@@ -250,6 +383,7 @@ public abstract class Configuration extends AbstractPersistentBean {
 	 **/
 	@Deprecated
 	private Boolean allowUserSelfRegistration;
+
 	/**
 	 * Password Complexity
 	 * <br/>
@@ -260,68 +394,121 @@ public abstract class Configuration extends AbstractPersistentBean {
 	 **/
 	@Deprecated
 	private PasswordComplexityModel passwordComplexityModel;
+
 	/**
-	 * admin.configuration.association.publicUser.displayName
+	 * Two Factor Type
 	 * <br/>
-	 * admin.configuration.association.publicUser.description
+	 * The type of two factor authentication to be used for all users.
+	 **/
+	private TwoFactorType twoFactorType = TwoFactorType.off;
+
+	/**
+	 * Two Factor Code Timeout (seconds)
+	 * <br/>
+	 * The time out in seconds before a Skyve generated two factor code expires.
+	 **/
+	private Integer twofactorPushCodeTimeOutSeconds = Integer.valueOf(300);
+
+	/**
+	 * Two Factor Email Subject
+	 * <br/>
+	 * The subject of the two factor authentication email to be sent to clients.
+	 **/
+	private String twoFactorEmailSubject;
+
+	/**
+	 * Two Factor Email Body
+	 * <br/>
+	 * The body of the two factor authentication email to be sent to clients. Insert {tfaCode} where the TFA code should go.
+	 **/
+	private String twoFactorEmailBody;
+
+	/**
+	 * Anonymous Public User
+	 * <br/>
+	 * The anonymous public user asserted on all public pages.
 	 **/
 	private UserProxyExtension publicUser = null;
+
 	/**
-	 * admin.configuration.emailFrom.displayName
+	 * Email From
 	 **/
 	private String emailFrom;
+
 	/**
-	 * admin.configuration.emailTo.displayName
+	 * Email To
 	 **/
 	private String emailTo;
+
 	/**
-	 * admin.configuration.emailSubject.displayName
+	 * Email Subject
 	 **/
 	private String emailSubject;
+
 	/**
-	 * admin.configuration.emailContent.displayName
+	 * Email
 	 **/
 	private String emailContent;
+
 	/**
-	 * admin.configuration.passwordExpiryDays.displayName
+	 * Password Expiry in Days
 	 * <br/>
-	 * admin.configuration.passwordExpiryDays.description
+	 * Number of days until a password change is required. Blank indicates no password aging.
 	 * <br/>
 	 * Read from the application JSON file set at system startup.
 	 **/
 	private String passwordExpiryDays;
+
 	/**
-	 * admin.configuration.passwordHistoryRetention.displayName
+	 * Password History Retention
 	 * <br/>
-	 * admin.configuration.passwordHistoryRetention.description
+	 * Number of previous passwords to check for duplicates. Blank indicates no password history.
 	 * <br/>
 	 * Read from the application JSON file set at system startup.
 	 **/
 	private String passwordHistoryRetention;
+
 	/**
-	 * admin.configuration.passwordAccountLockoutThreshold.displayName
+	 * Account Lockout Threshold
 	 * <br/>
-	 * admin.configuration.passwordAccountLockoutThreshold.description
+	 * Number of sign in attempts until the user account is locked. Blank indicates no account lockout.
 	 * <br/>
 	 * Read from the application JSON file set at system startup.
 	 **/
 	private String passwordAccountLockoutThreshold;
+
 	/**
-	 * admin.configuration.passwordAccountLockoutDuration.displayName
+	 * Account Lockout Duration
 	 * <br/>
-	 * admin.configuration.passwordAccoutnLockoutDuration.description
+	 * Number of seconds per failed sign in attempt to lock the account for. This only applies if an account lockout is set.
 	 * <br/>
 	 * Read from the application JSON file set at system startup.
 	 **/
 	private String passwordAccountLockoutDuration;
+
 	/**
-	 * admin.configuration.association.emailToContact.displayName
+	 * Email To Contact
 	 **/
 	private Contact emailToContact = null;
+
 	/**
-	 * admin.configuration.association.startup.displayName
+	 * Startup
 	 **/
 	private StartupExtension startup = null;
+
+	/**
+	 * Available disk space alarm level as a percentage of total disk space
+	 * <br/>
+	 * When available disk space falls below either level, when the disk space check job is schedule, a notification will be sent to the support email address, (update the Disk Space Check Notification Communication to specify another receiver). If the job is configured without this value set, it will default to 10%.
+	 **/
+	private Integer availableDiskSpaceAlarmLevelPercentage;
+
+	/**
+	 * Available disk space alarm level in MB
+	 * <br/>
+	 * When available disk space falls below either level, when the disk space check job is schedule, a notification will be sent to the support email address, (update the Disk Space Check Notification Communication to specify another receiver). If the job is configured without this value set, it will default to 10%.
+	 **/
+	private Long availableDiskSpaceAlarmLevelMB;
 
 	@Override
 	@XmlTransient
@@ -356,12 +543,6 @@ public abstract class Configuration extends AbstractPersistentBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof Configuration) && 
-					this.getBizId().equals(((Configuration) o).getBizId()));
 	}
 
 	/**
@@ -564,6 +745,24 @@ public abstract class Configuration extends AbstractPersistentBean {
 	}
 
 	/**
+	 * {@link #passwordResetTokenExpiryMinutes} accessor.
+	 * @return	The value.
+	 **/
+	public Integer getPasswordResetTokenExpiryMinutes() {
+		return passwordResetTokenExpiryMinutes;
+	}
+
+	/**
+	 * {@link #passwordResetTokenExpiryMinutes} mutator.
+	 * @param passwordResetTokenExpiryMinutes	The new value.
+	 **/
+	@XmlElement
+	public void setPasswordResetTokenExpiryMinutes(Integer passwordResetTokenExpiryMinutes) {
+		preset(passwordResetTokenExpiryMinutesPropertyName, passwordResetTokenExpiryMinutes);
+		this.passwordResetTokenExpiryMinutes = passwordResetTokenExpiryMinutes;
+	}
+
+	/**
 	 * {@link #allowUserSelfRegistration} accessor.
 	 * @return	The value.
 	 **/
@@ -601,6 +800,78 @@ public abstract class Configuration extends AbstractPersistentBean {
 	public void setPasswordComplexityModel(PasswordComplexityModel passwordComplexityModel) {
 		preset(passwordComplexityModelPropertyName, passwordComplexityModel);
 		this.passwordComplexityModel = passwordComplexityModel;
+	}
+
+	/**
+	 * {@link #twoFactorType} accessor.
+	 * @return	The value.
+	 **/
+	public TwoFactorType getTwoFactorType() {
+		return twoFactorType;
+	}
+
+	/**
+	 * {@link #twoFactorType} mutator.
+	 * @param twoFactorType	The new value.
+	 **/
+	@XmlElement
+	public void setTwoFactorType(TwoFactorType twoFactorType) {
+		preset(twoFactorTypePropertyName, twoFactorType);
+		this.twoFactorType = twoFactorType;
+	}
+
+	/**
+	 * {@link #twofactorPushCodeTimeOutSeconds} accessor.
+	 * @return	The value.
+	 **/
+	public Integer getTwofactorPushCodeTimeOutSeconds() {
+		return twofactorPushCodeTimeOutSeconds;
+	}
+
+	/**
+	 * {@link #twofactorPushCodeTimeOutSeconds} mutator.
+	 * @param twofactorPushCodeTimeOutSeconds	The new value.
+	 **/
+	@XmlElement
+	public void setTwofactorPushCodeTimeOutSeconds(Integer twofactorPushCodeTimeOutSeconds) {
+		preset(twofactorPushCodeTimeOutSecondsPropertyName, twofactorPushCodeTimeOutSeconds);
+		this.twofactorPushCodeTimeOutSeconds = twofactorPushCodeTimeOutSeconds;
+	}
+
+	/**
+	 * {@link #twoFactorEmailSubject} accessor.
+	 * @return	The value.
+	 **/
+	public String getTwoFactorEmailSubject() {
+		return twoFactorEmailSubject;
+	}
+
+	/**
+	 * {@link #twoFactorEmailSubject} mutator.
+	 * @param twoFactorEmailSubject	The new value.
+	 **/
+	@XmlElement
+	public void setTwoFactorEmailSubject(String twoFactorEmailSubject) {
+		preset(twoFactorEmailSubjectPropertyName, twoFactorEmailSubject);
+		this.twoFactorEmailSubject = twoFactorEmailSubject;
+	}
+
+	/**
+	 * {@link #twoFactorEmailBody} accessor.
+	 * @return	The value.
+	 **/
+	public String getTwoFactorEmailBody() {
+		return twoFactorEmailBody;
+	}
+
+	/**
+	 * {@link #twoFactorEmailBody} mutator.
+	 * @param twoFactorEmailBody	The new value.
+	 **/
+	@XmlElement
+	public void setTwoFactorEmailBody(String twoFactorEmailBody) {
+		preset(twoFactorEmailBodyPropertyName, twoFactorEmailBody);
+		this.twoFactorEmailBody = twoFactorEmailBody;
 	}
 
 	/**
@@ -804,6 +1075,80 @@ public abstract class Configuration extends AbstractPersistentBean {
 	}
 
 	/**
+	 * {@link #availableDiskSpaceAlarmLevelPercentage} accessor.
+	 * @return	The value.
+	 **/
+	public Integer getAvailableDiskSpaceAlarmLevelPercentage() {
+		return availableDiskSpaceAlarmLevelPercentage;
+	}
+
+	/**
+	 * {@link #availableDiskSpaceAlarmLevelPercentage} mutator.
+	 * @param availableDiskSpaceAlarmLevelPercentage	The new value.
+	 **/
+	@XmlElement
+	public void setAvailableDiskSpaceAlarmLevelPercentage(Integer availableDiskSpaceAlarmLevelPercentage) {
+		preset(availableDiskSpaceAlarmLevelPercentagePropertyName, availableDiskSpaceAlarmLevelPercentage);
+		this.availableDiskSpaceAlarmLevelPercentage = availableDiskSpaceAlarmLevelPercentage;
+	}
+
+	/**
+	 * {@link #availableDiskSpaceAlarmLevelMB} accessor.
+	 * @return	The value.
+	 **/
+	public Long getAvailableDiskSpaceAlarmLevelMB() {
+		return availableDiskSpaceAlarmLevelMB;
+	}
+
+	/**
+	 * {@link #availableDiskSpaceAlarmLevelMB} mutator.
+	 * @param availableDiskSpaceAlarmLevelMB	The new value.
+	 **/
+	@XmlElement
+	public void setAvailableDiskSpaceAlarmLevelMB(Long availableDiskSpaceAlarmLevelMB) {
+		preset(availableDiskSpaceAlarmLevelMBPropertyName, availableDiskSpaceAlarmLevelMB);
+		this.availableDiskSpaceAlarmLevelMB = availableDiskSpaceAlarmLevelMB;
+	}
+
+	/**
+	 * availableDiskSpaceAlarmConfigured
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isAvailableDiskSpaceAlarmConfigured() {
+		return (modules.admin.Configuration.ConfigurationExtension.validAvailableDiskSpaceAlarmSchedule());
+	}
+
+	/**
+	 * {@link #isAvailableDiskSpaceAlarmConfigured} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotAvailableDiskSpaceAlarmConfigured() {
+		return (! isAvailableDiskSpaceAlarmConfigured());
+	}
+
+	/**
+	 * True when the selected backup type is Azure Blob Storage
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isBackupTypeAzure() {
+		return (getStartup() != null && getStartup().isBackupTypeAzure());
+	}
+
+	/**
+	 * {@link #isBackupTypeAzure} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotBackupTypeAzure() {
+		return (! isBackupTypeAzure());
+	}
+
+	/**
 	 * backupsConfigured
 	 *
 	 * @return The condition
@@ -820,6 +1165,25 @@ public abstract class Configuration extends AbstractPersistentBean {
 	 */
 	public boolean isNotBackupsConfigured() {
 		return (! isBackupsConfigured());
+	}
+
+	/**
+	 * True when the captcha type of startup is Cloudflare Turnstile
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isCloudflareTurnstile() {
+		return (getStartup().getCaptchaType() != null && modules.admin.domain.Startup.CaptchaType.cloudflareTurnstile == getStartup().getCaptchaType());
+	}
+
+	/**
+	 * {@link #isCloudflareTurnstile} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotCloudflareTurnstile() {
+		return (! isCloudflareTurnstile());
 	}
 
 	/**
@@ -842,6 +1206,63 @@ public abstract class Configuration extends AbstractPersistentBean {
 	}
 
 	/**
+	 * True when the captcha type of startup is Google Recaptcha
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isGoogleRecaptcha() {
+		return (getStartup().getCaptchaType() != null && modules.admin.domain.Startup.CaptchaType.googleRecaptcha == getStartup().getCaptchaType());
+	}
+
+	/**
+	 * {@link #isGoogleRecaptcha} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotGoogleRecaptcha() {
+		return (! isGoogleRecaptcha());
+	}
+
+	/**
+	 * True when an Geo IP key/token has been set
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isHasGeoIPKey() {
+		return (getStartup().getGeoIPKey() != null);
+	}
+
+	/**
+	 * {@link #isHasGeoIPKey} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotHasGeoIPKey() {
+		return (! isHasGeoIPKey());
+	}
+
+	/**
+	 * True when IP address checks are enabled in startup.
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isIpAddressChecksEnabled() {
+		return (getStartup().isIpAddressChecksEnabled());
+	}
+
+	/**
+	 * {@link #isIpAddressChecksEnabled} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotIpAddressChecksEnabled() {
+		return (! isIpAddressChecksEnabled());
+	}
+
+	/**
 	 * True when the selected startup map type is Google Maps
 	 *
 	 * @return The condition
@@ -861,6 +1282,46 @@ public abstract class Configuration extends AbstractPersistentBean {
 	}
 
 	/**
+	 * True when no captcha type is selected in startup
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isNoCaptcha() {
+		return (getStartup().getCaptchaType() == null);
+	}
+
+	/**
+	 * {@link #isNoCaptcha} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotNoCaptcha() {
+		return (! isNoCaptcha());
+	}
+
+	/**
+	 * selfRegistrationConfiguredEmailOrGroupNotConfigured
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isSelfRegistrationConfiguredEmailOrGroupNotConfigured() {
+		return ((startup != null) && 
+					startup.getAccountAllowUserSelfRegistration().equals(Boolean.TRUE) &&
+					((! modules.admin.Configuration.ConfigurationExtension.validSMTPHost()) || (userSelfRegistrationGroup == null)));
+	}
+
+	/**
+	 * {@link #isSelfRegistrationConfiguredEmailOrGroupNotConfigured} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotSelfRegistrationConfiguredEmailOrGroupNotConfigured() {
+		return (! isSelfRegistrationConfiguredEmailOrGroupNotConfigured());
+	}
+
+	/**
 	 * True when this application has a default customer specified (is single tenant)
 	 *
 	 * @return The condition
@@ -877,5 +1338,43 @@ public abstract class Configuration extends AbstractPersistentBean {
 	 */
 	public boolean isNotSingleTenant() {
 		return (! isSingleTenant());
+	}
+
+	/**
+	 * True when the customer has Two Factor Auth Email enabled
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isTfaEmailEnabled() {
+		return (org.skyve.impl.util.UtilImpl.TWO_FACTOR_AUTH_CUSTOMERS.contains(org.skyve.CORE.getCustomer().getName()));
+	}
+
+	/**
+	 * {@link #isTfaEmailEnabled} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotTfaEmailEnabled() {
+		return (! isTfaEmailEnabled());
+	}
+
+	/**
+	 * True when the user has selected Two Factor Auth Email type
+	 *
+	 * @return The condition
+	 */
+	@XmlTransient
+	public boolean isTfaEmailSelected() {
+		return (TwoFactorType.email == getTwoFactorType());
+	}
+
+	/**
+	 * {@link #isTfaEmailSelected} negation.
+	 *
+	 * @return The negated condition
+	 */
+	public boolean isNotTfaEmailSelected() {
+		return (! isTfaEmailSelected());
 	}
 }

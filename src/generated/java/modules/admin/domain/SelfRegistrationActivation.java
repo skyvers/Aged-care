@@ -1,12 +1,14 @@
 package modules.admin.domain;
 
-import java.util.ArrayList;
+import jakarta.annotation.Generated;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlEnum;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlTransient;
+import jakarta.xml.bind.annotation.XmlType;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import modules.admin.SelfRegistrationActivation.SelfRegistrationActivationExtension;
 import modules.admin.User.UserExtension;
 import org.skyve.CORE;
@@ -14,6 +16,7 @@ import org.skyve.domain.messages.DomainException;
 import org.skyve.domain.types.Enumeration;
 import org.skyve.impl.domain.AbstractTransientBean;
 import org.skyve.metadata.model.document.Bizlet.DomainValue;
+import org.skyve.util.Util;
 
 /**
  * Self Registration Activation
@@ -24,6 +27,7 @@ import org.skyve.metadata.model.document.Bizlet.DomainValue;
  */
 @XmlType
 @XmlRootElement
+@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 	/**
 	 * For Serialization
@@ -33,20 +37,39 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 
 	/** @hidden */
 	public static final String MODULE_NAME = "admin";
+
 	/** @hidden */
 	public static final String DOCUMENT_NAME = "SelfRegistrationActivation";
 
 	/** @hidden */
 	public static final String resultPropertyName = "result";
+
 	/** @hidden */
 	public static final String userPropertyName = "user";
+
 	/** @hidden */
 	public static final String loginUrlPropertyName = "loginUrl";
+
+	/** @hidden */
+	public static final String pleaseSignInPropertyName = "pleaseSignIn";
+
+	/** @hidden */
+	public static final String signInLinkPropertyName = "signInLink";
+
+	/** @hidden */
+	public static final String alreadyActivatedPropertyName = "alreadyActivated";
+
+	/** @hidden */
+	public static final String noLongerValidPropertyName = "noLongerValid";
+
+	/** @hidden */
+	public static final String notRecognisedPropertyName = "notRecognised";
 
 	/**
 	 * Activation Result
 	 **/
 	@XmlEnum
+	@Generated(value = "org.skyve.impl.generate.OverridableDomainGenerator")
 	public static enum Result implements Enumeration {
 		SUCCESS("SUCCESS", "SUCCESS"),
 		ALREADYACTIVATED("ALREADY_ACTIVATED", "ALREADY_ACTIVATED"),
@@ -60,7 +83,7 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 		private DomainValue domainValue;
 
 		/** @hidden */
-		private static List<DomainValue> domainValues;
+		private static List<DomainValue> domainValues = Stream.of(values()).map(Result::toDomainValue).collect(Collectors.toUnmodifiableList());
 
 		private Result(String code, String description) {
 			this.code = code;
@@ -74,8 +97,8 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 		}
 
 		@Override
-		public String toDescription() {
-			return description;
+		public String toLocalisedDescription() {
+			return Util.i18n(description);
 		}
 
 		@Override
@@ -96,11 +119,11 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 			return result;
 		}
 
-		public static Result fromDescription(String description) {
+		public static Result fromLocalisedDescription(String description) {
 			Result result = null;
 
 			for (Result value : values()) {
-				if (value.description.equals(description)) {
+				if (value.toLocalisedDescription().equals(description)) {
 					result = value;
 					break;
 				}
@@ -110,14 +133,6 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 		}
 
 		public static List<DomainValue> toDomainValues() {
-			if (domainValues == null) {
-				Result[] values = values();
-				domainValues = new ArrayList<>(values.length);
-				for (Result value : values) {
-					domainValues.add(value.domainValue);
-				}
-			}
-
 			return domainValues;
 		}
 	}
@@ -126,16 +141,53 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 	 * Activation Result
 	 **/
 	private Result result;
+
 	/**
 	 * User
 	 * <br/>
 	 * The activated user.
 	 **/
 	private UserExtension user = null;
+
 	/**
 	 * Login Url
 	 **/
 	private String loginUrl;
+
+	/**
+	 * Please sign in message
+	 * <br/>
+	 * <p>Congratulations {0}! Your account is now active.</p><p>Please <a href="{1}">Sign in</a> with the email address {2}.</p>
+	 **/
+	private String pleaseSignIn;
+
+	/**
+	 * Sign in link
+	 * <br/>
+	 * <a href="{0}">Sign in</a>
+	 **/
+	private String signInLink;
+
+	/**
+	 * Account already activated
+	 * <br/>
+	 * <p>Welcome {0} - you have already activated your account.</p><p>Please <a href="{1}">Sign in</a>.</p>
+	 **/
+	private String alreadyActivated;
+
+	/**
+	 * No longer valid
+	 * <br/>
+	 * <p>Sorry, that code is no longer valid.</p><p>Please <a href="{0}">Sign in</a> or Register again to request a new activation email.</p>
+	 **/
+	private String noLongerValid;
+
+	/**
+	 * Not recognised
+	 * <br/>
+	 * <p>Sorry, that link is not recognised. Please check the link and try again.</p><p>Return to <a href="{0}">Sign in</a>.</p>
+	 **/
+	private String notRecognised;
 
 	@Override
 	@XmlTransient
@@ -170,12 +222,6 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 		catch (@SuppressWarnings("unused") Exception e) {
 			return "Unknown";
 		}
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return ((o instanceof SelfRegistrationActivation) && 
-					this.getBizId().equals(((SelfRegistrationActivation) o).getBizId()));
 	}
 
 	/**
@@ -231,6 +277,96 @@ public abstract class SelfRegistrationActivation extends AbstractTransientBean {
 	@XmlElement
 	public void setLoginUrl(String loginUrl) {
 		this.loginUrl = loginUrl;
+	}
+
+	/**
+	 * {@link #pleaseSignIn} accessor.
+	 * @return	The value.
+	 **/
+	public String getPleaseSignIn() {
+		return pleaseSignIn;
+	}
+
+	/**
+	 * {@link #pleaseSignIn} mutator.
+	 * @param pleaseSignIn	The new value.
+	 **/
+	@XmlElement
+	public void setPleaseSignIn(String pleaseSignIn) {
+		preset(pleaseSignInPropertyName, pleaseSignIn);
+		this.pleaseSignIn = pleaseSignIn;
+	}
+
+	/**
+	 * {@link #signInLink} accessor.
+	 * @return	The value.
+	 **/
+	public String getSignInLink() {
+		return signInLink;
+	}
+
+	/**
+	 * {@link #signInLink} mutator.
+	 * @param signInLink	The new value.
+	 **/
+	@XmlElement
+	public void setSignInLink(String signInLink) {
+		preset(signInLinkPropertyName, signInLink);
+		this.signInLink = signInLink;
+	}
+
+	/**
+	 * {@link #alreadyActivated} accessor.
+	 * @return	The value.
+	 **/
+	public String getAlreadyActivated() {
+		return alreadyActivated;
+	}
+
+	/**
+	 * {@link #alreadyActivated} mutator.
+	 * @param alreadyActivated	The new value.
+	 **/
+	@XmlElement
+	public void setAlreadyActivated(String alreadyActivated) {
+		preset(alreadyActivatedPropertyName, alreadyActivated);
+		this.alreadyActivated = alreadyActivated;
+	}
+
+	/**
+	 * {@link #noLongerValid} accessor.
+	 * @return	The value.
+	 **/
+	public String getNoLongerValid() {
+		return noLongerValid;
+	}
+
+	/**
+	 * {@link #noLongerValid} mutator.
+	 * @param noLongerValid	The new value.
+	 **/
+	@XmlElement
+	public void setNoLongerValid(String noLongerValid) {
+		preset(noLongerValidPropertyName, noLongerValid);
+		this.noLongerValid = noLongerValid;
+	}
+
+	/**
+	 * {@link #notRecognised} accessor.
+	 * @return	The value.
+	 **/
+	public String getNotRecognised() {
+		return notRecognised;
+	}
+
+	/**
+	 * {@link #notRecognised} mutator.
+	 * @param notRecognised	The new value.
+	 **/
+	@XmlElement
+	public void setNotRecognised(String notRecognised) {
+		preset(notRecognisedPropertyName, notRecognised);
+		this.notRecognised = notRecognised;
 	}
 
 	/**

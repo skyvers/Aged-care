@@ -1,6 +1,7 @@
-<?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>skyve</groupId>
@@ -14,13 +15,17 @@
 	<properties>
 		<finalName>${project.artifactId}</finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<skyve.version>6.0.2</skyve.version>
+		<skyve.version>9.4.3</skyve.version>
 		<build.number>${project.version}</build.number>
 		<forkCount>2</forkCount>
 		<maven.javadoc.skip>true</maven.javadoc.skip>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<skipUnitTests>false</skipUnitTests>
 		<skipIntegrationTests>true</skipIntegrationTests>
+		<expressly.version>5.0.0</expressly.version>
+		<junit-jupiter.version>5.10.2</junit-jupiter.version>
+		<mockito.version>4.2.0</mockito.version>
+		<spring.version>6.1.14</spring.version>
+		<weld.version>5.1.2.Final</weld.version>
 	</properties>
 
 	<repositories>
@@ -38,15 +43,7 @@
 		</repository>
 		<repository>
 			<id>Prime Faces</id>
-			<url>http://repository.primefaces.org/</url>
-		</repository>
-		<repository>
-			<id>osgeo</id>
-			<url>http://download.osgeo.org/webdav/geotools/</url>
-		</repository>
-		<repository>
-			<id>boundlessgeo</id>
-			<url>https://repo.osgeo.org/repository/release/</url>
+			<url>https://repository.primefaces.org/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -63,27 +60,27 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.6.0</version>
+					<version>3.11.0</version>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<source>17</source>
+						<target>17</target>
 					</configuration>
 				</plugin>
 				<plugin>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>3.0.0</version>
+					<version>3.4.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>exec-maven-plugin</artifactId>
-					<version>1.5.0</version>
+					<version>3.1.0</version>
 				</plugin>
 				<plugin>
 					<groupId>nl.geodienstencentrum.maven</groupId>
 					<artifactId>sass-maven-plugin</artifactId>
-					<version>3.5.5</version>
+					<version>3.7.2</version>
 				</plugin>
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -91,6 +88,25 @@
 					<configuration>
 						<lifecycleMappingMetadata>
 							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.maven.plugins
+										</groupId>
+										<artifactId>
+											maven-dependency-plugin
+										</artifactId>
+										<versionRange>
+											[3.1.2,)
+										</versionRange>
+										<goals>
+											<goal>copy</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
 								<pluginExecution>
 									<pluginExecutionFilter>
 										<groupId>
@@ -107,7 +123,7 @@
 										</goals>
 									</pluginExecutionFilter>
 									<action>
-										<ignore></ignore>
+										<ignore />
 									</action>
 								</pluginExecution>
 							</pluginExecutions>
@@ -121,14 +137,7 @@
 			<plugin>
 				<groupId>org.skyve</groupId>
 				<artifactId>skyve-maven-plugin</artifactId>
-				<version>1.28</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.skyve</groupId>
-						<artifactId>skyve-core</artifactId>
-						<version>${skyve.version}</version>
-					</dependency>
-				</dependencies>
+				<version>${skyve.version}</version>
 				<configuration>
 					<skyveDir>../skyve</skyveDir>
 					<customer>skyve</customer>
@@ -152,9 +161,26 @@
 						<configuration>
 							<mainClass>org.skyve.impl.tools.javadoc.doctor.DoctorUtil</mainClass>
 							<arguments>
-								<argument>src/main/java/</argument> <!-- source path -->
-								<argument>skyve</argument> <!-- customerName -->
-								<!-- list all modules as arguments here -->
+								<argument>src/main/java/</argument>
+								<argument>skyve</argument>
+								<argument>admin</argument>
+							</arguments>
+							<includePluginDependencies>true</includePluginDependencies>
+						</configuration>
+					</execution>
+					<execution>
+						<!-- Generate javadoc package HTMLs: mvn exec:java@generate-javadoc-package-htmls -->
+						<id>generate-javadoc-package-htmls</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>org.skyve.impl.tools.javadoc.doctor.DoctorUtil</mainClass>
+							<skip>${maven.javadoc.skip}</skip>
+							<arguments>
+								<argument>src/generated/java/</argument>
+								<argument>skyve</argument>
 								<argument>admin</argument>
 							</arguments>
 							<includePluginDependencies>true</includePluginDependencies>
@@ -172,20 +198,25 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.22.0</version>
+				<version>3.1.2</version>
 				<configuration>
+					<excludes>
+						<exclude>**/*IT</exclude>
+					</excludes>
 					<skipTests>${skipUnitTests}</skipTests>
+					<rerunFailingTestsCount>2</rerunFailingTestsCount>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.19.1</version>
+				<version>3.1.2</version>
 				<executions>
 					<execution>
 						<id>integration-tests</id>
 						<goals>
 							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -196,7 +227,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.7</version>
+				<version>3.1.1</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
@@ -204,7 +235,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-install-plugin</artifactId>
-				<version>2.4</version>
+				<version>3.1.1</version>
 				<configuration>
 					<skip>true</skip>
 				</configuration>
@@ -212,7 +243,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.3.0</version>
 				<configuration>
 					<skipSource>true</skipSource>
 				</configuration>
@@ -225,7 +256,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.3.1</version>
 				<configuration>
 					<filesets>
 						<fileset>
@@ -257,14 +288,14 @@
 								<include>topbar.xhtml</include>
 							</includes>
 						</webResource>
-                        <webResource>
-                            <directory>src/main/webapp/WEB-INF/pages/templates/ultima</directory>
-                            <targetPath>WEB-INF/pages/templates/ultima</targetPath>
-                            <filtering>true</filtering>
-                            <includes>
-                                <include>template.xhtml</include>
-                            </includes>
-                        </webResource>
+						<webResource>
+							<directory>src/main/webapp/WEB-INF/pages/templates/ultima</directory>
+							<targetPath>WEB-INF/pages/templates/ultima</targetPath>
+							<filtering>true</filtering>
+							<includes>
+								<include>template.xhtml</include>
+							</includes>
+						</webResource>
 					</webResources>
 				</configuration>
 				<executions>
@@ -279,7 +310,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>build-helper-maven-plugin</artifactId>
-				<version>1.7</version>
+				<version>3.4.0</version>
 				<executions>
 					<execution>
 						<id>add-source</id>
@@ -311,56 +342,33 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.0.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.apache.maven.scm</groupId>
-						<artifactId>maven-scm-provider-gitexe</artifactId>
-						<version>1.9.5</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
+				<version>3.7.0</version>
 				<executions>
 					<execution>
-						<!-- Generate javadoc package HTMLs: mvn exec:java@generate-javadoc-package-htmls -->
-						<id>generate-javadoc-package-htmls</id>
-						<phase>generate-sources</phase>
+						<id>copy-content-addin-dependency</id>
+						<phase>compile</phase>
 						<goals>
-							<goal>java</goal>
+							<goal>copy</goal>
 						</goals>
 						<configuration>
-							<mainClass>org.skyve.impl.tools.javadoc.doctor.DoctorUtil</mainClass>
-							<skip>${maven.javadoc.skip}</skip>
-							<arguments>
-								<argument>src/generated/java/</argument> <!-- source path -->
-								<argument>skyve</argument>            <!-- customerName -->
-								<!-- list all modules as arguments here -->
-								<argument>admin</argument>
-							</arguments>
-							<includePluginDependencies>true</includePluginDependencies>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.skyve</groupId>
+									<artifactId>skyve-content</artifactId>
+									<type>zip</type>
+									<version>${skyve.version}</version>
+									<outputDirectory>target</outputDirectory>
+									<destFileName>skyve-content-${skyve.version}.zip</destFileName>
+								</artifactItem>
+							</artifactItems>
 						</configuration>
 					</execution>
 				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>org.skyve</groupId>
-						<artifactId>skyve-tools</artifactId>
-						<version>${skyve.version}</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.1</version>
+				<version>3.5.0</version>
 				<configuration>
 					<skip>${maven.javadoc.skip}</skip>
 					<show>private</show>
@@ -375,7 +383,6 @@
 					<additionalOptions><additionalOption>-hide org.skyve.*|java.*|org.skyve.impl.* -link http://docs.oracle.com/javase/1.5.0/docs/guide/javadoc/doclet/spec/ -link http://docs.oracle.com/javase/8/docs/api/</additionalOption></additionalOptions>
 				</configuration>
 			</plugin>
-			
 		</plugins>
 
 		<resources>
@@ -410,15 +417,10 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>org.skyve</groupId>
-			<artifactId>skyve-ee</artifactId>
+			<artifactId>skyve-web</artifactId>
 			<version>${skyve.version}</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<dependency>
@@ -427,46 +429,71 @@
 			<version>1.4</version>
 		</dependency>
 
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.3.173</version>
-		</dependency>
-		<dependency>
-			<groupId>com.atlassian.commonmark</groupId>
-			<artifactId>commonmark</artifactId>
-			<version>0.10.0</version>
-		</dependency>
-
 		<!-- Test dependencies -->
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
+			<version>${junit-jupiter.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>${mockito.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>2.0.17</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
-			<artifactId>weld-se</artifactId>
-			<version>2.4.4.Final</version>
+			<artifactId>weld-se-core</artifactId>
+			<version>${weld.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.seleniumhq.selenium</groupId>
-			<artifactId>selenium-support</artifactId>
-			<version>3.141.59</version>
+			<groupId>org.glassfish</groupId>
+			<artifactId>jakarta.faces</artifactId>
+			<version>4.0.11</version>
 			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>net.bytebuddy</groupId>
-					<artifactId>byte-buddy</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>23.0</version>
+			<groupId>org.eclipse.angus</groupId>
+			<artifactId>jakarta.mail</artifactId>
+			<version>2.0.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.expressly</groupId>
+			<artifactId>expressly</artifactId>
+			<version>${expressly.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.codeborne</groupId>
+			<artifactId>selenide</artifactId>
+			<version>7.9.1</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

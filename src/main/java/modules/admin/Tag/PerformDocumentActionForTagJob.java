@@ -16,20 +16,17 @@ import org.skyve.metadata.controller.ServerSideActionResult;
 import org.skyve.metadata.customer.Customer;
 import org.skyve.metadata.model.document.Document;
 import org.skyve.metadata.module.Module;
-import org.skyve.metadata.repository.Repository;
 import org.skyve.metadata.user.User;
 import org.skyve.persistence.Persistence;
+import org.skyve.tag.TagManager;
 import org.skyve.util.BeanValidator;
+import org.skyve.util.CommunicationUtil;
+import org.skyve.util.CommunicationUtil.ResponseMode;
 import org.skyve.util.PushMessage;
 
-import modules.admin.Communication.CommunicationUtil;
-import modules.admin.Communication.CommunicationUtil.ResponseMode;
 import modules.admin.domain.DataMaintenance.EvictOption;
-import modules.admin.domain.Tag;
 
 public class PerformDocumentActionForTagJob extends Job {
-	private static final long serialVersionUID = 6282346785863992703L;
-
 	@Override
 	public String cancel() {
 		return null;
@@ -40,7 +37,7 @@ public class PerformDocumentActionForTagJob extends Job {
 
 		List<String> log = getLog();
 
-		Tag tag = (Tag) getBean();
+		TagExtension tag = (TagExtension) getBean();
 		log.add("Started Document Action for Tagged Items Job at " + new Date());
 
 		if (tag.getDocumentAction() != null) {
@@ -53,15 +50,13 @@ public class PerformDocumentActionForTagJob extends Job {
 			Document document = module.getDocument(customer, tag.getActionDocumentName());
 
 			// get action from actionname
-			Repository rep = CORE.getRepository();
-
 			ServerSideAction<Bean> act = null;
 			EvictOption evict = tag.getEvictOption();
 			
 
 			// retrieve action for non-default actions only
 			if (!TagDefaultAction.isDefaultTagAction(tag.getDocumentAction())) {
-				act = rep.getServerSideAction(customer, document, tag.getDocumentAction(), true);
+				act = document.getServerSideAction(customer, tag.getDocumentAction(), true);
 			}
 
 			List<Bean> beans = TagBizlet.getTaggedItemsForDocument(tag, tag.getActionModuleName(), tag.getActionDocumentName());
@@ -69,6 +64,7 @@ public class PerformDocumentActionForTagJob extends Job {
 			int size = beans.size();
 			int processed = 0;
 			Iterator<Bean> it = beans.iterator();
+			TagManager tm = EXT.getTagManager();
 			while (it.hasNext()) {
 				PersistentBean pb = (PersistentBean) it.next();
 
@@ -96,14 +92,10 @@ public class PerformDocumentActionForTagJob extends Job {
 								pb = (PersistentBean) result.getBean();
 							}
 						}
-						// remove successfully validated beans
-						if (Boolean.TRUE.equals(tag.getUnTagSuccessful())) {
-							EXT.untag(tag.getBizId(), pb);
-						}
-
+						
 						if (TagDefaultAction.tagDelete.equals(TagDefaultAction.fromCode(tag.getDocumentAction()))) {
 							// remove from tag and delete
-							EXT.untag(tag.getBizId(), pb);
+							tm.untag(tag.getBizId(), pb);
 							pers.delete(pb);
 						} else if (TagDefaultAction.tagValidate.equals(TagDefaultAction.fromCode(tag.getDocumentAction()))) {
 							BeanValidator.validateBeanAgainstDocument(document, pb);
@@ -111,6 +103,11 @@ public class PerformDocumentActionForTagJob extends Job {
 							pers.upsertBeanTuple(pb);
 						} else {
 							pers.save(pb);
+						}
+						
+						// untag successfully processed beans
+						if (Boolean.TRUE.equals(tag.getUnTagSuccessful())) {
+							tm.untag(tag.getBizId(), pb);
 						}
 						
 						pers.commit(false);

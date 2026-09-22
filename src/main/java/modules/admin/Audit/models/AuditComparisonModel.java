@@ -4,14 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import modules.admin.domain.Audit;
-import modules.admin.domain.Audit.Operation;
-
 import org.skyve.CORE;
 import org.skyve.domain.Bean;
+import org.skyve.domain.types.converters.Converter;
 import org.skyve.impl.bind.BindUtil;
 import org.skyve.impl.metadata.model.document.field.Enumeration;
-import org.skyve.impl.metadata.repository.AbstractRepository;
 import org.skyve.impl.metadata.view.widget.bound.input.TextField;
 import org.skyve.metadata.MetaDataException;
 import org.skyve.metadata.customer.Customer;
@@ -26,12 +23,13 @@ import org.skyve.metadata.view.model.comparison.ComparisonModel;
 import org.skyve.metadata.view.model.comparison.ComparisonProperty;
 import org.skyve.persistence.Persistence;
 import org.skyve.util.Binder;
-import org.skyve.util.JSON;
 import org.skyve.util.Binder.TargetMetaData;
+import org.skyve.util.JSON;
+
+import modules.admin.domain.Audit;
+import modules.admin.domain.Audit.Operation;
 
 public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
-	private static final long serialVersionUID = 5964879680504956032L;
-
 	@Override
 	public ComparisonComposite getComparisonComposite(Audit me) throws Exception {
 		Audit sourceVersion = me.getSourceVersion();
@@ -46,7 +44,7 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 			am = c.getModule(sourceVersion.getAuditModuleName());
 			ad = am.getDocument(c, sourceVersion.getAuditDocumentName());
 		}
-		catch (Exception e) {
+		catch (@SuppressWarnings("unused") Exception e) {
 			// either the module or document is now inaccessible or no longer exists
 		}
 		
@@ -75,7 +73,7 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 						referenceDocument = (reference == null) ? null : targetModule.getDocument(c, reference.getDocumentName());
 					}
 				}
-				catch (MetaDataException e) {
+				catch (@SuppressWarnings("unused") MetaDataException e) {
 					// couldn't resolve the binding; we'll continue on but it'll just be a node with the attribute names as audited
 				}
 				bindingToNodes.put(binding, createNode(c, reference, referenceDocument, sourceValues, deleted));
@@ -101,15 +99,23 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 				}
 				else {
 					if (node == null) {
-						TargetMetaData target = null;
 						try {
-							target = Binder.getMetaDataForBinding(c, am, ad, binding);
-							Reference reference = (Reference) target.getAttribute();
-							Module targetModule = c.getModule(target.getDocument().getOwningModuleName());
-							Document referenceDocument = (am == null) ? null : targetModule.getDocument(c, reference.getDocumentName());
-							bindingToNodes.put(binding, createNode(c, reference, referenceDocument, compareValues, true));
+							if ((am != null) && (ad != null)) {
+								TargetMetaData target = Binder.getMetaDataForBinding(c, am, ad, binding);
+								Reference reference = (Reference) target.getAttribute();
+								if (reference == null) {
+									throw new MetaDataException("Can't create a new Audit node as binding " + binding + 
+																	" does not point to a reference.");
+								}
+								Module targetModule = c.getModule(target.getDocument().getOwningModuleName());
+								Document referenceDocument = targetModule.getDocument(c, reference.getDocumentName());
+								bindingToNodes.put(binding, createNode(c, reference, referenceDocument, compareValues, true));
+							}
+							else {
+								bindingToNodes.put(binding, createNode(c, null, null, compareValues, true));
+							}
 						}
-						catch (MetaDataException e) {
+						catch (@SuppressWarnings("unused") MetaDataException e) {
 							bindingToNodes.put(binding, createNode(c, null, null, compareValues, true));
 						}
 					}
@@ -154,17 +160,17 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 		result.setBizId((String) values.remove(Bean.DOCUMENT_ID));
 		String description = (String) values.remove(Bean.BIZ_KEY);
 		if (description == null) {
-			description = (referenceDocument == null) ? "" : referenceDocument.getSingularAlias();
+			description = (referenceDocument == null) ? "" : referenceDocument.getLocalisedSingularAlias();
 		}
 		result.setBusinessKeyDescription(description);
 
 		if (owningReference == null) {
 			result.setReferenceName(null);
-			result.setRelationshipDescription((referenceDocument == null) ? "" : referenceDocument.getSingularAlias());
+			result.setRelationshipDescription((referenceDocument == null) ? "" : referenceDocument.getLocalisedSingularAlias());
 		}
 		else {
 			result.setReferenceName(owningReference.getName());
-			result.setRelationshipDescription(owningReference.getDisplayName());
+			result.setRelationshipDescription(owningReference.getLocalisedDisplayName());
 		}
 		result.setMutation(deleted ? Mutation.deleted:  Mutation.added);
 		result.setDocument(referenceDocument);
@@ -194,9 +200,9 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 				Module nodeModule = c.getModule(nodeDocument.getOwningModuleName());
 				try {
 					TargetMetaData tmd = Binder.getMetaDataForBinding(c, nodeModule, nodeDocument, name);
-					attribute = (tmd == null) ? null : tmd.getAttribute();
+					attribute = tmd.getAttribute();
 				}
-				catch (MetaDataException e) {
+				catch (@SuppressWarnings("unused") MetaDataException e) {
 					// nothing to do here - The document no longer has the given attribute
 				}
 			}
@@ -206,19 +212,17 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 				property.setWidget(new TextField());
 			}
 			else { // attribute exists
-				property.setTitle(attribute.getDisplayName());
+				property.setTitle(attribute.getLocalisedDisplayName());
 				property.setWidget(attribute.getDefaultInputWidget());
 
-				Class<?> type = null;
+				Class<?> type = attribute.getImplementingType();
+				Converter<?> converter = null;
 				if (attribute instanceof Enumeration) {
-					type = AbstractRepository.get().getEnum((Enumeration) attribute);
-				}
-				else {
-					type = attribute.getAttributeType().getImplementingType();
+					converter = ((Enumeration) attribute).getConverter();
 				}
 
 				if (value instanceof String) {
-					value = BindUtil.fromString(c, null, type, (String) value, true);
+					value = BindUtil.fromSerialised(converter, type, (String) value);
 				}
 				else {
 					value = BindUtil.convert(type, value);
@@ -250,24 +254,22 @@ public class AuditComparisonModel extends ComparisonModel<Audit, Audit> {
 					Module nodeModule = c.getModule(nodeDocument.getOwningModuleName());
 					try {
 						TargetMetaData tmd = Binder.getMetaDataForBinding(c, nodeModule, nodeDocument, propertyName);
-						attribute = (tmd == null) ? null : tmd.getAttribute();
+						attribute = tmd.getAttribute();
 					}
-					catch (MetaDataException e) {
+					catch (@SuppressWarnings("unused") MetaDataException e) {
 						// nothing to do here - The document no longer has the given attribute
 					}
 				}
 
 				if (attribute != null) {
-					Class<?> type = null;
+					Converter<?> converter = null;
+					Class<?> type = attribute.getImplementingType();
 					if (attribute instanceof Enumeration) {
-						type = AbstractRepository.get().getEnum((Enumeration) attribute);
-					}
-					else {
-						type = attribute.getAttributeType().getImplementingType();
+						converter = ((Enumeration) attribute).getConverter();
 					}
 
 					if (value instanceof String) {
-						value = BindUtil.fromString(c, null, type, (String) value, true);
+						value = BindUtil.fromSerialised(converter, type, (String) value);
 					}
 					else {
 						value = BindUtil.convert(type, value);
